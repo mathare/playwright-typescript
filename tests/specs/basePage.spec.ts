@@ -1,4 +1,4 @@
-import { GlobalMessageStyle } from '../data/basePage';
+import { ExpectedText, GlobalMessageStyle } from '../data/basePage';
 import { Colors } from '../data/shared';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
@@ -36,6 +36,22 @@ test.describe('Base page tests', () => {
       await expect(basePage.pageFooter).toHaveCSS('color', Colors.DarkGrey);
       await expect(basePage.copyrightFooter).toHaveCSS('background-color', Colors.Grey);
       await expect(basePage.copyrightFooter).toHaveCSS('color', Colors.White);
+    });
+
+    test('Text content of page elements', async () => {
+      await expect(basePage.globalMessage).toHaveText(ExpectedText.GlobalMessage);
+      await expect(basePage.banner).toHaveText(ExpectedText.Banner);
+      await expect(basePage.searchInput).toBeEmpty();
+      await expect(basePage.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
+      const topNavLinks = basePage.topNavLink;
+      for (let i = 0; i < (await topNavLinks.count()); i++) {
+        await expect(topNavLinks.nth(i)).toHaveText(ExpectedText.TopNav[i]);
+      }
+      const footerLinks = basePage.pageFooterLink;
+      for (let i = 0; i < (await footerLinks.count()); i++) {
+        await expect(footerLinks.nth(i)).toHaveText(ExpectedText.FooterLinks[i]);
+      }
+      await expect(basePage.copyrightFooter).toHaveText(ExpectedText.Copyright);
     });
   });
 });
