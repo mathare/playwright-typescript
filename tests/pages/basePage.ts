@@ -4,6 +4,7 @@ export default class BasePage {
   readonly page: Page;
   readonly globalMessage: Locator;
   readonly pageHeader: Locator;
+  readonly banner: Locator;
   readonly topNav: Locator;
   readonly pageFooter: Locator;
   readonly copyrightFooter: Locator;
@@ -12,6 +13,7 @@ export default class BasePage {
     this.page = page;
     this.globalMessage = page.locator('.global.message');
     this.pageHeader = page.locator('header.page-header');
+    this.banner = page.locator('.panel.wrapper');
     this.topNav = page.locator('.nav-sections');
     this.pageFooter = page.locator('footer.page-footer');
     this.copyrightFooter = page.locator('.copyright');
