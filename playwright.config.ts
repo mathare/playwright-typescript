@@ -27,8 +27,10 @@ export default defineConfig({
     baseURL: 'https://magento.softwaretestingboard.com',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
+    video: 'retain-on-failure',
   },
+  timeout: 45000,
 
   /* Configure projects for major browsers */
   projects: [
@@ -40,6 +42,7 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      timeout: 120000,
     },
 
     {
