@@ -5,7 +5,10 @@ export default class BasePage {
   readonly globalMessage: Locator;
   readonly pageHeader: Locator;
   readonly banner: Locator;
+  readonly bannerLink: Locator;
+  readonly logoLink: Locator;
   readonly searchInput: Locator;
+  readonly cartLink: Locator;
   readonly topNav: Locator;
   readonly topNavLink: Locator;
   readonly pageFooter: Locator;
@@ -17,9 +20,12 @@ export default class BasePage {
     this.globalMessage = page.locator('.global.message');
     this.pageHeader = page.locator('header.page-header');
     this.banner = page.locator('.panel.wrapper');
+    this.bannerLink = this.banner.locator('li a');
+    this.logoLink = page.locator('a.logo');
     this.searchInput = page.locator('input#search');
+    this.cartLink = page.locator('a.showcart');
     this.topNav = page.locator('.nav-sections');
-    this.topNavLink = this.topNav.locator('li a.level-top');
+    this.topNavLink = this.topNav.getByRole('menuitem');
     this.pageFooter = page.locator('footer.page-footer');
     this.pageFooterLink = this.pageFooter.locator('li a');
     this.copyrightFooter = page.locator('.copyright');

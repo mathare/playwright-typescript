@@ -1,4 +1,4 @@
-import { ExpectedText, GlobalMessageStyle } from '../data/basePage';
+import { ExpectedText, GlobalMessageStyle, Links } from '../data/basePage';
 import { Colors } from '../data/shared';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
@@ -15,7 +15,7 @@ test.describe('Base page tests', () => {
     // This is an example of performing visual-style testing without actual using image comparison but asserting against various element properties
     // The tests could be combined but I have split them here to make them easier to read and maintain
 
-    test('Common page elements displayed', async ({}) => {
+    test('Common page elements displayed', async () => {
       await expect(basePage.globalMessage).toBeVisible();
       await expect(basePage.pageHeader).toBeVisible();
       await expect(basePage.topNav).toBeVisible();
@@ -23,7 +23,7 @@ test.describe('Base page tests', () => {
       await expect(basePage.copyrightFooter).toBeVisible();
     });
 
-    test('Element styling', async ({}) => {
+    test('Element styling', async () => {
       await expect(basePage.globalMessage).toHaveCSS('background-color', Colors.Red);
       await expect(basePage.globalMessage).toHaveCSS('color', Colors.White);
       await expect(basePage.globalMessage).toHaveCSS('font-size', GlobalMessageStyle.FontSize);
@@ -43,7 +43,7 @@ test.describe('Base page tests', () => {
       await expect(basePage.banner).toHaveText(ExpectedText.Banner);
       await expect(basePage.searchInput).toBeEmpty();
       await expect(basePage.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
-      const topNavLinks = basePage.topNavLink;
+      const topNavLinks = basePage.topNavLvl0Link;
       for (let i = 0; i < (await topNavLinks.count()); i++) {
         await expect(topNavLinks.nth(i)).toHaveText(ExpectedText.TopNav[i]);
       }
@@ -52,6 +52,34 @@ test.describe('Base page tests', () => {
         await expect(footerLinks.nth(i)).toHaveText(ExpectedText.FooterLinks[i]);
       }
       await expect(basePage.copyrightFooter).toHaveText(ExpectedText.Copyright);
+    });
+  });
+
+  test.describe('Link tests', () => {
+    test('Banner links', async ({ baseURL }) => {
+      await expect(basePage.bannerLink.first()).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
+      await expect(basePage.bannerLink.nth(1)).toHaveAttribute(
+        'href',
+        new RegExp(`${baseURL}${Links.CreateAnAccount}`),
+      );
+    });
+
+    test('Logo link', async ({ baseURL }) => {
+      await expect(basePage.logoLink).toHaveAttribute('href', `${baseURL}${Links.Logo}`);
+    });
+
+    test('Shopping cart link', async ({ baseURL }) => {
+      await expect(basePage.cartLink).toHaveAttribute('href', `${baseURL}${Links.Cart}`);
+    });
+
+    test('Footer links', async ({ baseURL }) => {
+      const footerLinks = basePage.pageFooterLink;
+      // The first link in the footer has a different base URL to the others so test it separately
+      await expect(footerLinks.nth(0)).toHaveAttribute('href', `${Links.Footer['Notes']}`);
+      for (let i = 1; i < (await footerLinks.count()); i++) {
+        const linkText = (await footerLinks.nth(i).innerText()).replace(/\W+/g, '').replace('and', '');
+        await expect(footerLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Footer[linkText]}`);
+      }
     });
   });
 });

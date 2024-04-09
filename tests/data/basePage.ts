@@ -14,3 +14,17 @@ export const enum GlobalMessageStyle {
   FontWeight = '400',
 }
 
+export const Links = {
+  SignIn: '/customer/account/login/referer/*/',
+  CreateAnAccount: '/customer/account/create/',
+  Logo: '/',
+  Cart: '/checkout/cart/',
+  Footer: {
+    Notes:
+      'https://softwaretestingboard.com/magento-store-notes/?utm_source=magento_store&utm_medium=banner&utm_campaign=notes_promo&utm_id=notes_promotion',
+    SearchTerms: `/search/term/popular/`,
+    PrivacyCookiePolicy: `/privacy-policy-cookie-restriction-mode/`,
+    AdvancedSearch: `/catalogsearch/advanced/`,
+    OrdersReturns: `/sales/guest/form/`,
+  },
+};
