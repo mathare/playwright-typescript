@@ -72,6 +72,28 @@ test.describe('Base page tests', () => {
       await expect(basePage.cartLink).toHaveAttribute('href', `${baseURL}${Links.Cart}`);
     });
 
+    test('TopNav links', async ({ baseURL }) => {
+      const lvl0Links = basePage.topNavLvl0Link;
+      expect(await lvl0Links.count()).toBeGreaterThan(0);
+      for (let i = 0; i < (await lvl0Links.count()); i++) {
+        const lvl0Text = (await lvl0Links.nth(i).innerText()).replace(/\W+/g, '');
+        await expect(lvl0Links.nth(i)).toHaveAttribute('href', `${baseURL}${Links.TopNav[lvl0Text]}`);
+
+        // This section of the test isn't as neat as I would have liked. I wanted to verify the submenu levels individually e.g Women has Tops and Bottoms as level 1 menu items each with individual submenus. However, the DOM makes that awkward and as I am using a 3rd-party website I can't edit the DOM to add suitable locators/attributes as I would with a website under my control
+        if (lvl0Text !== 'WhatsNew' && lvl0Text !== 'Sale') {
+          const subMenuLinks = await basePage.getTopNavSubMenuLinks(i);
+          expect(await subMenuLinks.count()).toBeGreaterThan(0);
+          for (let j = 0; j < (await subMenuLinks.count()); j++) {
+            const subMenuText = (await subMenuLinks.nth(j).innerText()).replace(/\W+/g, '');
+            await expect(subMenuLinks.nth(j)).toHaveAttribute(
+              'href',
+              `${baseURL}${Links.TopNav[`${lvl0Text}SubMenu`][subMenuText]}`,
+            );
+          }
+        }
+      }
+    });
+
     test('Footer links', async ({ baseURL }) => {
       const footerLinks = basePage.pageFooterLink;
       // The first link in the footer has a different base URL to the others so test it separately

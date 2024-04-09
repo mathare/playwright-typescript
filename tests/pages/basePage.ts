@@ -11,6 +11,7 @@ export default class BasePage {
   readonly cartLink: Locator;
   readonly topNav: Locator;
   readonly topNavLink: Locator;
+  readonly topNavLvl0Link: Locator;
   readonly pageFooter: Locator;
   readonly pageFooterLink: Locator;
   readonly copyrightFooter: Locator;
@@ -26,6 +27,7 @@ export default class BasePage {
     this.cartLink = page.locator('a.showcart');
     this.topNav = page.locator('.nav-sections');
     this.topNavLink = this.topNav.getByRole('menuitem');
+    this.topNavLvl0Link = this.topNav.locator('li.level0').getByRole('menuitem');
     this.pageFooter = page.locator('footer.page-footer');
     this.pageFooterLink = this.pageFooter.locator('li a');
     this.copyrightFooter = page.locator('.copyright');
@@ -33,5 +35,9 @@ export default class BasePage {
   async open(url: string) {
     await this.page.goto(url, { timeout: 30000 });
     await this.page.locator('.fc-button').getByText('Consent').click();
+  }
+
+  async getTopNavSubMenuLinks(lvl0Index: number): Promise<Locator> {
+    return this.topNavLvl0Link.nth(lvl0Index).locator('..').locator('li.level1 a');
   }
 }
