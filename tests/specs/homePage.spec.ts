@@ -3,7 +3,7 @@ import { HomePage, ProductDetails } from '../pages/homePage';
 import { Colors } from '../data/shared';
 import { ExpectedText, ProductItemDetails } from '../data/homePage';
 
-test.describe.skip('Home page tests', () => {
+test.describe('Home page tests', () => {
   let homePage: HomePage;
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
