@@ -35,7 +35,7 @@ export default class BasePage {
   async open(url: string) {
     // Firefox can be VERY slow to load the page it seems so use a large timeout even though it exceeds the configured test timeout for most browsers
     await this.page.goto(url, { timeout: 90000 });
-    await this.page.getByRole('button').getByText('Consent').click();
+    // await this.page.getByRole('button').getByText('Consent').click();
   }
 
   async getTopNavSubMenuLinks(lvl0Index: number): Promise<Locator> {
