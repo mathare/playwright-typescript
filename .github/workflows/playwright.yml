@@ -20,8 +20,6 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npm run pw:chromium
-      - run: pwd
-      - run: ls
       - uses: actions/upload-artifact@v4
         if: always()
         with:
