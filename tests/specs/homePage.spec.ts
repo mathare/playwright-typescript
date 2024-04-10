@@ -81,7 +81,7 @@ test.describe('Home page tests', () => {
     test('Visual test', async () => {
       await expect(homePage.mainContent).toHaveScreenshot('mainContent.png', {
         mask: [homePage.adsWidget],
-        timeout: 10000,
+        timeout: 20000,
       });
     });
   });

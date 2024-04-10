@@ -31,6 +31,7 @@ export default defineConfig({
     video: 'retain-on-failure',
   },
   timeout: 45000,
+  snapshotPathTemplate: 'tests/data/snapshots/{platform}{/projectName}/{testFilePath}/{arg}{ext}',
 
   /* Configure projects for major browsers */
   projects: [
