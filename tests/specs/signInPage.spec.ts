@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import SignInPage from '../pages/signInPage';
 import { Colors } from '../data/shared';
+import { ExpectedText } from '../data/signInPage';
 
 test.describe('Sign in page tests', () => {
   let signInPage: SignInPage;
@@ -40,5 +41,19 @@ test.describe('Sign in page tests', () => {
       await expect(signInPage.createAccountButton).toHaveCSS('color', Colors.White);
     });
 
+    test('Text content of page elements', async () => {
+      await expect(signInPage.pageTitle).toHaveText(ExpectedText.PageTitle);
+      await expect(signInPage.existingCustomerHeading).toHaveText(ExpectedText.ExistingCustomerHeading);
+      await expect(signInPage.existingCustomerSubheading).toHaveText(ExpectedText.ExistingCustomerSubheading);
+      await expect(signInPage.emailInputLabel).toHaveText(ExpectedText.EmailInputLabel);
+      await expect(signInPage.emailInput).toBeEmpty();
+      await expect(signInPage.passwordInputLabel).toHaveText(ExpectedText.PasswordInputLabel);
+      await expect(signInPage.passwordInput).toBeEmpty();
+      await expect(signInPage.loginButton).toHaveText(ExpectedText.SignInButton);
+      await expect(signInPage.forgottenPasswordLink).toHaveText(ExpectedText.ForgottenPasswordLink);
+      await expect(signInPage.newCustomerHeading).toHaveText(ExpectedText.NewCustomerHeading);
+      await expect(signInPage.newCustomerContent).toHaveText(ExpectedText.NewCustomerContent);
+      await expect(signInPage.createAccountButton).toHaveText(ExpectedText.CreateAccountButton);
+    });
   });
 });
