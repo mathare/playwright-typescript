@@ -50,4 +50,10 @@ export default class SignInPage extends BasePage {
   async open() {
     await super.open(this.url);
   }
+
+  async loginAs(email: string, password: string): Promise<void> {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.loginButton.click();
+  }
 }

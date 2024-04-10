@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import SignInPage from '../pages/signInPage';
+import { Colors } from '../data/shared';
 
 test.describe('Sign in page tests', () => {
   let signInPage: SignInPage;
@@ -27,5 +28,17 @@ test.describe('Sign in page tests', () => {
       await expect(signInPage.pageFooter).toBeVisible();
       await expect(signInPage.copyrightFooter).toBeVisible();
     });
+
+    test('Element styling', async () => {
+      await expect(signInPage.mainContentArea).toHaveCSS('color', Colors.DarkGrey);
+      await expect(signInPage.loginButton).toHaveClass(/primary/);
+      await expect(signInPage.loginButton).toHaveCSS('background-color', Colors.Blue);
+      await expect(signInPage.loginButton).toHaveCSS('color', Colors.White);
+      await expect(signInPage.forgottenPasswordLink).toHaveCSS('color', Colors.LinkBlue);
+      await expect(signInPage.createAccountButton).toHaveClass(/primary/);
+      await expect(signInPage.createAccountButton).toHaveCSS('background-color', Colors.Blue);
+      await expect(signInPage.createAccountButton).toHaveCSS('color', Colors.White);
+    });
+
   });
 });
