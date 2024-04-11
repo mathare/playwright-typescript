@@ -12,3 +12,9 @@ export const dummyCustomer: User = {
   email: 'dummy@example.com',
   password: process.env.PASSWORD!,
 };
+
+export const unregisteredUser: User = {
+  name: '',
+  email: 'unregistered@example.com',
+  password: process.env.PASSWORD!,
+};

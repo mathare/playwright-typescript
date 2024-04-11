@@ -27,7 +27,7 @@ export default class SignInPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitle = page.locator('h1.page-title');
-    this.errorMessage = page.locator('.page.messages .messages');
+    this.errorMessage = page.getByRole('alert').first();
     this.mainContentArea = page.locator('.main');
     this.adsWidget = page.locator('.widget').nth(0);
     this.existingCustomerBlock = this.mainContentArea.locator('.block-customer-login');

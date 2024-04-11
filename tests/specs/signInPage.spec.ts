@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import SignInPage from '../pages/signInPage';
 import { Colors } from '../data/shared';
-import { ExpectedText } from '../data/signInPage';
-import { dummyCustomer } from '../data/users';
+import { ErrorMessages, ExpectedText } from '../data/signInPage';
+import { dummyCustomer, unregisteredUser } from '../data/users';
 import AccountPage from '../pages/accountPage';
 import { GreetingText } from '../data/accountPage';
 
@@ -20,6 +20,15 @@ test.describe('Sign in page tests', () => {
         await signInPage.loginAs(dummyCustomer.email, dummyCustomer.password);
         await expect(page).toHaveURL(`${baseURL}${accountPage.url}`);
         await expect(accountPage.greeting).toHaveText(GreetingText(dummyCustomer.name));
+      });
+    });
+
+    test.describe('Unsuccessful logins', () => {
+      test('Invalid credentials', async ({ page }) => {
+        await signInPage.loginAs(unregisteredUser.email, unregisteredUser.password);
+        await expect(signInPage.errorMessage).toBeVisible();
+        await expect(signInPage.errorMessage).toHaveText(ErrorMessages.InvalidCredentials);
+        await expect(page).toHaveURL(signInPage.url);
       });
     });
   });
