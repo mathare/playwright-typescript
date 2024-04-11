@@ -29,5 +29,8 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }
