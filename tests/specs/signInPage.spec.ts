@@ -118,8 +118,9 @@ test.describe('Sign in page tests', () => {
       await expect(signInPage.createAccountButton).toHaveText(ExpectedText.CreateAccountButton);
     });
 
-    test('Visual test', async () => {
-      await expect(signInPage.mainContentArea).toHaveScreenshot('mainContent.png', {
+    test('Visual test', async ({page}) => {
+      await expect(page).toHaveScreenshot('default.png', {
+        fullPage: true,
         mask: [signInPage.adsWidget],
         timeout: 20000,
       });
