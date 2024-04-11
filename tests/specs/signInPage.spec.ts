@@ -2,12 +2,26 @@ import { test, expect } from '@playwright/test';
 import SignInPage from '../pages/signInPage';
 import { Colors } from '../data/shared';
 import { ExpectedText } from '../data/signInPage';
+import { dummyCustomer } from '../data/users';
+import AccountPage from '../pages/accountPage';
+import { GreetingText } from '../data/accountPage';
 
 test.describe('Sign in page tests', () => {
   let signInPage: SignInPage;
   test.beforeEach(async ({ page }) => {
     signInPage = new SignInPage(page);
     await signInPage.open();
+  });
+
+  test.describe('Behavioural tests', () => {
+    test.describe('Successful logins', () => {
+      test('Login successfully', async ({ page, baseURL }) => {
+        const accountPage = new AccountPage(page);
+        await signInPage.loginAs(dummyCustomer.email, dummyCustomer.password);
+        await expect(page).toHaveURL(`${baseURL}${accountPage.url}`);
+        await expect(accountPage.greeting).toHaveText(GreetingText(dummyCustomer.name));
+      });
+    });
   });
 
   test.describe('Appearance tests', () => {
