@@ -1,6 +1,7 @@
 export const ErrorMessages = {
   InvalidCredentials:
     'The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.',
+  InvalidEmail: 'Please enter a valid email address (Ex: johndoe@domain.com).',
   MissingInput: 'This is a required field.',
 };
 

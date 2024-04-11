@@ -60,6 +60,15 @@ test.describe('Sign in page tests', () => {
         await expect(signInPage.passwordInputError).toHaveText(ErrorMessages.MissingInput);
         await expect(page).toHaveURL(signInPage.url);
       });
+
+      test('Invalid email', async ({ page }) => {
+        await signInPage.emailInput.fill('dummy.example@');
+        await signInPage.loginButton.click();
+        await expect(signInPage.errorMessage).not.toBeVisible();
+        await expect(signInPage.emailInputError).toBeVisible();
+        await expect(signInPage.emailInputError).toHaveText(ErrorMessages.InvalidEmail);
+        await expect(page).toHaveURL(signInPage.url);
+      });
     });
   });
 
