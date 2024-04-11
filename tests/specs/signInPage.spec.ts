@@ -30,6 +30,36 @@ test.describe('Sign in page tests', () => {
         await expect(signInPage.errorMessage).toHaveText(ErrorMessages.InvalidCredentials);
         await expect(page).toHaveURL(signInPage.url);
       });
+
+      test('Missing credentials', async ({ page }) => {
+        await signInPage.loginButton.click();
+        await expect(signInPage.errorMessage).not.toBeVisible();
+        await expect(signInPage.emailInputError).toBeVisible();
+        await expect(signInPage.emailInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect(signInPage.passwordInputError).toBeVisible();
+        await expect(signInPage.passwordInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect(page).toHaveURL(signInPage.url);
+      });
+
+      test('Missing username', async ({ page }) => {
+        await signInPage.passwordInput.fill(dummyCustomer.password);
+        await signInPage.loginButton.click();
+        await expect(signInPage.errorMessage).not.toBeVisible();
+        await expect(signInPage.emailInputError).toBeVisible();
+        await expect(signInPage.emailInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect(signInPage.passwordInputError).not.toBeVisible();
+        await expect(page).toHaveURL(signInPage.url);
+      });
+
+      test('Missing password', async ({ page }) => {
+        await signInPage.emailInput.fill(dummyCustomer.email);
+        await signInPage.loginButton.click();
+        await expect(signInPage.errorMessage).not.toBeVisible();
+        await expect(signInPage.emailInputError).not.toBeVisible();
+        await expect(signInPage.passwordInputError).toBeVisible();
+        await expect(signInPage.passwordInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect(page).toHaveURL(signInPage.url);
+      });
     });
   });
 

@@ -36,10 +36,10 @@ export default class SignInPage extends BasePage {
     this.existingCustomerSubheading = this.loginForm.locator('.field.note');
     this.emailInputLabel = this.loginForm.locator('.field.email label');
     this.emailInput = this.loginForm.locator('#email');
-    this.emailInputError = this.emailInput.locator('#email-error');
+    this.emailInputError = this.loginForm.locator('#email-error');
     this.passwordInputLabel = this.loginForm.locator('.field.password label');
     this.passwordInput = this.loginForm.locator('#pass');
-    this.passwordInputError = this.passwordInput.locator('#pass-error');
+    this.passwordInputError = this.loginForm.locator('#pass-error');
     this.loginButton = this.loginForm.locator('button[name=send]');
     this.forgottenPasswordLink = this.loginForm.locator('a.action.remind');
     this.newCustomerBlock = this.mainContentArea.locator('.block-new-customer');
