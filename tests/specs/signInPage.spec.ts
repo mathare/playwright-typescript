@@ -55,5 +55,12 @@ test.describe('Sign in page tests', () => {
       await expect(signInPage.newCustomerContent).toHaveText(ExpectedText.NewCustomerContent);
       await expect(signInPage.createAccountButton).toHaveText(ExpectedText.CreateAccountButton);
     });
+
+    test('Visual test', async () => {
+      await expect(signInPage.mainContentArea).toHaveScreenshot('mainContent.png', {
+        mask: [signInPage.adsWidget],
+        timeout: 20000,
+      });
+    });
   });
 });
