@@ -95,5 +95,14 @@ test.describe('Home page tests', () => {
         await expect.soft(promoBlocks.nth(i)).toHaveAttribute('href', `${baseURL}${PromoBlockLinks[i]}`);
       }
     })
+
+    test('Product links', async ({ baseURL }) => {
+      const products = homePage.productItem
+      expect(await products.count()).toBeGreaterThan(0)
+      for (let i = 0; i < await products.count(); i++) {
+        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.PhotoLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
+        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.NameLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
+      }
+    })
   })
 });

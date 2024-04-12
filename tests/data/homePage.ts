@@ -20,7 +20,8 @@ type Product = {
   reviews?: string,
   price: string,
   sizes?: string[],
-  colors?: string[]
+  colors?: string[],
+  link: string
 }
 
   export const Products: Product[] = [
@@ -31,6 +32,7 @@ type Product = {
       price: 'As low as $22.00',
       sizes: Sizes,
       colors: [Colors.ElectricBlue, Colors.Orange, Colors.Pink],
+      link: '/radiant-tee.html'
     },
     {
       title: 'Breathe-Easy Tank',
@@ -39,30 +41,35 @@ type Product = {
       price: 'As low as $34.00',
       sizes: Sizes,
       colors: [Colors.Pink, Colors.White, Colors.Yellow],
+      link: '/breathe-easy-tank.html'
     },
     {
       title: 'Argus All-Weather Tank',
       price: 'As low as $22.00',
       sizes: Sizes,
       colors: [Colors.MidGrey],
+      link: '/argus-all-weather-tank.html'
     },
     {
       title: 'Hero Hoodie',
       price: 'As low as $54.00',
       sizes: Sizes,
       colors: [Colors.Black, Colors.MidGrey, Colors.Green],
+      link: '/hero-hoodie.html'
     },
     {
       title: 'Fusion Backpack',
       rating: '67%',
       reviews: '3 Reviews',
       price: '$59.00',
+      link:'/fusion-backpack.html'
     },
     {
       title: 'Push It Messenger Bag',
       rating: '67%',
       reviews: '3 Reviews',
       price: '$45.00',
+      link:'/push-it-messenger-bag.html'
     },
   ]
 

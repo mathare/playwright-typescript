@@ -34,4 +34,6 @@ export enum ProductDetails {
   Price = '.price-box',
   Sizes = '.swatch-option.text',
   Colors = '.swatch-option.color',
+  PhotoLink = 'a.product-item-photo',
+  NameLink = 'a.product-item-link'
 }
