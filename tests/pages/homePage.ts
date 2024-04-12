@@ -37,4 +37,7 @@ export enum ProductDetails {
   PhotoLink = 'a.product-item-photo',
   NameLink = 'a.product-item-link',
   ReviewsLink = `${Reviews} a`,
+  AddToCartButton = 'button.action.tocart',
+  AddToWishListButton = 'a.action.towishlist',
+  AddToCompareButton = 'a.action.tocompare',
 }

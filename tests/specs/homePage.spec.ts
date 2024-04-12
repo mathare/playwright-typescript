@@ -75,6 +75,10 @@ test.describe('Home page tests', () => {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', Products[i].colors![j]);
           }
         }
+        await productItems.nth(i).hover()
+        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.AddToCartButton)).toBeVisible()
+        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.AddToWishListButton)).toBeVisible()
+        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.AddToCompareButton)).toBeVisible()
       }
     });
 
