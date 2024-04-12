@@ -12,6 +12,7 @@ export default class BasePage {
   readonly topNav: Locator;
   readonly topNavLink: Locator;
   readonly topNavLvl0Link: Locator;
+  readonly adsWidget: Locator
   readonly pageFooter: Locator;
   readonly pageFooterLink: Locator;
   readonly copyrightFooter: Locator;
@@ -20,7 +21,7 @@ export default class BasePage {
     this.page = page;
     this.globalMessage = page.locator('.global.message');
     this.pageHeader = page.locator('header.page-header');
-    this.banner = page.locator('.panel.wrapper');
+    this.banner = this.pageHeader.locator('.panel.wrapper');
     this.bannerLink = this.banner.locator('li a');
     this.logoLink = page.locator('a.logo');
     this.searchInput = page.locator('input#search');
@@ -28,6 +29,7 @@ export default class BasePage {
     this.topNav = page.locator('.nav-sections');
     this.topNavLink = this.topNav.getByRole('menuitem');
     this.topNavLvl0Link = this.topNav.locator('li.level0').getByRole('menuitem');
+    this.adsWidget = page.locator('.widget').filter({has: page.locator('ins.adsbygoogle')});
     this.pageFooter = page.locator('footer.page-footer');
     this.pageFooterLink = this.pageFooter.locator('li a');
     this.copyrightFooter = page.locator('.copyright');

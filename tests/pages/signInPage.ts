@@ -3,10 +3,9 @@ import BasePage from './basePage';
 
 export default class SignInPage extends BasePage {
   url = '/customer/account/login/';
+  readonly mainContentArea: Locator;
   readonly pageTitle: Locator;
   readonly errorMessage: Locator;
-  readonly mainContentArea: Locator;
-  readonly adsWidget: Locator;
   readonly existingCustomerBlock: Locator;
   readonly existingCustomerHeading: Locator;
   readonly loginForm: Locator;
@@ -26,10 +25,9 @@ export default class SignInPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.pageTitle = page.locator('h1.page-title');
-    this.errorMessage = page.getByRole('alert').first();
-    this.mainContentArea = page.locator('.main');
-    this.adsWidget = page.locator('.widget').nth(0);
+    this.mainContentArea = page.locator('#maincontent');
+    this.pageTitle = this.mainContentArea.getByRole('heading', {level: 1});
+    this.errorMessage = this.mainContentArea.getByRole('alert').first();
     this.existingCustomerBlock = this.mainContentArea.locator('.block-customer-login');
     this.existingCustomerHeading = this.existingCustomerBlock.locator('.block-title');
     this.loginForm = this.existingCustomerBlock.locator('#login-form');
