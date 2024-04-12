@@ -76,7 +76,8 @@ type Product = {
 export const SwatchOutlineStyles = {
   Sizes: {
     Selected: 'rgb(255, 85, 1) solid 2px',
-    NotSelected: 'rgb(148, 148, 148) none 0px',
+    // Firefox doesn't include "none" in the outline style
+    NotSelected: /rgb\(148, 148, 148\) (none )?0px/,
     Hovered: 'rgb(153, 153, 153) solid 1px',
   },
   Colors: {
