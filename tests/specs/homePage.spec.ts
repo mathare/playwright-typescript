@@ -102,6 +102,11 @@ test.describe('Home page tests', () => {
       for (let i = 0; i < await products.count(); i++) {
         await expect.soft(homePage.getProductItemDetails(i, ProductDetails.PhotoLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
         await expect.soft(homePage.getProductItemDetails(i, ProductDetails.NameLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
+        if (Products[i].reviews) {
+          await expect.soft(homePage.getProductItemDetails(i, ProductDetails.ReviewsLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}#reviews`);
+        } else {
+          await expect.soft(homePage.getProductItemDetails(i, ProductDetails.ReviewsLink)).not.toBeVisible()
+        }
       }
     })
   })

@@ -35,5 +35,6 @@ export enum ProductDetails {
   Sizes = '.swatch-option.text',
   Colors = '.swatch-option.color',
   PhotoLink = 'a.product-item-photo',
-  NameLink = 'a.product-item-link'
+  NameLink = 'a.product-item-link',
+  ReviewsLink = `${Reviews} a`,
 }
