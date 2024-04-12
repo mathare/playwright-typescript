@@ -19,54 +19,54 @@ test.describe('Sign in page tests', () => {
         const accountPage = new AccountPage(page);
         await signInPage.loginAs(dummyCustomer.email, dummyCustomer.password);
         await expect(page).toHaveURL(`${baseURL}${accountPage.url}`);
-        await expect(accountPage.greeting).toHaveText(GreetingText(dummyCustomer.name));
+        await expect.soft(accountPage.greeting).toHaveText(GreetingText(dummyCustomer.name));
       });
     });
 
     test.describe('Unsuccessful logins', () => {
       test('Invalid credentials', async ({ page }) => {
         await signInPage.loginAs(unregisteredUser.email, unregisteredUser.password);
-        await expect(signInPage.errorMessage).toBeVisible();
-        await expect(signInPage.errorMessage).toHaveText(ErrorMessages.InvalidCredentials);
+        await expect.soft(signInPage.errorMessage).toBeVisible();
+        await expect.soft(signInPage.errorMessage).toHaveText(ErrorMessages.InvalidCredentials);
         await expect(page).toHaveURL(signInPage.url);
       });
 
       test('Missing credentials', async ({ page }) => {
         await signInPage.loginButton.click();
-        await expect(signInPage.errorMessage).not.toBeVisible();
-        await expect(signInPage.emailInputError).toBeVisible();
-        await expect(signInPage.emailInputError).toHaveText(ErrorMessages.MissingInput);
-        await expect(signInPage.passwordInputError).toBeVisible();
-        await expect(signInPage.passwordInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect.soft(signInPage.errorMessage).not.toBeVisible();
+        await expect.soft(signInPage.emailInputError).toBeVisible();
+        await expect.soft(signInPage.emailInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect.soft(signInPage.passwordInputError).toBeVisible();
+        await expect.soft(signInPage.passwordInputError).toHaveText(ErrorMessages.MissingInput);
         await expect(page).toHaveURL(signInPage.url);
       });
 
       test('Missing username', async ({ page }) => {
         await signInPage.passwordInput.fill(dummyCustomer.password);
         await signInPage.loginButton.click();
-        await expect(signInPage.errorMessage).not.toBeVisible();
-        await expect(signInPage.emailInputError).toBeVisible();
-        await expect(signInPage.emailInputError).toHaveText(ErrorMessages.MissingInput);
-        await expect(signInPage.passwordInputError).not.toBeVisible();
+        await expect.soft(signInPage.errorMessage).not.toBeVisible();
+        await expect.soft(signInPage.emailInputError).toBeVisible();
+        await expect.soft(signInPage.emailInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect.soft(signInPage.passwordInputError).not.toBeVisible();
         await expect(page).toHaveURL(signInPage.url);
       });
 
       test('Missing password', async ({ page }) => {
         await signInPage.emailInput.fill(dummyCustomer.email);
         await signInPage.loginButton.click();
-        await expect(signInPage.errorMessage).not.toBeVisible();
-        await expect(signInPage.emailInputError).not.toBeVisible();
-        await expect(signInPage.passwordInputError).toBeVisible();
-        await expect(signInPage.passwordInputError).toHaveText(ErrorMessages.MissingInput);
+        await expect.soft(signInPage.errorMessage).not.toBeVisible();
+        await expect.soft(signInPage.emailInputError).not.toBeVisible();
+        await expect.soft(signInPage.passwordInputError).toBeVisible();
+        await expect.soft(signInPage.passwordInputError).toHaveText(ErrorMessages.MissingInput);
         await expect(page).toHaveURL(signInPage.url);
       });
 
       test('Invalid email', async ({ page }) => {
         await signInPage.emailInput.fill('dummy.example@');
         await signInPage.loginButton.click();
-        await expect(signInPage.errorMessage).not.toBeVisible();
-        await expect(signInPage.emailInputError).toBeVisible();
-        await expect(signInPage.emailInputError).toHaveText(ErrorMessages.InvalidEmail);
+        await expect.soft(signInPage.errorMessage).not.toBeVisible();
+        await expect.soft(signInPage.emailInputError).toBeVisible();
+        await expect.soft(signInPage.emailInputError).toHaveText(ErrorMessages.InvalidEmail);
         await expect(page).toHaveURL(signInPage.url);
       });
     });
@@ -77,45 +77,45 @@ test.describe('Sign in page tests', () => {
     // The tests could be combined but I have split them here to make them easier to read and maintain
 
     test('Main page elements displayed', async () => {
-      await expect(signInPage.globalMessage).toBeVisible();
-      await expect(signInPage.pageHeader).toBeVisible();
-      await expect(signInPage.topNav).toBeVisible();
-      await expect(signInPage.pageTitle).toBeVisible();
-      await expect(signInPage.existingCustomerBlock).toBeVisible();
-      await expect(signInPage.emailInput).toBeVisible();
-      await expect(signInPage.passwordInput).toBeVisible();
-      await expect(signInPage.loginButton).toBeVisible();
-      await expect(signInPage.forgottenPasswordLink).toBeVisible();
-      await expect(signInPage.newCustomerBlock).toBeVisible();
-      await expect(signInPage.createAccountButton).toBeVisible();
-      await expect(signInPage.pageFooter).toBeVisible();
-      await expect(signInPage.copyrightFooter).toBeVisible();
+      await expect.soft(signInPage.globalMessage).toBeVisible();
+      await expect.soft(signInPage.pageHeader).toBeVisible();
+      await expect.soft(signInPage.topNav).toBeVisible();
+      await expect.soft(signInPage.pageTitle).toBeVisible();
+      await expect.soft(signInPage.existingCustomerBlock).toBeVisible();
+      await expect.soft(signInPage.emailInput).toBeVisible();
+      await expect.soft(signInPage.passwordInput).toBeVisible();
+      await expect.soft(signInPage.loginButton).toBeVisible();
+      await expect.soft(signInPage.forgottenPasswordLink).toBeVisible();
+      await expect.soft(signInPage.newCustomerBlock).toBeVisible();
+      await expect.soft(signInPage.createAccountButton).toBeVisible();
+      await expect.soft(signInPage.pageFooter).toBeVisible();
+      await expect.soft(signInPage.copyrightFooter).toBeVisible();
     });
 
     test('Element styling', async () => {
-      await expect(signInPage.mainContentArea).toHaveCSS('color', Colors.DarkGrey);
-      await expect(signInPage.loginButton).toHaveClass(/primary/);
-      await expect(signInPage.loginButton).toHaveCSS('background-color', Colors.Blue);
-      await expect(signInPage.loginButton).toHaveCSS('color', Colors.White);
-      await expect(signInPage.forgottenPasswordLink).toHaveCSS('color', Colors.LinkBlue);
-      await expect(signInPage.createAccountButton).toHaveClass(/primary/);
-      await expect(signInPage.createAccountButton).toHaveCSS('background-color', Colors.Blue);
-      await expect(signInPage.createAccountButton).toHaveCSS('color', Colors.White);
+      await expect.soft(signInPage.mainContentArea).toHaveCSS('color', Colors.DarkGrey);
+      await expect.soft(signInPage.loginButton).toHaveClass(/primary/);
+      await expect.soft(signInPage.loginButton).toHaveCSS('background-color', Colors.Blue);
+      await expect.soft(signInPage.loginButton).toHaveCSS('color', Colors.White);
+      await expect.soft(signInPage.forgottenPasswordLink).toHaveCSS('color', Colors.LinkBlue);
+      await expect.soft(signInPage.createAccountButton).toHaveClass(/primary/);
+      await expect.soft(signInPage.createAccountButton).toHaveCSS('background-color', Colors.Blue);
+      await expect.soft(signInPage.createAccountButton).toHaveCSS('color', Colors.White);
     });
 
     test('Text content of page elements', async () => {
-      await expect(signInPage.pageTitle).toHaveText(ExpectedText.PageTitle);
-      await expect(signInPage.existingCustomerHeading).toHaveText(ExpectedText.ExistingCustomerHeading);
-      await expect(signInPage.existingCustomerSubheading).toHaveText(ExpectedText.ExistingCustomerSubheading);
-      await expect(signInPage.emailInputLabel).toHaveText(ExpectedText.EmailInputLabel);
-      await expect(signInPage.emailInput).toBeEmpty();
-      await expect(signInPage.passwordInputLabel).toHaveText(ExpectedText.PasswordInputLabel);
-      await expect(signInPage.passwordInput).toBeEmpty();
-      await expect(signInPage.loginButton).toHaveText(ExpectedText.SignInButton);
-      await expect(signInPage.forgottenPasswordLink).toHaveText(ExpectedText.ForgottenPasswordLink);
-      await expect(signInPage.newCustomerHeading).toHaveText(ExpectedText.NewCustomerHeading);
-      await expect(signInPage.newCustomerContent).toHaveText(ExpectedText.NewCustomerContent);
-      await expect(signInPage.createAccountButton).toHaveText(ExpectedText.CreateAccountButton);
+      await expect.soft(signInPage.pageTitle).toHaveText(ExpectedText.PageTitle);
+      await expect.soft(signInPage.existingCustomerHeading).toHaveText(ExpectedText.ExistingCustomerHeading);
+      await expect.soft(signInPage.existingCustomerSubheading).toHaveText(ExpectedText.ExistingCustomerSubheading);
+      await expect.soft(signInPage.emailInputLabel).toHaveText(ExpectedText.EmailInputLabel);
+      await expect.soft(signInPage.emailInput).toBeEmpty();
+      await expect.soft(signInPage.passwordInputLabel).toHaveText(ExpectedText.PasswordInputLabel);
+      await expect.soft(signInPage.passwordInput).toBeEmpty();
+      await expect.soft(signInPage.loginButton).toHaveText(ExpectedText.SignInButton);
+      await expect.soft(signInPage.forgottenPasswordLink).toHaveText(ExpectedText.ForgottenPasswordLink);
+      await expect.soft(signInPage.newCustomerHeading).toHaveText(ExpectedText.NewCustomerHeading);
+      await expect.soft(signInPage.newCustomerContent).toHaveText(ExpectedText.NewCustomerContent);
+      await expect.soft(signInPage.createAccountButton).toHaveText(ExpectedText.CreateAccountButton);
     });
 
     test('Visual test', async ({page}) => {
