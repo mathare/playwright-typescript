@@ -21,7 +21,7 @@ export default class BasePage {
     this.page = page;
     this.globalMessage = page.locator('.global.message');
     this.pageHeader = page.locator('header.page-header');
-    this.banner = page.locator('.panel.wrapper');
+    this.banner = this.pageHeader.locator('.panel.wrapper');
     this.bannerLink = this.banner.locator('li a');
     this.logoLink = page.locator('a.logo');
     this.searchInput = page.locator('input#search');
