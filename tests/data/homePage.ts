@@ -65,3 +65,13 @@ type Product = {
       price: '$45.00',
     },
   ]
+
+export const PromoBlockLinks = [
+  '/collections/yoga-new.html',
+  '/promotions/pants-all.html',
+  '/promotions/tees-all.html',
+  '/collections/erin-recommends.html',
+  '/collections/performance-fabrics.html',
+  '/collections/eco-friendly.html',
+]
+  

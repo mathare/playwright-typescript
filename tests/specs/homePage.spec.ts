@@ -86,4 +86,14 @@ test.describe('Home page tests', () => {
       });
     });
   });
+
+  test.describe('Link tests', () => { 
+    test('Promo block links', async ({ baseURL }) => {
+      const promoBlocks = homePage.promoBlock
+      expect(await promoBlocks.count()).toBeGreaterThan(0)
+      for (let i = 0; i < await promoBlocks.count(); i++) {
+        await expect.soft(promoBlocks.nth(i)).toHaveAttribute('href', `${baseURL}${PromoBlockLinks[i]}`);
+      }
+    })
+  })
 });
