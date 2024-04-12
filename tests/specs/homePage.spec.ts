@@ -81,15 +81,17 @@ test.describe('Home page tests', () => {
         await expect.soft(homePage.getProductItemDetails(i, ProductDetails.AddToCompareButton)).toBeVisible()
       }
     });
+  });
 
-    test('Visual test', async ({page}) => {
+  test.describe('Visual tests', () => {
+    test('Default page appearance', async ({page}) => {
       await expect(page).toHaveScreenshot('default.png', {
         fullPage: true,
         mask: [homePage.adsWidget],
         timeout: 20000,
       });
     });
-  });
+  })
 
   test.describe('Link tests', () => { 
     test('Promo block links', async ({ baseURL }) => {
