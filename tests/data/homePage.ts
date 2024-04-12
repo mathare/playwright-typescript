@@ -71,7 +71,19 @@ type Product = {
       price: '$45.00',
       link:'/push-it-messenger-bag.html'
     },
-  ]
+]
+  
+export const SwatchOutlineStyles = {
+  Sizes: {
+    Selected: 'rgb(255, 85, 1) solid 2px',
+    NotSelected: 'rgb(148, 148, 148) none 0px',
+    Hovered: 'rgb(153, 153, 153) solid 1px',
+  },
+  Colors: {
+    Selected: 'rgb(255, 85, 1) solid 2px',
+    Hovered: 'rgb(195, 64, 0) solid 2px',
+  }
+}
 
 export const PromoBlockLinks = [
   '/collections/yoga-new.html',

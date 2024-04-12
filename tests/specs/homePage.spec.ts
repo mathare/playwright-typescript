@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage, ProductItemElements } from '../pages/homePage';
 import { Colors } from '../data/shared';
-import { ExpectedText, Products, PromoBlockLinks } from '../data/homePage';
+import { ExpectedText, Products, PromoBlockLinks, SwatchOutlineStyles } from '../data/homePage';
 
 test.describe('Home page tests', () => {
   let homePage: HomePage;
@@ -81,6 +81,45 @@ test.describe('Home page tests', () => {
         await expect.soft(homePage.getProductItemElement(i, ProductItemElements.AddToCompareButton)).toBeVisible()
       }
     });
+
+    test('Product swatch styling', async () => {
+      // There is no need to test the swatches on all product items since they all use the same element
+      // Similarly there is no need to test every size/colour swatch for a given product
+      const selectedClass = /selected/
+      const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes)
+     
+      // Select
+      await sizes.first().click()
+      await expect.soft(sizes.first()).toHaveClass(selectedClass)
+      await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered)
+      await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.White)
+      // For some reason a simple blur() isn't enough so hover over another element
+      await homePage.getProductItemElement(0, ProductItemElements.Name).hover()
+      await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Selected)
+
+      //Deselect
+      await sizes.first().click()
+      await expect.soft(sizes.first()).not.toHaveClass(selectedClass)
+      await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered)
+      await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.LightGrey)
+      await homePage.getProductItemElement(0, ProductItemElements.Name).hover()
+      await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.NotSelected)
+
+      const colors = homePage.getProductItemElement(0, ProductItemElements.Colors)
+      
+      // Select
+      await colors.first().click()
+      await expect.soft(colors.first()).toHaveClass(selectedClass)
+      await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered)
+      // For some reason a simple blur() isn't enough so hover over another element
+      await homePage.getProductItemElement(0, ProductItemElements.Name).hover()
+      await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Selected)
+
+      //Deselect
+      await colors.first().click()
+      await expect.soft(colors.first()).not.toHaveClass(selectedClass)
+      await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered)
+    })
   });
 
   test.describe('Visual tests', () => {
