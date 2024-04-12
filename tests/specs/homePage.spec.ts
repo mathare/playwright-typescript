@@ -91,6 +91,11 @@ test.describe('Home page tests', () => {
         timeout: 20000,
       });
     });
+
+    test('Product hover', async () => {
+      await homePage.productItem.nth(0).hover()
+      await(expect(homePage.productsGrid)).toHaveScreenshot('productHover.png', {timeout: 20000})
+    })
   })
 
   test.describe('Link tests', () => { 
