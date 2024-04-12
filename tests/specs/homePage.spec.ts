@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { HomePage, ProductDetails } from '../pages/homePage';
 import { Colors } from '../data/shared';
-import { ExpectedText, ProductItemDetails } from '../data/homePage';
+import { ExpectedText, Products, PromoBlockLinks } from '../data/homePage';
 
 test.describe('Home page tests', () => {
   let homePage: HomePage;
@@ -46,33 +46,33 @@ test.describe('Home page tests', () => {
       expect(await productItems.count()).toBeGreaterThan(0);
       for (let i = 0; i < (await productItems.count()); i++) {
         await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Name)).toHaveText(
-          ProductItemDetails.Products[i].title,
+          Products[i].title,
         );
-        if (ProductItemDetails.Products[i].rating) {
+        if (Products[i].rating) {
           await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Rating)).toHaveText(
-            ProductItemDetails.Products[i].rating!,
+            Products[i].rating!,
           );
         }
-        if (ProductItemDetails.Products[i].reviews) {
+        if (Products[i].reviews) {
           await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Reviews)).toHaveText(
-            ProductItemDetails.Products[i].reviews!,
+            Products[i].reviews!,
           );
         }
         await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Price)).toHaveText(
-          ProductItemDetails.Products[i].price,
+          Products[i].price,
         );
-        if (ProductItemDetails.Products[i].sizes) {
+        if (Products[i].sizes) {
           const sizes = homePage.getProductItemDetails(i, ProductDetails.Sizes);
           expect(await sizes.count()).toBeGreaterThan(0);
           for (let j = 0; j < (await sizes.count()); j++) {
-            await expect.soft(sizes.nth(j)).toHaveText(ProductItemDetails.Products[i].sizes![j]);
+            await expect.soft(sizes.nth(j)).toHaveText(Products[i].sizes![j]);
           }
         }
-        if (ProductItemDetails.Products[i].colors) {
+        if (Products[i].colors) {
           const colors = homePage.getProductItemDetails(i, ProductDetails.Colors);
           expect(await colors.count()).toBeGreaterThan(0);
           for (let j = 0; j < (await colors.count()); j++) {
-            await expect.soft(colors.nth(j)).toHaveCSS('background-color', ProductItemDetails.Products[i].colors![j]);
+            await expect.soft(colors.nth(j)).toHaveCSS('background-color', Products[i].colors![j]);
           }
         }
       }

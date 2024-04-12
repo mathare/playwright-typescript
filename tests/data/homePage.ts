@@ -14,8 +14,16 @@ export const ExpectedText = {
 
 const Sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
-export const ProductItemDetails = {
-  Products: [
+type Product = {
+  title: string,
+  rating?: string,
+  reviews?: string,
+  price: string,
+  sizes?: string[],
+  colors?: string[]
+}
+
+  export const Products: Product[] = [
     {
       title: 'Radiant Tee',
       rating: '60%',
@@ -56,5 +64,4 @@ export const ProductItemDetails = {
       reviews: '3 Reviews',
       price: '$45.00',
     },
-  ],
-};
+  ]
