@@ -6,7 +6,6 @@ export default class SignInPage extends BasePage {
   readonly pageTitle: Locator;
   readonly errorMessage: Locator;
   readonly mainContentArea: Locator;
-  readonly adsWidget: Locator;
   readonly existingCustomerBlock: Locator;
   readonly existingCustomerHeading: Locator;
   readonly loginForm: Locator;
@@ -29,7 +28,6 @@ export default class SignInPage extends BasePage {
     this.pageTitle = page.locator('h1.page-title');
     this.errorMessage = page.getByRole('alert').first();
     this.mainContentArea = page.locator('.main');
-    this.adsWidget = page.locator('.widget').nth(0);
     this.existingCustomerBlock = this.mainContentArea.locator('.block-customer-login');
     this.existingCustomerHeading = this.existingCustomerBlock.locator('.block-title');
     this.loginForm = this.existingCustomerBlock.locator('#login-form');

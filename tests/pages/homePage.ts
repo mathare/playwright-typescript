@@ -4,7 +4,6 @@ import BasePage from './basePage';
 export class HomePage extends BasePage {
   url: string = '/';
   readonly mainContent: Locator;
-  readonly adsWidget: Locator;
   readonly promoBlock: Locator;
   readonly contentHeading: Locator;
   readonly productsGrid: Locator;
@@ -13,7 +12,6 @@ export class HomePage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.mainContent = page.locator('#maincontent');
-    this.adsWidget = page.locator('.widget').nth(0);
     this.promoBlock = page.locator('.block-promo');
     this.contentHeading = page.locator('.content-heading');
     this.productsGrid = page.locator('.products-grid');
