@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { HomePage, ProductDetails } from '../pages/homePage';
+import { HomePage, ProductItemElements } from '../pages/homePage';
 import { Colors } from '../data/shared';
 import { ExpectedText, Products, PromoBlockLinks } from '../data/homePage';
 
@@ -45,40 +45,40 @@ test.describe('Home page tests', () => {
       const productItems = homePage.productItem;
       expect(await productItems.count()).toBeGreaterThan(0);
       for (let i = 0; i < (await productItems.count()); i++) {
-        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Name)).toHaveText(
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.Name)).toHaveText(
           Products[i].title,
         );
         if (Products[i].rating) {
-          await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Rating)).toHaveText(
+          await expect.soft(homePage.getProductItemElement(i, ProductItemElements.Rating)).toHaveText(
             Products[i].rating!,
           );
         }
         if (Products[i].reviews) {
-          await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Reviews)).toHaveText(
+          await expect.soft(homePage.getProductItemElement(i, ProductItemElements.Reviews)).toHaveText(
             Products[i].reviews!,
           );
         }
-        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.Price)).toHaveText(
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.Price)).toHaveText(
           Products[i].price,
         );
         if (Products[i].sizes) {
-          const sizes = homePage.getProductItemDetails(i, ProductDetails.Sizes);
+          const sizes = homePage.getProductItemElement(i, ProductItemElements.Sizes);
           expect(await sizes.count()).toBeGreaterThan(0);
           for (let j = 0; j < (await sizes.count()); j++) {
             await expect.soft(sizes.nth(j)).toHaveText(Products[i].sizes![j]);
           }
         }
         if (Products[i].colors) {
-          const colors = homePage.getProductItemDetails(i, ProductDetails.Colors);
+          const colors = homePage.getProductItemElement(i, ProductItemElements.Colors);
           expect(await colors.count()).toBeGreaterThan(0);
           for (let j = 0; j < (await colors.count()); j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', Products[i].colors![j]);
           }
         }
         await productItems.nth(i).hover()
-        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.AddToCartButton)).toBeVisible()
-        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.AddToWishListButton)).toBeVisible()
-        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.AddToCompareButton)).toBeVisible()
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.AddToCartButton)).toBeVisible()
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.AddToWishListButton)).toBeVisible()
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.AddToCompareButton)).toBeVisible()
       }
     });
   });
@@ -111,12 +111,12 @@ test.describe('Home page tests', () => {
       const products = homePage.productItem
       expect(await products.count()).toBeGreaterThan(0)
       for (let i = 0; i < await products.count(); i++) {
-        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.PhotoLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
-        await expect.soft(homePage.getProductItemDetails(i, ProductDetails.NameLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.PhotoLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.NameLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}`);
         if (Products[i].reviews) {
-          await expect.soft(homePage.getProductItemDetails(i, ProductDetails.ReviewsLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}#reviews`);
+          await expect.soft(homePage.getProductItemElement(i, ProductItemElements.ReviewsLink)).toHaveAttribute('href', `${baseURL}${Products[i].link}#reviews`);
         } else {
-          await expect.soft(homePage.getProductItemDetails(i, ProductDetails.ReviewsLink)).not.toBeVisible()
+          await expect.soft(homePage.getProductItemElement(i, ProductItemElements.ReviewsLink)).not.toBeVisible()
         }
       }
     })
