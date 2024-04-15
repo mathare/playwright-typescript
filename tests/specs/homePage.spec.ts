@@ -165,6 +165,7 @@ test.describe('Home page tests', () => {
   });
 
   test.describe('Link tests', () => {
+    const mediaDir = '/pub/media/catalog/product/cache/7c4c1ed835fbbf2269f24539582c6d44';
     test('Promo block links', async ({ baseURL }) => {
       const promoBlocks = homePage.promoBlock;
       expect(await promoBlocks.count()).toBeGreaterThan(0);
@@ -189,6 +190,34 @@ test.describe('Home page tests', () => {
             .toHaveAttribute('href', `${baseURL}${Products[i].link}#reviews`);
         } else {
           await expect.soft(homePage.getProductItemElement(i, ProductItemElements.ReviewsLink)).not.toBeVisible();
+        }
+      }
+    });
+
+    test('Default product image links', async ({ baseURL }) => {
+      const products = homePage.productItem;
+      expect(await products.count()).toBeGreaterThan(0);
+      for (let i = 0; i < (await products.count()); i++) {
+        const imageLink = `${baseURL}${mediaDir}${Products[i].images[0]}`;
+        await expect
+          .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
+          .toHaveAttribute('src', imageLink);
+      }
+    });
+
+    test('Product image links for different color options', async ({ baseURL }) => {
+      const products = homePage.productItem;
+      expect(await products.count()).toBeGreaterThan(0);
+      for (let i = 0; i < (await products.count()); i++) {
+        if (Products[i].colors) {
+          const colors = homePage.getProductItemElement(i, ProductItemElements.Colors);
+          for (let j = 0; j < (await colors.count()); j++) {
+            await colors.nth(j).click();
+            const imageLink = `${baseURL}${mediaDir}${Products[i].images[j + 1]}`;
+            await expect
+              .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
+              .toHaveAttribute('src', imageLink);
+          }
         }
       }
     });
