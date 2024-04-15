@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { HomePage, ProductItemElements } from '../pages/homePage';
 import { Colors } from '../data/shared';
 import { ExpectedText, Products, PromoBlockLinks, SwatchOutlineStyles } from '../data/homePage';
+import { rgbToHex } from '../helpers/colorUtils';
 
 test.describe('Home page tests', () => {
   let homePage: HomePage;
@@ -187,6 +188,30 @@ test.describe('Home page tests', () => {
         } else {
           await expect.soft(homePage.getProductItemElement(i, ProductItemElements.ReviewsLink)).not.toBeVisible()
         }
+      }
+    })
+  })
+
+  test.describe('Tooltip tests', () => {
+    const tooltipWidth = '110'
+      const tooltipHeight = '90'
+    test('Size option tooltips', async () => {      
+      const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes);
+      expect(await sizes.count()).toBeGreaterThan(0);
+      for (let i = 0; i < (await sizes.count()); i++) {
+        await expect.soft(sizes.nth(i)).toHaveAttribute('option-tooltip-value', Products[0].sizes![i]) 
+        await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-width', tooltipWidth) 
+        await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-height', tooltipHeight)         
+      }
+    })
+
+    test('Color swatch tooltips', async () => {
+      const colors = homePage.getProductItemElement(0, ProductItemElements.Colors);
+      expect(await colors.count()).toBeGreaterThan(0);
+      for (let i = 0; i < (await colors.count()); i++) {
+        await expect.soft(colors.nth(i)).toHaveAttribute('option-tooltip-value', rgbToHex(Products[0].colors![i])) 
+        await expect.soft(colors.nth(i)).toHaveAttribute('thumb-width', tooltipWidth) 
+        await expect.soft(colors.nth(i)).toHaveAttribute('thumb-height', tooltipHeight)         
       }
     })
   })
