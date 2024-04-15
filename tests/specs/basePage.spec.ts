@@ -97,11 +97,9 @@ test.describe('Base page tests', () => {
     test('Footer links', async ({ baseURL }) => {
       const footerLinks = basePage.pageFooterLink;
       expect(await footerLinks.count()).toBeGreaterThan(0);
-      // The first link in the footer has a different base URL to the others so test it separately
-      await expect.soft(footerLinks.nth(0)).toHaveAttribute('href', `${Links.Footer['Notes']}`);
-      for (let i = 1; i < (await footerLinks.count()); i++) {
-        const linkText = (await footerLinks.nth(i).innerText()).replace(/\W+/g, '').replace('and', '');
-        await expect.soft(footerLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Footer[linkText]}`);
+      for (let i = 0; i < (await footerLinks.count()); i++) {
+        const expectedLink = Links.Footer[i].startsWith('https') ? Links.Footer[i] : `${baseURL}${Links.Footer[i]}`;
+        await expect.soft(footerLinks.nth(i)).toHaveAttribute('href', expectedLink);
       }
     });
   });
