@@ -162,6 +162,10 @@ test.describe('Home page tests', () => {
       await homePage.productItem.nth(0).hover();
       await expect(homePage.productsGrid).toHaveScreenshot('productHover.png', { timeout: 20000 });
     });
+
+    // There is no need for visual testing of the product images for the various colour options as we can verify
+    // the image src links for each option instead(below).This is a more efficient testing method as we don't have
+    // to maintain the baseline images for all products in all colours across all supported browsers and platforms
   });
 
   test.describe('Link tests', () => {
