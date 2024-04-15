@@ -13,6 +13,7 @@ test.describe('Home page tests', () => {
   test.describe('Appearance tests', () => {
     // This is an example of performing visual-style testing without actual using image comparison but asserting against various element properties
     // The tests could be combined but I have split them here to make them easier to read and maintain
+    const swatchSelectedClass = /selected/
 
     test('Main page elements displayed', async () => {
       await expect.soft(homePage.globalMessage).toBeVisible();
@@ -84,13 +85,12 @@ test.describe('Home page tests', () => {
 
     test('Product swatch styling', async () => {
       // There is no need to test the swatches on all product items since they all use the same element
-      // Similarly there is no need to test every size/colour swatch for a given product
-      const selectedClass = /selected/
+      // Similarly there is no need to test every size/colour swatch for a given product     
       const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes)
      
       // Select
       await sizes.first().click()
-      await expect.soft(sizes.first()).toHaveClass(selectedClass)
+      await expect.soft(sizes.first()).toHaveClass(swatchSelectedClass)
       await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered)
       await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.White)
       // For some reason a simple blur() isn't enough so hover over another element
@@ -99,7 +99,7 @@ test.describe('Home page tests', () => {
 
       //Deselect
       await sizes.first().click()
-      await expect.soft(sizes.first()).not.toHaveClass(selectedClass)
+      await expect.soft(sizes.first()).not.toHaveClass(swatchSelectedClass)
       await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered)
       await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.LightGrey)
       await homePage.getProductItemElement(0, ProductItemElements.Name).hover()
@@ -109,7 +109,7 @@ test.describe('Home page tests', () => {
       
       // Select
       await colors.first().click()
-      await expect.soft(colors.first()).toHaveClass(selectedClass)
+      await expect.soft(colors.first()).toHaveClass(swatchSelectedClass)
       await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered)
       // For some reason a simple blur() isn't enough so hover over another element
       await homePage.getProductItemElement(0, ProductItemElements.Name).hover()
@@ -117,9 +117,39 @@ test.describe('Home page tests', () => {
 
       //Deselect
       await colors.first().click()
-      await expect.soft(colors.first()).not.toHaveClass(selectedClass)
+      await expect.soft(colors.first()).not.toHaveClass(swatchSelectedClass)
       await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered)
     })
+
+    test('Can only select single size option at a time', async () => {
+      // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
+      const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes);
+      expect(await sizes.count()).toBeGreaterThan(0);
+      for (let i = 0; i < (await sizes.count()); i++) {
+        await sizes.nth(i).click();
+        await expect.soft(sizes.nth(i)).toHaveClass(swatchSelectedClass);
+        for (let j = 0; j < (await sizes.count()); j++) {
+          if (j !== i) {
+            await expect.soft(sizes.nth(j)).not.toHaveClass(swatchSelectedClass);
+          }
+        }
+      }
+    });
+
+    test('Can only select single color option at a time', async () => {
+      // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
+      const colors = homePage.getProductItemElement(0, ProductItemElements.Colors);
+      expect(await colors.count()).toBeGreaterThan(0);
+      for (let i = 0; i < (await colors.count()); i++) {
+        await colors.nth(i).click();
+        await expect.soft(colors.nth(i)).toHaveClass(swatchSelectedClass);
+        for (let j = 0; j < (await colors.count()); j++) {
+          if (j !== i) {
+            await expect.soft(colors.nth(j)).not.toHaveClass(swatchSelectedClass);
+          }
+        }
+      }
+    });
   });
 
   test.describe('Visual tests', () => {
