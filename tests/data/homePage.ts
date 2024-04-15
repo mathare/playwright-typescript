@@ -22,7 +22,7 @@ type Product = {
   sizes?: string[];
   colors?: string[];
   link: string;
-  images: string[];
+  images: Record<'default' | 'colors' | 'sizes', string | string[]>;
 };
 
 export const Products: Product[] = [
@@ -34,12 +34,11 @@ export const Products: Product[] = [
     sizes: Sizes,
     colors: [Colors.ElectricBlue, Colors.Orange, Colors.Pink],
     link: '/radiant-tee.html',
-    images: [
-      '/w/s/ws12-orange_main_2.jpg',
-      '/w/s/ws12-blue_main_1.jpg',
-      '/w/s/ws12-orange_main_1.jpg',
-      '/w/s/ws12-purple_main_1.jpg',
-    ],
+    images: {
+      default: '/w/s/ws12-orange_main_2.jpg',
+      colors: ['/w/s/ws12-blue_main_1.jpg', '/w/s/ws12-orange_main_1.jpg', '/w/s/ws12-purple_main_1.jpg'],
+      sizes: '/w/s/ws12-blue_main_1.jpg',
+    },
   },
   {
     title: 'Breathe-Easy Tank',
@@ -49,12 +48,11 @@ export const Products: Product[] = [
     sizes: Sizes,
     colors: [Colors.Pink, Colors.White, Colors.Yellow],
     link: '/breathe-easy-tank.html',
-    images: [
-      '/w/t/wt09-white_main_1.jpg',
-      '/w/t/wt09-purple_main_1.jpg',
-      '/w/t/wt09-white_main_1.jpg',
-      '/w/t/wt09-yellow_main_1.jpg',
-    ],
+    images: {
+      default: '/w/t/wt09-white_main_1.jpg',
+      colors: ['/w/t/wt09-purple_main_1.jpg', '/w/t/wt09-white_main_1.jpg', '/w/t/wt09-yellow_main_1.jpg'],
+      sizes: '/w/t/wt09-purple_main_1.jpg',
+    },
   },
   {
     title: 'Argus All-Weather Tank',
@@ -62,7 +60,11 @@ export const Products: Product[] = [
     sizes: Sizes,
     colors: [Colors.MidGrey],
     link: '/argus-all-weather-tank.html',
-    images: ['/m/t/mt07-gray_main_1.jpg', '/m/t/mt07-gray_main_1.jpg'],
+    images: {
+      default: '/m/t/mt07-gray_main_1.jpg',
+      colors: '/m/t/mt07-gray_main_1.jpg',
+      sizes: '/m/t/mt07-gray_main_1.jpg',
+    },
   },
   {
     title: 'Hero Hoodie',
@@ -70,12 +72,18 @@ export const Products: Product[] = [
     sizes: Sizes,
     colors: [Colors.Black, Colors.MidGrey, Colors.Green],
     link: '/hero-hoodie.html',
-    images: [
-      '/m/h/mh07-gray_main_2.jpg',
-      '/m/h/mh07-black_main_1.jpg',
-      '/m/h/mh07-gray_main_1.jpg',
-      '/m/h/mh07-green_main_1.jpg',
-    ],
+    images: {
+      default: '/m/h/mh07-gray_main_2.jpg',
+      colors: ['/m/h/mh07-black_main_1.jpg', '/m/h/mh07-gray_main_1.jpg', '/m/h/mh07-green_main_1.jpg'],
+      // Unlike the other products, the hoodie has 2 different images for the size options
+      sizes: [
+        '/m/h/mh07-black_main_1.jpg',
+        '/m/h/mh07-black_main_1.jpg',
+        '/m/h/mh07-black_main_2.jpg',
+        '/m/h/mh07-black_main_2.jpg',
+        '/m/h/mh07-black_main_2.jpg',
+      ],
+    },
   },
   {
     title: 'Fusion Backpack',
@@ -83,7 +91,7 @@ export const Products: Product[] = [
     reviews: '3 Reviews',
     price: '$59.00',
     link: '/fusion-backpack.html',
-    images: ['/m/b/mb02-gray-0.jpg'],
+    images: { default: '/m/b/mb02-gray-0.jpg' },
   },
   {
     title: 'Push It Messenger Bag',
@@ -91,7 +99,7 @@ export const Products: Product[] = [
     reviews: '3 Reviews',
     price: '$45.00',
     link: '/push-it-messenger-bag.html',
-    images: ['/w/b/wb04-blue-0.jpg'],
+    images: { default: '/w/b/wb04-blue-0.jpg' },
   },
 ];
 
