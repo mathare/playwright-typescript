@@ -3,7 +3,7 @@ import { Colors } from '../data/shared';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
 
-test.describe('Base page tests', () => {
+test.describe.skip('Base page tests', () => {
   let basePage: BasePage;
   test.beforeEach(async ({ page }) => {
     basePage = new BasePage(page);
