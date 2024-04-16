@@ -22,7 +22,7 @@ type Product = {
   sizes?: string[];
   colors?: string[];
   link: string;
-  images: Record<'default' | 'colors' | 'sizes', string | string[]>;
+  images: Record<string, string | string[]>;
 };
 
 export const Products: Product[] = [
