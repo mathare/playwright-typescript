@@ -62,7 +62,7 @@ export const Products: Product[] = [
     link: '/argus-all-weather-tank.html',
     images: {
       default: '/m/t/mt07-gray_main_1.jpg',
-      colors: '/m/t/mt07-gray_main_1.jpg',
+      colors: ['/m/t/mt07-gray_main_1.jpg'],
       sizes: '/m/t/mt07-gray_main_1.jpg',
     },
   },
