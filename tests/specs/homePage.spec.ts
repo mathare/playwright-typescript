@@ -199,13 +199,11 @@ test.describe('Home page tests', () => {
       }
     });
 
-    test.only('Default product image links', async ({ baseURL }) => {
+    test('Default product image links', async ({ baseURL }) => {
       const products = homePage.productItem;
       expect(await products.count()).toBeGreaterThan(0);
       for (let i = 0; i < (await products.count()); i++) {
         const imageLink = `${baseURL}${mediaDir}${Products[i].images.default}`;
-        console.log(imageLink);
-        console.log(ProductItemElements.Photo);
         await expect
           .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
           .toHaveAttribute('src', imageLink);
