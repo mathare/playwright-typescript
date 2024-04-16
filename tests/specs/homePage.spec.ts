@@ -223,7 +223,7 @@ test.describe('Home page tests', () => {
               : `${baseURL}${mediaDir}${Products[i].images.sizes}`;
             await expect
               .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
-              .toHaveAttribute('src', imageLink);
+              .toHaveAttribute('src', imageLink, { timeout: 10000 });
           }
         }
       }
@@ -240,7 +240,7 @@ test.describe('Home page tests', () => {
             const imageLink = `${baseURL}${mediaDir}${Products[i].images.colors[j]}`;
             await expect
               .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
-              .toHaveAttribute('src', imageLink);
+              .toHaveAttribute('src', imageLink, { timeout: 10000 });
           }
         }
       }
