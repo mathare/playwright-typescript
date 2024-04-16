@@ -25,6 +25,29 @@ export const ExpectedText = {
       Actions: ['Edit Address'],
     },
   },
+  PrimarySidenav: [
+    // Include the separators as empty strings
+    'My Account',
+    'My Orders',
+    'My Downloadable Products',
+    'My Wish List',
+    '',
+    'Address Book',
+    'Account Information',
+    'Stored Payment Methods',
+    '',
+    'My Product Reviews',
+  ],
+  SecondarySidenav: {
+    CompareProducts: {
+      Title: 'Compare Products',
+      Placeholder: 'You have no items to compare.',
+    },
+    Wishlist: {
+      Title: 'My Wish List',
+      Placeholder: 'You have no items in your wish list.',
+    },
+  },
 };
 
 export enum Colors {

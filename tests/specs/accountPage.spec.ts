@@ -77,6 +77,20 @@ test.describe('Account page tests', () => {
       for (let i = 0; i < (await elementCount(actions)); i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.ShippingAddress.Actions[i]);
       }
+      const sidenavLinks = accountPage.sidenavLink;
+      for (let i = 0; i < (await elementCount(sidenavLinks)); i++) {
+        await expect.soft(sidenavLinks.nth(i)).toHaveText(ExpectedText.PrimarySidenav[i]);
+      }
+      await expect
+        .soft(accountPage.compareProductsTitle)
+        .toHaveText(ExpectedText.SecondarySidenav.CompareProducts.Title);
+      await expect
+        .soft(accountPage.compareProductsContent)
+        .toHaveText(ExpectedText.SecondarySidenav.CompareProducts.Placeholder, { useInnerText: true });
+      await expect.soft(accountPage.wishlistTitle).toHaveText(ExpectedText.SecondarySidenav.Wishlist.Title);
+      await expect
+        .soft(accountPage.wishlistContent)
+        .toHaveText(ExpectedText.SecondarySidenav.Wishlist.Placeholder, { useInnerText: true });
     });
   });
 });
