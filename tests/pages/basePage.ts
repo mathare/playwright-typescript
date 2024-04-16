@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 export default class BasePage {
+  readonly url: string;
   readonly page: Page;
   readonly globalMessage: Locator;
   readonly pageHeader: Locator;

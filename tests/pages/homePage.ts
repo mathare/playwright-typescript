@@ -2,7 +2,7 @@ import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
 
 export class HomePage extends BasePage {
-  url: string = '/';
+  url = '/';
   readonly mainContent: Locator;
   readonly promoBlock: Locator;
   readonly contentHeading: Locator;
