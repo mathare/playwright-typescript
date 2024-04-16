@@ -37,7 +37,14 @@ export const Products: Product[] = [
     images: {
       default: '/w/s/ws12-orange_main_2.jpg',
       colors: ['/w/s/ws12-blue_main_1.jpg', '/w/s/ws12-orange_main_1.jpg', '/w/s/ws12-purple_main_1.jpg'],
-      sizes: '/w/s/ws12-blue_main_1.jpg',
+      // The tee has 2 different images for the size options
+      sizes: [
+        '/w/s/ws12-blue_main_1.jpg',
+        '/w/s/ws12-blue_main_1.jpg',
+        '/w/s/ws12-blue_main_2.jpg',
+        '/w/s/ws12-blue_main_2.jpg',
+        '/w/s/ws12-blue_main_2.jpg',
+      ],
     },
   },
   {
@@ -75,7 +82,7 @@ export const Products: Product[] = [
     images: {
       default: '/m/h/mh07-gray_main_2.jpg',
       colors: ['/m/h/mh07-black_main_1.jpg', '/m/h/mh07-gray_main_1.jpg', '/m/h/mh07-green_main_1.jpg'],
-      // Unlike the other products, the hoodie has 2 different images for the size options
+      // The hoodie has 2 different images for the size options
       sizes: [
         '/m/h/mh07-black_main_1.jpg',
         '/m/h/mh07-black_main_1.jpg',
