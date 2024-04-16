@@ -1,5 +1,6 @@
 import { ExpectedText, GlobalMessageStyle, Links } from '../data/basePage';
 import { Colors } from '../data/shared';
+import { elementCount } from '../helpers/elementUtils';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
 
@@ -44,11 +45,11 @@ test.describe('Base page tests', () => {
       await expect.soft(basePage.searchInput).toBeEmpty();
       await expect.soft(basePage.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
       const topNavLinks = basePage.topNavLvl0Link;
-      for (let i = 0; i < (await topNavLinks.count()); i++) {
+      for (let i = 0; i < (await elementCount(topNavLinks)); i++) {
         await expect.soft(topNavLinks.nth(i)).toHaveText(ExpectedText.TopNav[i]);
       }
       const footerLinks = basePage.pageFooterLink;
-      for (let i = 0; i < (await footerLinks.count()); i++) {
+      for (let i = 0; i < (await elementCount(footerLinks)); i++) {
         await expect.soft(footerLinks.nth(i)).toHaveText(ExpectedText.FooterLinks[i]);
       }
       await expect.soft(basePage.copyrightFooter).toHaveText(ExpectedText.Copyright);
@@ -58,10 +59,9 @@ test.describe('Base page tests', () => {
   test.describe('Link tests', () => {
     test('Banner links', async ({ baseURL }) => {
       await expect.soft(basePage.bannerLink.first()).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
-      await expect.soft(basePage.bannerLink.nth(1)).toHaveAttribute(
-        'href',
-        new RegExp(`${baseURL}${Links.CreateAnAccount}`),
-      );
+      await expect
+        .soft(basePage.bannerLink.nth(1))
+        .toHaveAttribute('href', new RegExp(`${baseURL}${Links.CreateAnAccount}`));
     });
 
     test('Logo link', async ({ baseURL }) => {
@@ -74,21 +74,18 @@ test.describe('Base page tests', () => {
 
     test('TopNav links', async ({ baseURL }) => {
       const lvl0Links = basePage.topNavLvl0Link;
-      expect(await lvl0Links.count()).toBeGreaterThan(0);
-      for (let i = 0; i < (await lvl0Links.count()); i++) {
+      for (let i = 0; i < (await elementCount(lvl0Links)); i++) {
         const lvl0Text = (await lvl0Links.nth(i).innerText()).replace(/\W+/g, '');
         await expect.soft(lvl0Links.nth(i)).toHaveAttribute('href', `${baseURL}${Links.TopNav[lvl0Text]}`);
 
         // This section of the test isn't as neat as I would have liked. I wanted to verify the submenu levels individually e.g Women has Tops and Bottoms as level 1 menu items each with individual submenus. However, the DOM makes that awkward and as I am using a 3rd-party website I can't edit the DOM to add suitable locators/attributes as I would with a website under my control
         if (lvl0Text !== 'WhatsNew' && lvl0Text !== 'Sale') {
           const subMenuLinks = await basePage.getTopNavSubMenuLinks(i);
-          expect(await subMenuLinks.count()).toBeGreaterThan(0);
-          for (let j = 0; j < (await subMenuLinks.count()); j++) {
+          for (let j = 0; j < (await elementCount(subMenuLinks)); j++) {
             const subMenuText = (await subMenuLinks.nth(j).innerText()).replace(/\W+/g, '');
-            await expect.soft(subMenuLinks.nth(j)).toHaveAttribute(
-              'href',
-              `${baseURL}${Links.TopNav[`${lvl0Text}SubMenu`][subMenuText]}`,
-            );
+            await expect
+              .soft(subMenuLinks.nth(j))
+              .toHaveAttribute('href', `${baseURL}${Links.TopNav[`${lvl0Text}SubMenu`][subMenuText]}`);
           }
         }
       }
@@ -96,12 +93,9 @@ test.describe('Base page tests', () => {
 
     test('Footer links', async ({ baseURL }) => {
       const footerLinks = basePage.pageFooterLink;
-      expect(await footerLinks.count()).toBeGreaterThan(0);
-      // The first link in the footer has a different base URL to the others so test it separately
-      await expect.soft(footerLinks.nth(0)).toHaveAttribute('href', `${Links.Footer['Notes']}`);
-      for (let i = 1; i < (await footerLinks.count()); i++) {
-        const linkText = (await footerLinks.nth(i).innerText()).replace(/\W+/g, '').replace('and', '');
-        await expect.soft(footerLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Footer[linkText]}`);
+      for (let i = 0; i < (await elementCount(footerLinks)); i++) {
+        const expectedLink = Links.Footer[i].startsWith('https') ? Links.Footer[i] : `${baseURL}${Links.Footer[i]}`;
+        await expect.soft(footerLinks.nth(i)).toHaveAttribute('href', expectedLink);
       }
     });
   });
