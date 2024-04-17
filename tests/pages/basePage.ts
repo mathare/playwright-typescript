@@ -10,10 +10,10 @@ export default class BasePage {
   readonly logoLink: Locator;
   readonly searchInput: Locator;
   readonly cartLink: Locator;
-  readonly topNav: Locator;
-  readonly topNavLink: Locator;
-  readonly topNavLvl0Link: Locator;
-  readonly adsWidget: Locator
+  readonly topnav: Locator;
+  readonly topnavLink: Locator;
+  readonly topnavLvl0Link: Locator;
+  readonly adsWidget: Locator;
   readonly pageFooter: Locator;
   readonly pageFooterLink: Locator;
   readonly copyrightFooter: Locator;
@@ -27,10 +27,10 @@ export default class BasePage {
     this.logoLink = page.locator('a.logo');
     this.searchInput = page.locator('input#search');
     this.cartLink = page.locator('a.showcart');
-    this.topNav = page.locator('.nav-sections');
-    this.topNavLink = this.topNav.getByRole('menuitem');
-    this.topNavLvl0Link = this.topNav.locator('li.level0').getByRole('menuitem');
-    this.adsWidget = page.locator('.widget').filter({has: page.locator('ins.adsbygoogle')});
+    this.topnav = page.locator('.nav-sections');
+    this.topnavLink = this.topnav.getByRole('menuitem');
+    this.topnavLvl0Link = this.topnav.locator('li.level0').getByRole('menuitem');
+    this.adsWidget = page.locator('.widget').filter({ has: page.locator('ins.adsbygoogle') });
     this.pageFooter = page.locator('footer.page-footer');
     this.pageFooterLink = this.pageFooter.locator('li a');
     this.copyrightFooter = page.locator('.copyright');
@@ -43,7 +43,7 @@ export default class BasePage {
     }
   }
 
-  async getTopNavSubMenuLinks(lvl0Index: number): Promise<Locator> {
-    return this.topNavLvl0Link.nth(lvl0Index).locator('..').locator('li.level1 a');
+  async getTopnavSubMenuLinks(lvl0Index: number): Promise<Locator> {
+    return this.topnavLvl0Link.nth(lvl0Index).locator('..').locator('li.level1 a');
   }
 }

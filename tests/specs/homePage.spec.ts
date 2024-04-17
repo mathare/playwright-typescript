@@ -20,7 +20,7 @@ test.describe('Home page tests', () => {
     test('Main page elements displayed', async () => {
       await expect.soft(homePage.globalMessage).toBeVisible();
       await expect.soft(homePage.pageHeader).toBeVisible();
-      await expect.soft(homePage.topNav).toBeVisible();
+      await expect.soft(homePage.topnav).toBeVisible();
       await expect.soft(homePage.mainContent).toBeVisible();
       await expect.soft(homePage.contentHeading).toBeVisible();
       await expect.soft(homePage.productsGrid).toBeVisible();

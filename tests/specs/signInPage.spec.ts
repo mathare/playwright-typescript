@@ -79,7 +79,7 @@ test.describe('Sign in page tests', () => {
     test('Main page elements displayed', async () => {
       await expect.soft(signInPage.globalMessage).toBeVisible();
       await expect.soft(signInPage.pageHeader).toBeVisible();
-      await expect.soft(signInPage.topNav).toBeVisible();
+      await expect.soft(signInPage.topnav).toBeVisible();
       await expect.soft(signInPage.pageTitle).toBeVisible();
       await expect.soft(signInPage.existingCustomerBlock).toBeVisible();
       await expect.soft(signInPage.emailInput).toBeVisible();

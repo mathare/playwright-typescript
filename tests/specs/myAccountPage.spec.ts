@@ -22,7 +22,7 @@ test.describe('Account page tests', () => {
     test('Main page elements displayed', async () => {
       await expect.soft(accountPage.globalMessage).toBeVisible();
       await expect.soft(accountPage.pageHeader).toBeVisible();
-      await expect.soft(accountPage.topNav).toBeVisible();
+      await expect.soft(accountPage.topnav).toBeVisible();
       await expect.soft(accountPage.mainBlock).toBeVisible();
       await expect.soft(accountPage.primarySidenav).toBeVisible();
       await expect.soft(accountPage.secondarySidenav).toBeVisible();
