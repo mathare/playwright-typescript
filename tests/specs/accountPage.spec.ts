@@ -101,5 +101,10 @@ test.describe('Account page tests', () => {
         await expect.soft(sidenavOptions.nth(i)).not.toHaveClass(selectedClass);
       }
     });
+
+    // There is no test for only being able to select a single sidenav option at once here as by selecting a sidenav option
+    // navigates to a different page within the app. The fact that the sidenav defaults to "My Account" and none of the
+    // other sidenav options are selected, as shown by the above test, is sufficient at this stage. Adding a similar test to
+    // the specs for the other pages accessible from the sidenav will provide the required coverage
   });
 });
