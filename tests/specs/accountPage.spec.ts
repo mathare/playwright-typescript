@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { AccountPage, BlockElements } from '../pages/accountPage';
-import { Colors, ExpectedText } from '../data/accountPage';
+import { Colors, ExpectedText, Links } from '../data/accountPage';
 import SignInPage from '../pages/signInPage';
 import { dummyCustomer } from '../data/users';
 import { elementCount } from '../helpers/elementUtils';
@@ -117,4 +117,32 @@ test.describe('Account page tests', () => {
     });
   });
 
+  test.describe('Link tests', () => {
+    test('Sidenav links', async ({ baseURL }) => {
+      const sidenavLinks = accountPage.sidenavLink;
+      for (let i = 0; i < (await elementCount(sidenavLinks)); i++) {
+        await expect.soft(sidenavLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Sidenav[i]}`);
+      }
+    });
+
+    test('Account info links', async ({ baseURL }) => {
+      const actionLinks = accountPage.getBlockElement(accountPage.contactInfoBlock, BlockElements.Actions);
+      for (let i = 0; i < (await elementCount(actionLinks)); i++) {
+        await expect.soft(actionLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.ContactInfoActions[i]}`);
+      }
+    });
+
+    test('Address book links', async ({ baseURL }) => {
+      await expect
+        .soft(accountPage.addressBookActions)
+        .toHaveAttribute('href', `${baseURL}${Links.AddressBookActions[0]}`);
+      // The "Edit Address" link for billing & shipping address is the same
+      await expect
+        .soft(accountPage.getBlockElement(accountPage.billingAddressBlock, BlockElements.Actions))
+        .toHaveAttribute('href', `${baseURL}${Links.AddressBookActions[1]}`);
+      await expect
+        .soft(accountPage.getBlockElement(accountPage.shippingAddressBlock, BlockElements.Actions))
+        .toHaveAttribute('href', `${baseURL}${Links.AddressBookActions[1]}`);
+    });
+  });
 });

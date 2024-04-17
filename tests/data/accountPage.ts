@@ -54,3 +54,17 @@ export enum Colors {
   Grey = 'rgb(245, 245, 245)',
   White = 'rgba(0, 0, 0, 0)',
 }
+
+export const Links = {
+  Sidenav: [
+    '/sales/order/history/',
+    '/downloadable/customer/products/',
+    '/wishlist/',
+    '/customer/address/',
+    '/customer/account/edit/',
+    '/vault/cards/listaction/',
+    '/review/customer/',
+  ],
+  ContactInfoActions: ['/customer/account/edit/', '/customer/account/edit/changepass/1/'],
+  AddressBookActions: ['/customer/address/', '/customer/address/edit/'],
+};

@@ -18,6 +18,7 @@ export class AccountPage extends BasePage {
   readonly billingAddressBlock: Locator;
   readonly shippingAddressBlock: Locator;
   readonly sidenavOption: Locator;
+  readonly sidenavLink: Locator;
   readonly compareProductsBlock: Locator;
   readonly compareProductsTitle: Locator;
   readonly compareProductsContent: Locator;
@@ -42,6 +43,7 @@ export class AccountPage extends BasePage {
     this.billingAddressBlock = this.addressBookBlock.locator('.box-billing-address');
     this.shippingAddressBlock = this.addressBookBlock.locator('.box-shipping-address');
     this.sidenavOption = this.primarySidenav.locator('li.nav.item');
+    this.sidenavLink = this.sidenavOption.locator('a');
     this.compareProductsBlock = this.secondarySidenav.locator('.block-compare');
     this.compareProductsTitle = this.compareProductsBlock.getByRole('heading');
     // The Compare Products block content may not have a 'block-content' class if there are no products selected for comparison
