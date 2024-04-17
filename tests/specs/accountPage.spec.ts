@@ -77,9 +77,9 @@ test.describe('Account page tests', () => {
       for (let i = 0; i < (await elementCount(actions)); i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.ShippingAddress.Actions[i]);
       }
-      const sidenavLinks = accountPage.sidenavLink;
-      for (let i = 0; i < (await elementCount(sidenavLinks)); i++) {
-        await expect.soft(sidenavLinks.nth(i)).toHaveText(ExpectedText.PrimarySidenav[i]);
+      const sidenavOptions = accountPage.sidenavOption;
+      for (let i = 0; i < (await elementCount(sidenavOptions)); i++) {
+        await expect.soft(sidenavOptions.nth(i)).toHaveText(ExpectedText.PrimarySidenav[i]);
       }
       await expect
         .soft(accountPage.compareProductsTitle)
@@ -91,6 +91,15 @@ test.describe('Account page tests', () => {
       await expect
         .soft(accountPage.wishlistContent)
         .toHaveText(ExpectedText.SecondarySidenav.Wishlist.Placeholder, { useInnerText: true });
+    });
+
+    test('My Account sidenav option selected by default', async () => {
+      const selectedClass = /current/;
+      const sidenavOptions = accountPage.sidenavOption;
+      await expect(sidenavOptions.first()).toHaveClass(selectedClass);
+      for (let i = 1; i < (await elementCount(sidenavOptions)); i++) {
+        await expect.soft(sidenavOptions.nth(i)).not.toHaveClass(selectedClass);
+      }
     });
   });
 });
