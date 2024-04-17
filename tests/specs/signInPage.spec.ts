@@ -3,7 +3,7 @@ import SignInPage from '../pages/signInPage';
 import { Colors } from '../data/shared';
 import { ErrorMessages, ExpectedText } from '../data/signInPage';
 import { dummyCustomer, unregisteredUser } from '../data/users';
-import AccountPage from '../pages/accountPage';
+import { AccountPage } from '../pages/accountPage';
 import { GreetingText } from '../data/accountPage';
 
 test.describe('Sign in page tests', () => {
