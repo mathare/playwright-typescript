@@ -145,9 +145,8 @@ test.describe('Home page tests', () => {
   });
 
   test.describe('Visual tests', () => {
-    test('Default page appearance', async ({ page }) => {
-      await expect(page).toHaveScreenshot('default.png', {
-        fullPage: true,
+    test('Default page appearance', async () => {
+      await expect(homePage.mainContent).toHaveScreenshot('default.png', {
         mask: [homePage.adsWidget],
         timeout: 20000,
       });
