@@ -107,4 +107,14 @@ test.describe('Account page tests', () => {
     // other sidenav options are selected, as shown by the above test, is sufficient at this stage. Adding a similar test to
     // the specs for the other pages accessible from the sidenav will provide the required coverage
   });
+
+  test.describe('Visual tests', () => {
+    test('Default page appearance', async () => {
+      await expect(accountPage.mainContent).toHaveScreenshot('default.png', {
+        mask: [accountPage.adsWidget],
+        timeout: 20000,
+      });
+    });
+  });
+
 });
