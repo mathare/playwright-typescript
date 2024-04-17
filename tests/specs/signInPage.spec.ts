@@ -93,7 +93,7 @@ test.describe('Sign in page tests', () => {
     });
 
     test('Element styling', async () => {
-      await expect.soft(signInPage.mainContentArea).toHaveCSS('color', Colors.DarkGrey);
+      await expect.soft(signInPage.mainContent).toHaveCSS('color', Colors.DarkGrey);
       await expect.soft(signInPage.loginButton).toHaveClass(/primary/);
       await expect.soft(signInPage.loginButton).toHaveCSS('background-color', Colors.Blue);
       await expect.soft(signInPage.loginButton).toHaveCSS('color', Colors.White);
@@ -118,9 +118,8 @@ test.describe('Sign in page tests', () => {
       await expect.soft(signInPage.createAccountButton).toHaveText(ExpectedText.CreateAccountButton);
     });
 
-    test('Visual test', async ({page}) => {
-      await expect(page).toHaveScreenshot('default.png', {
-        fullPage: true,
+    test('Visual test', async () => {
+      await expect(signInPage.mainContent).toHaveScreenshot('default.png', {
         mask: [signInPage.adsWidget],
         timeout: 20000,
       });
