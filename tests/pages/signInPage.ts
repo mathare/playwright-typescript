@@ -3,7 +3,7 @@ import BasePage from './basePage';
 
 export default class SignInPage extends BasePage {
   url = '/customer/account/login/';
-  readonly mainContentArea: Locator;
+  readonly mainContent: Locator;
   readonly pageTitle: Locator;
   readonly errorMessage: Locator;
   readonly existingCustomerBlock: Locator;
@@ -25,10 +25,10 @@ export default class SignInPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.mainContentArea = page.locator('#maincontent');
-    this.pageTitle = this.mainContentArea.getByRole('heading', {level: 1});
-    this.errorMessage = this.mainContentArea.getByRole('alert').first();
-    this.existingCustomerBlock = this.mainContentArea.locator('.block-customer-login');
+    this.mainContent = page.locator('#maincontent');
+    this.pageTitle = this.mainContent.getByRole('heading', { level: 1 });
+    this.errorMessage = this.mainContent.getByRole('alert').first();
+    this.existingCustomerBlock = this.mainContent.locator('.block-customer-login');
     this.existingCustomerHeading = this.existingCustomerBlock.locator('.block-title');
     this.loginForm = this.existingCustomerBlock.locator('#login-form');
     this.existingCustomerSubheading = this.loginForm.locator('.field.note');
@@ -40,7 +40,7 @@ export default class SignInPage extends BasePage {
     this.passwordInputError = this.loginForm.locator('#pass-error');
     this.loginButton = this.loginForm.locator('button[name=send]');
     this.forgottenPasswordLink = this.loginForm.locator('a.action.remind');
-    this.newCustomerBlock = this.mainContentArea.locator('.block-new-customer');
+    this.newCustomerBlock = this.mainContent.locator('.block-new-customer');
     this.newCustomerHeading = this.newCustomerBlock.locator('.block-title');
     this.newCustomerContent = this.newCustomerBlock.locator('.block-content p');
     // Even though this element is styled as a button it is actually an anchor
