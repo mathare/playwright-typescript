@@ -4,7 +4,8 @@ import BasePage from './basePage';
 export class AccountPage extends BasePage {
   url = '/customer/account/';
   readonly greeting: Locator;
-  readonly mainContentArea: Locator;
+  readonly mainContent: Locator;
+  readonly mainBlock: Locator;
   readonly primarySidenav: Locator;
   readonly secondarySidenav: Locator;
   readonly pageTitle: Locator;
@@ -27,14 +28,15 @@ export class AccountPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.greeting = this.banner.locator('.greet.welcome');
-    this.mainContentArea = this.page.locator('.column.main');
+    this.mainContent = this.page.locator('#maincontent');
+    this.mainBlock = this.page.locator('.column.main');
     this.primarySidenav = this.page.locator('.sidebar-main .content');
     this.secondarySidenav = this.page.locator('.sidebar-additional');
-    this.pageTitle = this.mainContentArea.getByRole('heading', { level: 1 });
-    this.accountInfoBlock = this.mainContentArea.locator('.block-dashboard-info');
+    this.pageTitle = this.mainBlock.getByRole('heading', { level: 1 });
+    this.accountInfoBlock = this.mainBlock.locator('.block-dashboard-info');
     this.accountInfoTitle = this.accountInfoBlock.locator('.block-title');
     this.contactInfoBlock = this.accountInfoBlock.locator('.box-information');
-    this.addressBookBlock = this.mainContentArea.locator('.block-dashboard-addresses');
+    this.addressBookBlock = this.mainBlock.locator('.block-dashboard-addresses');
     this.addressBookTitle = this.addressBookBlock.locator('.block-title strong');
     this.addressBookActions = this.addressBookBlock.locator('.block-title a.action');
     this.billingAddressBlock = this.addressBookBlock.locator('.box-billing-address');

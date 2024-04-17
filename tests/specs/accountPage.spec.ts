@@ -23,7 +23,7 @@ test.describe('Account page tests', () => {
       await expect.soft(accountPage.globalMessage).toBeVisible();
       await expect.soft(accountPage.pageHeader).toBeVisible();
       await expect.soft(accountPage.topNav).toBeVisible();
-      await expect.soft(accountPage.mainContentArea).toBeVisible();
+      await expect.soft(accountPage.mainBlock).toBeVisible();
       await expect.soft(accountPage.primarySidenav).toBeVisible();
       await expect.soft(accountPage.secondarySidenav).toBeVisible();
       await expect.soft(accountPage.pageTitle).toBeVisible();
@@ -34,7 +34,7 @@ test.describe('Account page tests', () => {
     });
 
     test('Element styling', async () => {
-      await expect.soft(accountPage.mainContentArea).toHaveCSS('background-color', Colors.White);
+      await expect.soft(accountPage.mainBlock).toHaveCSS('background-color', Colors.White);
       await expect.soft(accountPage.primarySidenav).toHaveCSS('background-color', Colors.Grey);
       await expect.soft(accountPage.secondarySidenav).toHaveCSS('background-color', Colors.White);
     });
