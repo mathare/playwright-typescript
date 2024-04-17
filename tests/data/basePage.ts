@@ -3,7 +3,7 @@ export const ExpectedText = {
     'This is a demo store to test your test automaiton scripts. No orders will be fulfilled. If you are facing any issue, email us at hello@softwaretestingboard.com.',
   Banner: 'Skip to Content Click “Write for us” link in the footer to submit a guest post Sign In Create an Account',
   Search: 'Search entire store here...',
-  TopNav: ["What's New", 'Women', 'Men', 'Gear', 'Training', 'Sale'],
+  Topnav: ["What's New", 'Women', 'Men', 'Gear', 'Training', 'Sale'],
   FooterLinks: [
     'Notes',
     'Practice API Testing using Magento 2',
@@ -23,7 +23,7 @@ export const enum GlobalMessageStyle {
   FontWeight = '400',
 }
 
-const TopNavLvl0 = {
+const TopnavLvl0 = {
   WhatsNew: '/what-is-new.html',
   Women: '/women.html',
   Men: '/men.html',
@@ -69,8 +69,8 @@ export const Links = {
   CreateAnAccount: '/customer/account/create/',
   Logo: '/',
   Cart: '/checkout/cart/',
-  TopNav: {
-    ...TopNavLvl0,
+  Topnav: {
+    ...TopnavLvl0,
     WomenSubMenu: {
       ...WomenSubMenu,
     },
