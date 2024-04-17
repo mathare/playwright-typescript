@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
 
-export class AccountPage extends BasePage {
+export class MyAccountPage extends BasePage {
   url = '/customer/account/';
   readonly greeting: Locator;
   readonly mainContent: Locator;

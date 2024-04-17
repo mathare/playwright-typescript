@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
-import { AccountPage, BlockElements } from '../pages/accountPage';
-import { Colors, ExpectedText, Links } from '../data/accountPage';
+import { MyAccountPage, BlockElements } from '../pages/myAccountPage';
+import { Colors, ExpectedText, Links } from '../data/myAccountPage';
 import SignInPage from '../pages/signInPage';
 import { dummyCustomer } from '../data/users';
 import { elementCount } from '../helpers/elementUtils';
 
 test.describe('Account page tests', () => {
-  let accountPage: AccountPage;
+  let accountPage: MyAccountPage;
   test.beforeEach(async ({ page, baseURL }) => {
-    accountPage = new AccountPage(page);
+    accountPage = new MyAccountPage(page);
     const signinPage = new SignInPage(page);
     await signinPage.open();
     await signinPage.loginAs(dummyCustomer.email, dummyCustomer.password);

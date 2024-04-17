@@ -3,8 +3,8 @@ import SignInPage from '../pages/signInPage';
 import { Colors } from '../data/shared';
 import { ErrorMessages, ExpectedText } from '../data/signInPage';
 import { dummyCustomer, unregisteredUser } from '../data/users';
-import { AccountPage } from '../pages/accountPage';
-import { GreetingText } from '../data/accountPage';
+import { MyAccountPage } from '../pages/myAccountPage';
+import { GreetingText } from '../data/myAccountPage';
 
 test.describe('Sign in page tests', () => {
   let signInPage: SignInPage;
@@ -16,7 +16,7 @@ test.describe('Sign in page tests', () => {
   test.describe('Behavioural tests', () => {
     test.describe('Successful logins', () => {
       test('Login successfully', async ({ page, baseURL }) => {
-        const accountPage = new AccountPage(page);
+        const accountPage = new MyAccountPage(page);
         await signInPage.loginAs(dummyCustomer.email, dummyCustomer.password);
         await expect(page).toHaveURL(`${baseURL}${accountPage.url}`);
         await expect.soft(accountPage.greeting).toHaveText(GreetingText(dummyCustomer.name));
