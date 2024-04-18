@@ -21,6 +21,16 @@ const Colors = {
   Pink: 'rgb(239, 61, 255)',
   White: 'rgb(255, 255, 255)',
   Yellow: 'rgb(255, 213, 0)',
+  Swatch: {
+    Selected: 'rgb(255, 85, 1)',
+    Size: {
+      Hovered: 'rgb(153, 153, 153)',
+      NotSelected: 'rgb(148, 148, 148)',
+    },
+    Color: {
+      Hovered: 'rgb(195, 64, 0)',
+    },
+  },
 };
 
 type Product = {
@@ -121,14 +131,13 @@ export const Products: Product[] = [
 
 export const SwatchOutlineStyles = {
   Sizes: {
-    Selected: 'rgb(255, 85, 1) solid 2px',
-    // Firefox doesn't include "none" in the outline style
-    NotSelected: /rgb\(148, 148, 148\) (none )?0px/,
-    Hovered: 'rgb(153, 153, 153) solid 1px',
+    Selected: `${Colors.Swatch.Selected} solid 2px`,
+    NotSelected: `${Colors.Swatch.Size.NotSelected} none 0px`,
+    Hovered: `${Colors.Swatch.Size.Hovered} solid 1px`,
   },
   Colors: {
-    Selected: 'rgb(255, 85, 1) solid 2px',
-    Hovered: 'rgb(195, 64, 0) solid 2px',
+    Selected: `${Colors.Swatch.Selected} solid 2px`,
+    Hovered: `${Colors.Swatch.Color.Hovered} solid 2px`,
   },
 };
 

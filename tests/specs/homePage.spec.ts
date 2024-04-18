@@ -78,7 +78,7 @@ test.describe('Home page tests', () => {
       }
     });
 
-    test('Product swatch styling', async () => {
+    test('Product swatch styling', async ({ browserName }) => {
       // There is no need to test the swatches on all product items since they all use the same element
       // Similarly there is no need to test every size/colour swatch for a given product
       const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes);
@@ -98,7 +98,12 @@ test.describe('Home page tests', () => {
       await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered);
       await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.LightGrey);
       await homePage.getProductItemElement(0, ProductItemElements.Name).hover();
-      await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.NotSelected);
+      const outlineStyle =
+        browserName === 'firefox'
+          ? // Firefox doesn't include "none" in the outline style but other browsers do
+            SwatchOutlineStyles.Sizes.NotSelected.replace('none ', '')
+          : SwatchOutlineStyles.Sizes.NotSelected;
+      await expect.soft(sizes.first()).toHaveCSS('outline', outlineStyle);
 
       const colors = homePage.getProductItemElement(0, ProductItemElements.Colors);
 
