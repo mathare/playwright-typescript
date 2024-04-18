@@ -19,13 +19,13 @@ test.describe('Home page tests', () => {
 
     test('Main page elements displayed', async () => {
       await expect.soft(homePage.globalMessage).toBeVisible();
-      await expect.soft(homePage.pageHeader).toBeVisible();
-      await expect.soft(homePage.topnav).toBeVisible();
+      await expect.soft(homePage.pageHeader.header).toBeVisible();
+      await expect.soft(homePage.pageHeader.topnav).toBeVisible();
       await expect.soft(homePage.mainContent).toBeVisible();
       await expect.soft(homePage.contentHeading).toBeVisible();
       await expect.soft(homePage.productsGrid).toBeVisible();
-      await expect.soft(homePage.pageFooter).toBeVisible();
-      await expect.soft(homePage.copyrightFooter).toBeVisible();
+      await expect.soft(homePage.pageFooter.footer).toBeVisible();
+      await expect.soft(homePage.pageFooter.copyrightFooter).toBeVisible();
 
       await expect.soft(homePage.promoBlock).toHaveCount(6);
       await expect.soft(homePage.productItem).toHaveCount(6);
