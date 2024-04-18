@@ -1,5 +1,3 @@
-import { Colors } from './shared';
-
 export const ExpectedText = {
   PromoBlocks: [
     'New Luma Yoga Collection Get fit and look fab in new seasonal styles Shop New Yoga',
@@ -13,6 +11,29 @@ export const ExpectedText = {
 };
 
 const Sizes = ['XS', 'S', 'M', 'L', 'XL'];
+
+export const Colors = {
+  Black: 'rgb(0, 0, 0)',
+  Blue: 'rgb(24, 87, 247)',
+  DarkGrey: 'rgb(51, 51, 51)',
+  Green: 'rgb(83, 168, 40)',
+  Grey: 'rgb(143, 143, 143)',
+  LightGrey: 'rgb(240, 240, 240)',
+  Orange: 'rgb(235, 103, 3)',
+  Pink: 'rgb(239, 61, 255)',
+  White: 'rgb(255, 255, 255)',
+  Yellow: 'rgb(255, 213, 0)',
+  Swatch: {
+    Selected: 'rgb(255, 85, 1)',
+    Size: {
+      Hovered: 'rgb(153, 153, 153)',
+      NotSelected: 'rgb(148, 148, 148)',
+    },
+    Color: {
+      Hovered: 'rgb(195, 64, 0)',
+    },
+  },
+};
 
 type Product = {
   title: string;
@@ -32,7 +53,7 @@ export const Products: Product[] = [
     reviews: '3 Reviews',
     price: 'As low as $22.00',
     sizes: Sizes,
-    colors: [Colors.ElectricBlue, Colors.Orange, Colors.Pink],
+    colors: [Colors.Blue, Colors.Orange, Colors.Pink],
     link: '/radiant-tee.html',
     images: {
       default: '/w/s/ws12-orange_main_2.jpg',
@@ -65,7 +86,7 @@ export const Products: Product[] = [
     title: 'Argus All-Weather Tank',
     price: 'As low as $22.00',
     sizes: Sizes,
-    colors: [Colors.MidGrey],
+    colors: [Colors.Grey],
     link: '/argus-all-weather-tank.html',
     images: {
       default: '/m/t/mt07-gray_main_1.jpg',
@@ -77,7 +98,7 @@ export const Products: Product[] = [
     title: 'Hero Hoodie',
     price: 'As low as $54.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.MidGrey, Colors.Green],
+    colors: [Colors.Black, Colors.Grey, Colors.Green],
     link: '/hero-hoodie.html',
     images: {
       default: '/m/h/mh07-gray_main_2.jpg',
@@ -112,14 +133,13 @@ export const Products: Product[] = [
 
 export const SwatchOutlineStyles = {
   Sizes: {
-    Selected: 'rgb(255, 85, 1) solid 2px',
-    // Firefox doesn't include "none" in the outline style
-    NotSelected: /rgb\(148, 148, 148\) (none )?0px/,
-    Hovered: 'rgb(153, 153, 153) solid 1px',
+    Selected: `${Colors.Swatch.Selected} solid 2px`,
+    NotSelected: `${Colors.Swatch.Size.NotSelected} none 0px`,
+    Hovered: `${Colors.Swatch.Size.Hovered} solid 1px`,
   },
   Colors: {
-    Selected: 'rgb(255, 85, 1) solid 2px',
-    Hovered: 'rgb(195, 64, 0) solid 2px',
+    Selected: `${Colors.Swatch.Selected} solid 2px`,
+    Hovered: `${Colors.Swatch.Color.Hovered} solid 2px`,
   },
 };
 

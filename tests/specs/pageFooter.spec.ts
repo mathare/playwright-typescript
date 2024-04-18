@@ -1,5 +1,4 @@
-import { ExpectedText, FooterLinks } from '../data/pageFooter';
-import { Colors } from '../data/shared';
+import { ExpectedText, Colors, FooterLinks } from '../data/pageFooter';
 import { elementCount } from '../helpers/elementUtils';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
@@ -23,7 +22,7 @@ test.describe('Page footer tests', () => {
     });
 
     test('Element styling', async () => {
-      await expect.soft(pageFooter.footer).toHaveCSS('background-color', Colors.LighterGrey);
+      await expect.soft(pageFooter.footer).toHaveCSS('background-color', Colors.LightGrey);
       await expect.soft(pageFooter.footer).toHaveCSS('color', Colors.DarkGrey);
       await expect.soft(pageFooter.copyrightFooter).toHaveCSS('background-color', Colors.Grey);
       await expect.soft(pageFooter.copyrightFooter).toHaveCSS('color', Colors.White);

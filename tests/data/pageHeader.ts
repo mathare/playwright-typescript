@@ -4,6 +4,13 @@ export const ExpectedText = {
   Topnav: ["What's New", 'Women', 'Men', 'Gear', 'Training', 'Sale'],
 };
 
+export const enum Colors {
+  DarkGrey = 'rgb(51, 51, 51)',
+  Grey = 'rgb(110, 113, 110)',
+  LightGrey = 'rgb(240, 240, 240)',
+  White = 'rgb(255, 255, 255)',
+}
+
 const TopnavLvl0 = {
   WhatsNew: '/what-is-new.html',
   Women: '/women.html',

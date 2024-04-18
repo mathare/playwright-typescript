@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import SignInPage from '../pages/signInPage';
-import { Colors } from '../data/shared';
-import { ErrorMessages, ExpectedText } from '../data/signInPage';
+import { ErrorMessages, ExpectedText, Colors } from '../data/signInPage';
 import { dummyCustomer, unregisteredUser } from '../data/users';
 import { MyAccountPage } from '../pages/myAccountPage';
 import { GreetingText } from '../data/myAccountPage';
@@ -97,7 +96,7 @@ test.describe('Sign in page tests', () => {
       await expect.soft(signInPage.loginButton).toHaveClass(/primary/);
       await expect.soft(signInPage.loginButton).toHaveCSS('background-color', Colors.Blue);
       await expect.soft(signInPage.loginButton).toHaveCSS('color', Colors.White);
-      await expect.soft(signInPage.forgottenPasswordLink).toHaveCSS('color', Colors.LinkBlue);
+      await expect.soft(signInPage.forgottenPasswordLink).toHaveCSS('color', Colors.Link);
       await expect.soft(signInPage.createAccountButton).toHaveClass(/primary/);
       await expect.soft(signInPage.createAccountButton).toHaveCSS('background-color', Colors.Blue);
       await expect.soft(signInPage.createAccountButton).toHaveCSS('color', Colors.White);

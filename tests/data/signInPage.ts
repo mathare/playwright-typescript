@@ -18,3 +18,10 @@ export const ExpectedText = {
     'Creating an account has many benefits: check out faster, keep more than one address, track orders and more.',
   CreateAccountButton: 'Create an Account',
 };
+
+export const Colors = {
+  Blue: 'rgb(25, 121, 195)',
+  DarkGrey: 'rgb(51, 51, 51)',
+  Link: 'rgb(0, 107, 180)',
+  White: 'rgb(255, 255, 255)',
+};

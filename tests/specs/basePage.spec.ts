@@ -1,5 +1,4 @@
-import { ExpectedText, GlobalMessageStyle } from '../data/basePage';
-import { Colors } from '../data/shared';
+import { ExpectedText, Colors, GlobalMessageStyle } from '../data/basePage';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
 

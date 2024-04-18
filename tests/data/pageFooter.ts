@@ -13,6 +13,13 @@ export const ExpectedText = {
     'We know you have an assignment to complete. If this site is not functioning as expected, drop us an email. Copyright © 2013-present Magento, Inc. All rights reserved.',
 };
 
+export const Colors = {
+  DarkGrey: 'rgb(51, 51, 51)',
+  Grey: 'rgb(110, 113, 110)',
+  LightGrey: 'rgb(244, 244, 244)',
+  White: 'rgb(255, 255, 255)',
+};
+
 export const FooterLinks = [
   'https://softwaretestingboard.com/magento-store-notes/?utm_source=magento_store&utm_medium=banner&utm_campaign=notes_promo&utm_id=notes_promotion',
   'https://softwaretestingboard.com/practice-api-testing-using-magento-2/?utm_source=magento_store&utm_medium=banner&utm_campaign=notes_promo&utm_id=API_Testing_Promo',
