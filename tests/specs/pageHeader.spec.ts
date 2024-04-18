@@ -1,5 +1,4 @@
-import { ExpectedText, Links } from '../data/pageHeader';
-import { Colors } from '../data/shared';
+import { ExpectedText, Colors, Links } from '../data/pageHeader';
 import { elementCount } from '../helpers/elementUtils';
 import { test, expect } from '@playwright/test';
 import PageHeader from '../pages/pageHeader';
