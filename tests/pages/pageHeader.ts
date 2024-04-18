@@ -2,10 +2,10 @@ import { Locator, Page } from '@playwright/test';
 
 export default class PageHeader {
   readonly page: Page;
-  readonly globalMessage: Locator;
   readonly header: Locator;
   readonly banner: Locator;
   readonly bannerLink: Locator;
+  readonly greeting: Locator;
   readonly logo: Locator;
   readonly searchInput: Locator;
   readonly cartLink: Locator;
@@ -15,10 +15,10 @@ export default class PageHeader {
 
   constructor(page: Page) {
     this.page = page;
-    this.globalMessage = page.locator('.global.message');
     this.header = page.locator('header.page-header');
     this.banner = this.header.locator('.panel.wrapper');
     this.bannerLink = this.banner.locator('li a');
+    this.greeting = this.banner.locator('.greet.welcome');
     this.logo = this.header.locator('a.logo');
     this.searchInput = this.header.locator('input#search');
     this.cartLink = this.header.locator('a.showcart');
