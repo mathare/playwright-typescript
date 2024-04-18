@@ -5,6 +5,10 @@ import SignInPage from '../pages/signInPage';
 import { dummyCustomer } from '../data/users';
 import { elementCount } from '../helpers/elementUtils';
 
+const Timeouts = {
+  Visual: 20000,
+};
+
 test.describe('Account page tests', () => {
   let accountPage: MyAccountPage;
   test.beforeEach(async ({ page, baseURL }) => {
@@ -112,7 +116,7 @@ test.describe('Account page tests', () => {
     test('Default page appearance', async () => {
       await expect(accountPage.mainContent).toHaveScreenshot('default.png', {
         mask: [accountPage.adsWidget],
-        timeout: 20000,
+        timeout: Timeouts.Visual,
       });
     });
   });

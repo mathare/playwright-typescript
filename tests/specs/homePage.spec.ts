@@ -4,6 +4,11 @@ import { ExpectedText, Products, PromoBlockLinks, SwatchOutlineStyles, Colors } 
 import { rgbToHex } from '../helpers/colorUtils';
 import { elementCount } from '../helpers/elementUtils';
 
+const Timeouts = {
+  ImageLink: 10000,
+  Visual: 20000,
+};
+
 test.describe('Home page tests', () => {
   let homePage: HomePage;
   test.beforeEach(async ({ page }) => {
@@ -153,13 +158,13 @@ test.describe('Home page tests', () => {
     test('Default page appearance', async () => {
       await expect(homePage.mainContent).toHaveScreenshot('default.png', {
         mask: [homePage.adsWidget],
-        timeout: 20000,
+        timeout: Timeouts.Visual,
       });
     });
 
     test('Product hover', async () => {
       await homePage.productItem.nth(0).hover();
-      await expect(homePage.productsGrid).toHaveScreenshot('productHover.png', { timeout: 20000 });
+      await expect(homePage.productsGrid).toHaveScreenshot('productHover.png', { timeout: Timeouts.Visual });
     });
 
     // There is no need for visual testing of the product images for the various colour options as we can verify
@@ -218,7 +223,7 @@ test.describe('Home page tests', () => {
               : `${baseURL}${mediaDir}${Products[i].images.sizes}`;
             await expect
               .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
-              .toHaveAttribute('src', imageLink, { timeout: 10000 });
+              .toHaveAttribute('src', imageLink, { timeout: Timeouts.ImageLink });
           }
         }
       }
@@ -234,7 +239,7 @@ test.describe('Home page tests', () => {
             const imageLink = `${baseURL}${mediaDir}${Products[i].images.colors[j]}`;
             await expect
               .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
-              .toHaveAttribute('src', imageLink, { timeout: 10000 });
+              .toHaveAttribute('src', imageLink, { timeout: Timeouts.ImageLink });
           }
         }
       }

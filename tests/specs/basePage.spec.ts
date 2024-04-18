@@ -2,6 +2,10 @@ import { ExpectedText, Colors, GlobalMessageStyle } from '../data/basePage';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
 
+const Timeouts = {
+  Visual: 20000,
+};
+
 test.describe('Base page tests', () => {
   let basePage: BasePage;
   test.beforeEach(async ({ page }) => {
@@ -37,7 +41,7 @@ test.describe('Base page tests', () => {
   test.describe('Visual tests', () => {
     test('Default global message appearance', async () => {
       await expect(basePage.globalMessage).toHaveScreenshot('message.png', {
-        timeout: 20000,
+        timeout: Timeouts.Visual,
       });
     });
   });
