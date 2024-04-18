@@ -5,6 +5,10 @@ import { dummyCustomer, unregisteredUser } from '../data/users';
 import { MyAccountPage } from '../pages/myAccountPage';
 import { GreetingText } from '../data/myAccountPage';
 
+const Timeouts = {
+  Visual: 20000,
+};
+
 test.describe('Sign in page tests', () => {
   let signInPage: SignInPage;
   test.beforeEach(async ({ page }) => {
@@ -120,7 +124,7 @@ test.describe('Sign in page tests', () => {
     test('Visual test', async () => {
       await expect(signInPage.mainContent).toHaveScreenshot('default.png', {
         mask: [signInPage.adsWidget],
-        timeout: 20000,
+        timeout: Timeouts.Visual,
       });
     });
   });

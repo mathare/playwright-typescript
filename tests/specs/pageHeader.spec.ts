@@ -4,6 +4,10 @@ import { test, expect } from '@playwright/test';
 import PageHeader from '../pages/pageHeader';
 import BasePage from '../pages/basePage';
 
+const Timeouts = {
+  Visual: 20000,
+};
+
 test.describe('Page header tests', () => {
   let pageHeader: PageHeader;
   test.beforeEach(async ({ page }) => {
@@ -46,10 +50,10 @@ test.describe('Page header tests', () => {
   test.describe('Visual tests', () => {
     test('Default page header appearance', async () => {
       await expect(pageHeader.header).toHaveScreenshot('header.png', {
-        timeout: 20000,
+        timeout: Timeouts.Visual,
       });
       await expect(pageHeader.topnav).toHaveScreenshot('topnav.png', {
-        timeout: 20000,
+        timeout: Timeouts.Visual,
       });
     });
   });
