@@ -12,7 +12,7 @@ test.describe('Base page tests', () => {
   });
 
   test.describe('Appearance tests', () => {
-    // This is an example of performing visual-style testing without actual using image comparison but asserting against various element properties
+    // This is an example of performing visual-style testing by asserting against various element properties rather than actually using image comparison
     // The tests could be combined but I have split them here to make them easier to read and maintain
 
     test('Common page elements displayed', async () => {
