@@ -21,16 +21,16 @@ test.describe('Account page tests', () => {
 
     test('Main page elements displayed', async () => {
       await expect.soft(accountPage.globalMessage).toBeVisible();
-      await expect.soft(accountPage.pageHeader).toBeVisible();
-      await expect.soft(accountPage.topnav).toBeVisible();
+      await expect.soft(accountPage.pageHeader.header).toBeVisible();
+      await expect.soft(accountPage.pageHeader.topnav).toBeVisible();
       await expect.soft(accountPage.mainBlock).toBeVisible();
       await expect.soft(accountPage.primarySidenav).toBeVisible();
       await expect.soft(accountPage.secondarySidenav).toBeVisible();
       await expect.soft(accountPage.pageTitle).toBeVisible();
       await expect.soft(accountPage.accountInfoBlock).toBeVisible();
       await expect.soft(accountPage.addressBookBlock).toBeVisible();
-      await expect.soft(accountPage.pageFooter).toBeVisible();
-      await expect.soft(accountPage.copyrightFooter).toBeVisible();
+      await expect.soft(accountPage.pageFooter.footer).toBeVisible();
+      await expect.soft(accountPage.pageFooter.copyrightFooter).toBeVisible();
     });
 
     test('Element styling', async () => {

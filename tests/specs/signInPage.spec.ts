@@ -19,7 +19,7 @@ test.describe('Sign in page tests', () => {
         const accountPage = new MyAccountPage(page);
         await signInPage.loginAs(dummyCustomer.email, dummyCustomer.password);
         await expect(page).toHaveURL(`${baseURL}${accountPage.url}`);
-        await expect.soft(accountPage.greeting).toHaveText(GreetingText(dummyCustomer.name));
+        await expect.soft(accountPage.pageHeader.greeting).toHaveText(GreetingText(dummyCustomer.name));
       });
     });
 
@@ -78,8 +78,8 @@ test.describe('Sign in page tests', () => {
 
     test('Main page elements displayed', async () => {
       await expect.soft(signInPage.globalMessage).toBeVisible();
-      await expect.soft(signInPage.pageHeader).toBeVisible();
-      await expect.soft(signInPage.topnav).toBeVisible();
+      await expect.soft(signInPage.pageHeader.header).toBeVisible();
+      await expect.soft(signInPage.pageHeader.topnav).toBeVisible();
       await expect.soft(signInPage.pageTitle).toBeVisible();
       await expect.soft(signInPage.existingCustomerBlock).toBeVisible();
       await expect.soft(signInPage.emailInput).toBeVisible();
@@ -88,8 +88,8 @@ test.describe('Sign in page tests', () => {
       await expect.soft(signInPage.forgottenPasswordLink).toBeVisible();
       await expect.soft(signInPage.newCustomerBlock).toBeVisible();
       await expect.soft(signInPage.createAccountButton).toBeVisible();
-      await expect.soft(signInPage.pageFooter).toBeVisible();
-      await expect.soft(signInPage.copyrightFooter).toBeVisible();
+      await expect.soft(signInPage.pageFooter.footer).toBeVisible();
+      await expect.soft(signInPage.pageFooter.copyrightFooter).toBeVisible();
     });
 
     test('Element styling', async () => {
