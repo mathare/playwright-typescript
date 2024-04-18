@@ -12,7 +12,7 @@ export const ExpectedText = {
 
 const Sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
-const Colors = {
+export const Colors = {
   Black: 'rgb(0, 0, 0)',
   Blue: 'rgb(24, 87, 247)',
   DarkGrey: 'rgb(51, 51, 51)',

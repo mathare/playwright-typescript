@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { HomePage, ProductItemElements } from '../pages/homePage';
-import { Colors } from '../data/shared';
-import { ExpectedText, Products, PromoBlockLinks, SwatchOutlineStyles } from '../data/homePage';
+import { ExpectedText, Products, PromoBlockLinks, SwatchOutlineStyles, Colors } from '../data/homePage';
 import { rgbToHex } from '../helpers/colorUtils';
 import { elementCount } from '../helpers/elementUtils';
 
