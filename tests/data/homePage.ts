@@ -15,8 +15,10 @@ const Sizes = ['XS', 'S', 'M', 'L', 'XL'];
 const Colors = {
   Black: 'rgb(0, 0, 0)',
   Blue: 'rgb(24, 87, 247)',
+  DarkGrey: 'rgb(51, 51, 51)',
   Green: 'rgb(83, 168, 40)',
   Grey: 'rgb(143, 143, 143)',
+  LightGrey: 'rgb(240, 240, 240)',
   Orange: 'rgb(235, 103, 3)',
   Pink: 'rgb(239, 61, 255)',
   White: 'rgb(255, 255, 255)',
