@@ -3,7 +3,6 @@ import BasePage from './basePage';
 
 export class MyAccountPage extends BasePage {
   url = '/customer/account/';
-  readonly greeting: Locator;
   readonly mainContent: Locator;
   readonly mainBlock: Locator;
   readonly primarySidenav: Locator;
@@ -28,7 +27,6 @@ export class MyAccountPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.greeting = this.banner.locator('.greet.welcome');
     this.mainContent = this.page.locator('#maincontent');
     this.mainBlock = this.page.locator('.column.main');
     this.primarySidenav = this.page.locator('.sidebar-main .content');
