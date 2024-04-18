@@ -45,6 +45,17 @@ test.describe('Page header tests', () => {
     });
   });
 
+  test.describe('Visual tests', () => {
+    test('Default page header appearance', async () => {
+      await expect(pageHeader.header).toHaveScreenshot('header.png', {
+        timeout: 20000,
+      });
+      await expect(pageHeader.topnav).toHaveScreenshot('topnav.png', {
+        timeout: 20000,
+      });
+    });
+  });
+
   test.describe('Link tests', () => {
     test('Banner links', async ({ baseURL }) => {
       await expect.soft(pageHeader.bannerLink.first()).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));

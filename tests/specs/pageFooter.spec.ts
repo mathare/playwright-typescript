@@ -39,6 +39,17 @@ test.describe('Page footer tests', () => {
     });
   });
 
+  test.describe('Visual tests', () => {
+    test('Default page footer appearance', async () => {
+      await expect(pageFooter.footer).toHaveScreenshot('footer.png', {
+        timeout: 20000,
+      });
+      await expect(pageFooter.copyrightFooter).toHaveScreenshot('copyrightFooter.png', {
+        timeout: 20000,
+      });
+    });
+  });
+
   test.describe('Link tests', () => {
     test('Footer links', async ({ baseURL }) => {
       const footerLinks = pageFooter.footerLink;

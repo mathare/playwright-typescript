@@ -34,4 +34,12 @@ test.describe('Base page tests', () => {
       await expect.soft(basePage.globalMessage).toHaveText(ExpectedText.GlobalMessage);
     });
   });
+
+  test.describe('Visual tests', () => {
+    test('Default global message appearance', async () => {
+      await expect(basePage.globalMessage).toHaveScreenshot('message.png', {
+        timeout: 20000,
+      });
+    });
+  });
 });
