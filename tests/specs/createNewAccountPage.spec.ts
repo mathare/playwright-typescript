@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import CreateNewAccountPage from '../pages/createNewAccountPage';
+import { CreateNewAccountPage, FormBlockElements } from '../pages/createNewAccountPage';
+import { Colors, ExpectedText } from '../data/createNewAccountPage';
 
 test.describe('Create New Account page tests', () => {
   let createNewAccountPage: CreateNewAccountPage;
@@ -24,8 +25,35 @@ test.describe('Create New Account page tests', () => {
     });
 
     test('Create account form elements', async () => {
+      await expect.soft(createNewAccountPage.fieldset).toHaveCount(2);
       await expect.soft(createNewAccountPage.personalInfoBlock).toBeVisible();
       await expect.soft(createNewAccountPage.signInInfoBlock).toBeVisible();
       await expect.soft(createNewAccountPage.createAccountButton).toBeVisible();
     });
+
+    test('Element styling', async () => {
+      await expect.soft(createNewAccountPage.mainBlock).toHaveCSS('background-color', Colors.Background);
+      await expect.soft(createNewAccountPage.mainBlock).toHaveCSS('color', Colors.Font);
+      await expect.soft(createNewAccountPage.createAccountButton).toHaveCSS('background-color', Colors.PrimaryButton);
+      await expect.soft(createNewAccountPage.createAccountButton).toHaveCSS('color', Colors.White);
+      await expect.soft(createNewAccountPage.createAccountButton).toHaveClass(/primary/);
+    });
+
+    test('Text content of page elements', async () => {
+      await expect.soft(createNewAccountPage.pageTitle).toHaveText(ExpectedText.Title);
+      const fieldsets = createNewAccountPage.fieldset;
+      await expect.soft(fieldsets).toHaveCount(ExpectedText.Form.length);
+      for (let i = 0; i < (await fieldsets.count()); i++) {
+        await expect
+          .soft(createNewAccountPage.formElement(i, FormBlockElements.Title))
+          .toHaveText(ExpectedText.Form[i].Title);
+        const labels = createNewAccountPage.formElement(i, FormBlockElements.Label);
+        await expect.soft(labels).toHaveCount(ExpectedText.Form[i].Labels.length);
+        for (let j = 0; j < (await labels.count()); j++) {
+          await expect.soft(labels.nth(j)).toHaveText(ExpectedText.Form[i].Labels[j]);
+        }
+      }
+      await expect(createNewAccountPage.createAccountButton).toHaveText(ExpectedText.Button);
+    });
+  });
 });
