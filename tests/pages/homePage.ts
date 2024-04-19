@@ -18,11 +18,11 @@ export class HomePage extends BasePage {
     this.productItem = this.productsGrid.locator('li.product-item');
   }
 
-  async open() {
+  async open() : Promise<void> {
     await super.open(this.url);
   }
 
-  getProductItemElement(productIndex: number, element: ProductItemElements) {
+  getProductItemElement(productIndex: number, element: ProductItemElements): Locator {
     return this.productItem.nth(productIndex).locator(element);
   }
 }

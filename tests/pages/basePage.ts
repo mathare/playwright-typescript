@@ -18,7 +18,7 @@ export default class BasePage {
     this.pageFooter = new PageFooter(page);
   }
 
-  async open(url: string) {
+  async open(url: string): Promise<void> {
     // Firefox can be VERY slow to load the page it seems so use a large timeout even though it exceeds the configured test timeout for most browsers
     await this.page.goto(url, { timeout: 90000 });
     if (process.platform === 'win32') {
