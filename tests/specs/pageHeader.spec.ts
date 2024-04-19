@@ -1,4 +1,4 @@
-import { ExpectedText, Colors, Links } from '../data/pageHeader';
+import { ExpectedText, Colors, Links, TopnavLvl0 } from '../data/pageHeader';
 import { elementCount } from '../helpers/elementUtils';
 import { test, expect } from '@playwright/test';
 import PageHeader from '../pages/pageHeader';
@@ -41,7 +41,7 @@ test.describe('Page header tests', () => {
       await expect.soft(pageHeader.searchInput).toBeEmpty();
       await expect.soft(pageHeader.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
       const topnavLinks = pageHeader.topnavLvl0Link;
-      for (let i = 0; i < (await elementCount(topnavLinks)); i++) {
+      for (let i = 0; i < (await elementCount(topnavLinks, ExpectedText.Topnav.length)); i++) {
         await expect.soft(topnavLinks.nth(i)).toHaveText(ExpectedText.Topnav[i]);
       }
     });
@@ -76,7 +76,8 @@ test.describe('Page header tests', () => {
 
     test('Topnav links', async ({ baseURL }) => {
       const lvl0Links = pageHeader.topnavLvl0Link;
-      for (let i = 0; i < (await elementCount(lvl0Links)); i++) {
+      const lvl0Count = Object.keys(TopnavLvl0).length;
+      for (let i = 0; i < (await elementCount(lvl0Links, lvl0Count)); i++) {
         const lvl0Text = (await lvl0Links.nth(i).innerText()).replace(/\W+/g, '');
         await expect.soft(lvl0Links.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Topnav[lvl0Text]}`);
 
@@ -86,7 +87,8 @@ test.describe('Page header tests', () => {
         // would with a website under my control
         if (lvl0Text !== 'WhatsNew' && lvl0Text !== 'Sale') {
           const subMenuLinks = await pageHeader.getTopnavSubMenuLinks(i);
-          for (let j = 0; j < (await elementCount(subMenuLinks)); j++) {
+          const subMenuCount = Object.keys(Links.Topnav[`${lvl0Text}SubMenu`]).length;
+          for (let j = 0; j < (await elementCount(subMenuLinks, subMenuCount)); j++) {
             const subMenuText = (await subMenuLinks.nth(j).innerText()).replace(/\W+/g, '');
             await expect
               .soft(subMenuLinks.nth(j))
