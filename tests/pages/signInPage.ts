@@ -47,7 +47,7 @@ export default class SignInPage extends BasePage {
     this.createAccountButton = this.newCustomerBlock.locator('a.action.create');
   }
 
-  async open() {
+  async open(): Promise<void>  {
     await super.open(this.url);
   }
 

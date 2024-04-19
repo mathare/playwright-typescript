@@ -50,10 +50,10 @@ export const ExpectedText = {
   },
 };
 
-export enum Colors {
-  Grey = 'rgb(245, 245, 245)',
-  White = 'rgba(0, 0, 0, 0)',
-}
+export const Colors = {
+  Grey: 'rgb(245, 245, 245)',
+  White: 'rgba(0, 0, 0, 0)',
+};
 
 export const Links = {
   Sidenav: [

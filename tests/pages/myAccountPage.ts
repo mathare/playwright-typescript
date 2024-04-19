@@ -51,11 +51,11 @@ export class MyAccountPage extends BasePage {
     this.wishlistContent = this.wishlistBlock.locator('.block-content');
   }
 
-  async open() {
+  async open(): Promise<void> {
     await super.open(this.url);
   }
 
-  getBlockElement(block: Locator, element: BlockElements) {
+  getBlockElement(block: Locator, element: BlockElements): Locator {
     return block.locator(element);
   }
 }
