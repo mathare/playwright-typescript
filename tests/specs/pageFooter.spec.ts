@@ -1,5 +1,4 @@
 import { ExpectedText, Colors, FooterLinks } from '../data/pageFooter';
-import { elementCount } from '../helpers/elementUtils';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
 import PageFooter from '../pages/pageFooter';
@@ -34,7 +33,8 @@ test.describe('Page footer tests', () => {
 
     test('Text content of page elements', async () => {
       const footerLinks = pageFooter.footerLink;
-      for (let i = 0; i < (await elementCount(footerLinks)); i++) {
+      expect.soft(await footerLinks.count()).toEqual(ExpectedText.FooterLinks.length);
+      for (let i = 0; i < (await footerLinks.count()); i++) {
         await expect.soft(footerLinks.nth(i)).toHaveText(ExpectedText.FooterLinks[i]);
       }
       await expect.soft(pageFooter.copyrightFooter).toHaveText(ExpectedText.Copyright);
@@ -55,7 +55,8 @@ test.describe('Page footer tests', () => {
   test.describe('Link tests', () => {
     test('Footer links', async ({ baseURL }) => {
       const footerLinks = pageFooter.footerLink;
-      for (let i = 0; i < (await elementCount(footerLinks)); i++) {
+      expect.soft(await footerLinks.count()).toEqual(FooterLinks.length);
+      for (let i = 0; i < (await footerLinks.count()); i++) {
         const expectedLink = FooterLinks[i].startsWith('https') ? FooterLinks[i] : `${baseURL}${FooterLinks[i]}`;
         await expect.soft(footerLinks.nth(i)).toHaveAttribute('href', expectedLink);
       }

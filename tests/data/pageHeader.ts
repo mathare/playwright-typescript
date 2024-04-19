@@ -11,7 +11,7 @@ export const enum Colors {
   White = 'rgb(255, 255, 255)',
 }
 
-const TopnavLvl0 = {
+export const TopnavLvl0 = {
   WhatsNew: '/what-is-new.html',
   Women: '/women.html',
   Men: '/men.html',
