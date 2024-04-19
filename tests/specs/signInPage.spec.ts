@@ -19,10 +19,10 @@ test.describe('Sign in page tests', () => {
   test.describe('Behavioural tests', () => {
     test.describe('Successful logins', () => {
       test('Login successfully', async ({ page, baseURL }) => {
-        const accountPage = new MyAccountPage(page);
+        const myAccountPage = new MyAccountPage(page);
         await signInPage.loginAs(dummyCustomer.email, dummyCustomer.password);
-        await expect(page).toHaveURL(`${baseURL}${accountPage.url}`);
-        await expect.soft(accountPage.pageHeader.greeting).toHaveText(GreetingText(dummyCustomer.name));
+        await expect(page).toHaveURL(`${baseURL}${myAccountPage.url}`);
+        await expect.soft(myAccountPage.pageHeader.greeting).toHaveText(GreetingText(dummyCustomer.name));
       });
     });
 
