@@ -52,13 +52,13 @@ test.describe('Account page tests', () => {
         .soft(accountPage.getBlockElement(accountPage.contactInfoBlock, BlockElements.Content))
         .toHaveText(`${dummyCustomer.name}\n${dummyCustomer.email}`);
       let actions = accountPage.getBlockElement(accountPage.contactInfoBlock, BlockElements.Actions);
-      expect(await actions.count()).toEqual(ExpectedText.AccountInfo.ContactInfo.Actions.length);
+      expect.soft(await actions.count()).toEqual(ExpectedText.AccountInfo.ContactInfo.Actions.length);
       for (let i = 0; i < (await actions.count()); i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AccountInfo.ContactInfo.Actions[i]);
       }
       await expect.soft(accountPage.addressBookTitle).toHaveText(ExpectedText.AddressBook.Title);
       actions = accountPage.addressBookActions;
-      expect(await actions.count()).toEqual(ExpectedText.AddressBook.Actions.length);
+      expect.soft(await actions.count()).toEqual(ExpectedText.AddressBook.Actions.length);
       for (let i = 0; i < (await actions.count()); i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.Actions[i]);
       }
@@ -69,7 +69,7 @@ test.describe('Account page tests', () => {
         .soft(accountPage.getBlockElement(accountPage.billingAddressBlock, BlockElements.Content))
         .toHaveText(ExpectedText.AddressBook.BillingAddress.Placeholder);
       actions = accountPage.getBlockElement(accountPage.billingAddressBlock, BlockElements.Actions);
-      expect(await actions.count()).toEqual(ExpectedText.AddressBook.BillingAddress.Actions.length);
+      expect.soft(await actions.count()).toEqual(ExpectedText.AddressBook.BillingAddress.Actions.length);
       for (let i = 0; i < (await actions.count()); i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.BillingAddress.Actions[i]);
       }
@@ -80,12 +80,12 @@ test.describe('Account page tests', () => {
         .soft(accountPage.getBlockElement(accountPage.shippingAddressBlock, BlockElements.Content))
         .toHaveText(ExpectedText.AddressBook.ShippingAddress.Placeholder);
       actions = accountPage.getBlockElement(accountPage.shippingAddressBlock, BlockElements.Actions);
-      expect(await actions.count()).toEqual(ExpectedText.AddressBook.ShippingAddress.Actions.length);
+      expect.soft(await actions.count()).toEqual(ExpectedText.AddressBook.ShippingAddress.Actions.length);
       for (let i = 0; i < (await actions.count()); i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.ShippingAddress.Actions[i]);
       }
       const sidenavOptions = accountPage.sidenavOption;
-      expect(await sidenavOptions.count()).toEqual(ExpectedText.PrimarySidenav.length);
+      expect.soft(await sidenavOptions.count()).toEqual(ExpectedText.PrimarySidenav.length);
       for (let i = 0; i < (await sidenavOptions.count()); i++) {
         await expect.soft(sidenavOptions.nth(i)).toHaveText(ExpectedText.PrimarySidenav[i]);
       }
@@ -104,7 +104,7 @@ test.describe('Account page tests', () => {
     test('My Account sidenav option selected by default', async () => {
       const selectedClass = /current/;
       const sidenavOptions = accountPage.sidenavOption;
-      expect(await sidenavOptions.count()).toEqual(ExpectedText.PrimarySidenav.length);
+      expect.soft(await sidenavOptions.count()).toEqual(ExpectedText.PrimarySidenav.length);
       await expect(sidenavOptions.first()).toHaveClass(selectedClass);
       for (let i = 1; i < (await sidenavOptions.count()); i++) {
         await expect.soft(sidenavOptions.nth(i)).not.toHaveClass(selectedClass);
@@ -129,7 +129,7 @@ test.describe('Account page tests', () => {
   test.describe('Link tests', () => {
     test('Sidenav links', async ({ baseURL }) => {
       const sidenavLinks = accountPage.sidenavLink;
-      expect(await sidenavLinks.count()).toEqual(Links.Sidenav.length);
+      expect.soft(await sidenavLinks.count()).toEqual(Links.Sidenav.length);
       for (let i = 0; i < (await sidenavLinks.count()); i++) {
         await expect.soft(sidenavLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Sidenav[i]}`);
       }
@@ -137,7 +137,7 @@ test.describe('Account page tests', () => {
 
     test('Account info links', async ({ baseURL }) => {
       const actionLinks = accountPage.getBlockElement(accountPage.contactInfoBlock, BlockElements.Actions);
-      expect(await actionLinks.count()).toEqual(Links.ContactInfoActions.length);
+      expect.soft(await actionLinks.count()).toEqual(Links.ContactInfoActions.length);
       for (let i = 0; i < (await actionLinks.count()); i++) {
         await expect.soft(actionLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.ContactInfoActions[i]}`);
       }

@@ -40,7 +40,7 @@ test.describe('Page header tests', () => {
       await expect.soft(pageHeader.searchInput).toBeEmpty();
       await expect.soft(pageHeader.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
       const topnavLinks = pageHeader.topnavLvl0Link;
-      expect(await topnavLinks.count()).toEqual(ExpectedText.Topnav.length);
+      expect.soft(await topnavLinks.count()).toEqual(ExpectedText.Topnav.length);
       for (let i = 0; i < (await topnavLinks.count()); i++) {
         await expect.soft(topnavLinks.nth(i)).toHaveText(ExpectedText.Topnav[i]);
       }
@@ -76,7 +76,7 @@ test.describe('Page header tests', () => {
 
     test('Topnav links', async ({ baseURL }) => {
       const lvl0Links = pageHeader.topnavLvl0Link;
-      expect(await lvl0Links.count()).toEqual(Object.keys(TopnavLvl0).length);
+      expect.soft(await lvl0Links.count()).toEqual(Object.keys(TopnavLvl0).length);
       for (let i = 0; i < (await lvl0Links.count()); i++) {
         const lvl0Text = (await lvl0Links.nth(i).innerText()).replace(/\W+/g, '');
         await expect.soft(lvl0Links.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Topnav[lvl0Text]}`);
@@ -87,7 +87,7 @@ test.describe('Page header tests', () => {
         // would with a website under my control
         if (lvl0Text !== 'WhatsNew' && lvl0Text !== 'Sale') {
           const subMenuLinks = await pageHeader.getTopnavSubMenuLinks(i);
-          expect(await subMenuLinks.count()).toEqual(Object.keys(Links.Topnav[`${lvl0Text}SubMenu`]).length);
+          expect.soft(await subMenuLinks.count()).toEqual(Object.keys(Links.Topnav[`${lvl0Text}SubMenu`]).length);
           for (let j = 0; j < (await subMenuLinks.count()); j++) {
             const subMenuText = (await subMenuLinks.nth(j).innerText()).replace(/\W+/g, '');
             await expect
