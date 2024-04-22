@@ -7,6 +7,10 @@ const Timeouts = {
 };
 
 test.describe('Create New Account page tests', () => {
+  // NB There are no tests that actually create a new account within this spec as the application under test is a third-party website operating
+  // in a production environment. Such testing should generally not be performed in production and as the website is outside of my control I
+  // am also unable to teardown test data creating during these tests so would effectively be polluting production databases
+
   let createNewAccountPage: CreateNewAccountPage;
   test.beforeEach(async ({ page }) => {
     createNewAccountPage = new CreateNewAccountPage(page);
@@ -127,4 +131,10 @@ test.describe('Create New Account page tests', () => {
           .toHaveText(ExpectedText.ValidationErrors.Required);
       }
     });
+
+    // I would usually also have a test to show that existing validation errors are cleared once the input value is valid
+    // but as the data validation is only triggered by clicking the submit button rather than on blur such a test would
+    // require the form to be completed with valid data and submitted, which itself would trigger creating a new account
+    // and as per the earlier comment such tests are difficult for third-party applications in production environments
+
 });
