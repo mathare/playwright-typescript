@@ -2,6 +2,10 @@ import { test, expect } from '@playwright/test';
 import { CreateNewAccountPage, FormBlockElements } from '../pages/createNewAccountPage';
 import { Colors, ExpectedText } from '../data/createNewAccountPage';
 
+const Timeouts = {
+  Visual: 20000,
+};
+
 test.describe('Create New Account page tests', () => {
   let createNewAccountPage: CreateNewAccountPage;
   test.beforeEach(async ({ page }) => {
@@ -79,6 +83,15 @@ test.describe('Create New Account page tests', () => {
         .soft(createNewAccountPage.passwordStrengthIndicator)
         .toHaveText(ExpectedText.SignInInfo.PasswordStrength.None);
       await expect(createNewAccountPage.createAccountButton).toHaveText(ExpectedText.Button);
+    });
+  });
+
+  test.describe('Visual tests', () => {
+    test('Default page appearance', async () => {
+      await expect(createNewAccountPage.mainContent).toHaveScreenshot('default.png', {
+        mask: [createNewAccountPage.adsWidget],
+        timeout: Timeouts.Visual,
+      });
     });
   });
 });
