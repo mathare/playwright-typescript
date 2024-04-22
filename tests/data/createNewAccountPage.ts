@@ -1,18 +1,19 @@
 export const ExpectedText = {
   Title: 'Create New Customer Account',
-  PersonalInfo: { Title: 'Personal Information', Labels: ['First Name', 'Last Name'] },
-  SignInInfo: {
-    Title: 'Sign-in Information',
-    Labels: ['Email', 'Password', 'Confirm Password'],
-    PasswordStrength: {
-      None: 'Password Strength: No Password',
-      Weak: 'Password Strength: Weak',
-      Medium: 'Password Strength: Medium',
-      Strong: 'Password Strength: Strong',
-      VeryStrong: 'Password Strength: Very Strong',
-    },
+  BlockTitles: {
+    PersonalInfo: 'Personal Information',
+    SignInInfo: 'Sign-in Information',
+  },
+  Fields: ['First Name', 'Last Name', 'Email', 'Password', 'Confirm Password'],
+  PasswordStrength: {
+    None: 'Password Strength: No Password',
+    Weak: 'Password Strength: Weak',
+    Medium: 'Password Strength: Medium',
+    Strong: 'Password Strength: Strong',
+    VeryStrong: 'Password Strength: Very Strong',
   },
   Button: 'Create an Account',
+  ValidationError: 'This is a required field.',
 };
 
 export const Colors = {

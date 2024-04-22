@@ -8,6 +8,8 @@ export class CreateNewAccountPage extends BasePage {
   readonly mainBlock: Locator;
   readonly createAccountForm: Locator;
   readonly fieldset: Locator;
+  readonly blockTitle: Locator;
+  readonly field: Locator;
   readonly personalInfoBlock: Locator;
   readonly signInInfoBlock: Locator;
   readonly passwordStrengthIndicator: Locator;
@@ -20,6 +22,8 @@ export class CreateNewAccountPage extends BasePage {
     this.mainBlock = this.page.locator('.column.main');
     this.createAccountForm = this.mainBlock.locator('form.form-create-account');
     this.fieldset = this.createAccountForm.locator('fieldset');
+    this.blockTitle = this.createAccountForm.locator('legend.legend');
+    this.field = this.createAccountForm.locator('div.field');
     this.personalInfoBlock = this.createAccountForm.locator('fieldset.create.info');
     this.signInInfoBlock = this.createAccountForm.locator('fieldset.create.account');
     this.passwordStrengthIndicator = this.signInInfoBlock.locator('#password-strength-meter');
@@ -30,13 +34,21 @@ export class CreateNewAccountPage extends BasePage {
     await super.open(this.url);
   }
 
-  formElement(index: number, element: FormBlockElements): Locator {
-    return this.fieldset.nth(index).locator(element);
+  formElement(index: number, element: FieldElements): Locator {
+    return this.field.nth(index).locator(element);
   }
 }
 
-export enum FormBlockElements {
-  Title = 'legend.legend',
-  Field = 'div.field',
-  Label = `${Field} label`,
+export enum Fields {
+  FirstName,
+  LastName,
+  Email,
+  Password,
+  ConfirmPassword,
+}
+
+export enum FieldElements {
+  Label = 'label',
+  Input = 'input',
+  ValidationError = 'div.mage-error',
 }

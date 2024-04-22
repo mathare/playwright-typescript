@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { CreateNewAccountPage, FormBlockElements } from '../pages/createNewAccountPage';
+import { CreateNewAccountPage, FieldElements, Fields } from '../pages/createNewAccountPage';
 import { Colors, ExpectedText } from '../data/createNewAccountPage';
 
 const Timeouts = {
@@ -33,10 +33,6 @@ test.describe('Create New Account page tests', () => {
       await expect.soft(createNewAccountPage.personalInfoBlock).toBeVisible();
       await expect.soft(createNewAccountPage.signInInfoBlock).toBeVisible();
       await expect.soft(createNewAccountPage.createAccountButton).toBeVisible();
-      // Personal info block
-      await expect.soft(createNewAccountPage.formElement(0, FormBlockElements.Field)).toHaveCount(2);
-      // Sign in info block
-      await expect.soft(createNewAccountPage.formElement(1, FormBlockElements.Field)).toHaveCount(3);
       await expect.soft(createNewAccountPage.passwordStrengthIndicator).toBeVisible();
     });
 
@@ -50,38 +46,23 @@ test.describe('Create New Account page tests', () => {
 
     test('Required fields', async () => {
       // All fields are required
-      const fieldsets = createNewAccountPage.fieldset;
-      await expect(fieldsets).toHaveCount(2);
-      for (let i = 0; i < (await fieldsets.count()); i++) {
-        const fields = createNewAccountPage.formElement(i, FormBlockElements.Field);
-        expect(await fields.count()).toBeGreaterThan(0);
-        for (let j = 0; j < (await fields.count()); j++) {
-          await expect.soft(fields.nth(j)).toHaveClass(/required/);
-        }
+      const fields = createNewAccountPage.field;
+      expect(await fields.count()).toBeGreaterThan(0);
+      for (let j = 0; j < (await fields.count()); j++) {
+        await expect.soft(fields.nth(j)).toHaveClass(/required/);
       }
     });
 
     test('Text content of page elements', async () => {
       await expect.soft(createNewAccountPage.pageTitle).toHaveText(ExpectedText.Title);
-      await expect
-        .soft(createNewAccountPage.formElement(0, FormBlockElements.Title))
-        .toHaveText(ExpectedText.PersonalInfo.Title);
-      let labels = createNewAccountPage.formElement(0, FormBlockElements.Label);
-      await expect.soft(labels).toHaveCount(ExpectedText.PersonalInfo.Labels.length);
-      for (let i = 0; i < (await labels.count()); i++) {
-        await expect.soft(labels.nth(i)).toHaveText(ExpectedText.PersonalInfo.Labels[i]);
+      await expect.soft(createNewAccountPage.blockTitle.nth(0)).toHaveText(ExpectedText.BlockTitles.PersonalInfo);
+      await expect.soft(createNewAccountPage.blockTitle.nth(1)).toHaveText(ExpectedText.BlockTitles.SignInInfo);
+      const fields = createNewAccountPage.field;
+      await expect.soft(fields).toHaveCount(ExpectedText.Fields.length);
+      for (let i = 0; i < (await fields.count()); i++) {
+        await expect.soft(createNewAccountPage.formElement(i, FieldElements.Label)).toHaveText(ExpectedText.Fields[i]);
       }
-      await expect
-        .soft(createNewAccountPage.formElement(1, FormBlockElements.Title))
-        .toHaveText(ExpectedText.SignInInfo.Title);
-      labels = createNewAccountPage.formElement(1, FormBlockElements.Label);
-      await expect.soft(labels).toHaveCount(ExpectedText.SignInInfo.Labels.length);
-      for (let i = 0; i < (await labels.count()); i++) {
-        await expect.soft(labels.nth(i)).toHaveText(ExpectedText.SignInInfo.Labels[i]);
-      }
-      await expect
-        .soft(createNewAccountPage.passwordStrengthIndicator)
-        .toHaveText(ExpectedText.SignInInfo.PasswordStrength.None);
+      await expect.soft(createNewAccountPage.passwordStrengthIndicator).toHaveText(ExpectedText.PasswordStrength.None);
       await expect(createNewAccountPage.createAccountButton).toHaveText(ExpectedText.Button);
     });
   });
