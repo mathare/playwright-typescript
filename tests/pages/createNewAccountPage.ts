@@ -10,6 +10,7 @@ export class CreateNewAccountPage extends BasePage {
   readonly fieldset: Locator;
   readonly personalInfoBlock: Locator;
   readonly signInInfoBlock: Locator;
+  readonly passwordStrengthIndicator: Locator;
   readonly createAccountButton: Locator;
 
   constructor(page: Page) {
@@ -21,6 +22,7 @@ export class CreateNewAccountPage extends BasePage {
     this.fieldset = this.createAccountForm.locator('fieldset');
     this.personalInfoBlock = this.createAccountForm.locator('fieldset.create.info');
     this.signInInfoBlock = this.createAccountForm.locator('fieldset.create.account');
+    this.passwordStrengthIndicator = this.signInInfoBlock.locator('#password-strength-meter');
     this.createAccountButton = this.createAccountForm.locator('button.submit');
   }
 

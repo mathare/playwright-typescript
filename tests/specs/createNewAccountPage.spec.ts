@@ -29,6 +29,11 @@ test.describe('Create New Account page tests', () => {
       await expect.soft(createNewAccountPage.personalInfoBlock).toBeVisible();
       await expect.soft(createNewAccountPage.signInInfoBlock).toBeVisible();
       await expect.soft(createNewAccountPage.createAccountButton).toBeVisible();
+      // Personal info block
+      await expect.soft(createNewAccountPage.formElement(0, FormBlockElements.Field)).toHaveCount(2);
+      // Sign in info block
+      await expect.soft(createNewAccountPage.formElement(1, FormBlockElements.Field)).toHaveCount(3);
+      await expect.soft(createNewAccountPage.passwordStrengthIndicator).toBeVisible();
     });
 
     test('Element styling', async () => {
