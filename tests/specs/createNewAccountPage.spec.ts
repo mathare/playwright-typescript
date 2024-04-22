@@ -101,6 +101,17 @@ test.describe('Create New Account page tests', () => {
   });
 
   test.describe('Data validation tests', () => {
+    test('Validation errors not triggered on field blur', async () => {
+      const fields = createNewAccountPage.field;
+      await expect.soft(fields).toHaveCount(ExpectedText.Fields.length);
+      for (let i = 0; i < (await fields.count()); i++) {
+        await createNewAccountPage.formElement(i, FieldElements.Input).focus();
+        await createNewAccountPage.formElement(i, FieldElements.Input).blur();
+        await expect.soft(createNewAccountPage.formElement(i, FieldElements.Input)).not.toHaveClass(/mage-error/);
+        await expect.soft(createNewAccountPage.formElement(i, FieldElements.ValidationError)).not.toBeVisible();
+      }
+    });
+
     test('All fields display validation error on submitting blank form', async () => {
       await createNewAccountPage.createAccountButton.click();
       const fields = createNewAccountPage.field;
