@@ -137,4 +137,14 @@ test.describe('Create New Account page tests', () => {
     // require the form to be completed with valid data and submitted, which itself would trigger creating a new account
     // and as per the earlier comment such tests are difficult for third-party applications in production environments
 
+    test('Email validation', async () => {
+      const invalidEmails = ['name', 'name@', 'name@domain', 'name.domain.com'];
+      for (let i = 0; i < invalidEmails.length; i++) {
+        await createNewAccountPage.formElement(Fields.Email, FieldElements.Input).fill(invalidEmails[i]);
+        await createNewAccountPage.createAccountButton.click();
+        await expect
+          .soft(createNewAccountPage.formElement(Fields.Email, FieldElements.ValidationError))
+          .toHaveText(ExpectedText.ValidationErrors.InvalidEmail);
+      }
+    });
 });
