@@ -13,7 +13,10 @@ export const ExpectedText = {
     VeryStrong: 'Password Strength: Very Strong',
   },
   Button: 'Create an Account',
-  ValidationError: 'This is a required field.',
+  ValidationErrors: {
+    Required: 'This is a required field.',
+    InvalidEmail: 'Please enter a valid email address (Ex: johndoe@domain.com).',
+  },
 };
 
 export const Colors = {

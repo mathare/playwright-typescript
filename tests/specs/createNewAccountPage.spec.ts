@@ -124,7 +124,7 @@ test.describe('Create New Account page tests', () => {
         await expect.soft(createNewAccountPage.formElement(i, FieldElements.ValidationError)).toBeVisible();
         await expect
           .soft(createNewAccountPage.formElement(i, FieldElements.ValidationError))
-          .toHaveText(ExpectedText.ValidationError);
+          .toHaveText(ExpectedText.ValidationErrors.Required);
       }
     });
 });
