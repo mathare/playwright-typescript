@@ -195,6 +195,10 @@ test.describe('Create New Account page tests', () => {
         await createNewAccountPage.createAccountButton.click();
         await expect.soft(validationError).toHaveText(ExpectedText.ValidationErrors.MismatchedPasswords);
       }
+      await passwordInput.fill('Pa55word');
+      await confirmPasswordInput.fill('Pa55word');
+      await createNewAccountPage.createAccountButton.click();
+      await expect.soft(validationError).not.toBeVisible();
     });
   });
 });
