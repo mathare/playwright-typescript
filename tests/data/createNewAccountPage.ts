@@ -16,6 +16,10 @@ export const ExpectedText = {
   ValidationErrors: {
     Required: 'This is a required field.',
     InvalidEmail: 'Please enter a valid email address (Ex: johndoe@domain.com).',
+    PasswordLength:
+      'Minimum length of this field must be equal or greater than 8 symbols. Leading and trailing spaces will be ignored.',
+    PasswordFormat:
+      'Minimum of different classes of characters in password is 3. Classes of characters: Lower Case, Upper Case, Digits, Special Characters.',
   },
 };
 

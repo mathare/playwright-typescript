@@ -147,4 +147,34 @@ test.describe('Create New Account page tests', () => {
           .toHaveText(ExpectedText.ValidationErrors.InvalidEmail);
       }
     });
+
+    test('Password validation', async () => {
+      // Passwords must be at least 8 characters and contain at least 3 of: lower case, upper case, numbers and special characters
+      // NB Unlike other fields, password validation is triggered on blur (except for missing value validation as shown above)
+      const passwordInput = createNewAccountPage.formElement(Fields.Password, FieldElements.Input);
+      const passwordValidationError = createNewAccountPage.formElement(Fields.Password, FieldElements.ValidationError);
+
+      await passwordInput.fill('a');
+      await passwordInput.blur();
+      await expect.soft(passwordValidationError).toHaveText(ExpectedText.ValidationErrors.PasswordLength);
+
+      const invalidPasswords = [
+        'password',
+        'Password',
+        'pa55word',
+        'p@ssword',
+        'PASSWORD',
+        'PA55WORD',
+        'P@SSWORD',
+        '12345678',
+        '!"£$%^&*',
+        '1234%^&*',
+      ];
+      for (let i = 0; i < invalidPasswords.length; i++) {
+        await passwordInput.fill(invalidPasswords[i]);
+        await passwordInput.blur();
+        await expect.soft(passwordValidationError).toHaveText(ExpectedText.ValidationErrors.PasswordFormat);
+      }
+    });
+  });
 });
