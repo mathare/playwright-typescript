@@ -44,6 +44,19 @@ test.describe('Create New Account page tests', () => {
       await expect.soft(createNewAccountPage.createAccountButton).toHaveClass(/primary/);
     });
 
+    test('Required fields', async () => {
+      // All fields are required
+      const fieldsets = createNewAccountPage.fieldset;
+      await expect(fieldsets).toHaveCount(2);
+      for (let i = 0; i < (await fieldsets.count()); i++) {
+        const fields = createNewAccountPage.formElement(i, FormBlockElements.Field);
+        expect(await fields.count()).toBeGreaterThan(0);
+        for (let j = 0; j < (await fields.count()); j++) {
+          await expect.soft(fields.nth(j)).toHaveClass(/required/);
+        }
+      }
+    });
+
     test('Text content of page elements', async () => {
       await expect.soft(createNewAccountPage.pageTitle).toHaveText(ExpectedText.Title);
       await expect
