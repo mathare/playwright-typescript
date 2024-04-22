@@ -18,6 +18,7 @@ export const ExpectedText = {
 
 export const Colors = {
   Background: 'rgba(0, 0, 0, 0)',
+  Error: 'rgb(237, 131, 128)',
   Font: 'rgb(51, 51, 51)',
   PrimaryButton: 'rgb(25, 121, 195)',
   White: 'rgb(255, 255, 255)',

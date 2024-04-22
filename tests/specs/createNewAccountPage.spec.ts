@@ -99,4 +99,21 @@ test.describe('Create New Account page tests', () => {
       });
     });
   });
+
+  test.describe('Data validation tests', () => {
+    test('Submit blank form', async () => {
+      await createNewAccountPage.createAccountButton.click();
+      const fields = createNewAccountPage.field;
+      await expect.soft(fields).toHaveCount(ExpectedText.Fields.length);
+      for (let i = 0; i < (await fields.count()); i++) {
+        await expect.soft(createNewAccountPage.formElement(i, FieldElements.Input)).toHaveClass(/mage-error/);
+        await expect
+          .soft(createNewAccountPage.formElement(i, FieldElements.Input))
+          .toHaveCSS('border-color', Colors.Error);
+        await expect.soft(createNewAccountPage.formElement(i, FieldElements.ValidationError)).toBeVisible();
+        await expect
+          .soft(createNewAccountPage.formElement(i, FieldElements.ValidationError))
+          .toHaveText(ExpectedText.ValidationError);
+      }
+    });
 });
