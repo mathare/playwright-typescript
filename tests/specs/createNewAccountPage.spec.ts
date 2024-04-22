@@ -53,6 +53,30 @@ test.describe('Create New Account page tests', () => {
       }
     });
 
+    test('Field input types', async () => {
+      // Input types can be used to validate values & provide some formatting e.g. hiding passwords
+      const types = {
+        Text: 'text',
+        Email: 'email',
+        Password: 'password',
+      };
+      await expect
+        .soft(createNewAccountPage.formElement(Fields.FirstName, FieldElements.Input))
+        .toHaveAttribute('type', types.Text);
+      await expect
+        .soft(createNewAccountPage.formElement(Fields.LastName, FieldElements.Input))
+        .toHaveAttribute('type', types.Text);
+      await expect
+        .soft(createNewAccountPage.formElement(Fields.Email, FieldElements.Input))
+        .toHaveAttribute('type', types.Email);
+      await expect
+        .soft(createNewAccountPage.formElement(Fields.Password, FieldElements.Input))
+        .toHaveAttribute('type', types.Password);
+      await expect
+        .soft(createNewAccountPage.formElement(Fields.ConfirmPassword, FieldElements.Input))
+        .toHaveAttribute('type', types.Password);
+    });
+
     test('Text content of page elements', async () => {
       await expect.soft(createNewAccountPage.pageTitle).toHaveText(ExpectedText.Title);
       await expect.soft(createNewAccountPage.blockTitle.nth(0)).toHaveText(ExpectedText.BlockTitles.PersonalInfo);
