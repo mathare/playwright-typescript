@@ -176,5 +176,25 @@ test.describe('Create New Account page tests', () => {
         await expect.soft(passwordValidationError).toHaveText(ExpectedText.ValidationErrors.PasswordFormat);
       }
     });
+
+    test('Passwords must match', async () => {
+      const passwordInput = createNewAccountPage.formElement(Fields.Password, FieldElements.Input);
+      const confirmPasswordInput = createNewAccountPage.formElement(Fields.ConfirmPassword, FieldElements.Input);
+      const validationError = createNewAccountPage.formElement(Fields.ConfirmPassword, FieldElements.ValidationError);
+
+      const testCases = [
+        { Password: 'Pa55word', Confirm: 'p' },
+        { Password: 'p', Confirm: 'Pa55word' },
+        { Password: 'Pa55word', Confirm: 'Password' },
+        { Password: 'Pa55word', Confirm: 'Pa55wor' },
+        { Password: 'Pa55word', Confirm: 'Pa55word1' },
+      ];
+      for (let i = 0; i < testCases.length; i++) {
+        await passwordInput.fill(testCases[i].Password);
+        await confirmPasswordInput.fill(testCases[i].Confirm);
+        await createNewAccountPage.createAccountButton.click();
+        await expect.soft(validationError).toHaveText(ExpectedText.ValidationErrors.MismatchedPasswords);
+      }
+    });
   });
 });
