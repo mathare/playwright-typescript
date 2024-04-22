@@ -46,18 +46,25 @@ test.describe('Create New Account page tests', () => {
 
     test('Text content of page elements', async () => {
       await expect.soft(createNewAccountPage.pageTitle).toHaveText(ExpectedText.Title);
-      const fieldsets = createNewAccountPage.fieldset;
-      await expect.soft(fieldsets).toHaveCount(ExpectedText.Form.length);
-      for (let i = 0; i < (await fieldsets.count()); i++) {
-        await expect
-          .soft(createNewAccountPage.formElement(i, FormBlockElements.Title))
-          .toHaveText(ExpectedText.Form[i].Title);
-        const labels = createNewAccountPage.formElement(i, FormBlockElements.Label);
-        await expect.soft(labels).toHaveCount(ExpectedText.Form[i].Labels.length);
-        for (let j = 0; j < (await labels.count()); j++) {
-          await expect.soft(labels.nth(j)).toHaveText(ExpectedText.Form[i].Labels[j]);
-        }
+      await expect
+        .soft(createNewAccountPage.formElement(0, FormBlockElements.Title))
+        .toHaveText(ExpectedText.PersonalInfo.Title);
+      let labels = createNewAccountPage.formElement(0, FormBlockElements.Label);
+      await expect.soft(labels).toHaveCount(ExpectedText.PersonalInfo.Labels.length);
+      for (let i = 0; i < (await labels.count()); i++) {
+        await expect.soft(labels.nth(i)).toHaveText(ExpectedText.PersonalInfo.Labels[i]);
       }
+      await expect
+        .soft(createNewAccountPage.formElement(1, FormBlockElements.Title))
+        .toHaveText(ExpectedText.SignInInfo.Title);
+      labels = createNewAccountPage.formElement(1, FormBlockElements.Label);
+      await expect.soft(labels).toHaveCount(ExpectedText.SignInInfo.Labels.length);
+      for (let i = 0; i < (await labels.count()); i++) {
+        await expect.soft(labels.nth(i)).toHaveText(ExpectedText.SignInInfo.Labels[i]);
+      }
+      await expect
+        .soft(createNewAccountPage.passwordStrengthIndicator)
+        .toHaveText(ExpectedText.SignInInfo.PasswordStrength.None);
       await expect(createNewAccountPage.createAccountButton).toHaveText(ExpectedText.Button);
     });
   });
