@@ -177,6 +177,15 @@ test.describe('Create New Account page tests', () => {
       }
     });
 
+    test('No validation error for valid password', async () => {
+      const passwordInput = createNewAccountPage.formElement(Fields.Password, FieldElements.Input);
+      const passwordValidationError = createNewAccountPage.formElement(Fields.Password, FieldElements.ValidationError);
+
+      await passwordInput.fill('Pa55word');
+      await passwordInput.blur();
+      await expect.soft(passwordValidationError).not.toBeVisible();
+    });
+
     test('Passwords must match', async () => {
       const passwordInput = createNewAccountPage.formElement(Fields.Password, FieldElements.Input);
       const confirmPasswordInput = createNewAccountPage.formElement(Fields.ConfirmPassword, FieldElements.Input);
