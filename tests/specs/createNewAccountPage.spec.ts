@@ -101,7 +101,7 @@ test.describe('Create New Account page tests', () => {
   });
 
   test.describe('Data validation tests', () => {
-    test('Submit blank form', async () => {
+    test('All fields display validation error on submitting blank form', async () => {
       await createNewAccountPage.createAccountButton.click();
       const fields = createNewAccountPage.field;
       await expect.soft(fields).toHaveCount(ExpectedText.Fields.length);
