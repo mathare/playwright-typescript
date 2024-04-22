@@ -28,6 +28,10 @@ export const Colors = {
   Background: 'rgba(0, 0, 0, 0)',
   Error: 'rgb(237, 131, 128)',
   Font: 'rgb(51, 51, 51)',
+  PasswordWeak: 'rgb(255, 175, 174)',
+  PasswordMedium: 'rgb(255, 214, 179)',
+  PasswordStrong: 'rgb(197, 238, 172)',
+  PasswordVeryStrong: 'rgb(129, 181, 98)',
   PrimaryButton: 'rgb(25, 121, 195)',
   White: 'rgb(255, 255, 255)',
 };

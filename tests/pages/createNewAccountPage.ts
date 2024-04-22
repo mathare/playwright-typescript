@@ -37,6 +37,14 @@ export class CreateNewAccountPage extends BasePage {
   formElement(index: number, element: FieldElements): Locator {
     return this.field.nth(index).locator(element);
   }
+
+  async passwordStrengthIndicatorStyle() {
+    const width = await this.passwordStrengthIndicator.evaluate((el) => window.getComputedStyle(el, ':before').width);
+    const backgroundColor = await this.passwordStrengthIndicator.evaluate(
+      (el) => window.getComputedStyle(el, ':before').backgroundColor,
+    );
+    return { backgroundColor, width };
+  }
 }
 
 export enum Fields {

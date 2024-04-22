@@ -210,4 +210,26 @@ test.describe('Create New Account page tests', () => {
       await expect.soft(validationError).not.toBeVisible();
     });
   });
+
+  test('Password strengths', async () => {
+    const passwordInput = createNewAccountPage.formElement(Fields.Password, FieldElements.Input);
+    const strengthIndicator = createNewAccountPage.passwordStrengthIndicator;
+    const fullWidth = (await strengthIndicator.boundingBox())?.width;
+
+    enum testCases {
+      Weak = 'password',
+      Medium = 'p@55word',
+      Strong = 'Pa55word!',
+      VeryStrong = 'MyP@55w0rd!',
+    }
+    for (let i = 0; i < Object.keys(testCases).length; i++) {
+      const key = Object.keys(testCases)[i];
+      await passwordInput.fill(Object.values(testCases)[i]);
+      await passwordInput.blur();
+      await expect.soft(strengthIndicator).toHaveText(ExpectedText.PasswordStrength[key]);
+      const style = await createNewAccountPage.passwordStrengthIndicatorStyle();
+      expect.soft(style.backgroundColor).toBe(Colors[`Password${key}`]);
+      expect.soft(style.width).toBe(`${(i + 1) * 0.25 * fullWidth!}px`);
+    }
+  });
 });
