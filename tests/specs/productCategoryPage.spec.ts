@@ -17,7 +17,11 @@ test.describe('Product category page tests', () => {
       await expect.soft(productCategoryPage.pageHeader.header).toBeVisible();
       await expect.soft(productCategoryPage.pageHeader.topnav).toBeVisible();
       await expect.soft(productCategoryPage.breadcrumbs).toBeVisible();
-      await expect.soft(productCategoryPage.mainContent).toBeVisible();
+      await expect.soft(productCategoryPage.filters).toBeVisible();
+      await expect.soft(productCategoryPage.sidebar).toBeVisible();
+      await expect.soft(productCategoryPage.displayToolbar).toBeVisible();
+      await expect.soft(productCategoryPage.productsGrid).toBeVisible();
+      await expect.soft(productCategoryPage.paginationToolbar).toBeVisible();
       await expect.soft(productCategoryPage.pageFooter.footer).toBeVisible();
       await expect.soft(productCategoryPage.pageFooter.copyrightFooter).toBeVisible();
     });
