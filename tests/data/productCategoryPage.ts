@@ -1,9 +1,9 @@
 import { Links } from './pageHeader';
 
 export const ProductCategories = {
-  ...Links.Topnav.WomenSubMenu,
-  ...Links.Topnav.MenSubMenu,
-  ...Links.Topnav.GearSubMenu,
-  ...Links.Topnav.TrainingSubMenu,
+  Women: { ...Links.Topnav.WomenSubMenu },
+  Men: { ...Links.Topnav.MenSubMenu },
+  Gear: { ...Links.Topnav.GearSubMenu },
+  Training: { ...Links.Topnav.TrainingSubMenu },
 };
 

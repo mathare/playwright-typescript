@@ -14,10 +14,13 @@ export default class ProductCategoryPage extends BasePage {
 
   async open(url?: string): Promise<void> {
     // Open random product category page or specific page if url passed in
-    url =
-      typeof url === 'undefined'
-        ? Object.values(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)]
-        : url;
+    if (typeof url === 'undefined') {
+      const topLvlCategory =
+        Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
+      url = Object.values(ProductCategories[topLvlCategory])[
+        Math.floor(Math.random() * Object.keys(ProductCategories[topLvlCategory]).length)
+      ] as string;
+    }
     await super.open(url);
   }
 }
