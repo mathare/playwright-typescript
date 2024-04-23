@@ -1,8 +1,8 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
+import { ProductCategories } from '../data/productCategoryPage';
 
 export default class ProductCategoryPage extends BasePage {
-  url = '/men/tops-men/tees-men.html';
   readonly breadcrumbs: Locator;
   readonly mainContent: Locator;
 
@@ -12,7 +12,12 @@ export default class ProductCategoryPage extends BasePage {
     this.mainContent = page.locator('#maincontent');
   }
 
-  async open(): Promise<void> {
-    await super.open(this.url);
+  async open(url?: string): Promise<void> {
+    // Open random product category page or specific page if url passed in
+    url =
+      typeof url === 'undefined'
+        ? Object.values(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)]
+        : url;
+    await super.open(url);
   }
 }
