@@ -24,11 +24,11 @@ export type ProductCategoryExpectedText = {
 export const ExpectedText = {
   FiltersTitle: 'Shopping Options',
   WomenBottoms: { ...WomenBottomsText },
-  WomenHoodies: { ...WomenHoodiesText },
+  WomenBrasTanks: { ...WomenTanksText },
+  WomenHoodiesSweatshirts: { ...WomenHoodiesText },
   WomenJackets: { ...WomenJacketsText },
   WomenPants: { ...WomenPantsText },
   WomenShorts: { ...WomenShortsText },
-  WomenTanks: { ...WomenTanksText },
   WomenTees: { ...WomenTeesText },
   WomenTops: { ...WomenTopsText },
 };

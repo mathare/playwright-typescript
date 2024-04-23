@@ -4,7 +4,6 @@ export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Women  Tops  Tees',
   Title: 'Tees',
   Filters: [
-    'CATEGORY',
     'STYLE',
     'SIZE',
     'PRICE',
