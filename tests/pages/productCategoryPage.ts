@@ -8,6 +8,7 @@ export default class ProductCategoryPage extends BasePage {
   readonly pageTitle: Locator;
   readonly filters: Locator;
   readonly filtersTitle: Locator;
+  readonly filterOption: Locator;
   readonly sidebar: Locator;
   readonly displayToolbar: Locator;
   readonly productsGrid: Locator;
@@ -21,6 +22,7 @@ export default class ProductCategoryPage extends BasePage {
     this.pageTitle = this.mainContent.getByRole('heading', { level: 1 });
     this.filters = this.mainContent.locator('.filter-content');
     this.filtersTitle = this.filters.getByRole('heading');
+    this.filterOption = this.filters.locator('.filter-options-item');
     this.sidebar = this.mainContent.locator('.sidebar-additional');
     this.displayToolbar = this.mainContent.locator('.toolbar-products').first();
     this.productsGrid = this.mainContent.locator('.products-grid');

@@ -34,6 +34,11 @@ test.describe('Product category page tests', () => {
       await expect.soft(productCategoryPage.breadcrumbs).toHaveText(categoryExpectedText.Breadcrumbs);
       await expect.soft(productCategoryPage.pageTitle).toHaveText(categoryExpectedText.Title);
       await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
+      const filterOptions = productCategoryPage.filterOption;
+      await expect.soft(filterOptions).toHaveCount(categoryExpectedText.Filters.length);
+      for (let i = 0; i < (await filterOptions.count()); i++) {
+        await expect.soft(filterOptions.nth(i)).toHaveText(categoryExpectedText.Filters[i], { useInnerText: true });
+      }
     });
   });
 });
