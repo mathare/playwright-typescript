@@ -4,10 +4,18 @@ import { ExpectedText, ProductCategories } from '../data/productCategoryPage';
 
 test.describe('Product category page tests', () => {
   let productCategoryPage: ProductCategoryPage;
+  let category: string;
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
     // Temporarily set category page to known page rather than random page for simplicity at this stage
-    await productCategoryPage.open(ProductCategories.Women.Tops);
+    // await productCategoryPage.open(ProductCategories.Women.Tops);
+    const topLvlCategory =
+      Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
+    const subCategory = Object.keys(ProductCategories[topLvlCategory])[
+      Math.floor(Math.random() * Object.keys(ProductCategories[topLvlCategory]).length)
+    ];
+    category = `${topLvlCategory}${subCategory}`;
+    await productCategoryPage.open(ProductCategories[topLvlCategory][subCategory]);
   });
 
   test.describe('Appearance tests', () => {
@@ -30,7 +38,7 @@ test.describe('Product category page tests', () => {
 
     test('Text content of page elements', async () => {
       // Need to select the relevant category once we revert to using random pages rather than a fixed category page
-      const categoryExpectedText = ExpectedText.WomenTops;
+      const categoryExpectedText = ExpectedText[category];
       await expect.soft(productCategoryPage.breadcrumbs).toHaveText(categoryExpectedText.Breadcrumbs);
       await expect.soft(productCategoryPage.pageTitle).toHaveText(categoryExpectedText.Title);
       await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
