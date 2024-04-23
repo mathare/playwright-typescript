@@ -1,11 +1,13 @@
 import { test, expect } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
+import { ExpectedText, ProductCategories } from '../data/productCategoryPage';
 
 test.describe('Product category page tests', () => {
   let productCategoryPage: ProductCategoryPage;
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
-    await productCategoryPage.open();
+    // Temporarily set category page to known page rather than random page for simplicity at this stage
+    await productCategoryPage.open(ProductCategories.Women.Tops);
   });
 
   test.describe('Appearance tests', () => {
@@ -24,6 +26,14 @@ test.describe('Product category page tests', () => {
       await expect.soft(productCategoryPage.paginationToolbar).toBeVisible();
       await expect.soft(productCategoryPage.pageFooter.footer).toBeVisible();
       await expect.soft(productCategoryPage.pageFooter.copyrightFooter).toBeVisible();
+    });
+
+    test('Text content of page elements', async () => {
+      // Need to select the relevant category once we revert to using random pages rather than a fixed category page
+      const categoryExpectedText = ExpectedText.WomenTops;
+      await expect.soft(productCategoryPage.breadcrumbs).toHaveText(categoryExpectedText.Breadcrumbs);
+      await expect.soft(productCategoryPage.pageTitle).toHaveText(categoryExpectedText.Title);
+      await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
     });
   });
 });
