@@ -3,7 +3,7 @@ import { HomePage } from '../pages/homePage';
 import { ExpectedText, Products, PromoBlockLinks } from '../data/homePage';
 import { rgbToHex } from '../helpers/colorUtils';
 import { Colors, SwatchOutlineStyles } from '../data/products';
-import { ProductItemElements } from '../pages/components/productItems';
+import { ProductItemElements } from '../pages/components/productItem';
 
 const Timeouts = {
   ImageLink: 10000,
