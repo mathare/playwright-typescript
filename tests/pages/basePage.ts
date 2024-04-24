@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
-import PageHeader from './pageHeader';
-import PageFooter from './pageFooter';
+import PageHeader from './components/pageHeader';
+import PageFooter from './components/pageFooter';
 
 export default class BasePage {
   readonly url: string;

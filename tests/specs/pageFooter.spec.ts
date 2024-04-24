@@ -1,7 +1,7 @@
 import { ExpectedText, Colors, FooterLinks } from '../data/pageFooter';
 import BasePage from '../pages/basePage';
 import { test, expect } from '@playwright/test';
-import PageFooter from '../pages/pageFooter';
+import PageFooter from '../pages/components/pageFooter';
 
 const Timeouts = {
   Visual: 20000,
