@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
-import { ExpectedText, ProductCategories, Links } from '../data/productCategoryPage';
+import { ExpectedText, ProductCategories, Links, Products } from '../data/productCategoryPage';
+import { ProductItemElements } from '../pages/components/productItem';
 
 test.describe('Product category page tests', () => {
   let productCategoryPage: ProductCategoryPage;
@@ -8,8 +9,8 @@ test.describe('Product category page tests', () => {
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
     // Temporarily set category page to known page rather than random page for simplicity at this stage
-    category = 'WomenTops';
-    await productCategoryPage.open(ProductCategories.Women.Tops);
+    category = 'WomenTees';
+    await productCategoryPage.open(ProductCategories.Women.Tees);
     // const topLvlCategory =
     //   Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
     // const subCategory = Object.keys(ProductCategories[topLvlCategory])[
@@ -51,6 +52,55 @@ test.describe('Product category page tests', () => {
       await expect
         .soft(productCategoryPage.productCount)
         .toHaveText(categoryExpectedText.ProductCount, { useInnerText: true });
+    });
+
+    test('Default product item details', async () => {
+      const productDetails = Products[category];
+      const productItems = productCategoryPage.productItem;
+      expect.soft(await productItems.count()).toEqual(productDetails.length);
+      for (let i = 0; i < (await productItems.count()); i++) {
+        console.log(productDetails[i].title);
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+          .toHaveText(productDetails[i].title);
+        if (productDetails[i].rating) {
+          await expect
+            .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Rating))
+            .toHaveText(productDetails[i].rating!);
+        }
+        if (productDetails[i].reviews) {
+          await expect
+            .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Reviews))
+            .toHaveText(productDetails[i].reviews!);
+        }
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Price))
+          .toHaveText(productDetails[i].price);
+        if (productDetails[i].sizes) {
+          const sizes = productCategoryPage.getProductItemElement(i, ProductItemElements.Sizes);
+          expect.soft(await sizes.count()).toEqual(productDetails[i].sizes!.length);
+          for (let j = 0; j < (await sizes.count()); j++) {
+            await expect.soft(sizes.nth(j)).toHaveText(productDetails[i].sizes![j]);
+          }
+        }
+        if (productDetails[i].colors) {
+          const colors = productCategoryPage.getProductItemElement(i, ProductItemElements.Colors);
+          expect.soft(await colors.count()).toEqual(productDetails[i].colors!.length);
+          for (let j = 0; j < (await colors.count()); j++) {
+            await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
+          }
+        }
+        await productItems.nth(i).hover();
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.AddToCartButton))
+          .toBeVisible();
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.AddToWishListButton))
+          .toBeVisible();
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.AddToCompareButton))
+          .toBeVisible();
+      }
     });
   });
 

@@ -1,6 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
 import { ProductCategories } from '../data/productCategoryPage';
+import ProductItem, { ProductItemElements } from './components/productItem';
 
 export default class ProductCategoryPage extends BasePage {
   readonly breadcrumbsContainer: Locator;
@@ -30,7 +31,7 @@ export default class ProductCategoryPage extends BasePage {
     this.displayToolbar = this.mainContent.locator('.toolbar-products').first();
     this.productCount = this.displayToolbar.locator('#toolbar-amount');
     this.productsGrid = this.mainContent.locator('.products-grid');
-    this.productItem = this.productsGrid.locator('li.product-item');
+    this.productItem = new ProductItem(this.productsGrid).product;
     this.paginationToolbar = this.mainContent.locator('.toolbar-products').last();
   }
 
@@ -44,5 +45,9 @@ export default class ProductCategoryPage extends BasePage {
       ] as string;
     }
     await super.open(url);
+  }
+
+  getProductItemElement(productIndex: number, element: ProductItemElements): Locator {
+    return this.productItem.nth(productIndex).locator(element);
   }
 }

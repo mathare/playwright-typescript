@@ -37,3 +37,7 @@ export const Links = {
   WomenTees: { ...WomenTees.Links },
   WomenTops: { ...WomenTops.Links },
 };
+
+export const Products = {
+  WomenTees: [...WomenTees.Products],
+};
