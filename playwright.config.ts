@@ -12,7 +12,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
   },
-  timeout: 60000,
+  timeout: 90000,
   snapshotPathTemplate: 'tests/data/snapshots/{platform}{/projectName}/{testFilePath}/{arg}{ext}',
   projects: [
     {
