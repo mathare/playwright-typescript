@@ -1,4 +1,4 @@
-const Sizes = ['XS', 'S', 'M', 'L', 'XL'];
+export const Sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
 export const Colors = {
   Black: 'rgb(0, 0, 0)',
@@ -36,7 +36,7 @@ export const SwatchOutlineStyles = {
   },
 };
 
-type Product = {
+export type Product = {
   title: string;
   rating?: string;
   reviews?: string;
