@@ -2,7 +2,7 @@ import { Links as HeaderLinks } from '../pageHeader';
 import { FilterOptions, ProductCategoryExpectedText } from './Shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
-  Breadcrumbs: 'Home  Women  Tops  Tanks',
+  Breadcrumbs: 'Home  Women  Tops  Bras & Tanks',
   Title: 'Bras & Tanks',
   Filters: [...FilterOptions],
   ProductCount: 'Items 1-12 of 14',
