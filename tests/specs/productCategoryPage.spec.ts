@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
-import { ExpectedText, ProductCategories } from '../data/productCategoryPage';
+import { ExpectedText, ProductCategories, Links } from '../data/productCategoryPage';
 
 test.describe('Product category page tests', () => {
   let productCategoryPage: ProductCategoryPage;
@@ -8,14 +8,15 @@ test.describe('Product category page tests', () => {
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
     // Temporarily set category page to known page rather than random page for simplicity at this stage
-    // await productCategoryPage.open(ProductCategories.Women.Tops);
-    const topLvlCategory =
-      Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
-    const subCategory = Object.keys(ProductCategories[topLvlCategory])[
-      Math.floor(Math.random() * Object.keys(ProductCategories[topLvlCategory]).length)
-    ];
-    category = `${topLvlCategory}${subCategory}`;
-    await productCategoryPage.open(ProductCategories[topLvlCategory][subCategory]);
+    category = 'WomenTops';
+    await productCategoryPage.open(ProductCategories.Women.Tops);
+    // const topLvlCategory =
+    //   Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
+    // const subCategory = Object.keys(ProductCategories[topLvlCategory])[
+    //   Math.floor(Math.random() * Object.keys(ProductCategories[topLvlCategory]).length)
+    // ];
+    // category = `${topLvlCategory}${subCategory}`;
+    // await productCategoryPage.open(ProductCategories[topLvlCategory][subCategory]);
   });
 
   test.describe('Appearance tests', () => {
@@ -46,6 +47,19 @@ test.describe('Product category page tests', () => {
       await expect.soft(filterOptions).toHaveCount(categoryExpectedText.Filters.length);
       for (let i = 0; i < (await filterOptions.count()); i++) {
         await expect.soft(filterOptions.nth(i)).toHaveText(categoryExpectedText.Filters[i], { useInnerText: true });
+      }
+    });
+  });
+
+  test.describe('Link tests', () => {
+    test('Breadcrumb links', async ({ baseURL }) => {
+      const breadcrumbs = (await productCategoryPage.breadcrumbsContainer.innerText()).split('  ');
+      console.log(breadcrumbs);
+      // The last breadcrumb doesn't have a link as it is the current page
+      for (let i = 0; i < breadcrumbs.length - 1; i++) {
+        await expect
+          .soft(productCategoryPage.breadcrumb.nth(i))
+          .toHaveAttribute('href', `${baseURL}${Links[category].Breadcrumbs[breadcrumbs[i]]}`);
       }
     });
   });
