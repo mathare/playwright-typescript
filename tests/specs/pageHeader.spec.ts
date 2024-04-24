@@ -1,6 +1,6 @@
 import { ExpectedText, Colors, Links, TopnavLvl0 } from '../data/pageHeader';
 import { test, expect } from '@playwright/test';
-import PageHeader from '../pages/pageHeader';
+import PageHeader from '../pages/components/pageHeader';
 import BasePage from '../pages/basePage';
 
 const Timeouts = {

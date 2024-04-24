@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
+import ProductItem, { ProductItemElements } from './components/productItems';
 
 export class HomePage extends BasePage {
   url = '/';
@@ -15,30 +16,14 @@ export class HomePage extends BasePage {
     this.promoBlock = page.locator('.block-promo');
     this.contentHeading = page.locator('.content-heading');
     this.productsGrid = page.locator('.products-grid');
-    this.productItem = this.productsGrid.locator('li.product-item');
+    this.productItem = new ProductItem(this.productsGrid).product;
   }
 
-  async open() : Promise<void> {
+  async open(): Promise<void> {
     await super.open(this.url);
   }
 
   getProductItemElement(productIndex: number, element: ProductItemElements): Locator {
     return this.productItem.nth(productIndex).locator(element);
   }
-}
-
-export enum ProductItemElements {
-  Name = '.product-item-name',
-  Rating = '.rating-result',
-  Reviews = '.reviews-actions',
-  Price = '.price-box',
-  Sizes = '.swatch-option.text',
-  Colors = '.swatch-option.color',
-  PhotoLink = 'a.product-item-photo',
-  Photo = `${PhotoLink} img`,
-  NameLink = 'a.product-item-link',
-  ReviewsLink = `${Reviews} a`,
-  AddToCartButton = 'button.action.tocart',
-  AddToWishListButton = 'a.action.towishlist',
-  AddToCompareButton = 'a.action.tocompare',
 }
