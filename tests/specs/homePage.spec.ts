@@ -213,7 +213,7 @@ test.describe('Home page tests', () => {
       const products = homePage.productItem;
       expect.soft(await products.count()).toEqual(Products.length);
       for (let i = 0; i < (await products.count()); i++) {
-        const imageLink = `${baseURL}${mediaDir}${Products[i].images.default}`;
+        const imageLink = `${baseURL}${mediaDir}${Products[i].images!.default}`;
         await expect
           .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
           .toHaveAttribute('src', imageLink);
@@ -229,9 +229,9 @@ test.describe('Home page tests', () => {
           expect.soft(await sizes.count()).toEqual(Products[i].sizes!.length);
           for (let j = 0; j < (await sizes.count()); j++) {
             await sizes.nth(j).click();
-            const imageLink = Array.isArray(Products[i].images.sizes)
-              ? `${baseURL}${mediaDir}${Products[i].images.sizes[j]}`
-              : `${baseURL}${mediaDir}${Products[i].images.sizes}`;
+            const imageLink = Array.isArray(Products[i].images!.sizes)
+              ? `${baseURL}${mediaDir}${Products[i].images!.sizes[j]}`
+              : `${baseURL}${mediaDir}${Products[i].images!.sizes}`;
             await expect
               .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
               .toHaveAttribute('src', imageLink, { timeout: Timeouts.ImageLink });
@@ -249,7 +249,7 @@ test.describe('Home page tests', () => {
           expect.soft(await colors.count()).toEqual(Products[i].colors!.length);
           for (let j = 0; j < (await colors.count()); j++) {
             await colors.nth(j).click();
-            const imageLink = `${baseURL}${mediaDir}${Products[i].images.colors[j]}`;
+            const imageLink = `${baseURL}${mediaDir}${Products[i].images!.colors[j]}`;
             await expect
               .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
               .toHaveAttribute('src', imageLink, { timeout: Timeouts.ImageLink });

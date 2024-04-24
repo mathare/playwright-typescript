@@ -43,7 +43,7 @@ type Product = {
   sizes?: string[];
   colors?: string[];
   link: string;
-  images: Record<string, string | string[]>;
+  images?: Record<string, string | string[]>;
 };
 
 export const ProductCatalog: Record<string, Product> = {
