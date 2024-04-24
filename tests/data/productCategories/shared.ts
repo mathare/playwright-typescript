@@ -2,6 +2,7 @@ export type ProductCategoryExpectedText = {
   Breadcrumbs: string;
   Title: string;
   Filters: string[];
+  ProductCount: string;
 };
 
 export const FilterOptions = [

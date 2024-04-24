@@ -48,6 +48,9 @@ test.describe('Product category page tests', () => {
       for (let i = 0; i < (await filterOptions.count()); i++) {
         await expect.soft(filterOptions.nth(i)).toHaveText(categoryExpectedText.Filters[i], { useInnerText: true });
       }
+      await expect
+        .soft(productCategoryPage.productCount)
+        .toHaveText(categoryExpectedText.ProductCount, { useInnerText: true });
     });
   });
 

@@ -5,6 +5,7 @@ export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Women  Tops  Hoodies & Sweatshirts',
   Title: 'Hoodies & Sweatshirts',
   Filters: [...FilterOptions],
+  ProductCount: '12 Items',
 };
 
 export const Links = {

@@ -5,6 +5,7 @@ export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Women  Bottoms',
   Title: 'Bottoms',
   Filters: ['CATEGORY', ...FilterOptions],
+  ProductCount: 'Items 1-12 of 25',
 };
 
 export const Links = {
