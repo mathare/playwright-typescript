@@ -3,6 +3,7 @@ export const Sizes = ['XS', 'S', 'M', 'L', 'XL'];
 export const Colors = {
   Black: 'rgb(0, 0, 0)',
   Blue: 'rgb(24, 87, 247)',
+  Brown: 'rgb(148, 84, 84)',
   DarkGrey: 'rgb(51, 51, 51)',
   Green: 'rgb(83, 168, 40)',
   Grey: 'rgb(143, 143, 143)',
