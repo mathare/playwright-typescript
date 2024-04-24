@@ -9,6 +9,7 @@ export const Colors = {
   LightGrey: 'rgb(240, 240, 240)',
   Orange: 'rgb(235, 103, 3)',
   Pink: 'rgb(239, 61, 255)',
+  Red: 'rgb(255, 0, 0)',
   White: 'rgb(255, 255, 255)',
   Yellow: 'rgb(255, 213, 0)',
   Swatch: {
