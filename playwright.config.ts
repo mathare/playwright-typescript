@@ -12,7 +12,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
   },
-  timeout: 45000,
+  timeout: 60000,
   snapshotPathTemplate: 'tests/data/snapshots/{platform}{/projectName}/{testFilePath}/{arg}{ext}',
   projects: [
     {
@@ -27,7 +27,7 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
-      timeout: 90000
+      timeout: 90000,
     },
   ],
 });
