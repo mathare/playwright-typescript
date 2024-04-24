@@ -55,7 +55,8 @@ test.describe('Product category page tests', () => {
     });
 
     test('Default product item details', async () => {
-      const productDetails = Products[category];
+      //There are a maximum of 12 products displayed by default
+      const productDetails = Products[category].slice(0, 12);
       const productItems = productCategoryPage.productItem;
       expect.soft(await productItems.count()).toEqual(productDetails.length);
       for (let i = 0; i < (await productItems.count()); i++) {
