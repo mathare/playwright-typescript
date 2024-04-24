@@ -26,7 +26,7 @@ test.describe('Product category page tests', () => {
       await expect.soft(productCategoryPage.globalMessage).toBeVisible();
       await expect.soft(productCategoryPage.pageHeader.header).toBeVisible();
       await expect.soft(productCategoryPage.pageHeader.topnav).toBeVisible();
-      await expect.soft(productCategoryPage.breadcrumbs).toBeVisible();
+      await expect.soft(productCategoryPage.breadcrumbsContainer).toBeVisible();
       await expect.soft(productCategoryPage.filters).toBeVisible();
       await expect.soft(productCategoryPage.sidebar).toBeVisible();
       await expect.soft(productCategoryPage.displayToolbar).toBeVisible();
@@ -39,7 +39,7 @@ test.describe('Product category page tests', () => {
     test('Text content of page elements', async () => {
       // Need to select the relevant category once we revert to using random pages rather than a fixed category page
       const categoryExpectedText = ExpectedText[category];
-      await expect.soft(productCategoryPage.breadcrumbs).toHaveText(categoryExpectedText.Breadcrumbs);
+      await expect.soft(productCategoryPage.breadcrumbsContainer).toHaveText(categoryExpectedText.Breadcrumbs);
       await expect.soft(productCategoryPage.pageTitle).toHaveText(categoryExpectedText.Title);
       await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
       const filterOptions = productCategoryPage.filterOption;

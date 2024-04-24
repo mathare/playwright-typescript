@@ -3,7 +3,7 @@ import BasePage from './basePage';
 import { ProductCategories } from '../data/productCategoryPage';
 
 export default class ProductCategoryPage extends BasePage {
-  readonly breadcrumbs: Locator;
+  readonly breadcrumbsContainer: Locator;
   readonly mainContent: Locator;
   readonly pageTitle: Locator;
   readonly filters: Locator;
@@ -17,7 +17,7 @@ export default class ProductCategoryPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.breadcrumbs = page.locator('.breadcrumbs');
+    this.breadcrumbsContainer = page.locator('.breadcrumbs');
     this.mainContent = page.locator('#maincontent');
     this.pageTitle = this.mainContent.getByRole('heading', { level: 1 });
     this.filters = this.mainContent.locator('.filter-content');
