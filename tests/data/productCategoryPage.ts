@@ -43,4 +43,5 @@ export const Products = {
   WomenHoodiesSweatshirts: [...WomenHoodies.Products],
   WomenJackets: [...WomenJackets.Products],
   WomenTees: [...WomenTees.Products],
+  WomenTops: [...WomenTops.Products],
 };
