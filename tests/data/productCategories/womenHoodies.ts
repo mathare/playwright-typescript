@@ -1,6 +1,6 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Colors, Sizes } from '../products';
-import { FilterOptions, ProductCategoryExpectedText } from './Shared';
+import { FilterOptions, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Women  Tops  Hoodies & Sweatshirts',

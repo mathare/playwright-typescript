@@ -1,5 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { FilterOptions, ProductCategoryExpectedText } from './Shared';
+import { FilterOptions, ProductCategoryExpectedText } from './shared';
 import { Products as Hoodies } from './womenHoodies';
 import { Products as Jackets } from './womenJackets';
 import { Products as Tanks } from './womenTanks';
