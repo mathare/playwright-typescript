@@ -1,20 +1,7 @@
-import { ProductCategoryExpectedText } from '../productCategoryPage';
+import { FilterOptions, ProductCategoryExpectedText } from './Shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
-  Breadcrumbs: 'Home  Women  Tops  Bras & Tanks',
+  Breadcrumbs: 'Home  Women  Tops  Tanks',
   Title: 'Bras & Tanks',
-  Filters: [
-    'STYLE',
-    'SIZE',
-    'PRICE',
-    'COLOR',
-    'MATERIAL',
-    'ECO COLLECTION',
-    'PERFORMANCE FABRIC',
-    'ERIN RECOMMENDS',
-    'NEW',
-    'SALE',
-    'PATTERN',
-    'CLIMATE',
-  ],
+  Filters: [...FilterOptions],
 };
