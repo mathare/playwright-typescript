@@ -1,12 +1,12 @@
 import { Links as HeaderLinks } from './pageHeader';
-import { ExpectedText as WomenBottomsText, Links as WomenBottomsLinks } from './productCategories/WomenBottoms';
-import { ExpectedText as WomenHoodiesText, Links as WomenHoodiesLinks } from './productCategories/WomenHoodies';
-import { ExpectedText as WomenJacketsText, Links as WomenJacketsLinks } from './productCategories/WomenJackets';
-import { ExpectedText as WomenPantsText, Links as WomenPantsLinks } from './productCategories/WomenPants';
-import { ExpectedText as WomenShortsText, Links as WomenShortsLinks } from './productCategories/WomenShorts';
-import { ExpectedText as WomenTanksText, Links as WomenTanksLinks } from './productCategories/WomenTanks';
-import { ExpectedText as WomenTeesText, Links as WomenTeesLinks } from './productCategories/WomenTees';
-import { ExpectedText as WomenTopsText, Links as WomenTopsLinks } from './productCategories/WomenTops';
+import { ExpectedText as WomenBottomsText, Links as WomenBottomsLinks } from './productCategories/womenBottoms';
+import { ExpectedText as WomenHoodiesText, Links as WomenHoodiesLinks } from './productCategories/womenHoodies';
+import { ExpectedText as WomenJacketsText, Links as WomenJacketsLinks } from './productCategories/womenJackets';
+import { ExpectedText as WomenPantsText, Links as WomenPantsLinks } from './productCategories/womenPants';
+import { ExpectedText as WomenShortsText, Links as WomenShortsLinks } from './productCategories/womenShorts';
+import { ExpectedText as WomenTanksText, Links as WomenTanksLinks } from './productCategories/womenTanks';
+import { ExpectedText as WomenTeesText, Links as WomenTeesLinks } from './productCategories/womenTees';
+import { ExpectedText as WomenTopsText, Links as WomenTopsLinks } from './productCategories/womenTops';
 
 export const ProductCategories = {
   Women: { ...HeaderLinks.Topnav.WomenSubMenu },
