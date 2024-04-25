@@ -23,7 +23,6 @@ export const Links = {
   Breadcrumbs: {
     Home: '/',
     Gear: HeaderLinks.Topnav.Gear,
-    Bags: HeaderLinks.Topnav.GearSubMenu.Bags,
   },
 };
 
