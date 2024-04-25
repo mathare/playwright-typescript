@@ -8,16 +8,13 @@ test.describe('Product category page tests', () => {
   let category: string;
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
-    // Temporarily set category page to known page rather than random page for simplicity at this stage
-    category = 'WomenTees';
-    await productCategoryPage.open(ProductCategories.Women.Tees);
-    // const topLvlCategory =
-    //   Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
-    // const subCategory = Object.keys(ProductCategories[topLvlCategory])[
-    //   Math.floor(Math.random() * Object.keys(ProductCategories[topLvlCategory]).length)
-    // ];
-    // category = `${topLvlCategory}${subCategory}`;
-    // await productCategoryPage.open(ProductCategories[topLvlCategory][subCategory]);
+    const topLvlCategory =
+      Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
+    const subCategory = Object.keys(ProductCategories[topLvlCategory])[
+      Math.floor(Math.random() * Object.keys(ProductCategories[topLvlCategory]).length)
+    ];
+    category = `${topLvlCategory}${subCategory}`;
+    await productCategoryPage.open(ProductCategories[topLvlCategory][subCategory]);
   });
 
   test.describe('Appearance tests', () => {
@@ -39,7 +36,6 @@ test.describe('Product category page tests', () => {
     });
 
     test('Text content of page elements', async () => {
-      // Need to select the relevant category once we revert to using random pages rather than a fixed category page
       const categoryExpectedText = ExpectedText[category];
       await expect.soft(productCategoryPage.breadcrumbsContainer).toHaveText(categoryExpectedText.Breadcrumbs);
       await expect.soft(productCategoryPage.pageTitle).toHaveText(categoryExpectedText.Title);
