@@ -23,7 +23,7 @@ export const ProductCategories = {
   Women: { ...HeaderLinks.Topnav.WomenSubMenu },
   Men: { ...HeaderLinks.Topnav.MenSubMenu },
   Gear: { ...HeaderLinks.Topnav.GearSubMenu },
-  // Training: { ...HeaderLinks.Topnav.TrainingSubMenu },
+  // There are no products under Training > Video Downloads so the whole Training category is omitted
 };
 
 export const ExpectedText = {
