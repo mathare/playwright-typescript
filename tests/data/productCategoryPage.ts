@@ -54,6 +54,7 @@ export const Links = {
 };
 
 export const Products = {
+  WomenBottoms: [...WomenBottoms.Products],
   WomenBrasTanks: [...WomenTanks.Products],
   WomenHoodiesSweatshirts: [...WomenHoodies.Products],
   WomenJackets: [...WomenJackets.Products],
