@@ -17,6 +17,7 @@ import * as MenTees from './productCategories/menTees';
 import * as MenTops from './productCategories/menTops';
 import * as GearBags from './productCategories/gearBags';
 import * as GearFitnessEquipment from './productCategories/gearFitnessEquipment';
+import * as GearWatches from './productCategories/gearWatches';
 
 export const ProductCategories = {
   Women: { ...HeaderLinks.Topnav.WomenSubMenu },
@@ -45,6 +46,7 @@ export const ExpectedText = {
   MenTops: { ...MenTops.ExpectedText },
   GearBags: { ...GearBags.ExpectedText },
   GearFitnessEquipment: { ...GearFitnessEquipment.ExpectedText },
+  GearWatches: { ...GearWatches.ExpectedText },
 };
 
 export const Links = {
@@ -66,6 +68,7 @@ export const Links = {
   MenTops: { ...MenTops.Links },
   GearBags: { ...GearBags.Links },
   GearFitnessEquipment: { ...GearFitnessEquipment.Links },
+  GearWatches: { ...GearWatches.Links },
 };
 
 export const Products = {
@@ -87,4 +90,5 @@ export const Products = {
   MenTops: [...MenTops.Products],
   GearBags: [...GearBags.Products],
   GearFitnessEquipment: [...GearFitnessEquipment.Products],
+  GearWatches: [...GearWatches.Products],
 };
