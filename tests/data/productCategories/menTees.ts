@@ -52,7 +52,7 @@ export const Products = [
     price: 'As low as $28.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Grey],
-    link: '/ryker-lumatech-trade-v-neck-tee.html',
+    link: '/ryker-lumatech-trade-tee-v-neck.html',
   },
   {
     title: 'Aero Daily Fitness Tee',
@@ -106,7 +106,7 @@ export const Products = [
     price: 'As low as $32.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Red],
-    link: '/ryker-lumatech-trade-crew-neck-tee.html',
+    link: '/ryker-lumatech-trade-tee-crew-neck.html',
   },
   {
     title: 'Helios EverCool™ Tee',

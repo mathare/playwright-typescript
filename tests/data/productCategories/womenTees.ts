@@ -100,7 +100,7 @@ export const Products = [
     price: 'As low as $42.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.White, Colors.Yellow],
-    link: '/gwyn-endurance-tee.html',
+    link: '/juliana-short-sleeve-tee.html',
   },
   {
     title: 'Elisa EverCool™ Tee',
@@ -134,6 +134,6 @@ export const Products = [
     price: 'As low as $28.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Red],
-    link: '/karissa-v-neck-tee.html',
+    link: '/gabrielle-micro-sleeve-top.html',
   },
 ];

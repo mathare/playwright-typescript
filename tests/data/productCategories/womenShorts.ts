@@ -54,7 +54,7 @@ export const Products = [
     price: 'As low as $44.00',
     sizes: Sizes.Small,
     colors: [Colors.Grey, Colors.Green, Colors.White],
-    link: '/ana-all-purpose-short.html',
+    link: '/mimi-all-purpose-short.html',
   },
   {
     title: 'Sybil Running Short',
@@ -72,7 +72,7 @@ export const Products = [
     price: 'As low as $24.00',
     sizes: Sizes.Small,
     colors: [Colors.Black, Colors.Blue, Colors.Pink],
-    link: '/ech-fit-compression-short.html',
+    link: '/echo-fit-compression-short.html',
   },
   {
     title: 'Angel Light Running Short',

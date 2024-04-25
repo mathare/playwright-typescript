@@ -113,6 +113,6 @@ export const Products = [
     price: 'As low as $57.00',
     sizes: Sizes,
     colors: [Colors.Green, Colors.Orange, Colors.Pink],
-    link: '/mona-pullover-hoodie.html',
+    link: '/mona-pullover-hoodlie.html',
   },
 ];

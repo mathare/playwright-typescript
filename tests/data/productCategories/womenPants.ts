@@ -32,7 +32,7 @@ export const Products = [
     price: 'As low as $63.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Grey, Colors.Green],
-    link: '/deidre-relaxed-fit-capri.html',
+    link: '/deirdre-relaxed-fit-capri.html',
   },
   {
     title: 'Sylvia Capri',
