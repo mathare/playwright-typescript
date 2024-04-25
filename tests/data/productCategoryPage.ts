@@ -9,6 +9,7 @@ import * as WomenTees from './productCategories/womenTees';
 import * as WomenTops from './productCategories/womenTops';
 import * as MenHoodies from './productCategories/menHoodies';
 import * as MenJackets from './productCategories/menJackets';
+import * as MenPants from './productCategories/menPants';
 import * as MenShorts from './productCategories/menShorts';
 import * as MenTanks from './productCategories/menTanks';
 import * as MenTees from './productCategories/menTees';
@@ -33,6 +34,7 @@ export const ExpectedText = {
   WomenTops: { ...WomenTops.ExpectedText },
   MenHoodiesSweatshirts: { ...MenHoodies.ExpectedText },
   MenJackets: { ...MenJackets.ExpectedText },
+  MenPants: { ...MenPants.ExpectedText },
   MenShorts: { ...MenShorts.ExpectedText },
   MenTanks: { ...MenTanks.ExpectedText },
   MenTees: { ...MenTees.ExpectedText },
@@ -50,6 +52,7 @@ export const Links = {
   WomenTops: { ...WomenTops.Links },
   MenHoodiesSweatshirts: { ...MenHoodies.Links },
   MenJackets: { ...MenJackets.Links },
+  MenPants: { ...MenPants.Links },
   MenShorts: { ...MenShorts.Links },
   MenTanks: { ...MenTanks.Links },
   MenTees: { ...MenTees.Links },
@@ -67,6 +70,7 @@ export const Products = {
   WomenTops: [...WomenTops.Products],
   MenHoodiesSweatshirts: [...MenHoodies.Products],
   MenJackets: [...MenJackets.Products],
+  MenPants: [...MenPants.Products],
   MenShorts: [...MenShorts.Products],
   MenTanks: [...MenTanks.Products],
   MenTees: [...MenTees.Products],
