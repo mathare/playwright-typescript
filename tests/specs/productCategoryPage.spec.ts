@@ -56,7 +56,6 @@ test.describe('Product category page tests', () => {
       const productItems = productCategoryPage.productItem;
       expect.soft(await productItems.count()).toEqual(productDetails.length);
       for (let i = 0; i < (await productItems.count()); i++) {
-        console.log(productDetails[i].title);
         await expect
           .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
           .toHaveText(productDetails[i].title);
@@ -104,7 +103,6 @@ test.describe('Product category page tests', () => {
   test.describe('Link tests', () => {
     test('Breadcrumb links', async ({ baseURL }) => {
       const breadcrumbs = (await productCategoryPage.breadcrumbsContainer.innerText()).split('  ');
-      console.log(breadcrumbs);
       // The last breadcrumb doesn't have a link as it is the current page
       for (let i = 0; i < breadcrumbs.length - 1; i++) {
         await expect
