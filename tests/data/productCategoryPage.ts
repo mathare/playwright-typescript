@@ -57,6 +57,7 @@ export const Products = {
   WomenBrasTanks: [...WomenTanks.Products],
   WomenHoodiesSweatshirts: [...WomenHoodies.Products],
   WomenJackets: [...WomenJackets.Products],
+  WomenPants: [...WomenPants.Products],
   WomenTees: [...WomenTees.Products],
   WomenTops: [...WomenTops.Products],
   MenHoodiesSweatshirts: [...MenHoodies.Products],
