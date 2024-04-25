@@ -116,5 +116,29 @@ test.describe('Product category page tests', () => {
           .toHaveAttribute('href', `${baseURL}${Links[category].Breadcrumbs[breadcrumbs[i]]}`);
       }
     });
+
+    test('Default product links', async ({ baseURL }) => {
+      //There are a maximum of 12 products displayed by default
+      const productDetails = Products[category].slice(0, 12);
+      const products = productCategoryPage.productItem;
+      expect.soft(await products.count()).toEqual(productDetails.length);
+      for (let i = 0; i < (await products.count()); i++) {
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.PhotoLink))
+          .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.NameLink))
+          .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
+        if (productDetails[i].reviews) {
+          await expect
+            .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
+            .toHaveAttribute('href', `${baseURL}${productDetails[i].link}#reviews`);
+        } else {
+          await expect
+            .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
+            .not.toBeVisible();
+        }
+      }
+    });
   });
 });
