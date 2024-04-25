@@ -9,6 +9,7 @@ import * as WomenTees from './productCategories/womenTees';
 import * as WomenTops from './productCategories/womenTops';
 import * as MenHoodies from './productCategories/menHoodies';
 import * as MenJackets from './productCategories/menJackets';
+import * as MenTees from './productCategories/menTees';
 
 export const ProductCategories = {
   Women: { ...HeaderLinks.Topnav.WomenSubMenu },
@@ -29,6 +30,7 @@ export const ExpectedText = {
   WomenTops: { ...WomenTops.ExpectedText },
   MenHoodiesSweatshirts: { ...MenHoodies.ExpectedText },
   MenJackets: { ...MenJackets.ExpectedText },
+  MenTees: { ...MenTees.ExpectedText },
 };
 
 export const Links = {
@@ -42,6 +44,7 @@ export const Links = {
   WomenTops: { ...WomenTops.Links },
   MenHoodiesSweatshirts: { ...MenHoodies.Links },
   MenJackets: { ...MenJackets.Links },
+  MenTees: { ...MenTees.Links },
 };
 
 export const Products = {
@@ -52,4 +55,5 @@ export const Products = {
   WomenTops: [...WomenTops.Products],
   MenHoodiesSweatshirts: [...MenHoodies.Products],
   MenJackets: [...MenJackets.Products],
+  MenTees: [...MenTees.Products],
 };
