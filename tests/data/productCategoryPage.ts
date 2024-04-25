@@ -7,6 +7,7 @@ import * as WomenShorts from './productCategories/womenShorts';
 import * as WomenTanks from './productCategories/womenTanks';
 import * as WomenTees from './productCategories/womenTees';
 import * as WomenTops from './productCategories/womenTops';
+import * as MenHoodies from './productCategories/menHoodies';
 import * as MenJackets from './productCategories/menJackets';
 
 export const ProductCategories = {
@@ -26,6 +27,7 @@ export const ExpectedText = {
   WomenShorts: { ...WomenShorts.ExpectedText },
   WomenTees: { ...WomenTees.ExpectedText },
   WomenTops: { ...WomenTops.ExpectedText },
+  MenHoodiesSweatshirts: { ...MenHoodies.ExpectedText },
   MenJackets: { ...MenJackets.ExpectedText },
 };
 
@@ -38,6 +40,7 @@ export const Links = {
   WomenShorts: { ...WomenShorts.Links },
   WomenTees: { ...WomenTees.Links },
   WomenTops: { ...WomenTops.Links },
+  MenHoodiesSweatshirts: { ...MenHoodies.Links },
   MenJackets: { ...MenJackets.Links },
 };
 
@@ -47,5 +50,6 @@ export const Products = {
   WomenJackets: [...WomenJackets.Products],
   WomenTees: [...WomenTees.Products],
   WomenTops: [...WomenTops.Products],
+  MenHoodiesSweatshirts: [...MenHoodies.Products],
   MenJackets: [...MenJackets.Products],
 };
