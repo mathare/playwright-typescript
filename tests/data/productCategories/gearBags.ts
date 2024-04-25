@@ -1,6 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { Colors, Sizes } from '../products';
-import { FilterOptions, ProductCategoryExpectedText } from './shared';
+import { ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Gear  Bags',
