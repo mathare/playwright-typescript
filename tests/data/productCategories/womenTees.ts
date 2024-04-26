@@ -17,7 +17,7 @@ export const Links = {
   },
 };
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Desiree Fitness Tee',
     rating: '73%',

@@ -1,4 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
+import { Product } from '../products';
 import { FilterOptions, ProductCategoryExpectedText } from './shared';
 import { Products as Pants } from './womenPants';
 import { Products as Shorts } from './womenShorts';
@@ -17,4 +18,4 @@ export const Links = {
   },
 };
 
-export const Products = [...Shorts, ...Pants];
+export const Products: Product[] = [...Shorts, ...Pants];

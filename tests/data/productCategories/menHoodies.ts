@@ -1,5 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { Colors, Sizes } from '../products';
+import { Colors, Product, Sizes } from '../products';
 import { FilterOptions, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -18,7 +18,7 @@ export const Links = {
   },
 };
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Marco Lightweight Active Hoodie',
     price: 'As low as $74.00',
@@ -67,6 +67,18 @@ export const Products = [
     sizes: Sizes,
     colors: [Colors.Black, Colors.Grey, Colors.Green],
     link: '/hero-hoodie.html',
+    images: {
+      default: '/m/h/mh07-gray_main_2.jpg',
+      colors: ['/m/h/mh07-black_main_1.jpg', '/m/h/mh07-gray_main_1.jpg', '/m/h/mh07-green_main_1.jpg'],
+      // The hoodie has 2 different images for the size options
+      sizes: [
+        '/m/h/mh07-black_main_1.jpg',
+        '/m/h/mh07-black_main_1.jpg',
+        '/m/h/mh07-black_main_2.jpg',
+        '/m/h/mh07-black_main_2.jpg',
+        '/m/h/mh07-black_main_2.jpg',
+      ],
+    },
   },
   {
     title: 'Stark Fundamental Hoodie',
