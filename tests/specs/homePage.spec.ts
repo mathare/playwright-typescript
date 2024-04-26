@@ -163,7 +163,7 @@ test.describe('Home page tests', () => {
 
     test('Product image links for different color options', async ({ baseURL }) => {
       const products = homePage.productItem;
-      await expect.soft(await products).toHaveCount(Products.length);
+      await expect.soft(products).toHaveCount(Products.length);
       for (let i = 0; i < (await products.count()); i++) {
         if (Products[i].colors) {
           const colors = homePage.getProductItemElement(i, ProductItemElements.Colors);
