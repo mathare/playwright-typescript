@@ -7,6 +7,7 @@ import { rgbToHex } from '../helpers/colorUtils';
 
 test.describe('Product item tests', () => {
   // These tests could use any page that has product items on it. It just so happens that I have chosen the home page for simplicity
+  // In the future this could be extended to use a random page with products on
   let homePage: HomePage;
   test.beforeEach(async ({ page }) => {
     homePage = new HomePage(page);
