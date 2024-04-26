@@ -70,7 +70,7 @@ test.describe('Product category page tests', () => {
             .toHaveText(productDetails[i].reviews!);
         }
         await expect
-          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Price))
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Price).first())
           .toHaveText(productDetails[i].price);
         if (productDetails[i].sizes) {
           const sizes = productCategoryPage.getProductItemElement(i, ProductItemElements.Sizes);
