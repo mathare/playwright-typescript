@@ -265,7 +265,7 @@ test.describe('Home page tests', () => {
     const tooltipHeight = '90';
     test('Size option tooltips', async () => {
       const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes);
-      expect.soft(await sizes.count()).toEqual(Products[0].sizes!.length);
+      await expect.soft(sizes).toHaveCount(Products[0].sizes!.length);
       for (let i = 0; i < (await sizes.count()); i++) {
         await expect.soft(sizes.nth(i)).toHaveAttribute('option-tooltip-value', Products[0].sizes![i]);
         await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
@@ -275,7 +275,7 @@ test.describe('Home page tests', () => {
 
     test('Color swatch tooltips', async () => {
       const colors = homePage.getProductItemElement(0, ProductItemElements.Colors);
-      expect.soft(await colors.count()).toEqual(Products[0].colors!.length);
+      await expect.soft(colors).toHaveCount(Products[0].colors!.length);
       for (let i = 0; i < (await colors.count()); i++) {
         await expect.soft(colors.nth(i)).toHaveAttribute('option-tooltip-value', rgbToHex(Products[0].colors![i]));
         await expect.soft(colors.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
