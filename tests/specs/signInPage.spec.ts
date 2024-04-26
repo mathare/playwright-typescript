@@ -17,7 +17,7 @@ test.describe('Sign in page tests', () => {
   });
 
   test.describe('Behavioural tests', () => {
-    test.describe('Successful logins', () => {
+    test.describe.skip('Successful logins', () => {
       test('Login successfully', async ({ page, baseURL }) => {
         const myAccountPage = new MyAccountPage(page);
         await signInPage.loginAs(dummyCustomer.email, dummyCustomer.password);

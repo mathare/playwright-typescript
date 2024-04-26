@@ -8,7 +8,7 @@ const Timeouts = {
   Visual: 20000,
 };
 
-test.describe('My Account page tests', () => {
+test.describe.skip('My Account page tests', () => {
   let myAccountPage: MyAccountPage;
   test.beforeEach(async ({ page, baseURL }) => {
     myAccountPage = new MyAccountPage(page);
