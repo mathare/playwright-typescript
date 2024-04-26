@@ -2,6 +2,7 @@ import { Links as HeaderLinks } from '../pageHeader';
 import { FilterOptions, ProductCategoryExpectedText } from './shared';
 import { Products as Pants } from './menPants';
 import { Products as Shorts } from './menShorts';
+import { Product } from '../products';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Men  Bottoms',
@@ -16,5 +17,4 @@ export const Links = {
     Men: HeaderLinks.Topnav.Men,
   },
 };
-
-export const Products = [...Shorts, ...Pants];
+export const Products: Product[]  = [...Shorts, ...Pants];

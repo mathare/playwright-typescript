@@ -1,5 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { Colors } from '../products';
+import { Colors, Product } from '../products';
 import { FilterOptions, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -19,7 +19,7 @@ export const Links = {
 
 const Sizes = { All: ['28', '29', '30', '31', '32'], Small: ['28', '29'] };
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Erika Running Short',
     rating: '60%',

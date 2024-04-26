@@ -4,6 +4,7 @@ import { Products as Hoodies } from './menHoodies';
 import { Products as Jackets } from './menJackets';
 import { Products as Tanks } from './menTanks';
 import { Products as Tees } from './menTees';
+import { Product } from '../products';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Men  Tops',
@@ -19,4 +20,4 @@ export const Links = {
   },
 };
 
-export const Products = [...Tanks, ...Tees, ...Jackets, ...Hoodies];
+export const Products: Product[] = [...Tanks, ...Tees, ...Jackets, ...Hoodies];
