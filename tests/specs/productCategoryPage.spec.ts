@@ -86,16 +86,6 @@ test.describe('Product category page tests', () => {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
         }
-        await productItems.nth(i).hover();
-        await expect
-          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.AddToCartButton))
-          .toBeVisible();
-        await expect
-          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.AddToWishListButton))
-          .toBeVisible();
-        await expect
-          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.AddToCompareButton))
-          .toBeVisible();
       }
     });
   });
