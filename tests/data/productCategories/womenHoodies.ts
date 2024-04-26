@@ -22,7 +22,7 @@ export const Products = [
     title: 'Circe Hooded Ice Fleece',
     price: 'As low as $68.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Green, Colors.Pink],
+    colors: [Colors.Grey, Colors.Green, Colors.Purple],
     link: '/circe-hooded-ice-fleece.html',
   },
   {
@@ -43,21 +43,21 @@ export const Products = [
     title: 'Ariel Roll Sleeve Sweatshirt',
     price: 'As low as $39.00',
     sizes: Sizes,
-    colors: [Colors.Green, Colors.Pink, Colors.Red],
+    colors: [Colors.Green, Colors.Purple, Colors.Red],
     link: '/ariel-roll-sleeve-sweatshirt.html',
   },
   {
     title: 'Cassia Funnel Sweatshirt',
     price: 'As low as $48.00',
     sizes: Sizes,
-    colors: [Colors.Orange, Colors.Pink, Colors.White],
+    colors: [Colors.Orange, Colors.Purple, Colors.White],
     link: '/cassia-funnel-sweatshirt.html',
   },
   {
     title: 'Phoebe Zipper Sweatshirt',
     price: 'As low as $59.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Pink, Colors.White],
+    colors: [Colors.Grey, Colors.Purple, Colors.White],
     link: '/phoebe-zipper-sweatshirt.html',
   },
   {
@@ -66,7 +66,7 @@ export const Products = [
     reviews: '2 Reviews',
     price: 'As low as $59.00',
     sizes: Sizes,
-    colors: [Colors.Pink],
+    colors: [Colors.Purple],
     link: '/daphne-full-zip-hoodie.html',
   },
   {
@@ -75,7 +75,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $42.00',
     sizes: Sizes,
-    colors: [Colors.Orange, Colors.Pink, Colors.White],
+    colors: [Colors.Orange, Colors.Purple, Colors.White],
     link: '/selene-yoga-hoodie.html',
   },
   {
@@ -84,7 +84,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $69.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Orange, Colors.Pink],
+    colors: [Colors.Blue, Colors.Orange, Colors.Purple],
     link: '/miko-pullover-hoodie.html',
   },
   {
@@ -93,7 +93,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $57.00',
     sizes: Sizes,
-    colors: [Colors.Green, Colors.Pink, Colors.Red],
+    colors: [Colors.Green, Colors.Purple, Colors.Red],
     link: '/autumn-pullie.html',
   },
   {
@@ -112,7 +112,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $57.00',
     sizes: Sizes,
-    colors: [Colors.Green, Colors.Orange, Colors.Pink],
+    colors: [Colors.Green, Colors.Orange, Colors.Purple],
     link: '/mona-pullover-hoodlie.html',
   },
 ];

@@ -38,7 +38,7 @@ export const Products = [
     title: 'Sol Active Short',
     price: 'As low as $32.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Green, Colors.Pink],
+    colors: [Colors.Blue, Colors.Green, Colors.Purple],
     link: '/sol-active-short.html',
   },
   {
@@ -65,7 +65,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $35.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/rapha-sports-short.html',
   },
   {
@@ -92,7 +92,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $32.50',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Pink, Colors.Yellow],
+    colors: [Colors.Grey, Colors.Purple, Colors.Yellow],
     link: '/torque-power-short.html',
   },
   {

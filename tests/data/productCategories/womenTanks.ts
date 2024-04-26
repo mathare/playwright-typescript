@@ -24,7 +24,7 @@ export const Products = [
     reviews: '2 Reviews',
     price: 'As low as $34.00',
     sizes: Sizes,
-    colors: [Colors.Pink, Colors.White, Colors.Yellow],
+    colors: [Colors.Purple, Colors.White, Colors.Yellow],
     link: '/breathe-easy-tank.html',
     images: {
       default: '/w/t/wt09-white_main_1.jpg',
@@ -38,7 +38,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $34.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Pink, Colors.Yellow],
+    colors: [Colors.Black, Colors.Purple, Colors.Yellow],
     link: '/antonia-racer-tank.html',
   },
   {
@@ -63,21 +63,21 @@ export const Products = [
     title: 'Leah Yoga Top',
     price: 'As low as $39.00',
     sizes: Sizes,
-    colors: [Colors.Orange, Colors.Pink, Colors.White],
+    colors: [Colors.Orange, Colors.Purple, Colors.White],
     link: '/leah-yoga-top.html',
   },
   {
     title: 'Nona Fitness Tank',
     price: 'As low as $39.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Pink, Colors.Red],
+    colors: [Colors.Blue, Colors.Purple, Colors.Red],
     link: '/nona-fitness-tank.html',
   },
   {
     title: 'Nora Practice Tank',
     price: 'As low as $39.00',
     sizes: Sizes,
-    colors: [Colors.Orange, Colors.Pink, Colors.Red],
+    colors: [Colors.Orange, Colors.Purple, Colors.Red],
     link: '/nora-practice-tank.html',
   },
   {
@@ -104,7 +104,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $39.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Orange, Colors.Pink],
+    colors: [Colors.Black, Colors.Orange, Colors.Purple],
     link: '/lucia-cross-fit-bra.html',
   },
   {
@@ -113,7 +113,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $24.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Pink, Colors.Yellow],
+    colors: [Colors.Blue, Colors.Purple, Colors.Yellow],
     link: '/prima-compete-bra-top.html',
   },
   {
@@ -140,7 +140,7 @@ export const Products = [
     reviews: '4 Reviews',
     price: 'As low as $39.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Pink],
+    colors: [Colors.Black, Colors.Grey, Colors.Purple],
     link: '/electra-bra-top.html',
   },
 ];
