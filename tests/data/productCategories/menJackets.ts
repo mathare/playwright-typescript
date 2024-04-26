@@ -40,7 +40,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $56.99',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Green, Colors.Pink],
+    colors: [Colors.Blue, Colors.Green, Colors.Purple],
     link: '/jupiter-all-weather-trainer.html',
   },
   {
@@ -92,7 +92,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $47.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/kenobi-trail-jacket.html',
   },
   {

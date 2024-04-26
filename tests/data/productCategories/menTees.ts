@@ -114,7 +114,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $24.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/helios-evercool-trade-tee.html',
   },
   {

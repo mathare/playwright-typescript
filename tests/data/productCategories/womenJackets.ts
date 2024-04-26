@@ -22,7 +22,7 @@ export const Products = [
     title: 'Olivia 1/4 Zip Light Jacket',
     price: 'As low as $77.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/olivia-1-4-zip-light-jacket.html',
   },
   {
@@ -31,7 +31,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $77.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Green, Colors.Pink],
+    colors: [Colors.Blue, Colors.Green, Colors.Purple],
     link: '/juno-jacket.html',
   },
   {
@@ -67,7 +67,7 @@ export const Products = [
     reviews: '2 Reviews',
     price: 'As low as $57.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Orange, Colors.Pink],
+    colors: [Colors.Grey, Colors.Orange, Colors.Purple],
     link: '/adrienne-trek-jacket.html',
   },
   {
@@ -76,7 +76,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $59.00',
     sizes: Sizes,
-    colors: [Colors.Orange, Colors.Pink, Colors.Red],
+    colors: [Colors.Orange, Colors.Purple, Colors.Red],
     link: '/inez-full-zip-jacket.html',
   },
   {
