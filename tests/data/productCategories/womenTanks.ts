@@ -1,0 +1,146 @@
+import { Links as HeaderLinks } from '../pageHeader';
+import { Colors, Sizes } from '../products';
+import { FilterOptions, ProductCategoryExpectedText } from './shared';
+
+export const ExpectedText: ProductCategoryExpectedText = {
+  Breadcrumbs: 'Home  Women  Tops  Bras & Tanks',
+  Title: 'Bras & Tanks',
+  Filters: [...FilterOptions],
+  ProductCount: 'Items 1-12 of 14',
+};
+
+export const Links = {
+  Breadcrumbs: {
+    Home: '/',
+    Women: HeaderLinks.Topnav.Women,
+    Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,
+  },
+};
+
+export const Products = [
+  {
+    title: 'Breathe-Easy Tank',
+    rating: '70%',
+    reviews: '2 Reviews',
+    price: 'As low as $34.00',
+    sizes: Sizes,
+    colors: [Colors.Pink, Colors.White, Colors.Yellow],
+    link: '/breathe-easy-tank.html',
+    images: {
+      default: '/w/t/wt09-white_main_1.jpg',
+      colors: ['/w/t/wt09-purple_main_1.jpg', '/w/t/wt09-white_main_1.jpg', '/w/t/wt09-yellow_main_1.jpg'],
+      sizes: '/w/t/wt09-purple_main_1.jpg',
+    },
+  },
+  {
+    title: 'Antonia Racer Tank',
+    rating: '60%',
+    reviews: '3 Reviews',
+    price: 'As low as $34.00',
+    sizes: Sizes,
+    colors: [Colors.Black, Colors.Pink, Colors.Yellow],
+    link: '/antonia-racer-tank.html',
+  },
+  {
+    title: 'Maya Tunic',
+    rating: '80%',
+    reviews: '1 Review',
+    price: 'As low as $29.00',
+    sizes: Sizes,
+    colors: [Colors.Green, Colors.White, Colors.Yellow],
+    link: '/maya-tunic.html',
+  },
+  {
+    title: 'Chloe Compete Tank',
+    rating: '73%',
+    reviews: '3 Reviews',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Blue, Colors.Red, Colors.Yellow],
+    link: '/chloe-compete-tank.html',
+  },
+  {
+    title: 'Leah Yoga Top',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Orange, Colors.Pink, Colors.White],
+    link: '/leah-yoga-top.html',
+  },
+  {
+    title: 'Nona Fitness Tank',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Blue, Colors.Pink, Colors.Red],
+    link: '/nona-fitness-tank.html',
+  },
+  {
+    title: 'Nora Practice Tank',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Orange, Colors.Pink, Colors.Red],
+    link: '/nora-practice-tank.html',
+  },
+  {
+    title: 'Zoe Tank',
+    rating: '53%',
+    reviews: '3 Reviews',
+    price: 'As low as $29.00',
+    sizes: Sizes,
+    colors: [Colors.Green, Colors.Orange, Colors.Yellow],
+    link: '/zoe-tank.html',
+  },
+  {
+    title: 'Bella Tank',
+    rating: '80%',
+    reviews: '2 Reviews',
+    price: 'As low as $29.00',
+    sizes: Sizes,
+    colors: [Colors.Black, Colors.Blue, Colors.Orange],
+    link: '/bella-tank.html',
+  },
+  {
+    title: 'Lucia Cross-Fit Bra',
+    rating: '40%',
+    reviews: '3 Reviews',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Black, Colors.Orange, Colors.Pink],
+    link: '/lucia-cross-fit-bra.html',
+  },
+  {
+    title: 'Prima Compete Bra Top',
+    rating: '60%',
+    reviews: '3 Reviews',
+    price: 'As low as $24.00',
+    sizes: Sizes,
+    colors: [Colors.Blue, Colors.Pink, Colors.Yellow],
+    link: '/prima-compete-bra-top.html',
+  },
+  {
+    title: 'Celeste Sports Bra',
+    rating: '67%',
+    reviews: '3 Reviews',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Green, Colors.Red, Colors.Yellow],
+    link: '/celeste-sports-bra.html',
+  },
+  {
+    title: 'Erica Evercool Sports Bra',
+    rating: '60%',
+    reviews: '4 Reviews',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Blue, Colors.Orange, Colors.Yellow],
+    link: '/erica-evercool-sports-bra.html',
+  },
+  {
+    title: 'Electra Bra Top',
+    rating: '75%',
+    reviews: '4 Reviews',
+    price: 'As low as $39.00',
+    sizes: Sizes,
+    colors: [Colors.Black, Colors.Grey, Colors.Pink],
+    link: '/electra-bra-top.html',
+  },
+];

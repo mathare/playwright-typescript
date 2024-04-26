@@ -1,4 +1,4 @@
-import { Colors, ProductCatalog } from './products';
+import { ProductCatalog } from './products';
 
 export const ExpectedText = {
   PromoBlocks: [

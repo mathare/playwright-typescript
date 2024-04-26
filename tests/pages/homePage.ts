@@ -1,6 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
-import ProductItem, { ProductItemElements } from './components/productItems';
+import ProductItem, { ProductItemElements } from './components/productItem';
 
 export class HomePage extends BasePage {
   url = '/';
