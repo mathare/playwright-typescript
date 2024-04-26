@@ -5,10 +5,6 @@ import { Colors, SwatchOutlineStyles } from '../data/products';
 import { Products } from '../data/homePage';
 import { rgbToHex } from '../helpers/colorUtils';
 
-const Timeouts = {
-  Visual: 20000,
-};
-
 test.describe('Product item tests', () => {
   // These tests could use any page that has product items on it. It just so happens that I have chosen the home page for simplicity
   let homePage: HomePage;
@@ -98,13 +94,6 @@ test.describe('Product item tests', () => {
           }
         }
       }
-    });
-  });
-
-  test.describe('Visual tests', () => {
-    test('Product hover', async () => {
-      await homePage.productItem.first().hover();
-      await expect(homePage.productsGrid).toHaveScreenshot('productHover.png', { timeout: Timeouts.Visual });
     });
   });
 
