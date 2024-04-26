@@ -1,5 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { Colors, Sizes } from '../products';
+import { Colors, Product, Sizes } from '../products';
 import { FilterOptions, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -17,7 +17,7 @@ export const Links = {
   },
 };
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Proteus Fitness Jackshirt',
     price: 'As low as $45.00',

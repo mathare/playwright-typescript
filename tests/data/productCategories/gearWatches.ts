@@ -1,4 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
+import { Product } from '../products';
 import { ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -15,7 +16,7 @@ export const Links = {
   },
 };
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Didi Sport Watch',
     rating: '70%',

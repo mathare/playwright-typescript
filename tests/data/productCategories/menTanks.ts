@@ -1,5 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { Colors, Sizes } from '../products';
+import { Colors, Product, Sizes } from '../products';
 import { FilterOptions, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -17,7 +17,7 @@ export const Links = {
   },
 };
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Cassius Sparring Tank',
     price: 'As low as $18.00',
@@ -59,6 +59,11 @@ export const Products = [
     sizes: Sizes,
     colors: [Colors.Grey],
     link: '/argus-all-weather-tank.html',
+    images: {
+      default: '/m/t/mt07-gray_main_1.jpg',
+      colors: ['/m/t/mt07-gray_main_1.jpg'],
+      sizes: '/m/t/mt07-gray_main_1.jpg',
+    },
   },
   {
     title: 'Vulcan Weightlifting Tank',
