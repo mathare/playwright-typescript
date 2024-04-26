@@ -1,4 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
+import { Product } from '../products';
 import { ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -26,13 +27,14 @@ export const Links = {
   },
 };
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Push It Messenger Bag',
     rating: '67%',
     reviews: '3 Reviews',
     price: '$45.00',
     link: '/push-it-messenger-bag.html',
+    images: { default: '/w/b/wb04-blue-0.jpg' },
   },
   {
     title: 'Overnight Duffle',
@@ -89,6 +91,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: '$59.00',
     link: '/fusion-backpack.html',
+    images: { default: '/m/b/mb02-gray-0.jpg' },
   },
   {
     title: 'Rival Field Messenger',

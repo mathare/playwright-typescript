@@ -1,4 +1,8 @@
-import { ProductCatalog } from './products';
+import * as WomenTanks from './productCategories/womenTanks';
+import * as WomenTees from './productCategories/womenTees';
+import * as MenHoodies from './productCategories/menHoodies';
+import * as MenTanks from './productCategories/menTanks';
+import * as GearBags from './productCategories/gearBags';
 
 export const ExpectedText = {
   PromoBlocks: [
@@ -12,13 +16,15 @@ export const ExpectedText = {
   ContentHeading: 'Hot Sellers Here is what`s trending on Luma right now',
 };
 
+// I'm not convinced this is the best way of doing this as I would like to avoid using hardcoded array indices where possible
+// However, this works for now and I will look at a better way of doing it down the line
 export const Products = [
-  ProductCatalog.RadiantTee,
-  ProductCatalog.BreatheEasyTank,
-  ProductCatalog.ArgusTank,
-  ProductCatalog.HeroHoodie,
-  ProductCatalog.FusionBackpack,
-  ProductCatalog.MessengerBag,
+  WomenTees.Products[2],
+  WomenTanks.Products[0],
+  MenTanks.Products[5],
+  MenHoodies.Products[6],
+  GearBags.Products[8],
+  GearBags.Products[0],
 ];
 
 export const PromoBlockLinks = [

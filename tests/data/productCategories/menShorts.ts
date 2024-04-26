@@ -1,5 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { Colors } from '../products';
+import { Colors, Product } from '../products';
 import { FilterOptions, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -19,7 +19,7 @@ export const Links = {
 
 const Sizes = ['32', '33', '34', '36'];
 
-export const Products = [
+export const Products: Product[] = [
   {
     title: 'Pierce Gym Short',
     price: 'As low as $27.00',
