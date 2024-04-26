@@ -54,7 +54,7 @@ test.describe('Product category page tests', () => {
       //There are a maximum of 12 products displayed by default
       const productDetails = Products[category].slice(0, 12);
       const productItems = productCategoryPage.productItem;
-      expect.soft(await productItems.count()).toEqual(productDetails.length);
+      await expect.soft(productItems).toHaveCount(productDetails.length);
       for (let i = 0; i < (await productItems.count()); i++) {
         await expect
           .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
@@ -74,14 +74,14 @@ test.describe('Product category page tests', () => {
           .toHaveText(productDetails[i].price);
         if (productDetails[i].sizes) {
           const sizes = productCategoryPage.getProductItemElement(i, ProductItemElements.Sizes);
-          expect.soft(await sizes.count()).toEqual(productDetails[i].sizes!.length);
+          await expect.soft(sizes).toHaveCount(productDetails[i].sizes!.length);
           for (let j = 0; j < (await sizes.count()); j++) {
             await expect.soft(sizes.nth(j)).toHaveText(productDetails[i].sizes![j]);
           }
         }
         if (productDetails[i].colors) {
           const colors = productCategoryPage.getProductItemElement(i, ProductItemElements.Colors);
-          expect.soft(await colors.count()).toEqual(productDetails[i].colors!.length);
+          await expect.soft(colors).toHaveCount(productDetails[i].colors!.length);
           for (let j = 0; j < (await colors.count()); j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
@@ -115,7 +115,7 @@ test.describe('Product category page tests', () => {
       //There are a maximum of 12 products displayed by default
       const productDetails = Products[category].slice(0, 12);
       const products = productCategoryPage.productItem;
-      expect.soft(await products.count()).toEqual(productDetails.length);
+      await expect.soft(products).toHaveCount(productDetails.length);
       for (let i = 0; i < (await products.count()); i++) {
         await expect
           .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.PhotoLink))
