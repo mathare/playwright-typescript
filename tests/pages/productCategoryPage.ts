@@ -48,6 +48,6 @@ export default class ProductCategoryPage extends BasePage {
   }
 
   getProductItemElement(productIndex: number, element: ProductItemElements): Locator {
-    return this.productItem.nth(productIndex).locator(element).first();
+    return this.productItem.nth(productIndex).locator(element);
   }
 }
