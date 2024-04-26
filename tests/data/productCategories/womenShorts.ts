@@ -133,7 +133,7 @@ export const Products: Product[] = [
     rating: '80%',
     reviews: '2 Reviews',
     price: 'As low as $39.00',
-    sizes: Sizes,
+    sizes: Sizes.All,
     colors: [Colors.Black, Colors.Grey, Colors.White],
     link: '/karmen-yoga-pant.html',
   },
