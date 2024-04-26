@@ -52,7 +52,7 @@ export const Products = [
     title: 'Carina Basic Capri',
     price: 'As low as $51.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/carina-basic-capri.html',
   },
   {
@@ -102,7 +102,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $48.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/ida-workout-parachute-pant.html',
   },
   {
@@ -111,7 +111,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $42.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Pink, Colors.Red],
+    colors: [Colors.Blue, Colors.Purple, Colors.Red],
     link: '/emma-leggings.html',
   },
   {

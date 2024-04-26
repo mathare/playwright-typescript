@@ -59,7 +59,7 @@ export const Products = [
     title: 'Thorpe Track Pant',
     price: 'As low as $68.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/thorpe-track-pant.html',
   },
   {
@@ -111,7 +111,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $35.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Pink],
+    colors: [Colors.Black, Colors.Grey, Colors.Purple],
     link: '/caesar-warm-up-pant.html',
   },
 ];

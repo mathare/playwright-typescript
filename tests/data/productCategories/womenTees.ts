@@ -42,7 +42,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $22.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Orange, Colors.Pink],
+    colors: [Colors.Blue, Colors.Orange, Colors.Purple],
     link: '/radiant-tee.html',
     images: {
       default: '/w/s/ws12-orange_main_2.jpg',
@@ -106,7 +106,7 @@ export const Products = [
     title: 'Elisa EverCool™ Tee',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Pink, Colors.Red],
+    colors: [Colors.Grey, Colors.Purple, Colors.Red],
     link: '/elisa-evercool-trade-tee.html',
   },
   {

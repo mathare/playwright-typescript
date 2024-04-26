@@ -58,7 +58,7 @@ export const Products = [
     title: 'Oslo Trek Hoodie',
     price: 'As low as $42.00',
     sizes: Sizes,
-    colors: [Colors.Brown, Colors.Pink, Colors.Red],
+    colors: [Colors.Brown, Colors.Purple, Colors.Red],
     link: '/oslo-trek-hoodie.html',
   },
   {
@@ -72,7 +72,7 @@ export const Products = [
     title: 'Stark Fundamental Hoodie',
     price: 'As low as $42.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/stark-fundamental-hoodie.html',
   },
   {
@@ -100,7 +100,7 @@ export const Products = [
     title: 'Teton Pullover Hoodie',
     price: 'As low as $70.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Pink, Colors.Red],
+    colors: [Colors.Black, Colors.Purple, Colors.Red],
     link: '/teton-pullover-hoodie.html',
   },
   {

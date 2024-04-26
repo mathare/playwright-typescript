@@ -26,7 +26,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $45.00',
     sizes: Sizes.All,
-    colors: [Colors.Green, Colors.Pink, Colors.Red],
+    colors: [Colors.Green, Colors.Purple, Colors.Red],
     link: '/erika-running-short.html',
   },
   {
@@ -62,7 +62,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $44.00',
     sizes: Sizes.All,
-    colors: [Colors.Pink],
+    colors: [Colors.Purple],
     link: '/sybil-running-short.html',
   },
   {
@@ -71,7 +71,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $24.00',
     sizes: Sizes.Small,
-    colors: [Colors.Black, Colors.Blue, Colors.Pink],
+    colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/echo-fit-compression-short.html',
   },
   {
@@ -80,7 +80,7 @@ export const Products = [
     reviews: '2 Reviews',
     price: 'As low as $42.00',
     sizes: Sizes.Small,
-    colors: [Colors.Grey, Colors.Orange, Colors.Pink],
+    colors: [Colors.Grey, Colors.Orange, Colors.Purple],
     link: '/angel-light-running-short.html',
   },
   {
@@ -89,7 +89,7 @@ export const Products = [
     reviews: '3 Reviews',
     price: 'As low as $28.00',
     sizes: Sizes.All,
-    colors: [Colors.Blue, Colors.Pink, Colors.Yellow],
+    colors: [Colors.Blue, Colors.Purple, Colors.Yellow],
     link: '/bess-yoga-short.html',
   },
   {

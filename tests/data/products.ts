@@ -10,7 +10,7 @@ export const Colors = {
   Lavender: 'rgb(206, 100, 212)',
   LightGrey: 'rgb(240, 240, 240)',
   Orange: 'rgb(235, 103, 3)',
-  Pink: 'rgb(239, 61, 255)',
+  Purple: 'rgb(239, 61, 255)',
   Red: 'rgb(255, 0, 0)',
   White: 'rgb(255, 255, 255)',
   Yellow: 'rgb(255, 213, 0)',
@@ -56,7 +56,7 @@ export const ProductCatalog: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $22.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Orange, Colors.Pink],
+    colors: [Colors.Blue, Colors.Orange, Colors.Purple],
     link: '/radiant-tee.html',
     images: {
       default: '/w/s/ws12-orange_main_2.jpg',
@@ -77,7 +77,7 @@ export const ProductCatalog: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $34.00',
     sizes: Sizes,
-    colors: [Colors.Pink, Colors.White, Colors.Yellow],
+    colors: [Colors.Purple, Colors.White, Colors.Yellow],
     link: '/breathe-easy-tank.html',
     images: {
       default: '/w/t/wt09-white_main_1.jpg',
