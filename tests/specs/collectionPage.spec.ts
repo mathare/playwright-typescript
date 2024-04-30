@@ -35,9 +35,8 @@ test.describe('Collection page tests', () => {
       await expect.soft(collectionPage.pageFooter.footer).toBeVisible();
       await expect.soft(collectionPage.pageFooter.copyrightFooter).toBeVisible();
 
-      // To be replaced by dynamic values depending on collection
-      await expect.soft(collectionPage.promoBlock).toHaveCount(7);
-      await expect.soft(collectionPage.productItem).toHaveCount(4);
+      await expect.soft(collectionPage.promoBlock).toHaveCount(ExpectedText[collection].PromoBlocks.length);
+      await expect.soft(collectionPage.productItem).toHaveCount(Products[collection].length);
     });
 
     test('Text content of page elements', async () => {
