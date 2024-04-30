@@ -4,6 +4,7 @@ import * as Hoodies from '../productCategories/womenHoodies';
 import * as Pants from '../productCategories/womenPants';
 import * as Tanks from '../productCategories/womenTanks';
 import * as Tees from '../productCategories/womenTees';
+import { Links as HeaderLinks } from '../pageHeader';
 
 export const ExpectedText: CollectionExpectedText = {
   Breadcrumbs: 'Home  Women',
@@ -27,6 +28,15 @@ export const Links = {
   Breadcrumbs: {
     Home: '/',
   },
+  PromoBlocks: [
+    HeaderLinks.Topnav.Women,
+    HeaderLinks.Topnav.WomenSubMenu.Tees,
+    HeaderLinks.Topnav.WomenSubMenu.Pants,
+    '/collections/erin-recommends.html',
+    HeaderLinks.Topnav.WomenSubMenu.Pants,
+    HeaderLinks.Topnav.WomenSubMenu.Shorts,
+    HeaderLinks.Topnav.WomenSubMenu.BrasTanks,
+  ],
 };
 
 export const Products: Product[] = [Tees.Products[2], Tanks.Products[0], Hoodies.Products[7], Pants.Products[1]];

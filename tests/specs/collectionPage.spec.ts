@@ -104,6 +104,14 @@ test.describe('Collection page tests', () => {
       }
     });
 
+    test('Promo block links', async ({ baseURL }) => {
+      const promoBlocks = collectionPage.promoBlock;
+      await expect.soft(promoBlocks).toHaveCount(Links[collection].PromoBlocks.length);
+      for (let i = 0; i < (await promoBlocks.count()); i++) {
+        await expect.soft(promoBlocks.nth(i)).toHaveAttribute('href', `${baseURL}${Links[collection].PromoBlocks[i]}`);
+      }
+    });
+
     test('Product links', async ({ baseURL }) => {
       const productDetails = Products[collection].slice(0, 12);
       const products = collectionPage.productItem;
