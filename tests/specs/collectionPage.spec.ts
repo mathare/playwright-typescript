@@ -31,7 +31,7 @@ test.describe('Collection page tests', () => {
       await expect.soft(collectionPage.breadcrumbsContainer).toBeVisible();
       await expect.soft(collectionPage.primarySidebar).toBeVisible();
       await expect.soft(collectionPage.secondarySidebar).toBeVisible();
-      await expect.soft(collectionPage.productsGrid).toBeVisible();
+      if (Products[collection].length) await expect.soft(collectionPage.productsGrid).toBeVisible();
       await expect.soft(collectionPage.pageFooter.footer).toBeVisible();
       await expect.soft(collectionPage.pageFooter.copyrightFooter).toBeVisible();
 
@@ -112,7 +112,7 @@ test.describe('Collection page tests', () => {
     });
 
     test('Product links', async ({ baseURL }) => {
-      const productDetails = Products[collection].slice(0, 12);
+      const productDetails = Products[collection];
       const products = collectionPage.productItem;
       await expect.soft(products).toHaveCount(productDetails.length);
       for (let i = 0; i < (await products.count()); i++) {
