@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
-import { Collections } from '../data/collectionPage';
+import { Collections, ExpectedText } from '../data/collectionPage';
 
 test.describe('Collection page tests', () => {
   let collectionPage: CollectionPage;
@@ -37,6 +37,20 @@ test.describe('Collection page tests', () => {
       // To be replaced by dynamic values depending on collection
       await expect.soft(collectionPage.promoBlock).toHaveCount(7);
       await expect.soft(collectionPage.productItem).toHaveCount(4);
+    });
+
+    test('Text content of page elements', async () => {
+      const collectionExpectedText = ExpectedText[collection];
+      await expect.soft(collectionPage.breadcrumbsContainer).toHaveText(collectionExpectedText.Breadcrumbs);
+      await expect.soft(collectionPage.pageTitle).toHaveText(collectionExpectedText.Title);
+      // Add sidebar expected text verification
+      const promoBlocks = collectionPage.promoBlock;
+      await expect.soft(promoBlocks).toHaveCount(collectionExpectedText.PromoBlocks.length);
+      for (let i = 0; i < (await promoBlocks.count()); i++) {
+        await expect.soft(promoBlocks.nth(i)).toHaveText(collectionExpectedText.PromoBlocks[i], { useInnerText: true });
+      }
+      await expect.soft(collectionPage.productsGridTitle).toHaveText(collectionExpectedText.ProductsGrid.Title);
+      await expect.soft(collectionPage.productsGridSubtitle).toHaveText(collectionExpectedText.ProductsGrid.Subtitle);
     });
   });
 });
