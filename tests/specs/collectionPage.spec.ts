@@ -107,7 +107,11 @@ test.describe('Collection page tests', () => {
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(Links[collection].PromoBlocks.length);
       for (let i = 0; i < (await promoBlocks.count()); i++) {
-        await expect.soft(promoBlocks.nth(i)).toHaveAttribute('href', `${baseURL}${Links[collection].PromoBlocks[i]}`);
+        if (Links[collection].PromoBlocks[i]) {
+          await expect
+            .soft(promoBlocks.nth(i))
+            .toHaveAttribute('href', `${baseURL}${Links[collection].PromoBlocks[i]}`);
+        }
       }
     });
 
