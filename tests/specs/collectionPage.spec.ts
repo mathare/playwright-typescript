@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
-import { Collections, ExpectedText } from '../data/collectionPage';
+import { Collections, ExpectedText, Products } from '../data/collectionPage';
+import { ProductItemElements } from '../pages/components/productItem';
 
 test.describe('Collection page tests', () => {
   let collectionPage: CollectionPage;
@@ -51,6 +52,44 @@ test.describe('Collection page tests', () => {
       }
       await expect.soft(collectionPage.productsGridTitle).toHaveText(collectionExpectedText.ProductsGrid.Title);
       await expect.soft(collectionPage.productsGridSubtitle).toHaveText(collectionExpectedText.ProductsGrid.Subtitle);
+    });
+
+    test('Product item details', async () => {
+      const productDetails = Products[collection];
+      const productItems = collectionPage.productItem;
+      await expect.soft(productItems).toHaveCount(productDetails.length);
+      for (let i = 0; i < (await productItems.count()); i++) {
+        await expect
+          .soft(collectionPage.getProductItemElement(i, ProductItemElements.Name))
+          .toHaveText(productDetails[i].title);
+        if (productDetails[i].rating) {
+          await expect
+            .soft(collectionPage.getProductItemElement(i, ProductItemElements.Rating))
+            .toHaveText(productDetails[i].rating!);
+        }
+        if (productDetails[i].reviews) {
+          await expect
+            .soft(collectionPage.getProductItemElement(i, ProductItemElements.Reviews))
+            .toHaveText(productDetails[i].reviews!);
+        }
+        await expect
+          .soft(collectionPage.getProductItemElement(i, ProductItemElements.Price).first())
+          .toHaveText(productDetails[i].price);
+        if (productDetails[i].sizes) {
+          const sizes = collectionPage.getProductItemElement(i, ProductItemElements.Sizes);
+          await expect.soft(sizes).toHaveCount(productDetails[i].sizes!.length);
+          for (let j = 0; j < (await sizes.count()); j++) {
+            await expect.soft(sizes.nth(j)).toHaveText(productDetails[i].sizes![j]);
+          }
+        }
+        if (productDetails[i].colors) {
+          const colors = collectionPage.getProductItemElement(i, ProductItemElements.Colors);
+          await expect.soft(colors).toHaveCount(productDetails[i].colors!.length);
+          for (let j = 0; j < (await colors.count()); j++) {
+            await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
+          }
+        }
+      }
     });
   });
 });

@@ -8,3 +8,7 @@ export const Collections = {
 export const ExpectedText = {
   Women: { ...Women.ExpectedText },
 };
+
+export const Products = {
+  Women: [...Women.Products],
+};

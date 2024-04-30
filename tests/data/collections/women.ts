@@ -1,4 +1,9 @@
+import { Product } from '../products';
 import { CollectionExpectedText } from './shared';
+import * as Hoodies from '../productCategories/womenHoodies';
+import * as Pants from '../productCategories/womenPants';
+import * as Tanks from '../productCategories/womenTanks';
+import * as Tees from '../productCategories/womenTees';
 
 export const ExpectedText: CollectionExpectedText = {
   Breadcrumbs: 'Home  Women',
@@ -17,3 +22,5 @@ export const ExpectedText: CollectionExpectedText = {
     Subtitle: 'Favorites from Luma shoppers',
   },
 };
+
+export const Products: Product[] = [Tees.Products[2], Tanks.Products[0], Hoodies.Products[7], Pants.Products[1]];
