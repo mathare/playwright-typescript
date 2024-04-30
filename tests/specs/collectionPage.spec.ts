@@ -103,5 +103,26 @@ test.describe('Collection page tests', () => {
           .toHaveAttribute('href', `${baseURL}${Links[collection].Breadcrumbs[breadcrumbs[i]]}`);
       }
     });
+
+    test('Product links', async ({ baseURL }) => {
+      const productDetails = Products[collection].slice(0, 12);
+      const products = collectionPage.productItem;
+      await expect.soft(products).toHaveCount(productDetails.length);
+      for (let i = 0; i < (await products.count()); i++) {
+        await expect
+          .soft(collectionPage.getProductItemElement(i, ProductItemElements.PhotoLink))
+          .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
+        await expect
+          .soft(collectionPage.getProductItemElement(i, ProductItemElements.NameLink))
+          .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
+        if (productDetails[i].reviews) {
+          await expect
+            .soft(collectionPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
+            .toHaveAttribute('href', `${baseURL}${productDetails[i].link}#reviews`);
+        } else {
+          await expect.soft(collectionPage.getProductItemElement(i, ProductItemElements.ReviewsLink)).not.toBeVisible();
+        }
+      }
+    });
   });
 });
