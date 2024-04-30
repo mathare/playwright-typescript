@@ -8,16 +8,9 @@ test.describe('Collection page tests', () => {
   let collection: string;
   test.beforeEach(async ({ page }) => {
     collectionPage = new CollectionPage(page);
-    // const topLvlCategory = Object.keys(Collections)[Math.floor(Math.random() * Object.keys(Collections).length)];
-    // const subCategory = Object.keys(Collections[topLvlCategory])[
-    //   Math.floor(Math.random() * Object.keys(Collections[topLvlCategory]).length)
-    // ];
-    // category = `${topLvlCategory}${subCategory}`;
-    // await collectionPage.open(Collections[topLvlCategory][subCategory]);
-
-    // Hardcode page for now
-    collection = 'Women';
-    await collectionPage.open(Collections.Women);
+    collection = Object.keys(Collections)[Math.floor(Math.random() * Object.keys(Collections).length)];
+    await collectionPage.open(Collections[collection]);
+    console.log(collection);
   });
 
   test.describe('Appearance tests', () => {
