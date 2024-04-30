@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
-import { Collections, ExpectedText, Products } from '../data/collectionPage';
+import { Collections, ExpectedText, Links, Products } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
 
 test.describe('Collection page tests', () => {
@@ -89,6 +89,18 @@ test.describe('Collection page tests', () => {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
         }
+      }
+    });
+  });
+
+  test.describe('Link tests', () => {
+    test('Breadcrumb links', async ({ baseURL }) => {
+      const breadcrumbs = (await collectionPage.breadcrumbsContainer.innerText()).split('  ');
+      // The last breadcrumb doesn't have a link as it is the current page
+      for (let i = 0; i < breadcrumbs.length - 1; i++) {
+        await expect
+          .soft(collectionPage.breadcrumb.nth(i))
+          .toHaveAttribute('href', `${baseURL}${Links[collection].Breadcrumbs[breadcrumbs[i]]}`);
       }
     });
   });

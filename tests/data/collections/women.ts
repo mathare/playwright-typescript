@@ -23,4 +23,10 @@ export const ExpectedText: CollectionExpectedText = {
   },
 };
 
+export const Links = {
+  Breadcrumbs: {
+    Home: '/',
+  },
+};
+
 export const Products: Product[] = [Tees.Products[2], Tanks.Products[0], Hoodies.Products[7], Pants.Products[1]];
