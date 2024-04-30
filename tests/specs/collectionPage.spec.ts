@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
 import { Collections, ExpectedText, Links, Products } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
+import { Colors } from '../data/pageHeader';
 
 test.describe('Collection page tests', () => {
   let collectionPage: CollectionPage;
@@ -80,6 +81,24 @@ test.describe('Collection page tests', () => {
           for (let j = 0; j < (await colors.count()); j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
+        }
+      }
+    });
+
+    test('Corresponding topnav item highlighted', async () => {
+      const activeClass = /active/;
+      const topnavLinks = collectionPage.pageHeader.topnavLink;
+      await expect.soft(topnavLinks).toHaveCount(Object.keys(Collections).length);
+      for (let i = 0; i < (await topnavLinks.count()); i++) {
+        if ((await topnavLinks.nth(i).textContent()) === collection.replace('WhatsNew', "What's New")) {
+          // Parent of selected link has class active
+          await expect.soft(topnavLinks.nth(i).locator('..')).toHaveClass(activeClass);
+          await expect.soft(topnavLinks.nth(i)).toHaveCSS('border-color', Colors.Border.Active);
+          await expect.soft(topnavLinks.nth(i)).toHaveCSS('border-width', '0px 0px 3px');
+        } else {
+          await expect.soft(topnavLinks.nth(i).locator('..')).not.toHaveClass(activeClass);
+          await expect.soft(topnavLinks.nth(i)).toHaveCSS('border-color', Colors.Border.Inactive);
+          await expect.soft(topnavLinks.nth(i)).toHaveCSS('border-width', '0px');
         }
       }
     });

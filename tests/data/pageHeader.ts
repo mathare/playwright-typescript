@@ -9,6 +9,10 @@ export const Colors = {
   Grey: 'rgb(110, 113, 110)',
   LightGrey: 'rgb(240, 240, 240)',
   White: 'rgb(255, 255, 255)',
+  Border: {
+    Active: 'rgb(255, 85, 1)',
+    Inactive: 'rgb(87, 87, 87)',
+  },
 };
 
 export const TopnavLvl0 = {
