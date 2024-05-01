@@ -39,10 +39,13 @@ test.describe('Page header tests', () => {
       await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner);
       await expect.soft(pageHeader.searchInput).toBeEmpty();
       await expect.soft(pageHeader.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
-      const topnavLinks = pageHeader.topnavLvl0Link;
-      await expect.soft(topnavLinks).toHaveCount(ExpectedText.Topnav.length);
-      for (let i = 0; i < (await topnavLinks.count()); i++) {
-        await expect.soft(topnavLinks.nth(i)).toHaveText(ExpectedText.Topnav[i]);
+      const topnavMenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
+      await expect.soft(topnavMenuItems).toHaveCount(ExpectedText.Topnav.length);
+      for (let i = 0; i < (await topnavMenuItems.count()); i++) {
+        // It's the links that have the expected text; the menu items themselves include all submenu item text contents
+        await expect
+          .soft(await pageHeader.getTopnavMenuLink(topnavMenuItems.nth(i)))
+          .toHaveText(ExpectedText.Topnav[i]);
       }
     });
   });
