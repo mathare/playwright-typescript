@@ -27,7 +27,11 @@ export default class PageHeader {
     this.topnavLvl0Link = this.topnav.locator('li.level0').getByRole('menuitem');
   }
 
-  async getTopnavSubMenuLinks(lvl0Index: number): Promise<Locator> {
-    return this.topnavLvl0Link.nth(lvl0Index).locator('..').locator('li.level1 a');
+  async getTopnavSubMenuItems(lvl0Index: number, lvl: 1 | 2): Promise<Locator> {
+    return this.topnavLvl0Link.nth(lvl0Index).locator('..').locator(`li.level${lvl}`);
+  }
+
+  async getTopnavLink(menuItem: Locator): Promise<Locator> {
+    return menuItem.locator('a');
   }
 }
