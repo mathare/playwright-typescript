@@ -26,24 +26,32 @@ export const TopnavLvl0 = {
 
 const WomenSubMenu = {
   Tops: '/women/tops-women.html',
-  Jackets: '/women/tops-women/jackets-women.html',
-  HoodiesSweatshirts: '/women/tops-women/hoodies-and-sweatshirts-women.html',
-  Tees: '/women/tops-women/tees-women.html',
-  BrasTanks: '/women/tops-women/tanks-women.html',
+  TopsSubMenu: {
+    Jackets: '/women/tops-women/jackets-women.html',
+    HoodiesSweatshirts: '/women/tops-women/hoodies-and-sweatshirts-women.html',
+    Tees: '/women/tops-women/tees-women.html',
+    BrasTanks: '/women/tops-women/tanks-women.html',
+  },
   Bottoms: '/women/bottoms-women.html',
-  Pants: '/women/bottoms-women/pants-women.html',
-  Shorts: '/women/bottoms-women/shorts-women.html',
+  BottomsSubMenu: {
+    Pants: '/women/bottoms-women/pants-women.html',
+    Shorts: '/women/bottoms-women/shorts-women.html',
+  },
 };
 
 const MenSubMenu = {
   Tops: '/men/tops-men.html',
-  Jackets: '/men/tops-men/jackets-men.html',
-  HoodiesSweatshirts: '/men/tops-men/hoodies-and-sweatshirts-men.html',
-  Tees: '/men/tops-men/tees-men.html',
-  Tanks: '/men/tops-men/tanks-men.html',
+  TopsSubMenu: {
+    Jackets: '/men/tops-men/jackets-men.html',
+    HoodiesSweatshirts: '/men/tops-men/hoodies-and-sweatshirts-men.html',
+    Tees: '/men/tops-men/tees-men.html',
+    Tanks: '/men/tops-men/tanks-men.html',
+  },
   Bottoms: '/men/bottoms-men.html',
-  Pants: '/men/bottoms-men/pants-men.html',
-  Shorts: '/men/bottoms-men/shorts-men.html',
+  BottomsSubMenu: {
+    Pants: '/men/bottoms-men/pants-men.html',
+    Shorts: '/men/bottoms-men/shorts-men.html',
+  },
 };
 
 const GearSubMenu = {

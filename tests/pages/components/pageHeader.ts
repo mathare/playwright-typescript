@@ -10,8 +10,6 @@ export default class PageHeader {
   readonly searchInput: Locator;
   readonly cartLink: Locator;
   readonly topnav: Locator;
-  readonly topnavLink: Locator;
-  readonly topnavLvl0Link: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,12 +20,14 @@ export default class PageHeader {
     this.logo = this.header.locator('a.logo');
     this.searchInput = this.header.locator('input#search');
     this.cartLink = this.header.locator('a.showcart');
-    this.topnav = page.locator('.nav-sections');
-    this.topnavLink = this.topnav.getByRole('menuitem');
-    this.topnavLvl0Link = this.topnav.locator('li.level0').getByRole('menuitem');
+    this.topnav = page.locator('nav');
   }
 
-  async getTopnavSubMenuLinks(lvl0Index: number): Promise<Locator> {
-    return this.topnavLvl0Link.nth(lvl0Index).locator('..').locator('li.level1 a');
+  async getTopnavMenuItem(menu: Locator, lvl: number): Promise<Locator> {
+    return menu.locator(`li.level${lvl}`);
+  }
+
+  async getTopnavMenuLink(menuItem: Locator): Promise<Locator> {
+    return menuItem.locator('a').first();
   }
 }
