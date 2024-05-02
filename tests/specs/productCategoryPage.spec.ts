@@ -129,13 +129,13 @@ test.describe('Product category page tests', () => {
 
           for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
             const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
+            const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
             if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
               if (url.split('/').length === 3) {
                 // Lvl1 category e.g. Women > Tops highlighted in topnav but no child menu items highlighted
                 await verifyMenuItemHighlighting(link, 'left');
 
                 if (Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).includes(`${lvl1Category}SubMenu`)) {
-                  const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
                   const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][`${lvl1Category}SubMenu`]);
                   await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
                   for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
@@ -143,14 +143,11 @@ test.describe('Product category page tests', () => {
                     await verifyMenuItemHighlighting(link);
                   }
                 }
-              } else {
-                await verifyMenuItemHighlighting(link);
               }
               if (url.split('/').length === 4) {
                 // Lvl2 category e.g. Women > Tops > Jackets highlighted in topnav but parent menu item not highlighted
                 await verifyMenuItemHighlighting(link);
 
-                const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
                 const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][lvl1Category]);
                 await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
                 for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
@@ -162,6 +159,8 @@ test.describe('Product category page tests', () => {
                   }
                 }
               }
+            } else {
+              await verifyMenuItemHighlighting(link);
             }
           }
         } else {
