@@ -114,18 +114,16 @@ test.describe('Product category page tests', () => {
     });
 
     test('Corresponding topnav item highlighted', async () => {
-      const lvl0MenuItems = await productCategoryPage.pageHeader.getTopnavMenuItem(
-        productCategoryPage.pageHeader.topnav,
-        0,
-      );
+      const pageHeader = productCategoryPage.pageHeader;
+      const lvl0MenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
       const lvl0Keys = Object.keys(HeaderLinks.Topnav).filter((key) => !key.endsWith('SubMenu'));
       await expect.soft(lvl0MenuItems).toHaveCount(lvl0Keys.length);
       for (let i = 0; i < (await lvl0MenuItems.count()); i++) {
-        const link = await productCategoryPage.pageHeader.getTopnavMenuLink(lvl0MenuItems.nth(i));
+        const link = await pageHeader.getTopnavMenuLink(lvl0MenuItems.nth(i));
         if ((await link.textContent())!.replace(/\W+/g, '') === lvl0Category) {
           await verifyMenuItemHighlighting(link, 'bottom');
 
-          const lvl1MenuItems = await productCategoryPage.pageHeader.getTopnavMenuItem(lvl0MenuItems.nth(i), 1);
+          const lvl1MenuItems = await pageHeader.getTopnavMenuItem(lvl0MenuItems.nth(i), 1);
           const lvl1Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).filter(
             (key) => !key.endsWith('SubMenu'),
           );
@@ -134,16 +132,16 @@ test.describe('Product category page tests', () => {
           if (url.split('/').length === 3) {
             // Lvl1 category e.g. Women > Tops highlighted in topnav but no child menu items highlighted
             for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
-              const link = await productCategoryPage.pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
+              const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
               if ((await link.textContent())!.replace(/\W+/g, '') === lvl1Category.replace('SubMenu', '')) {
                 await verifyMenuItemHighlighting(link, 'left');
 
                 if (Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).includes(`${lvl1Category}SubMenu`)) {
-                  const lvl2MenuItems = await productCategoryPage.pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
+                  const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
                   const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][`${lvl1Category}SubMenu`]);
                   await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
                   for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
-                    const link = await productCategoryPage.pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
+                    const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
                     await verifyMenuItemHighlighting(link);
                   }
                 }
@@ -155,15 +153,15 @@ test.describe('Product category page tests', () => {
           if (url.split('/').length === 4) {
             // Lvl2 category e.g. Women > Tops > Jackets highlighted in topnav but parent menu item not highlighted
             for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
-              const link = await productCategoryPage.pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
+              const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
               if ((await link.textContent())!.replace(/\W+/g, '') === lvl1Category.replace('SubMenu', '')) {
                 await verifyMenuItemHighlighting(link);
 
-                const lvl2MenuItems = await productCategoryPage.pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
+                const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
                 const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][lvl1Category]);
                 await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
                 for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
-                  const link = await productCategoryPage.pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
+                  const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
                   if ((await link.textContent())!.replace(/\W+/g, '') === lvl2Category) {
                     await verifyMenuItemHighlighting(link, 'left');
                   } else {
