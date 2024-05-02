@@ -2,7 +2,7 @@ import { test, expect, Locator } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
 import { ExpectedText, ProductCategories, Links, Products } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
-import { Colors, Links as HeaderLinks, SubMenuKeys } from '../data/pageHeader';
+import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
 
 async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bottom') {
   if (!position) {
@@ -120,7 +120,7 @@ test.describe('Product category page tests', () => {
       await expect.soft(lvl0MenuItems).toHaveCount(lvl0Keys.length);
       for (let i = 0; i < (await lvl0MenuItems.count()); i++) {
         const link = await pageHeader.getTopnavMenuLink(lvl0MenuItems.nth(i));
-        if ((await link.textContent())!.replace(/\W+/g, '') === lvl0Category) {
+        if ((await MenuItemText(link)) === lvl0Category) {
           await verifyMenuItemHighlighting(link, 'bottom');
 
           const lvl1MenuItems = await pageHeader.getTopnavMenuItem(lvl0MenuItems.nth(i), 1);
@@ -131,7 +131,7 @@ test.describe('Product category page tests', () => {
             // Lvl1 category e.g. Women > Tops highlighted in topnav but no child menu items highlighted
             for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
               const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
-              if ((await link.textContent())!.replace(/\W+/g, '') === lvl1Category.replace('SubMenu', '')) {
+              if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
                 await verifyMenuItemHighlighting(link, 'left');
 
                 if (Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).includes(`${lvl1Category}SubMenu`)) {
@@ -152,7 +152,7 @@ test.describe('Product category page tests', () => {
             // Lvl2 category e.g. Women > Tops > Jackets highlighted in topnav but parent menu item not highlighted
             for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
               const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
-              if ((await link.textContent())!.replace(/\W+/g, '') === lvl1Category.replace('SubMenu', '')) {
+              if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
                 await verifyMenuItemHighlighting(link);
 
                 const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
@@ -160,7 +160,7 @@ test.describe('Product category page tests', () => {
                 await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
                 for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
                   const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
-                  if ((await link.textContent())!.replace(/\W+/g, '') === lvl2Category) {
+                  if ((await MenuItemText(link)) === lvl2Category) {
                     await verifyMenuItemHighlighting(link, 'left');
                   } else {
                     await verifyMenuItemHighlighting(link);

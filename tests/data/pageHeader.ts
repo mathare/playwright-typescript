@@ -1,3 +1,5 @@
+import { Locator } from '@playwright/test';
+
 export const ExpectedText = {
   Banner: 'Skip to Content Click “Write for us” link in the footer to submit a guest post Sign In Create an Account',
   Search: 'Search entire store here...',
@@ -86,6 +88,10 @@ export const Links = {
   },
 };
 
-export function SubMenuKeys(submenu): string[] {
+export function SubMenuKeys(submenu: Record<string, unknown>): string[] {
   return Object.keys(submenu).filter((key) => !key.endsWith('SubMenu'));
+}
+
+export async function MenuItemText(menuItem: Locator) {
+  return (await menuItem.textContent())!.replace(/\W+/g, '');
 }
