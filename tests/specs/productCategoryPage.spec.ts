@@ -22,7 +22,7 @@ test.describe('Product category page tests', () => {
           Math.floor(Math.random() * Object.keys(ProductCategories[lvl0Category][lvl1Category]).length)
         ]
       : '';
-    category = `${lvl0Category}${lvl1Category}${lvl2Category}`;
+    category = lvl2Category ? `${lvl0Category}${lvl2Category}` : `${lvl0Category}${lvl1Category}`;
     console.log(category);
     url = lvl2Category
       ? ProductCategories[lvl0Category][lvl1Category][lvl2Category]
