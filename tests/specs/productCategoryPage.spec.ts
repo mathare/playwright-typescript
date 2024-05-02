@@ -2,7 +2,7 @@ import { test, expect, Locator } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
 import { ExpectedText, ProductCategories, Links, Products } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
-import { Colors, Links as HeaderLinks } from '../data/pageHeader';
+import { Colors, Links as HeaderLinks, SubMenuKeys } from '../data/pageHeader';
 
 async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bottom') {
   if (!position) {
@@ -116,7 +116,7 @@ test.describe('Product category page tests', () => {
     test('Corresponding topnav item highlighted', async () => {
       const pageHeader = productCategoryPage.pageHeader;
       const lvl0MenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
-      const lvl0Keys = Object.keys(HeaderLinks.Topnav).filter((key) => !key.endsWith('SubMenu'));
+      const lvl0Keys = SubMenuKeys(HeaderLinks.Topnav);
       await expect.soft(lvl0MenuItems).toHaveCount(lvl0Keys.length);
       for (let i = 0; i < (await lvl0MenuItems.count()); i++) {
         const link = await pageHeader.getTopnavMenuLink(lvl0MenuItems.nth(i));
@@ -124,9 +124,7 @@ test.describe('Product category page tests', () => {
           await verifyMenuItemHighlighting(link, 'bottom');
 
           const lvl1MenuItems = await pageHeader.getTopnavMenuItem(lvl0MenuItems.nth(i), 1);
-          const lvl1Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).filter(
-            (key) => !key.endsWith('SubMenu'),
-          );
+          const lvl1Keys = SubMenuKeys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]);
           await expect.soft(lvl1MenuItems).toHaveCount(lvl1Keys.length);
 
           if (url.split('/').length === 3) {

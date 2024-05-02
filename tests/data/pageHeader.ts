@@ -85,3 +85,7 @@ export const Links = {
     },
   },
 };
+
+export function SubMenuKeys(submenu): string[] {
+  return Object.keys(submenu).filter((key) => !key.endsWith('SubMenu'));
+}
