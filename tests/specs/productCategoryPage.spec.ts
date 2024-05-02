@@ -127,11 +127,11 @@ test.describe('Product category page tests', () => {
           const lvl1Keys = SubMenuKeys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]);
           await expect.soft(lvl1MenuItems).toHaveCount(lvl1Keys.length);
 
-          if (url.split('/').length === 3) {
-            // Lvl1 category e.g. Women > Tops highlighted in topnav but no child menu items highlighted
-            for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
-              const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
-              if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
+          for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
+            const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
+            if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
+              if (url.split('/').length === 3) {
+                // Lvl1 category e.g. Women > Tops highlighted in topnav but no child menu items highlighted
                 await verifyMenuItemHighlighting(link, 'left');
 
                 if (Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).includes(`${lvl1Category}SubMenu`)) {
@@ -146,13 +146,8 @@ test.describe('Product category page tests', () => {
               } else {
                 await verifyMenuItemHighlighting(link);
               }
-            }
-          }
-          if (url.split('/').length === 4) {
-            // Lvl2 category e.g. Women > Tops > Jackets highlighted in topnav but parent menu item not highlighted
-            for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
-              const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
-              if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
+              if (url.split('/').length === 4) {
+                // Lvl2 category e.g. Women > Tops > Jackets highlighted in topnav but parent menu item not highlighted
                 await verifyMenuItemHighlighting(link);
 
                 const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
