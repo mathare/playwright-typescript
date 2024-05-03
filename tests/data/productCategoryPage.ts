@@ -19,6 +19,16 @@ import * as GearBags from './productCategories/gearBags';
 import * as GearFitnessEquipment from './productCategories/gearFitnessEquipment';
 import * as GearWatches from './productCategories/gearWatches';
 
+export function FilterCategoryName(filterCategory: string): string {
+  return filterCategory
+    .toLowerCase()
+    .split(' ')
+    .map(function (word) {
+      return word.replace(word[0], word[0].toUpperCase());
+    })
+    .join('');
+}
+
 export const ProductCategories = {
   Women: {
     Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,

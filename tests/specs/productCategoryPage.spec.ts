@@ -1,8 +1,9 @@
 import { test, expect, Locator } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
-import { ExpectedText, ProductCategories, Links, Products } from '../data/productCategoryPage';
+import { ExpectedText, ProductCategories, Links, Products, FilterCategoryName } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
+import { Filters } from '../data/productCategories/womenJackets';
 
 async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bottom') {
   if (!position) {
@@ -59,19 +60,30 @@ test.describe('Product category page tests', () => {
       await expect.soft(productCategoryPage.pageFooter.copyrightFooter).toBeVisible();
     });
 
-    test('Text content of page elements', async () => {
+    test('Text content of main page elements', async () => {
       const categoryExpectedText = ExpectedText[category];
       await expect.soft(productCategoryPage.breadcrumbsContainer).toHaveText(categoryExpectedText.Breadcrumbs);
       await expect.soft(productCategoryPage.pageTitle).toHaveText(categoryExpectedText.Title);
-      await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
-      const filterOptions = productCategoryPage.filterOption;
-      await expect.soft(filterOptions).toHaveCount(categoryExpectedText.Filters.length);
-      for (let i = 0; i < (await filterOptions.count()); i++) {
-        await expect.soft(filterOptions.nth(i)).toHaveText(categoryExpectedText.Filters[i], { useInnerText: true });
-      }
       await expect
         .soft(productCategoryPage.productCount)
         .toHaveText(categoryExpectedText.ProductCount, { useInnerText: true });
+    });
+
+    // Filters split into separate test to avoid making the above test really hard to read (& develop)
+    test('Text content of filters', async () => {
+      await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
+      const filterCategories = productCategoryPage.filterCategory;
+      await expect.soft(filterCategories).toHaveCount(Object.keys(Filters).length);
+      for (let i = 0; i < (await filterCategories.count()); i++) {
+        const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
+        expect.soft(categoryName).toEqual(Object.keys(Filters)[i]);
+        const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i));
+        await expect.soft(filterItems).toHaveCount(Filters[categoryName].length);
+        for (let j = 0; j < (await filterItems.count()); j++) {
+          const expectedFilterText = `${Filters[categoryName][j].title} ${Filters[categoryName][j].count}\n item`;
+          await expect.soft(filterItems.nth(j)).toHaveText(expectedFilterText, { useInnerText: true });
+        }
+      }
     });
 
     test('Default product item details', async () => {
