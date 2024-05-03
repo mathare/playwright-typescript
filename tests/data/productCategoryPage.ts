@@ -22,15 +22,15 @@ import * as GearWatches from './productCategories/gearWatches';
 export const ProductCategories = {
   Women: {
     Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,
-    ...HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu,
+    TopsSubMenu: { ...HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu },
     Bottoms: HeaderLinks.Topnav.WomenSubMenu.Bottoms,
-    ...HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu,
+    BottomsSubMenu: { ...HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu },
   },
   Men: {
     Tops: HeaderLinks.Topnav.MenSubMenu.Tops,
-    ...HeaderLinks.Topnav.MenSubMenu.TopsSubMenu,
+    TopsSubMenu: { ...HeaderLinks.Topnav.MenSubMenu.TopsSubMenu },
     Bottoms: HeaderLinks.Topnav.MenSubMenu.Bottoms,
-    ...HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu,
+    BottomsSubMenu: { ...HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu },
   },
   Gear: { ...HeaderLinks.Topnav.GearSubMenu },
   // There are no products under Training > Video Downloads so the whole Training category is omitted

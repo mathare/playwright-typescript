@@ -1,20 +1,44 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Locator } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
 import { ExpectedText, ProductCategories, Links, Products } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
+import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
+
+async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bottom') {
+  if (!position) {
+    await expect.soft(link).toHaveCSS('border-color', Colors.Border.Inactive);
+    await expect.soft(link).toHaveCSS('border-width', '0px');
+  } else {
+    const borderWidth = position === 'bottom' ? '0px 0px 3px' : '0px 0px 0px 3px';
+    await expect.soft(link).toHaveCSS('border-color', Colors.Border.Active);
+    await expect.soft(link).toHaveCSS('border-width', borderWidth);
+  }
+}
 
 test.describe('Product category page tests', () => {
   let productCategoryPage: ProductCategoryPage;
+  let lvl0Category: string;
+  let lvl1Category: string;
+  let lvl2Category: string;
   let category: string;
+  let url: string;
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
-    const topLvlCategory =
-      Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
-    const subCategory = Object.keys(ProductCategories[topLvlCategory])[
-      Math.floor(Math.random() * Object.keys(ProductCategories[topLvlCategory]).length)
+    lvl0Category = Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
+    lvl1Category = Object.keys(ProductCategories[lvl0Category])[
+      Math.floor(Math.random() * Object.keys(ProductCategories[lvl0Category]).length)
     ];
-    category = `${topLvlCategory}${subCategory}`;
-    await productCategoryPage.open(ProductCategories[topLvlCategory][subCategory]);
+    lvl2Category = lvl1Category.endsWith('SubMenu')
+      ? Object.keys(ProductCategories[lvl0Category][lvl1Category])[
+          Math.floor(Math.random() * Object.keys(ProductCategories[lvl0Category][lvl1Category]).length)
+        ]
+      : '';
+    category = lvl2Category ? `${lvl0Category}${lvl2Category}` : `${lvl0Category}${lvl1Category}`;
+    console.log(category);
+    url = lvl2Category
+      ? ProductCategories[lvl0Category][lvl1Category][lvl2Category]
+      : ProductCategories[lvl0Category][lvl1Category];
+    await productCategoryPage.open(url);
   });
 
   test.describe('Appearance tests', () => {
@@ -85,6 +109,62 @@ test.describe('Product category page tests', () => {
           for (let j = 0; j < (await colors.count()); j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
+        }
+      }
+    });
+
+    test('Corresponding topnav item highlighted', async () => {
+      const pageHeader = productCategoryPage.pageHeader;
+      const lvl0MenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
+      const lvl0Keys = SubMenuKeys(HeaderLinks.Topnav);
+      await expect.soft(lvl0MenuItems).toHaveCount(lvl0Keys.length);
+      for (let i = 0; i < (await lvl0MenuItems.count()); i++) {
+        const link = await pageHeader.getTopnavMenuLink(lvl0MenuItems.nth(i));
+        if ((await MenuItemText(link)) === lvl0Category) {
+          await verifyMenuItemHighlighting(link, 'bottom');
+
+          const lvl1MenuItems = await pageHeader.getTopnavMenuItem(lvl0MenuItems.nth(i), 1);
+          const lvl1Keys = SubMenuKeys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]);
+          await expect.soft(lvl1MenuItems).toHaveCount(lvl1Keys.length);
+
+          for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
+            const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
+            const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
+            if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
+              if (url.split('/').length === 3) {
+                // Lvl1 category e.g. Women > Tops highlighted in topnav but no child menu items highlighted
+                await verifyMenuItemHighlighting(link, 'left');
+
+                if (Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).includes(`${lvl1Category}SubMenu`)) {
+                  const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][`${lvl1Category}SubMenu`]);
+                  await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
+                  for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
+                    const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
+                    await verifyMenuItemHighlighting(link);
+                  }
+                }
+              }
+              if (url.split('/').length === 4) {
+                // Lvl2 category e.g. Women > Tops > Jackets highlighted in topnav but parent menu item not highlighted
+                await verifyMenuItemHighlighting(link);
+
+                const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][lvl1Category]);
+                await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
+                for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
+                  const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
+                  if ((await MenuItemText(link)) === lvl2Category) {
+                    await verifyMenuItemHighlighting(link, 'left');
+                  } else {
+                    await verifyMenuItemHighlighting(link);
+                  }
+                }
+              }
+            } else {
+              await verifyMenuItemHighlighting(link);
+            }
+          }
+        } else {
+          await verifyMenuItemHighlighting(link);
         }
       }
     });

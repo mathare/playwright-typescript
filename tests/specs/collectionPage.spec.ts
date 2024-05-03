@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
 import { Collections, ExpectedText, Links, Products } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
+import { Colors } from '../data/pageHeader';
 
 test.describe('Collection page tests', () => {
   let collectionPage: CollectionPage;
@@ -80,6 +81,24 @@ test.describe('Collection page tests', () => {
           for (let j = 0; j < (await colors.count()); j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
+        }
+      }
+    });
+
+    test('Corresponding topnav item highlighted', async () => {
+      const activeClass = /active/;
+      const topnavLinks = await collectionPage.pageHeader.getTopnavMenuItem(collectionPage.pageHeader.topnav, 0);
+      await expect.soft(topnavLinks).toHaveCount(Object.keys(Collections).length);
+      for (let i = 0; i < (await topnavLinks.count()); i++) {
+        const link = await collectionPage.pageHeader.getTopnavMenuLink(topnavLinks.nth(i));
+        if ((await link.textContent()) === collection.replace('WhatsNew', "What's New")) {
+          await expect.soft(topnavLinks.nth(i)).toHaveClass(activeClass);
+          await expect.soft(link).toHaveCSS('border-color', Colors.Border.Active);
+          await expect.soft(link).toHaveCSS('border-width', '0px 0px 3px');
+        } else {
+          await expect.soft(topnavLinks.nth(i)).not.toHaveClass(activeClass);
+          await expect.soft(link).toHaveCSS('border-color', Colors.Border.Inactive);
+          await expect.soft(link).toHaveCSS('border-width', '0px');
         }
       }
     });

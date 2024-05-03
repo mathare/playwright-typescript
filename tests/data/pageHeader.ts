@@ -1,3 +1,5 @@
+import { Locator } from '@playwright/test';
+
 export const ExpectedText = {
   Banner: 'Skip to Content Click “Write for us” link in the footer to submit a guest post Sign In Create an Account',
   Search: 'Search entire store here...',
@@ -9,6 +11,10 @@ export const Colors = {
   Grey: 'rgb(110, 113, 110)',
   LightGrey: 'rgb(240, 240, 240)',
   White: 'rgb(255, 255, 255)',
+  Border: {
+    Active: 'rgb(255, 85, 1)',
+    Inactive: 'rgb(87, 87, 87)',
+  },
 };
 
 export const TopnavLvl0 = {
@@ -81,3 +87,11 @@ export const Links = {
     },
   },
 };
+
+export function SubMenuKeys(submenu: Record<string, unknown>): string[] {
+  return Object.keys(submenu).filter((key) => !key.endsWith('SubMenu'));
+}
+
+export async function MenuItemText(menuItem: Locator) {
+  return (await menuItem.textContent())!.replace(/\W+/g, '');
+}
