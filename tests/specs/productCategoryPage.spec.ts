@@ -77,11 +77,18 @@ test.describe('Product category page tests', () => {
       for (let i = 0; i < (await filterCategories.count()); i++) {
         const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
         expect.soft(categoryName).toEqual(Object.keys(Filters)[i]);
-        const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i));
+        const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
         await expect.soft(filterItems).toHaveCount(Filters[categoryName].length);
         for (let j = 0; j < (await filterItems.count()); j++) {
-          const expectedFilterText = `${Filters[categoryName][j].title} ${Filters[categoryName][j].count}\n item`;
-          await expect.soft(filterItems.nth(j)).toHaveText(expectedFilterText, { useInnerText: true });
+          if (['Size', 'Color'].includes(categoryName)) {
+            await expect.soft(filterItems.nth(j)).toHaveAttribute('aria-label', `${Filters[categoryName][j].title}`);
+          } else {
+            await expect
+              .soft(filterItems.nth(j))
+              .toHaveText(`${Filters[categoryName][j].title} ${Filters[categoryName][j].count}\n item`, {
+                useInnerText: true,
+              });
+          }
         }
       }
     });

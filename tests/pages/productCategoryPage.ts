@@ -51,7 +51,8 @@ export default class ProductCategoryPage extends BasePage {
     return this.productItem.nth(productIndex).locator(element);
   }
 
-  getFilterItems(category: Locator): Locator {
-    return category.locator('li.item a');
+  getFilterItems(category: Locator, name: string): Locator {
+    const locator = ['Size', 'Color'].includes(name) ? '.swatch-attribute-options a' : 'li.item a';
+    return category.locator(locator);
   }
 }
