@@ -1,9 +1,15 @@
 import { test, expect, Locator } from '@playwright/test';
 import ProductCategoryPage from '../pages/productCategoryPage';
-import { ExpectedText, ProductCategories, Links, Products, FilterCategoryName } from '../data/productCategoryPage';
+import {
+  ExpectedText,
+  ProductCategories,
+  Links,
+  Filters,
+  Products,
+  FilterCategoryName,
+} from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
-import { Filters } from '../data/productCategories/womenJackets';
 
 async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bottom') {
   if (!position) {
@@ -76,21 +82,22 @@ test.describe('Product category page tests', () => {
     test('Text content of filters', async () => {
       await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
       const filterCategories = productCategoryPage.filterCategory;
-      await expect.soft(filterCategories).toHaveCount(Object.keys(Filters).length);
+      const expectedFilters = Filters[category];
+      await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
       for (let i = 0; i < (await filterCategories.count()); i++) {
         const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
-        expect.soft(categoryName).toEqual(Object.keys(Filters)[i]);
+        expect.soft(categoryName).toEqual(Object.keys(expectedFilters)[i]);
         const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
-        await expect.soft(filterItems).toHaveCount(Filters[categoryName].length);
+        await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
         for (let j = 0; j < (await filterItems.count()); j++) {
+          const expectedTitle = expectedFilters[categoryName][j].title;
+          const expectedText = `${expectedFilters[categoryName][j].title} ${expectedFilters[categoryName][j].count}\n item`;
           if (['Size', 'Color'].includes(categoryName)) {
-            await expect.soft(filterItems.nth(j)).toHaveAttribute('aria-label', `${Filters[categoryName][j].title}`);
+            await expect.soft(filterItems.nth(j)).toHaveAttribute('aria-label', expectedTitle);
           } else {
-            await expect
-              .soft(filterItems.nth(j))
-              .toHaveText(`${Filters[categoryName][j].title} ${Filters[categoryName][j].count}\n item`, {
-                useInnerText: true,
-              });
+            await expect.soft(filterItems.nth(j)).toHaveText(expectedText, {
+              useInnerText: true,
+            });
           }
         }
       }

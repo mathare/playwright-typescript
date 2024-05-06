@@ -91,6 +91,28 @@ export const Links = {
   GearWatches: { ...GearWatches.Links },
 };
 
+export const Filters = {
+  // WomenBottoms: { ...WomenBottoms.Filters },
+  // WomenBrasTanks: { ...WomenTanks.Filters },
+  WomenHoodiesSweatshirts: { ...WomenHoodies.Filters },
+  WomenJackets: { ...WomenJackets.Filters },
+  // WomenPants: { ...WomenPants.Filters },
+  // WomenShorts: { ...WomenShorts.Filters },
+  // WomenTees: { ...WomenTees.Filters },
+  // WomenTops: { ...WomenTops.Filters },
+  // MenBottoms: { ...MenBottoms.Filters },
+  // MenHoodiesSweatshirts: { ...MenHoodies.Filters },
+  // MenJackets: { ...MenJackets.Filters },
+  // MenPants: { ...MenPants.Filters },
+  // MenShorts: { ...MenShorts.Filters },
+  // MenTanks: { ...MenTanks.Filters },
+  // MenTees: { ...MenTees.Filters },
+  // MenTops: { ...MenTops.Filters },
+  // GearBags: { ...GearBags.Filters },
+  // GearFitnessEquipment: { ...GearFitnessEquipment.Filters },
+  // GearWatches: { ...GearWatches.Filters },
+};
+
 export const Products = {
   WomenBottoms: [...WomenBottoms.Products],
   WomenBrasTanks: [...WomenTanks.Products],
