@@ -215,17 +215,17 @@ export const Filters: Record<string, Filter[]> = {
     {
       title: '$40.00 - $49.99',
       count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=50-60`,
+      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=40-50`,
     },
     {
       title: '$50.00 - $59.99',
       count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=60-70`,
+      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=50-60`,
     },
     {
       title: '$60.00 and above',
       count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=80-`,
+      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=60-`,
     },
   ],
   Sale: [
