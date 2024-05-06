@@ -53,41 +53,21 @@ export const Filters: Record<string, Filter[]> = {
       count: 5,
       link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=201`,
     },
-    {
-      title: 'Cold',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=202`,
-    },
-    {
-      title: 'Cool',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=203`,
-    },
+    { title: 'Cold', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=202` },
+    { title: 'Cool', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=203` },
     {
       title: 'Indoor',
       count: 6,
       link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=204`,
     },
-    {
-      title: 'Mild',
-      count: 8,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=205`,
-    },
+    { title: 'Mild', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=205` },
     {
       title: 'Spring',
       count: 9,
       link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=207`,
     },
-    {
-      title: 'Warm',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=208`,
-    },
-    {
-      title: 'Windy',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=209`,
-    },
+    { title: 'Warm', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=208` },
+    { title: 'Windy', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=209` },
     {
       title: 'Wintry',
       count: 2,
@@ -144,11 +124,7 @@ export const Filters: Record<string, Filter[]> = {
       count: 1,
       link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=146`,
     },
-    {
-      title: 'Nylon',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=37`,
-    },
+    { title: 'Nylon', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=37` },
     {
       title: 'Polyester',
       count: 6,
@@ -164,23 +140,11 @@ export const Filters: Record<string, Filter[]> = {
       count: 1,
       link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=155`,
     },
-    {
-      title: 'Wool',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=158`,
-    },
+    { title: 'Wool', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=158` },
   ],
   New: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=0` },
   ],
   Pattern: [
     {
@@ -229,16 +193,8 @@ export const Filters: Record<string, Filter[]> = {
     },
   ],
   Sale: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=0`,
-    },
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=0` },
   ],
 };
 

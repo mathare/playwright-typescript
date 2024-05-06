@@ -24,11 +24,7 @@ export const Filters: Record<string, Filter[]> = {
       count: 4,
       link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?style_bottom=104`,
     },
-    {
-      title: 'Basic',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?style_bottom=105`,
-    },
+    { title: 'Basic', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?style_bottom=105` },
     {
       title: 'Compression',
       count: 2,
@@ -44,31 +40,11 @@ export const Filters: Record<string, Filter[]> = {
     { title: '32', link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?size=175` },
   ],
   Climate: [
-    {
-      title: 'All-Weather',
-      count: 7,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=201`,
-    },
-    {
-      title: 'Indoor',
-      count: 7,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=204`,
-    },
-    {
-      title: 'Mild',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=205`,
-    },
-    {
-      title: 'Warm',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=208`,
-    },
-    {
-      title: 'Hot',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=211`,
-    },
+    { title: 'All-Weather', count: 7, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=201` },
+    { title: 'Indoor', count: 7, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=204` },
+    { title: 'Mild', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=205` },
+    { title: 'Warm', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=208` },
+    { title: 'Hot', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?climate=211` },
   ],
   Color: [
     { title: 'Black', link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?color=49` },
@@ -82,28 +58,12 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'Yellow', link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?color=60` },
   ],
   EcoCollection: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?eco_collection=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?eco-collection=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?eco_collection=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?eco-collection=0` },
   ],
   ErinRecommends: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?erin_recommends=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?erin_recommends=0`,
-    },
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?erin_recommends=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?erin_recommends=0` },
   ],
   Material: [
     {
@@ -111,80 +71,28 @@ export const Filters: Record<string, Filter[]> = {
       count: 2,
       link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=142`,
     },
-    {
-      title: 'Cotton',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=33`,
-    },
-    {
-      title: 'LumaTech™',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=147`,
-    },
-    {
-      title: 'Mesh',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=36`,
-    },
-    {
-      title: 'Lycra®',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=148`,
-    },
-    {
-      title: 'Nylon',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=37`,
-    },
-    {
-      title: 'Polyester',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=38`,
-    },
-    {
-      title: 'Spandex',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=150`,
-    },
+    { title: 'Cotton', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=33` },
+    { title: 'LumaTech™', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=147` },
+    { title: 'Mesh', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=36` },
+    { title: 'Lycra®', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=148` },
+    { title: 'Nylon', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=37` },
+    { title: 'Polyester', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=38` },
+    { title: 'Spandex', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=150` },
     {
       title: 'Organic Cotton',
       count: 5,
       link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=153`,
     },
-    {
-      title: 'CoolTech™',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=155`,
-    },
-    {
-      title: 'Wool',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=158`,
-    },
+    { title: 'CoolTech™', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=155` },
+    { title: 'Wool', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?material=158` },
   ],
   New: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?new=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?new=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?new=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?new=0` },
   ],
   Pattern: [
-    {
-      title: 'Graphic Print',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?pattern=195`,
-    },
-    {
-      title: 'Solid',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?pattern=196`,
-    },
+    { title: 'Graphic Print', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?pattern=195` },
+    { title: 'Solid', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?pattern=196` },
     {
       title: 'Solid-Highlight',
       count: 5,
@@ -192,16 +100,8 @@ export const Filters: Record<string, Filter[]> = {
     },
   ],
   PerformanceFabric: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?performance_fabric=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?performance_fabric=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?performance_fabric=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?performance_fabric=0` },
   ],
   Price: [
     {
@@ -214,23 +114,11 @@ export const Filters: Record<string, Filter[]> = {
       count: 7,
       link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?price=40-50`,
     },
-    {
-      title: '$50.00 and above',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?price=50-`,
-    },
+    { title: '$50.00 and above', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?price=50-` },
   ],
   Sale: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?sale=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?sale=0`,
-    },
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?sale=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts}?sale=0` },
   ],
 };
 

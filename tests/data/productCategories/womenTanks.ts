@@ -19,21 +19,9 @@ export const Links = {
 
 export const Filters: Record<string, Filter[]> = {
   Style: [
-    {
-      title: 'Bra',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?style_general=130`,
-    },
-    {
-      title: 'Tank',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?style_general=134`,
-    },
-    {
-      title: 'Camisole',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?style_general=141`,
-    },
+    { title: 'Bra', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?style_general=130` },
+    { title: 'Tank', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?style_general=134` },
+    { title: 'Camisole', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?style_general=141` },
   ],
   Size: [
     { title: 'XS', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?size=166` },
@@ -43,16 +31,8 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'XL', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?size=170` },
   ],
   Climate: [
-    {
-      title: 'Indoor',
-      count: 14,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?climate=204`,
-    },
-    {
-      title: 'Warm',
-      count: 14,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?climate=208`,
-    },
+    { title: 'Indoor', count: 14, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?climate=204` },
+    { title: 'Warm', count: 14, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?climate=208` },
   ],
   Color: [
     { title: 'Black', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?color=49` },
@@ -66,28 +46,12 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'Yellow', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?color=60` },
   ],
   EcoCollection: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?eco_collection=1`,
-    },
-    {
-      title: 'No',
-      count: 11,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?eco-collection=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?eco_collection=1` },
+    { title: 'No', count: 11, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?eco-collection=0` },
   ],
   ErinRecommends: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?erin_recommends=1`,
-    },
-    {
-      title: 'No',
-      count: 11,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?erin_recommends=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?erin_recommends=1` },
+    { title: 'No', count: 11, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?erin_recommends=0` },
   ],
   Material: [
     {
@@ -95,51 +59,15 @@ export const Filters: Record<string, Filter[]> = {
       count: 4,
       link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=142`,
     },
-    {
-      title: 'Cotton',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=33`,
-    },
-    {
-      title: 'Mesh',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=36`,
-    },
-    {
-      title: 'Lycra®',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=148`,
-    },
-    {
-      title: 'Nylon',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=37`,
-    },
-    {
-      title: 'Microfiber',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=149`,
-    },
-    {
-      title: 'Polyester',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=38`,
-    },
-    {
-      title: 'Spandex',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=150`,
-    },
-    {
-      title: 'HeatTec®',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=151`,
-    },
-    {
-      title: 'EverCool™',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=152`,
-    },
+    { title: 'Cotton', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=33` },
+    { title: 'Mesh', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=36` },
+    { title: 'Lycra®', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=148` },
+    { title: 'Nylon', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=37` },
+    { title: 'Microfiber', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=149` },
+    { title: 'Polyester', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=38` },
+    { title: 'Spandex', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=150` },
+    { title: 'HeatTec®', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=151` },
+    { title: 'EverCool™', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?material=152` },
     {
       title: 'Organic Cotton',
       count: 6,
@@ -147,45 +75,17 @@ export const Filters: Record<string, Filter[]> = {
     },
   ],
   New: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?new=1`,
-    },
-    {
-      title: 'No',
-      count: 12,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?new=0`,
-    },
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?new=1` },
+    { title: 'No', count: 12, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?new=0` },
   ],
   Pattern: [
-    {
-      title: 'Checked',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?pattern=193`,
-    },
-    {
-      title: 'Solid',
-      count: 12,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?pattern=196`,
-    },
-    {
-      title: 'Striped',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?pattern=198`,
-    },
+    { title: 'Checked', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?pattern=193` },
+    { title: 'Solid', count: 12, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?pattern=196` },
+    { title: 'Striped', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?pattern=198` },
   ],
   PerformanceFabric: [
-    {
-      title: 'Yes',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?performance_fabric=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?performance_fabric=0`,
-    },
+    { title: 'Yes', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?performance_fabric=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?performance_fabric=0` },
   ],
   Price: [
     {
@@ -200,16 +100,8 @@ export const Filters: Record<string, Filter[]> = {
     },
   ],
   Sale: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?sale=1`,
-    },
-    {
-      title: 'No',
-      count: 11,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?sale=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?sale=1` },
+    { title: 'No', count: 11, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks}?sale=0` },
   ],
 };
 

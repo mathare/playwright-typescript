@@ -32,26 +32,10 @@ export const Filters: Record<string, Filter[]> = {
       count: 9,
       link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=201`,
     },
-    {
-      title: 'Cool',
-      count: 11,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=203`,
-    },
-    {
-      title: 'Indoor',
-      count: 9,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=204`,
-    },
-    {
-      title: 'Spring',
-      count: 11,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=207`,
-    },
-    {
-      title: 'Windy',
-      count: 9,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=209`,
-    },
+    { title: 'Cool', count: 11, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=203` },
+    { title: 'Indoor', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=204` },
+    { title: 'Spring', count: 11, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=207` },
+    { title: 'Windy', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=209` },
   ],
   Color: [
     { title: 'Black', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=49` },
@@ -96,26 +80,14 @@ export const Filters: Record<string, Filter[]> = {
       count: 1,
       link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=142`,
     },
-    {
-      title: 'Fleece',
-      count: 5,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=144`,
-    },
-    {
-      title: 'Hemp',
-      count: 1,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=145`,
-    },
+    { title: 'Fleece', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=144` },
+    { title: 'Hemp', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=145` },
     {
       title: 'LumaTech™',
       count: 1,
       link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=147`,
     },
-    {
-      title: 'Nylon',
-      count: 5,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=37`,
-    },
+    { title: 'Nylon', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=37` },
     {
       title: 'Polyester',
       count: 5,
@@ -131,23 +103,11 @@ export const Filters: Record<string, Filter[]> = {
       count: 1,
       link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=155`,
     },
-    {
-      title: 'Wool',
-      count: 6,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=158`,
-    },
+    { title: 'Wool', count: 6, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=158` },
   ],
   New: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=0` },
   ],
   Pattern: [
     {
@@ -155,16 +115,8 @@ export const Filters: Record<string, Filter[]> = {
       count: 4,
       link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=194`,
     },
-    {
-      title: 'Solid',
-      count: 8,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=196`,
-    },
-    {
-      title: 'Striped',
-      count: 1,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=198`,
-    },
+    { title: 'Solid', count: 8, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=196` },
+    { title: 'Striped', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=198` },
   ],
   PerformanceFabric: [
     {
@@ -201,16 +153,8 @@ export const Filters: Record<string, Filter[]> = {
     },
   ],
   Sale: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=0` },
   ],
 };
 

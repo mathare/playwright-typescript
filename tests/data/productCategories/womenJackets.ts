@@ -49,56 +49,16 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'XL', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?size=170` },
   ],
   Climate: [
-    {
-      title: 'All-Weather',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=201`,
-    },
-    {
-      title: 'Cold',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=202`,
-    },
-    {
-      title: 'Cool',
-      count: 8,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=203`,
-    },
-    {
-      title: 'Indoor',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=204`,
-    },
-    {
-      title: 'Mild',
-      count: 8,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=205`,
-    },
-    {
-      title: 'Rainy',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=206`,
-    },
-    {
-      title: 'Spring',
-      count: 12,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=207`,
-    },
-    {
-      title: 'Warm',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=208`,
-    },
-    {
-      title: 'Windy',
-      count: 7,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=209`,
-    },
-    {
-      title: 'Wintry',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=210`,
-    },
+    { title: 'All-Weather', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=201` },
+    { title: 'Cold', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=202` },
+    { title: 'Cool', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=203` },
+    { title: 'Indoor', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=204` },
+    { title: 'Mild', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=205` },
+    { title: 'Rainy', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=206` },
+    { title: 'Spring', count: 12, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=207` },
+    { title: 'Warm', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=208` },
+    { title: 'Windy', count: 7, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=209` },
+    { title: 'Wintry', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?climate=210` },
   ],
   Color: [
     { title: 'Black', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?color=49` },
@@ -113,28 +73,12 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'Yellow', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?color=60` },
   ],
   EcoCollection: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?eco_collection=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?eco-collection=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?eco_collection=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?eco-collection=0` },
   ],
   ErinRecommends: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?erin_recommends=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?erin_recommends=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?erin_recommends=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?erin_recommends=0` },
   ],
   Material: [
     {
@@ -142,131 +86,39 @@ export const Filters: Record<string, Filter[]> = {
       count: 3,
       link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=142`,
     },
-    {
-      title: 'Cotton',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=33`,
-    },
-    {
-      title: 'Fleece',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=144`,
-    },
-    {
-      title: 'LumaTech™',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=147`,
-    },
-    {
-      title: 'Mesh',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=36`,
-    },
-    {
-      title: 'Lycra®',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=148`,
-    },
-    {
-      title: 'Nylon',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=37`,
-    },
-    {
-      title: 'Polyester',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=38`,
-    },
-    {
-      title: 'Spandex',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=150`,
-    },
-    {
-      title: 'CoolTech™',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=155`,
-    },
-    {
-      title: 'Wool',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=158`,
-    },
+    { title: 'Cotton', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=33` },
+    { title: 'Fleece', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=144` },
+    { title: 'LumaTech™', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=147` },
+    { title: 'Mesh', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=36` },
+    { title: 'Lycra®', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=148` },
+    { title: 'Nylon', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=37` },
+    { title: 'Polyester', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=38` },
+    { title: 'Spandex', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=150` },
+    { title: 'CoolTech™', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=155` },
+    { title: 'Wool', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?material=158` },
   ],
   New: [
-    {
-      title: 'Yes',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?new=1`,
-    },
-    {
-      title: 'No',
-      count: 8,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?new=0`,
-    },
+    { title: 'Yes', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?new=1` },
+    { title: 'No', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?new=0` },
   ],
   Pattern: [
-    {
-      title: 'Color-Blocked',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?pattern=194`,
-    },
-    {
-      title: 'Solid',
-      count: 11,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?pattern=196`,
-    },
+    { title: 'Color-Blocked', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?pattern=194` },
+    { title: 'Solid', count: 11, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?pattern=196` },
   ],
   PerformanceFabric: [
-    {
-      title: 'Yes',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?performance_fabric=1`,
-    },
-    {
-      title: 'No',
-      count: 8,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?performance_fabric=0`,
-    },
+    { title: 'Yes', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?performance_fabric=1` },
+    { title: 'No', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?performance_fabric=0` },
   ],
   Price: [
-    {
-      title: '$30.00 - $39.99',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=30-40`,
-    },
-    {
-      title: '$50.00 - $59.99',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=50-60`,
-    },
-    {
-      title: '$60.00 - $69.99',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=60-70`,
-    },
-    {
-      title: '$70.00 - $79.99',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=70-80`,
-    },
-    {
-      title: '$80.00 and above',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=80-`,
-    },
+    { title: '$30.00 - $39.99', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=30-40` },
+    { title: '$50.00 - $59.99', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=50-60` },
+    { title: '$60.00 - $69.99', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=60-70` },
+    { title: '$70.00 - $79.99', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=70-80` },
+    { title: '$80.00 and above', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?price=80-` },
   ],
   Sale: [
-    {
-      title: 'Yes',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?sale=1`,
-    },
-    {
-      title: 'No',
-      count: 8,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?sale=0`,
-    },
+    { title: 'Yes', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?sale=1` },
+    { title: 'No', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?sale=0` },
   ],
 };
 

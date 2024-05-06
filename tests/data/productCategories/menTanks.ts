@@ -17,13 +17,7 @@ export const Links = {
   },
 };
 export const Filters: Record<string, Filter[]> = {
-  Style: [
-    {
-      title: 'Tank',
-      count: 12,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?style_general=134`,
-    },
-  ],
+  Style: [{ title: 'Tank', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?style_general=134` }],
   Size: [
     { title: 'XS', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?size=166` },
     { title: 'S', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?size=167` },
@@ -32,21 +26,9 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'XL', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?size=170` },
   ],
   Climate: [
-    {
-      title: 'All-Weather',
-      count: 12,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?climate=201`,
-    },
-    {
-      title: 'Indoor',
-      count: 12,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?climate=204`,
-    },
-    {
-      title: 'Warm',
-      count: 12,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?climate=208`,
-    },
+    { title: 'All-Weather', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?climate=201` },
+    { title: 'Indoor', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?climate=204` },
+    { title: 'Warm', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?climate=208` },
   ],
   Color: [
     { title: 'Black', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?color=49` },
@@ -59,28 +41,12 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'Yellow', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?color=60` },
   ],
   EcoCollection: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?eco_collection=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?eco-collection=0`,
-    },
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?eco_collection=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?eco-collection=0` },
   ],
   ErinRecommends: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?erin_recommends=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?erin_recommends=0`,
-    },
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?erin_recommends=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?erin_recommends=0` },
   ],
   Material: [
     {
@@ -88,101 +54,31 @@ export const Filters: Record<string, Filter[]> = {
       count: 4,
       link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=142`,
     },
-    {
-      title: 'Cotton',
-      count: 1,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=33`,
-    },
-    {
-      title: 'LumaTech™',
-      count: 2,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=147`,
-    },
-    {
-      title: 'Lycra®',
-      count: 1,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=148`,
-    },
-    {
-      title: 'Polyester',
-      count: 10,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=38`,
-    },
-    {
-      title: 'HeatTec®',
-      count: 1,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=151`,
-    },
-    {
-      title: 'EverCool™',
-      count: 2,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=152`,
-    },
-    {
-      title: 'Organic Cotton',
-      count: 6,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=153`,
-    },
+    { title: 'Cotton', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=33` },
+    { title: 'LumaTech™', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=147` },
+    { title: 'Lycra®', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=148` },
+    { title: 'Polyester', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=38` },
+    { title: 'HeatTec®', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=151` },
+    { title: 'EverCool™', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=152` },
+    { title: 'Organic Cotton', count: 6, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?material=153` },
   ],
   New: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?new=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?new=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?new=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?new=0` },
   ],
-  Pattern: [
-    {
-      title: 'Solid',
-      count: 12,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?pattern=196`,
-    },
-  ],
+  Pattern: [{ title: 'Solid', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?pattern=196` }],
   PerformanceFabric: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?performance_fabric=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?performance_fabric=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?performance_fabric=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?performance_fabric=0` },
   ],
   Price: [
-    {
-      title: '$10.00 - $19.99',
-      count: 3,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?price=10-20`,
-    },
-    {
-      title: '$20.00 - $29.99',
-      count: 8,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?price=20-30`,
-    },
-    {
-      title: '$30.00 and above',
-      count: 1,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?price=30-`,
-    },
+    { title: '$10.00 - $19.99', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?price=10-20` },
+    { title: '$20.00 - $29.99', count: 8, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?price=20-30` },
+    { title: '$30.00 and above', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?price=30-` },
   ],
   Sale: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?sale=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?sale=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?sale=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks}?sale=0` },
   ],
 };
 

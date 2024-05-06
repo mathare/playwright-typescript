@@ -25,17 +25,9 @@ export const Filters: Record<string, Filter[]> = {
       count: 1,
       link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?style_bottom=107`,
     },
-    {
-      title: 'Leggings',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?style_bottom=108`,
-    },
+    { title: 'Leggings', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?style_bottom=108` },
     { title: 'Parachute', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?style_bottom=109` },
-    {
-      title: 'Sweatpants',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?style_bottom=112`,
-    },
+    { title: 'Sweatpants', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?style_bottom=112` },
     {
       title: 'Track Pants',
       count: 3,
@@ -47,41 +39,13 @@ export const Filters: Record<string, Filter[]> = {
     { title: '29', link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?size=172` },
   ],
   Climate: [
-    {
-      title: 'All-Weather',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=201`,
-    },
-    {
-      title: 'Cool',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=203`,
-    },
-    {
-      title: 'Indoor',
-      count: 13,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=204`,
-    },
-    {
-      title: 'Mild',
-      count: 11,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=205`,
-    },
-    {
-      title: 'Spring',
-      count: 7,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=207`,
-    },
-    {
-      title: 'Warm',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=208`,
-    },
-    {
-      title: 'Hot',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=211`,
-    },
+    { title: 'All-Weather', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=201` },
+    { title: 'Cool', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=203` },
+    { title: 'Indoor', count: 13, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=204` },
+    { title: 'Mild', count: 11, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=205` },
+    { title: 'Spring', count: 7, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=207` },
+    { title: 'Warm', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=208` },
+    { title: 'Hot', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?climate=211` },
   ],
   Color: [
     { title: 'Black', link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?color=49` },
@@ -94,28 +58,12 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'White', link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?color=59` },
   ],
   EcoCollection: [
-    {
-      title: 'Yes',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?eco_collection=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?eco-collection=0`,
-    },
+    { title: 'Yes', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?eco_collection=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?eco-collection=0` },
   ],
   ErinRecommends: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?erin_recommends=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?erin_recommends=0`,
-    },
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?erin_recommends=1` },
+    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?erin_recommends=0` },
   ],
   Material: [
     {
@@ -123,127 +71,37 @@ export const Filters: Record<string, Filter[]> = {
       count: 2,
       link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=142`,
     },
-    {
-      title: 'Cotton',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=33`,
-    },
-    {
-      title: 'LumaTech™',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=147`,
-    },
-    {
-      title: 'Lycra®',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=148`,
-    },
-    {
-      title: 'Nylon',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=37`,
-    },
-    {
-      title: 'Microfiber',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=149`,
-    },
-    {
-      title: 'Polyester',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=38`,
-    },
-    {
-      title: 'Rayon',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=39`,
-    },
-    {
-      title: 'Spandex',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=150`,
-    },
-    {
-      title: 'Organic Cotton',
-      count: 8,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=153`,
-    },
-    {
-      title: 'CoolTech™',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=155`,
-    },
+    { title: 'Cotton', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=33` },
+    { title: 'LumaTech™', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=147` },
+    { title: 'Lycra®', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=148` },
+    { title: 'Nylon', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=37` },
+    { title: 'Microfiber', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=149` },
+    { title: 'Polyester', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=38` },
+    { title: 'Rayon', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=39` },
+    { title: 'Spandex', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=150` },
+    { title: 'Organic Cotton', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=153` },
+    { title: 'CoolTech™', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?material=155` },
   ],
   New: [
-    {
-      title: 'Yes',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?new=1`,
-    },
-    {
-      title: 'No',
-      count: 12,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?new=0`,
-    },
+    { title: 'Yes', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?new=1` },
+    { title: 'No', count: 12, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?new=0` },
   ],
   Pattern: [
-    {
-      title: 'Color-Blocked',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?pattern=194`,
-    },
-    {
-      title: 'Solid',
-      count: 7,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?pattern=196`,
-    },
-    {
-      title: 'Striped',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?pattern=198`,
-    },
+    { title: 'Color-Blocked', count: 5, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?pattern=194` },
+    { title: 'Solid', count: 7, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?pattern=196` },
+    { title: 'Striped', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?pattern=198` },
   ],
   PerformanceFabric: [
-    {
-      title: 'Yes',
-      count: 4,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?performance_fabric=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?performance_fabric=0`,
-    },
+    { title: 'Yes', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?performance_fabric=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?performance_fabric=0` },
   ],
   Price: [
-    {
-      title: '$30.00 - $39.99',
-      count: 7,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=30-40`,
-    },
-    {
-      title: '$40.00 - $49.99',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=40-50`,
-    },
-    {
-      title: '$50.00 - $59.99',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=50-60`,
-    },
-    {
-      title: '$60.00 and above',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=60-`,
-    },
+    { title: '$30.00 - $39.99', count: 7, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=30-40` },
+    { title: '$40.00 - $49.99', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=40-50` },
+    { title: '$50.00 - $59.99', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=50-60` },
+    { title: '$60.00 and above', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?price=60-` },
   ],
-  Sale: [
-    {
-      title: 'No',
-      count: 13,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?sale=0`,
-    },
-  ],
+  Sale: [{ title: 'No', count: 13, link: `${HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants}?sale=0` }],
 };
 
 const Sizes = ['28', '29'];
