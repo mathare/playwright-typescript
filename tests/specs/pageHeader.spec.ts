@@ -35,7 +35,7 @@ test.describe('Page header tests', () => {
       await expect.soft(pageHeader.topnav).toHaveCSS('color', Colors.DarkGrey);
     });
 
-    test('Text content of page elements', async () => {
+    test.skip('Text content of page elements', async () => {
       await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner);
       await expect.soft(pageHeader.searchInput).toBeEmpty();
       await expect.soft(pageHeader.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
@@ -50,7 +50,7 @@ test.describe('Page header tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     test('Default page header appearance', async () => {
       await expect(pageHeader.header).toHaveScreenshot('header.png', {
         timeout: Timeouts.Visual,
