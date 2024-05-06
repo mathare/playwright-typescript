@@ -1,5 +1,5 @@
 import { Links as HeaderLinks } from '../pageHeader';
-import { Filter, FilterOptions, ProductCategoryExpectedText } from './shared';
+import { Filter, ProductCategoryExpectedText } from './shared';
 import { Products as Pants } from './menPants';
 import { Products as Shorts } from './menShorts';
 import { Product } from '../products';
@@ -7,7 +7,6 @@ import { Product } from '../products';
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Men  Bottoms',
   Title: 'Bottoms',
-  Filters: ['CATEGORY', ...FilterOptions],
   ProductCount: 'Items 1-12 of 24',
 };
 

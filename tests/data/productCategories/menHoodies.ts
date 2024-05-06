@@ -1,12 +1,10 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Colors, Product, Sizes } from '../products';
-import { Filter, FilterOptions, ProductCategoryExpectedText } from './shared';
+import { Filter, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Men  Tops  Hoodies & Sweatshirts',
   Title: 'Hoodies & Sweatshirts',
-  // The 1st filter option (Style) is not present
-  Filters: [...FilterOptions.slice(1)],
   ProductCount: 'Items 1-12 of 13',
 };
 

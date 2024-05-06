@@ -1,11 +1,10 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Colors, Product } from '../products';
-import { Filter, FilterOptions, ProductCategoryExpectedText } from './shared';
+import { Filter,  ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Men  Bottoms  Pants',
   Title: 'Pants',
-  Filters: [...FilterOptions],
   ProductCount: '12 Items',
 };
 

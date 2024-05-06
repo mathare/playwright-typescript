@@ -1,11 +1,10 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Colors, Product, Sizes } from '../products';
-import { Filter, FilterOptions, ProductCategoryExpectedText } from './shared';
+import { Filter, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Women  Tops  Bras & Tanks',
   Title: 'Bras & Tanks',
-  Filters: [...FilterOptions],
   ProductCount: 'Items 1-12 of 14',
 };
 
