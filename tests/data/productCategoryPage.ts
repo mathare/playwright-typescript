@@ -105,7 +105,7 @@ export const Filters = {
   MenJackets: { ...MenJackets.Filters },
   // MenPants: { ...MenPants.Filters },
   // MenShorts: { ...MenShorts.Filters },
-  // MenTanks: { ...MenTanks.Filters },
+  MenTanks: { ...MenTanks.Filters },
   MenTees: { ...MenTees.Filters },
   // MenTops: { ...MenTops.Filters },
   // GearBags: { ...GearBags.Filters },
