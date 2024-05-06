@@ -19,3 +19,9 @@ export const FilterOptions = [
   'PATTERN',
   'CLIMATE',
 ];
+
+export type Filter = {
+  title: string;
+  count?: number;
+  link: string;
+};

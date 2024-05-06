@@ -1,6 +1,6 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Colors, Product, Sizes } from '../products';
-import { FilterOptions, ProductCategoryExpectedText } from './shared';
+import { Filter, FilterOptions, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Women  Tops  Jackets',
@@ -17,11 +17,6 @@ export const Links = {
   },
 };
 
-type Filter = {
-  title: string;
-  count?: number;
-  link: string;
-};
 export const Filters: Record<string, Filter[]> = {
   Style: [
     { title: 'Insulated', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets}?style_general=116` },
