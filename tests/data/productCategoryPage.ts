@@ -21,6 +21,7 @@ import * as GearWatches from './productCategories/gearWatches';
 
 export function FilterCategoryName(filterCategory: string): string {
   return filterCategory
+    .replace(/\W+/g, ' ')
     .toLowerCase()
     .split(' ')
     .map(function (word) {
@@ -108,7 +109,7 @@ export const Filters = {
   MenTanks: { ...MenTanks.Filters },
   MenTees: { ...MenTees.Filters },
   MenTops: { ...MenTops.Filters },
-  // GearBags: { ...GearBags.Filters },
+  GearBags: { ...GearBags.Filters },
   // GearFitnessEquipment: { ...GearFitnessEquipment.Filters },
   // GearWatches: { ...GearWatches.Filters },
 };
