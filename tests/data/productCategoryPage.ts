@@ -111,7 +111,7 @@ export const Filters = {
   MenTops: { ...MenTops.Filters },
   GearBags: { ...GearBags.Filters },
   GearFitnessEquipment: { ...GearFitnessEquipment.Filters },
-  // GearWatches: { ...GearWatches.Filters },
+  GearWatches: { ...GearWatches.Filters },
 };
 
 export const Products = {
