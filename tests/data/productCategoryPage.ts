@@ -92,7 +92,7 @@ export const Links = {
 };
 
 export const Filters = {
-  // WomenBottoms: { ...WomenBottoms.Filters },
+  WomenBottoms: { ...WomenBottoms.Filters },
   WomenBrasTanks: { ...WomenTanks.Filters },
   WomenHoodiesSweatshirts: { ...WomenHoodies.Filters },
   WomenJackets: { ...WomenJackets.Filters },
