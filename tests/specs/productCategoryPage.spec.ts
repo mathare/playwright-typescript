@@ -31,18 +31,15 @@ test.describe('Product category page tests', () => {
   let url: string;
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
-    // lvl0Category = Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
-    // lvl1Category = Object.keys(ProductCategories[lvl0Category])[
-    //   Math.floor(Math.random() * Object.keys(ProductCategories[lvl0Category]).length)
-    // ];
-    // lvl2Category = lvl1Category.endsWith('SubMenu')
-    //   ? Object.keys(ProductCategories[lvl0Category][lvl1Category])[
-    //       Math.floor(Math.random() * Object.keys(ProductCategories[lvl0Category][lvl1Category]).length)
-    //     ]
-    //   : '';
-    lvl0Category = 'Women';
-    lvl1Category = 'TopsSubMenu';
-    lvl2Category = 'Jackets';
+    lvl0Category = Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
+    lvl1Category = Object.keys(ProductCategories[lvl0Category])[
+      Math.floor(Math.random() * Object.keys(ProductCategories[lvl0Category]).length)
+    ];
+    lvl2Category = lvl1Category.endsWith('SubMenu')
+      ? Object.keys(ProductCategories[lvl0Category][lvl1Category])[
+          Math.floor(Math.random() * Object.keys(ProductCategories[lvl0Category][lvl1Category]).length)
+        ]
+      : '';
     category = lvl2Category ? `${lvl0Category}${lvl2Category}` : `${lvl0Category}${lvl1Category}`;
     console.log(category);
     url = lvl2Category
