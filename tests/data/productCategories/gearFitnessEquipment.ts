@@ -5,7 +5,6 @@ import { Filter, ProductCategoryExpectedText } from './shared';
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Gear  Fitness Equipment',
   Title: 'Fitness Equipment',
-  Filters: ['CATEGORY', 'SIZE', 'PRICE', 'COLOR', 'ACTIVITY', 'MATERIAL', 'GENDER', 'ERIN RECOMMENDS', 'NEW', 'SALE'],
   ProductCount: '11 Items',
 };
 

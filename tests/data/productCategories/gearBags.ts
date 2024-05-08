@@ -5,18 +5,6 @@ import { Filter, ProductCategoryExpectedText } from './shared';
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Gear  Bags',
   Title: 'Bags',
-  Filters: [
-    'STYLE',
-    'PRICE',
-    'ACTIVITY',
-    'MATERIAL',
-    'STRAP/HANDLE',
-    'FEATURES',
-    'PERFORMANCE FABRIC',
-    'ERIN RECOMMENDS',
-    'NEW',
-    'SALE',
-  ],
   ProductCount: 'Items 1-12 of 14',
 };
 

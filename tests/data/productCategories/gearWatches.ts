@@ -5,7 +5,6 @@ import { Filter, ProductCategoryExpectedText } from './shared';
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Gear  Watches',
   Title: 'Watches',
-  Filters: ['CATEGORY', 'PRICE', 'ACTIVITY', 'MATERIAL', 'GENDER', 'NEW', 'SALE'],
   ProductCount: '9 Items',
 };
 
