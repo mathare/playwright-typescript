@@ -40,7 +40,7 @@ test.describe('Collection page tests', () => {
       // Add sidebar expected text verification
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(collectionExpectedText.PromoBlocks.length);
-      for (let i = 0; i < (await promoBlocks.count()); i++) {
+      for (let i = 0; i < collectionExpectedText.PromoBlocks.length; i++) {
         await expect.soft(promoBlocks.nth(i)).toHaveText(collectionExpectedText.PromoBlocks[i], { useInnerText: true });
       }
       await expect.soft(collectionPage.productsGridTitle).toHaveText(collectionExpectedText.ProductsGrid.Title);
@@ -51,7 +51,7 @@ test.describe('Collection page tests', () => {
       const productDetails = Products[collection];
       const productItems = collectionPage.productItem;
       await expect.soft(productItems).toHaveCount(productDetails.length);
-      for (let i = 0; i < (await productItems.count()); i++) {
+      for (let i = 0; i < productDetails.length; i++) {
         await expect
           .soft(collectionPage.getProductItemElement(i, ProductItemElements.Name))
           .toHaveText(productDetails[i].title);
@@ -71,14 +71,14 @@ test.describe('Collection page tests', () => {
         if (productDetails[i].sizes) {
           const sizes = collectionPage.getProductItemElement(i, ProductItemElements.Sizes);
           await expect.soft(sizes).toHaveCount(productDetails[i].sizes!.length);
-          for (let j = 0; j < (await sizes.count()); j++) {
+          for (let j = 0; j < productDetails[i].sizes!.length; j++) {
             await expect.soft(sizes.nth(j)).toHaveText(productDetails[i].sizes![j]);
           }
         }
         if (productDetails[i].colors) {
           const colors = collectionPage.getProductItemElement(i, ProductItemElements.Colors);
           await expect.soft(colors).toHaveCount(productDetails[i].colors!.length);
-          for (let j = 0; j < (await colors.count()); j++) {
+          for (let j = 0; j < productDetails[i].colors!.length; j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
         }
@@ -89,7 +89,7 @@ test.describe('Collection page tests', () => {
       const activeClass = /active/;
       const topnavLinks = await collectionPage.pageHeader.getTopnavMenuItem(collectionPage.pageHeader.topnav, 0);
       await expect.soft(topnavLinks).toHaveCount(Object.keys(Collections).length);
-      for (let i = 0; i < (await topnavLinks.count()); i++) {
+      for (let i = 0; i < Object.keys(Collections).length; i++) {
         const link = await collectionPage.pageHeader.getTopnavMenuLink(topnavLinks.nth(i));
         if ((await link.textContent()) === collection.replace('WhatsNew', "What's New")) {
           await expect.soft(topnavLinks.nth(i)).toHaveClass(activeClass);
@@ -118,7 +118,7 @@ test.describe('Collection page tests', () => {
     test('Promo block links', async ({ baseURL }) => {
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(Links[collection].PromoBlocks.length);
-      for (let i = 0; i < (await promoBlocks.count()); i++) {
+      for (let i = 0; i < Links[collection].PromoBlocks.length; i++) {
         if (Links[collection].PromoBlocks[i]) {
           await expect
             .soft(promoBlocks.nth(i))
@@ -131,7 +131,7 @@ test.describe('Collection page tests', () => {
       const productDetails = Products[collection];
       const products = collectionPage.productItem;
       await expect.soft(products).toHaveCount(productDetails.length);
-      for (let i = 0; i < (await products.count()); i++) {
+      for (let i = 0; i < productDetails.length; i++) {
         await expect
           .soft(collectionPage.getProductItemElement(i, ProductItemElements.PhotoLink))
           .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);

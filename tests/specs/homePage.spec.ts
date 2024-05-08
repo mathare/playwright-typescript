@@ -41,7 +41,7 @@ test.describe('Home page tests', () => {
     test('Text content of page elements', async () => {
       const promoBlocks = homePage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(ExpectedText.PromoBlocks.length);
-      for (let i = 0; i < (await promoBlocks.count()); i++) {
+      for (let i = 0; i < ExpectedText.PromoBlocks.length; i++) {
         await expect.soft(promoBlocks.nth(i)).toHaveText(ExpectedText.PromoBlocks[i]);
       }
       await expect.soft(homePage.contentHeading).toHaveText(ExpectedText.ContentHeading);
@@ -50,7 +50,7 @@ test.describe('Home page tests', () => {
     test('Product item details', async () => {
       const productItems = homePage.productItem;
       await expect.soft(productItems).toHaveCount(Products.length);
-      for (let i = 0; i < (await productItems.count()); i++) {
+      for (let i = 0; i < Products.length; i++) {
         await expect.soft(homePage.getProductItemElement(i, ProductItemElements.Name)).toHaveText(Products[i].title);
         if (Products[i].rating) {
           await expect
@@ -66,14 +66,14 @@ test.describe('Home page tests', () => {
         if (Products[i].sizes) {
           const sizes = homePage.getProductItemElement(i, ProductItemElements.Sizes);
           await expect.soft(sizes).toHaveCount(Products[i].sizes!.length);
-          for (let j = 0; j < (await sizes.count()); j++) {
+          for (let j = 0; j < Products[i].sizes!.length; j++) {
             await expect.soft(sizes.nth(j)).toHaveText(Products[i].sizes![j]);
           }
         }
         if (Products[i].colors) {
           const colors = homePage.getProductItemElement(i, ProductItemElements.Colors);
           await expect.soft(colors).toHaveCount(Products[i].colors!.length);
-          for (let j = 0; j < (await colors.count()); j++) {
+          for (let j = 0; j < Products[i].colors!.length; j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', Products[i].colors![j]);
           }
         }
@@ -105,7 +105,7 @@ test.describe('Home page tests', () => {
     test('Promo block links', async ({ baseURL }) => {
       const promoBlocks = homePage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(PromoBlockLinks.length);
-      for (let i = 0; i < (await promoBlocks.count()); i++) {
+      for (let i = 0; i < PromoBlockLinks.length; i++) {
         await expect.soft(promoBlocks.nth(i)).toHaveAttribute('href', `${baseURL}${PromoBlockLinks[i]}`);
       }
     });
@@ -113,7 +113,7 @@ test.describe('Home page tests', () => {
     test('Product links', async ({ baseURL }) => {
       const products = homePage.productItem;
       await expect.soft(products).toHaveCount(Products.length);
-      for (let i = 0; i < (await products.count()); i++) {
+      for (let i = 0; i < Products.length; i++) {
         await expect
           .soft(homePage.getProductItemElement(i, ProductItemElements.PhotoLink))
           .toHaveAttribute('href', `${baseURL}${Products[i].link}`);
@@ -133,7 +133,7 @@ test.describe('Home page tests', () => {
     test('Default product image links', async ({ baseURL }) => {
       const products = homePage.productItem;
       await expect.soft(products).toHaveCount(Products.length);
-      for (let i = 0; i < (await products.count()); i++) {
+      for (let i = 0; i < Products.length; i++) {
         const imageLink = `${baseURL}${mediaDir}${Products[i].images!.default}`;
         await expect
           .soft(homePage.getProductItemElement(i, ProductItemElements.Photo))
@@ -144,11 +144,11 @@ test.describe('Home page tests', () => {
     test('Product image links for all size options', async ({ baseURL }) => {
       const products = homePage.productItem;
       await expect.soft(products).toHaveCount(Products.length);
-      for (let i = 0; i < (await products.count()); i++) {
+      for (let i = 0; i < Products.length; i++) {
         if (Products[i].sizes) {
           const sizes = homePage.getProductItemElement(i, ProductItemElements.Sizes);
           await expect.soft(sizes).toHaveCount(Products[i].sizes!.length);
-          for (let j = 0; j < (await sizes.count()); j++) {
+          for (let j = 0; j < Products[i].sizes!.length; j++) {
             await sizes.nth(j).click();
             const imageLink = Array.isArray(Products[i].images!.sizes)
               ? `${baseURL}${mediaDir}${Products[i].images!.sizes[j]}`
@@ -164,11 +164,11 @@ test.describe('Home page tests', () => {
     test('Product image links for different color options', async ({ baseURL }) => {
       const products = homePage.productItem;
       await expect.soft(products).toHaveCount(Products.length);
-      for (let i = 0; i < (await products.count()); i++) {
+      for (let i = 0; i < Products.length; i++) {
         if (Products[i].colors) {
           const colors = homePage.getProductItemElement(i, ProductItemElements.Colors);
           await expect.soft(colors).toHaveCount(Products[i].colors!.length);
-          for (let j = 0; j < (await colors.count()); j++) {
+          for (let j = 0; j < Products[i].colors!.length; j++) {
             await colors.nth(j).click();
             const imageLink = `${baseURL}${mediaDir}${Products[i].images!.colors[j]}`;
             await expect

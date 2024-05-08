@@ -81,12 +81,12 @@ test.describe('Product category page tests', () => {
       const filterCategories = productCategoryPage.filterCategory;
       const expectedFilters = Filters[category];
       await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
-      for (let i = 0; i < (await filterCategories.count()); i++) {
+      for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
         const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
         expect.soft(categoryName).toEqual(Object.keys(expectedFilters)[i]);
         const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
         await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
-        for (let j = 0; j < (await filterItems.count()); j++) {
+        for (let j = 0; j < expectedFilters[categoryName].length; j++) {
           const expectedTitle = expectedFilters[categoryName][j].title;
           const expectedText = `${expectedFilters[categoryName][j].title} ${expectedFilters[categoryName][j].count}\n item`;
           if (['Size', 'Color'].includes(categoryName)) {
@@ -105,7 +105,7 @@ test.describe('Product category page tests', () => {
       const productDetails = Products[category].slice(0, 12);
       const productItems = productCategoryPage.productItem;
       await expect.soft(productItems).toHaveCount(productDetails.length);
-      for (let i = 0; i < (await productItems.count()); i++) {
+      for (let i = 0; i < productDetails.length; i++) {
         await expect
           .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
           .toHaveText(productDetails[i].title);
@@ -125,14 +125,14 @@ test.describe('Product category page tests', () => {
         if (productDetails[i].sizes) {
           const sizes = productCategoryPage.getProductItemElement(i, ProductItemElements.Sizes);
           await expect.soft(sizes).toHaveCount(productDetails[i].sizes!.length);
-          for (let j = 0; j < (await sizes.count()); j++) {
+          for (let j = 0; j < productDetails[i].sizes!.length; j++) {
             await expect.soft(sizes.nth(j)).toHaveText(productDetails[i].sizes![j]);
           }
         }
         if (productDetails[i].colors) {
           const colors = productCategoryPage.getProductItemElement(i, ProductItemElements.Colors);
           await expect.soft(colors).toHaveCount(productDetails[i].colors!.length);
-          for (let j = 0; j < (await colors.count()); j++) {
+          for (let j = 0; j < productDetails[i].colors!.length; j++) {
             await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
           }
         }
@@ -144,7 +144,7 @@ test.describe('Product category page tests', () => {
       const lvl0MenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
       const lvl0Keys = SubMenuKeys(HeaderLinks.Topnav);
       await expect.soft(lvl0MenuItems).toHaveCount(lvl0Keys.length);
-      for (let i = 0; i < (await lvl0MenuItems.count()); i++) {
+      for (let i = 0; i < lvl0Keys.length; i++) {
         const link = await pageHeader.getTopnavMenuLink(lvl0MenuItems.nth(i));
         if ((await MenuItemText(link)) === lvl0Category) {
           await verifyMenuItemHighlighting(link, 'bottom');
@@ -153,7 +153,7 @@ test.describe('Product category page tests', () => {
           const lvl1Keys = SubMenuKeys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]);
           await expect.soft(lvl1MenuItems).toHaveCount(lvl1Keys.length);
 
-          for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
+          for (let j = 0; j < lvl1Keys.length; j++) {
             const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
             const lvl2MenuItems = await pageHeader.getTopnavMenuItem(lvl1MenuItems.nth(j), 2);
             if ((await MenuItemText(link)) === lvl1Category.replace('SubMenu', '')) {
@@ -164,7 +164,7 @@ test.describe('Product category page tests', () => {
                 if (Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`]).includes(`${lvl1Category}SubMenu`)) {
                   const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][`${lvl1Category}SubMenu`]);
                   await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
-                  for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
+                  for (let k = 0; k < lvl2Keys.length; k++) {
                     const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
                     await verifyMenuItemHighlighting(link);
                   }
@@ -176,7 +176,7 @@ test.describe('Product category page tests', () => {
 
                 const lvl2Keys = Object.keys(HeaderLinks.Topnav[`${lvl0Category}SubMenu`][lvl1Category]);
                 await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
-                for (let k = 0; k < (await lvl2MenuItems.count()); k++) {
+                for (let k = 0; k < lvl2Keys.length; k++) {
                   const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
                   if ((await MenuItemText(link)) === lvl2Category) {
                     await verifyMenuItemHighlighting(link, 'left');
@@ -211,12 +211,12 @@ test.describe('Product category page tests', () => {
       const filterCategories = productCategoryPage.filterCategory;
       const expectedFilters = Filters[category];
       await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
-      for (let i = 0; i < (await filterCategories.count()); i++) {
+      for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
         const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
         expect.soft(categoryName).toEqual(Object.keys(expectedFilters)[i]);
         const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
         await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
-        for (let j = 0; j < (await filterItems.count()); j++) {
+        for (let j = 0; j < expectedFilters[categoryName].length; j++) {
           const expectedUrl = `${baseURL}${expectedFilters[categoryName][j].link}`;
           await expect.soft(filterItems.nth(j)).toHaveAttribute('href', expectedUrl);
         }
@@ -228,7 +228,7 @@ test.describe('Product category page tests', () => {
       const productDetails = Products[category].slice(0, 12);
       const products = productCategoryPage.productItem;
       await expect.soft(products).toHaveCount(productDetails.length);
-      for (let i = 0; i < (await products.count()); i++) {
+      for (let i = 0; i < productDetails.length; i++) {
         await expect
           .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.PhotoLink))
           .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);

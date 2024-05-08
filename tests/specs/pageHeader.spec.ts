@@ -42,7 +42,7 @@ test.describe('Page header tests', () => {
       await expect.soft(pageHeader.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
       const topnavMenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
       await expect.soft(topnavMenuItems).toHaveCount(ExpectedText.Topnav.length);
-      for (let i = 0; i < (await topnavMenuItems.count()); i++) {
+      for (let i = 0; i < ExpectedText.Topnav.length; i++) {
         // It's the links that have the expected text; the menu items themselves include all submenu item text contents
         await expect
           .soft(await pageHeader.getTopnavMenuLink(topnavMenuItems.nth(i)))
@@ -98,7 +98,7 @@ test.describe('Page header tests', () => {
       // edit the DOM to add suitable locators/attributes as I would with a website under my control
       const lvl0Links = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
       await expect.soft(lvl0Links).toHaveCount(Object.keys(TopnavLvl0).length);
-      for (let i = 0; i < (await lvl0Links.count()); i++) {
+      for (let i = 0; i < Object.keys(TopnavLvl0).length; i++) {
         const lvl0MenuText = (await lvl0Links.nth(i).innerText()).replace(/\W+/g, '');
         const link = await pageHeader.getTopnavMenuLink(lvl0Links.nth(i));
         await expect.soft(link).toHaveAttribute('href', `${baseURL}${Links.Topnav[lvl0MenuText]}`);
@@ -110,7 +110,7 @@ test.describe('Page header tests', () => {
             (key) => !key.endsWith('SubMenu'),
           );
           await expect.soft(lvl1MenuItems).toHaveCount(lvl1Keys.length);
-          for (let j = 0; j < (await lvl1MenuItems.count()); j++) {
+          for (let j = 0; j < lvl1Keys.length; j++) {
             const link = await pageHeader.getTopnavMenuLink(lvl1MenuItems.nth(j));
             const lvl1MenuText = (await link.innerText()).replace(/\W+/g, '');
             await expect
@@ -125,7 +125,7 @@ test.describe('Page header tests', () => {
               )[j];
               const lvl2Keys = Object.keys(Links.Topnav[`${lvl0MenuText}SubMenu`][lvl2Submenu]);
               await expect.soft(lvl2MenuItems).toHaveCount(lvl2Keys.length);
-              for (let k = 1; k < (await lvl2MenuItems.count()); k++) {
+              for (let k = 1; k < lvl2Keys.length; k++) {
                 const link = await pageHeader.getTopnavMenuLink(lvl2MenuItems.nth(k));
                 const lvl2MenuText = (await link.innerText()).replace(/\W+/g, '');
                 await expect

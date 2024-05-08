@@ -71,10 +71,10 @@ test.describe('Product item tests', () => {
       // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
       const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes);
       await expect.soft(sizes).toHaveCount(Products[0].sizes!.length);
-      for (let i = 0; i < (await sizes.count()); i++) {
+      for (let i = 0; i < Products[0].sizes!.length; i++) {
         await sizes.nth(i).click();
         await expect.soft(sizes.nth(i)).toHaveClass(swatchSelectedClass);
-        for (let j = 0; j < (await sizes.count()); j++) {
+        for (let j = 0; j < Products[0].sizes!.length; j++) {
           if (j !== i) {
             await expect.soft(sizes.nth(j)).not.toHaveClass(swatchSelectedClass);
           }
@@ -86,10 +86,10 @@ test.describe('Product item tests', () => {
       // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
       const colors = homePage.getProductItemElement(0, ProductItemElements.Colors);
       await expect.soft(colors).toHaveCount(Products[0].colors!.length);
-      for (let i = 0; i < (await colors.count()); i++) {
+      for (let i = 0; i < Products[0].colors!.length; i++) {
         await colors.nth(i).click();
         await expect.soft(colors.nth(i)).toHaveClass(swatchSelectedClass);
-        for (let j = 0; j < (await colors.count()); j++) {
+        for (let j = 0; j < Products[0].colors!.length; j++) {
           if (j !== i) {
             await expect.soft(colors.nth(j)).not.toHaveClass(swatchSelectedClass);
           }
@@ -104,7 +104,7 @@ test.describe('Product item tests', () => {
     test('Size option tooltips', async () => {
       const sizes = homePage.getProductItemElement(0, ProductItemElements.Sizes);
       await expect.soft(sizes).toHaveCount(Products[0].sizes!.length);
-      for (let i = 0; i < (await sizes.count()); i++) {
+      for (let i = 0; i < Products[0].sizes!.length; i++) {
         await expect.soft(sizes.nth(i)).toHaveAttribute('option-tooltip-value', Products[0].sizes![i]);
         await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
         await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-height', tooltipHeight);
@@ -114,7 +114,7 @@ test.describe('Product item tests', () => {
     test('Color swatch tooltips', async () => {
       const colors = homePage.getProductItemElement(0, ProductItemElements.Colors);
       await expect.soft(colors).toHaveCount(Products[0].colors!.length);
-      for (let i = 0; i < (await colors.count()); i++) {
+      for (let i = 0; i < Products[0].colors!.length; i++) {
         await expect.soft(colors.nth(i)).toHaveAttribute('option-tooltip-value', rgbToHex(Products[0].colors![i]));
         await expect.soft(colors.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
         await expect.soft(colors.nth(i)).toHaveAttribute('thumb-height', tooltipHeight);
