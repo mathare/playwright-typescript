@@ -207,6 +207,22 @@ test.describe('Product category page tests', () => {
       }
     });
 
+    test('Filter links', async ({ baseURL }) => {
+      const filterCategories = productCategoryPage.filterCategory;
+      const expectedFilters = Filters[category];
+      await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
+      for (let i = 0; i < (await filterCategories.count()); i++) {
+        const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
+        expect.soft(categoryName).toEqual(Object.keys(expectedFilters)[i]);
+        const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
+        await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
+        for (let j = 0; j < (await filterItems.count()); j++) {
+          const expectedUrl = `${baseURL}${expectedFilters[categoryName][j].link}`;
+          await expect.soft(filterItems.nth(j)).toHaveAttribute('href', expectedUrl);
+        }
+      }
+    });
+
     test('Default product links', async ({ baseURL }) => {
       //There are a maximum of 12 products displayed by default
       const productDetails = Products[category].slice(0, 12);
