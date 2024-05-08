@@ -1,7 +1,10 @@
 import { Locator } from '@playwright/test';
 
 export const ExpectedText = {
-  Banner: 'Skip to Content Click “Write for us” link in the footer to submit a guest post Sign In Create an Account',
+  Banner: {
+    Home: 'Skip to Content\nPractice API Testing Sign In  Create an Account',
+    Other: 'Skip to Content\nSupport This Project Sign In  Create an Account',
+  },
   Search: 'Search entire store here...',
   Topnav: ["What's New", 'Women', 'Men', 'Gear', 'Training', 'Sale'],
 };

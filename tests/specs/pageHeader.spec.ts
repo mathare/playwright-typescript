@@ -36,8 +36,8 @@ test.describe('Page header tests', () => {
       await expect.soft(pageHeader.topnav).toHaveCSS('color', Colors.DarkGrey);
     });
 
-    test.skip('Text content of page elements', async () => {
-      await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner);
+    test('Text content of page elements', async ({ page }) => {
+      await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner.Home, { useInnerText: true });
       await expect.soft(pageHeader.searchInput).toBeEmpty();
       await expect.soft(pageHeader.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
       const topnavMenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
@@ -48,6 +48,11 @@ test.describe('Page header tests', () => {
           .soft(await pageHeader.getTopnavMenuLink(topnavMenuItems.nth(i)))
           .toHaveText(ExpectedText.Topnav[i]);
       }
+
+      // The banner text is different on the home page to other pages so check on another random top-level page
+      const url = Object.values(TopnavLvl0)[Math.floor(Math.random() * Object.keys(TopnavLvl0).length)];
+      await page.goto(url);
+      await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner.Other, { useInnerText: true });
     });
   });
 
