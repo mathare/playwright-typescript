@@ -19,6 +19,17 @@ import * as GearBags from './productCategories/gearBags';
 import * as GearFitnessEquipment from './productCategories/gearFitnessEquipment';
 import * as GearWatches from './productCategories/gearWatches';
 
+export function FilterCategoryName(filterCategory: string): string {
+  return filterCategory
+    .replace(/\W+/g, ' ')
+    .toLowerCase()
+    .split(' ')
+    .map(function (word) {
+      return word.replace(word.charAt(0), word.charAt(0).toUpperCase());
+    })
+    .join('');
+}
+
 export const ProductCategories = {
   Women: {
     Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,
@@ -79,6 +90,28 @@ export const Links = {
   GearBags: { ...GearBags.Links },
   GearFitnessEquipment: { ...GearFitnessEquipment.Links },
   GearWatches: { ...GearWatches.Links },
+};
+
+export const Filters = {
+  WomenBottoms: { ...WomenBottoms.Filters },
+  WomenBrasTanks: { ...WomenTanks.Filters },
+  WomenHoodiesSweatshirts: { ...WomenHoodies.Filters },
+  WomenJackets: { ...WomenJackets.Filters },
+  WomenPants: { ...WomenPants.Filters },
+  WomenShorts: { ...WomenShorts.Filters },
+  WomenTees: { ...WomenTees.Filters },
+  WomenTops: { ...WomenTops.Filters },
+  MenBottoms: { ...MenBottoms.Filters },
+  MenHoodiesSweatshirts: { ...MenHoodies.Filters },
+  MenJackets: { ...MenJackets.Filters },
+  MenPants: { ...MenPants.Filters },
+  MenShorts: { ...MenShorts.Filters },
+  MenTanks: { ...MenTanks.Filters },
+  MenTees: { ...MenTees.Filters },
+  MenTops: { ...MenTops.Filters },
+  GearBags: { ...GearBags.Filters },
+  GearFitnessEquipment: { ...GearFitnessEquipment.Filters },
+  GearWatches: { ...GearWatches.Filters },
 };
 
 export const Products = {

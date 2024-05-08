@@ -1,11 +1,10 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Product } from '../products';
-import { ProductCategoryExpectedText } from './shared';
+import { Filter, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Gear  Fitness Equipment',
   Title: 'Fitness Equipment',
-  Filters: ['CATEGORY', 'SIZE', 'PRICE', 'COLOR', 'ACTIVITY', 'MATERIAL', 'GENDER', 'ERIN RECOMMENDS', 'NEW', 'SALE'],
   ProductCount: '11 Items',
 };
 
@@ -14,6 +13,55 @@ export const Links = {
     Home: '/',
     Gear: HeaderLinks.Topnav.Gear,
   },
+};
+
+export const Filters: Record<string, Filter[]> = {
+  Category: [
+    { title: 'Cardio', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?category_gear=85` },
+    { title: 'Exercise', count: 10, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?category_gear=87` },
+  ],
+  Size: [
+    { title: '55 cm', link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?size=91` },
+    { title: '65 cm', link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?size=92` },
+    { title: '75 cm', link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?size=93` },
+    { title: '6 foot', link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?size=94` },
+    { title: '8 foot', link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?size=95` },
+    { title: '10 foot', link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?size=96` },
+  ],
+  Activity: [
+    { title: 'Yoga', count: 5, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?activity=8` },
+    { title: 'Recreation', count: 3, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?activity=9` },
+    { title: 'Gym', count: 10, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?activity=11` },
+    { title: 'Athletic', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?activity=16` },
+    { title: 'Sports', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?activity=17` },
+  ],
+  Color: [{ title: 'Blue', link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?color=50` }],
+  ErinRecommends: [
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?erin_recommends=1` },
+  ],
+  Gender: [
+    { title: 'Men', count: 10, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?gender=80` },
+    { title: 'Women', count: 10, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?gender=81` },
+    { title: 'Boys', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?gender=82` },
+    { title: 'Girls', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?gender=83` },
+    { title: 'Unisex', count: 10, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?gender=84` },
+  ],
+  Material: [
+    { title: 'Canvas', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?material=32` },
+    { title: 'Leather', count: 3, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?material=35` },
+    { title: 'Foam', count: 3, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?material=42` },
+    { title: 'Plastic', count: 8, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?material=44` },
+    { title: 'Rubber', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?material=45` },
+    { title: 'Synthetic', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?material=46` },
+  ],
+  New: [{ title: 'Yes', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?new=1` }],
+  Price: [
+    { title: '$0.00 - $9.99', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?price=-10` },
+    { title: '$10.00 - $19.99', count: 7, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?price=10-20` },
+    { title: '$20.00 - $29.99', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?price=20-30` },
+    { title: '$60.00 and above', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?price=60-` },
+  ],
+  Sale: [{ title: 'Yes', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.FitnessEquipment}?sale=1` }],
 };
 
 export const Products: Product[] = [

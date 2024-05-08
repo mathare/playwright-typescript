@@ -1,11 +1,10 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Colors, Product, Sizes } from '../products';
-import { FilterOptions, ProductCategoryExpectedText } from './shared';
+import { Filter, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Men  Tops  Jackets',
   Title: 'Jackets',
-  Filters: [...FilterOptions],
   ProductCount: '11 Items',
 };
 
@@ -15,6 +14,97 @@ export const Links = {
     Men: HeaderLinks.Topnav.Men,
     Tops: HeaderLinks.Topnav.MenSubMenu.Tops,
   },
+};
+
+export const Filters: Record<string, Filter[]> = {
+  Style: [
+    { title: 'Insulated', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=116` },
+    { title: 'Jacket', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=117` },
+    { title: 'Lightweight', count: 6, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=119` },
+    { title: 'Hooded', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=120` },
+    { title: 'Heavy Duty', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=121` },
+    { title: 'Rain Coat', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=122` },
+    { title: 'Hard Shell', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=123` },
+    { title: 'Soft Shell', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=124` },
+    { title: 'Windbreaker', count: 6, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=125` },
+    { title: '¼ zip', count: 7, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=127` },
+    { title: 'Full Zip', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=128` },
+    { title: 'Reversible', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?style_general=129` },
+  ],
+  Size: [
+    { title: 'XS', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?size=166` },
+    { title: 'S', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?size=167` },
+    { title: 'M', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?size=168` },
+    { title: 'L', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?size=169` },
+    { title: 'XL', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?size=170` },
+  ],
+  Climate: [
+    { title: 'All-Weather', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=201` },
+    { title: 'Cold', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=202` },
+    { title: 'Cool', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=203` },
+    { title: 'Indoor', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=204` },
+    { title: 'Mild', count: 4, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=205` },
+    { title: 'Rainy', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=206` },
+    { title: 'Spring', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=207` },
+    { title: 'Warm', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=208` },
+    { title: 'Windy', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=209` },
+    { title: 'Wintry', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?climate=210` },
+  ],
+  Color: [
+    { title: 'Black', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=49` },
+    { title: 'Blue', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=50` },
+    { title: 'Gray', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=52` },
+    { title: 'Green', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=53` },
+    { title: 'Orange', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=56` },
+    { title: 'Purple', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=57` },
+    { title: 'Red', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=58` },
+    { title: 'White', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=59` },
+    { title: 'Yellow', link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?color=60` },
+  ],
+  EcoCollection: [
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?eco_collection=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?eco_collection=0` },
+  ],
+  ErinRecommends: [
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?erin_recommends=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?erin_recommends=0` },
+  ],
+  Material: [
+    {
+      title: 'Cocona® performance fabric',
+      count: 2,
+      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=142`,
+    },
+    { title: 'Cotton', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=33` },
+    { title: 'Fleece', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=144` },
+    { title: 'Hemp', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=145` },
+    { title: 'LumaTech™', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=147` },
+    { title: 'Lycra®', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=148` },
+    { title: 'Nylon', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=37` },
+    { title: 'Polyester', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=38` },
+    { title: 'Spandex', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=150` },
+    { title: 'Wool', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?material=158` },
+  ],
+  New: [
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?new=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?new=0` },
+  ],
+  Pattern: [{ title: 'Solid', count: 11, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?pattern=196` }],
+  PerformanceFabric: [
+    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?performance_fabric=1` },
+    { title: 'No', count: 8, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?performance_fabric=0` },
+  ],
+  Price: [
+    { title: '$40.00 - $49.99', count: 4, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=40-50` },
+    { title: '$50.00 - $59.99', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=50-60` },
+    { title: '$60.00 - $69.99', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=60-70` },
+    { title: '$70.00 - $79.99', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=70-80` },
+    { title: '$90.00 and above', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=90-` },
+  ],
+  Sale: [
+    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?sale=1` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?sale=0` },
+  ],
 };
 
 export const Products: Product[] = [

@@ -1,22 +1,10 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Product } from '../products';
-import { ProductCategoryExpectedText } from './shared';
+import { Filter, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Gear  Bags',
   Title: 'Bags',
-  Filters: [
-    'STYLE',
-    'PRICE',
-    'ACTIVITY',
-    'MATERIAL',
-    'STRAP/HANDLE',
-    'FEATURES',
-    'PERFORMANCE FABRIC',
-    'ERIN RECOMMENDS',
-    'NEW',
-    'SALE',
-  ],
   ProductCount: 'Items 1-12 of 14',
 };
 
@@ -25,6 +13,72 @@ export const Links = {
     Home: '/',
     Gear: HeaderLinks.Topnav.Gear,
   },
+};
+
+export const Filters: Record<string, Filter[]> = {
+  Style: [
+    { title: 'Backpack', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?style_bags=24` },
+    { title: 'Luggage', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?style_bags=25` },
+    { title: 'Duffel', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?style_bags=26` },
+    { title: 'Messenger', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?style_bags=27` },
+    { title: 'Laptop', count: 6, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?style_bags=28` },
+    { title: 'Exercise', count: 6, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?style_bags=29` },
+    { title: 'Tote', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?style_bags=30` },
+  ],
+  Activity: [
+    { title: 'Yoga', count: 6, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=8` },
+    { title: 'Gym', count: 9, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=11` },
+    { title: 'Hiking', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=18` },
+    { title: 'Overnight', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=19` },
+    { title: 'School', count: 6, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=20` },
+    { title: 'Trail', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=21` },
+    { title: 'Travel', count: 5, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=22` },
+    { title: 'Urban', count: 5, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?activity=23` },
+  ],
+  ErinRecommends: [{ title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?erin_recommends=1` }],
+  Features: [
+    { title: 'Wheeled', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=70` },
+    { title: 'Hydration Pocket', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=71` },
+    { title: 'Audio Pocket', count: 6, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=72` },
+    { title: 'Flapover', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=73` },
+    { title: 'Waterproof', count: 8, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=74` },
+    { title: 'Lightweight', count: 10, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=75` },
+    { title: 'TSA Approved', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=76` },
+    { title: 'Reflective', count: 5, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=77` },
+    { title: 'Laptop Sleeve', count: 7, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=78` },
+    { title: 'Lockable', count: 6, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?features_bags=79` },
+  ],
+  Material: [
+    { title: 'Burlap', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=31` },
+    { title: 'Canvas', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=32` },
+    { title: 'Cotton', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=33` },
+    { title: 'Leather', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=35` },
+    { title: 'Mesh', count: 3, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=36` },
+    { title: 'Nylon', count: 11, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=37` },
+    { title: 'Polyester', count: 11, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=38` },
+    { title: 'Rayon', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=39` },
+    { title: 'Suede', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?material=41` },
+  ],
+  New: [{ title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?new=1` }],
+  PerformanceFabric: [{ title: 'Yes', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?performance_fabric=1` }],
+  Price: [
+    { title: '$20.00 - $29.99', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?price=20-30` },
+    { title: '$30.00 - $39.99', count: 7, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?price=30-40` },
+    { title: '$40.00 - $49.99', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?price=40-50` },
+    { title: '$50.00 - $59.99', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?price=50-60` },
+    { title: '$70.00 and above', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?price=70-` },
+  ],
+  Sale: [{ title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?sale=1` }],
+  StrapHandle: [
+    { title: 'Adjustable', count: 11, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=61` },
+    { title: 'Cross Body', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=62` },
+    { title: 'Detachable', count: 2, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=63` },
+    { title: 'Double', count: 9, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=64` },
+    { title: 'Padded', count: 7, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=65` },
+    { title: 'Shoulder', count: 7, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=66` },
+    { title: 'Single', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=67` },
+    { title: 'Telescoping', count: 1, link: `${HeaderLinks.Topnav.GearSubMenu.Bags}?strap_bags=68` },
+  ],
 };
 
 export const Products: Product[] = [
