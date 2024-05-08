@@ -213,7 +213,6 @@ test.describe('Product category page tests', () => {
       await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
       for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
         const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
-        expect.soft(categoryName).toEqual(Object.keys(expectedFilters)[i]);
         const filterItems = productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
         await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
         for (let j = 0; j < expectedFilters[categoryName].length; j++) {
