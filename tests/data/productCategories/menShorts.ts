@@ -51,7 +51,7 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'Yellow', link: `${HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts}?color=60` },
   ],
   EcoCollection: [
-    { title: 'No', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts}?eco-collection=0` },
+    { title: 'No', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts}?eco_collection=0` },
   ],
   ErinRecommends: [
     { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts}?erin_recommends=1` },

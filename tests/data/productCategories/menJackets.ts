@@ -63,7 +63,7 @@ export const Filters: Record<string, Filter[]> = {
   ],
   EcoCollection: [
     { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?eco_collection=1` },
-    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?eco-collection=0` },
+    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?eco_collection=0` },
   ],
   ErinRecommends: [
     { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?erin_recommends=1` },
@@ -99,7 +99,7 @@ export const Filters: Record<string, Filter[]> = {
     { title: '$50.00 - $59.99', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=50-60` },
     { title: '$60.00 - $69.99', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=60-70` },
     { title: '$70.00 - $79.99', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=70-80` },
-    { title: '$80.00 and above', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=80-` },
+    { title: '$90.00 and above', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?price=90-` },
   ],
   Sale: [
     { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets}?sale=1` },

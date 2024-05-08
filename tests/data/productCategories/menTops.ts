@@ -21,10 +21,10 @@ export const Links = {
 
 export const Filters: Record<string, Filter[]> = {
   Category: [
-    { title: 'Jackets', count: 11, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=23` },
-    { title: 'Hoodies & Sweatshirts', count: 13, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=24` },
-    { title: 'Tees', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=25` },
-    { title: 'Tanks', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=26` },
+    { title: 'Jackets', count: 11, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=14` },
+    { title: 'Hoodies & Sweatshirts', count: 13, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=15` },
+    { title: 'Tees', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=16` },
+    { title: 'Tanks', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?cat=17` },
   ],
   Style: [
     { title: 'Insulated', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?style_general=116` },
@@ -76,7 +76,7 @@ export const Filters: Record<string, Filter[]> = {
   ],
   EcoCollection: [
     { title: 'Yes', count: 8, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?eco_collection=1` },
-    { title: 'No', count: 40, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?eco-collection=0` },
+    { title: 'No', count: 40, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?eco_collection=0` },
   ],
   ErinRecommends: [
     { title: 'Yes', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?erin_recommends=1` },
@@ -120,7 +120,7 @@ export const Filters: Record<string, Filter[]> = {
     { title: '$50.00 - $59.99', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?price=50-60` },
     { title: '$60.00 - $69.99', count: 9, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?price=60-70` },
     { title: '$70.00 - $79.99', count: 3, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?price=70-80` },
-    { title: '$90.00 and above', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?price=80-` },
+    { title: '$90.00 and above', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?price=90-` },
   ],
   Sale: [
     { title: 'Yes', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.Tops}?sale=1` },

@@ -42,7 +42,7 @@ export const Filters: Record<string, Filter[]> = {
   ],
   EcoCollection: [
     { title: 'Yes', count: 4, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees}?eco_collection=1` },
-    { title: 'No', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees}?eco-collection=0` },
+    { title: 'No', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees}?eco_collection=0` },
   ],
   ErinRecommends: [
     { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees}?erin_recommends=1` },

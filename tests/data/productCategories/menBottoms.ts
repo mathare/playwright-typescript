@@ -19,17 +19,17 @@ export const Links = {
 
 export const Filters: Record<string, Filter[]> = {
   Category: [
-    { title: 'Pants', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?cat=27` },
-    { title: 'Shorts', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?cat=28` },
+    { title: 'Pants', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?cat=18` },
+    { title: 'Shorts', count: 12, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?cat=19` },
   ],
   Style: [
-    { title: 'Base Layer', count: 15, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_general=104` },
-    { title: 'Compression', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_general=107` },
-    { title: 'Leggings', count: 4, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_general=108` },
-    { title: 'Sweatpants', count: 8, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_general=112` },
-    { title: 'Tights', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_general=113` },
-    { title: 'Track Pants', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_general=114` },
-    { title: 'Workout Pants', count: 23, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_general=115` },
+    { title: 'Base Layer', count: 15, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_bottom=104` },
+    { title: 'Compression', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_bottom=107` },
+    { title: 'Leggings', count: 4, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_bottom=108` },
+    { title: 'Sweatpants', count: 8, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_bottom=112` },
+    { title: 'Tights', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_bottom=113` },
+    { title: 'Track Pants', count: 10, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_bottom=114` },
+    { title: 'Workout Pants', count: 23, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?style_bottom=115` },
   ],
   Size: [
     { title: '32', link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?size=175` },
@@ -63,7 +63,7 @@ export const Filters: Record<string, Filter[]> = {
   ],
   EcoCollection: [
     { title: 'Yes', count: 1, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?eco_collection=1` },
-    { title: 'No', count: 23, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?eco-collection=0` },
+    { title: 'No', count: 23, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?eco_collection=0` },
   ],
   ErinRecommends: [
     { title: 'Yes', count: 5, link: `${HeaderLinks.Topnav.MenSubMenu.Bottoms}?erin_recommends=1` },

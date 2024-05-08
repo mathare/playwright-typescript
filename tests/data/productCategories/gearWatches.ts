@@ -24,7 +24,7 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'Timepiece', count: 9, link: `${HeaderLinks.Topnav.GearSubMenu.Watches}?category_gear=90` },
   ],
   Activity: [
-    { title: 'Outdoor', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Watches}?activity=4` },
+    { title: 'Outdoor', count: 4, link: `${HeaderLinks.Topnav.GearSubMenu.Watches}?activity=5` },
     { title: 'Recreation', count: 7, link: `${HeaderLinks.Topnav.GearSubMenu.Watches}?activity=9` },
     { title: 'Gym', count: 5, link: `${HeaderLinks.Topnav.GearSubMenu.Watches}?activity=11` },
     { title: 'Athletic', count: 5, link: `${HeaderLinks.Topnav.GearSubMenu.Watches}?activity=16` },

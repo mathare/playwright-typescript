@@ -80,7 +80,7 @@ export const Filters: Record<string, Filter[]> = {
   ],
   EcoCollection: [
     { title: 'Yes', count: 12, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?eco_collection=1` },
-    { title: 'No', count: 38, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?eco-collection=0` },
+    { title: 'No', count: 38, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?eco_collection=0` },
   ],
   ErinRecommends: [
     { title: 'Yes', count: 11, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?erin_recommends=1` },
@@ -91,7 +91,7 @@ export const Filters: Record<string, Filter[]> = {
     { title: 'Cotton', count: 16, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=33` },
     { title: 'Fleece', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=144` },
     { title: 'Hemp', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=145` },
-    { title: 'Jersey', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=33` },
+    { title: 'Jersey', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=146` },
     { title: 'LumaTech™', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=147` },
     { title: 'Mesh', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=36` },
     { title: 'Lycra®', count: 6, link: `${HeaderLinks.Topnav.WomenSubMenu.Tops}?material=148` },

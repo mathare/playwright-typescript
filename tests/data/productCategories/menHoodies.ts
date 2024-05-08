@@ -57,7 +57,7 @@ export const Filters: Record<string, Filter[]> = {
     {
       title: 'No',
       count: 10,
-      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?eco-collection=0`,
+      link: `${HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts}?eco_collection=0`,
     },
   ],
   ErinRecommends: [
