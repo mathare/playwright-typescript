@@ -4,6 +4,7 @@ import PageHeader from '../pages/components/pageHeader';
 import BasePage from '../pages/basePage';
 
 const Timeouts = {
+  Link: 10000,
   Visual: 20000,
 };
 
@@ -35,8 +36,8 @@ test.describe('Page header tests', () => {
       await expect.soft(pageHeader.topnav).toHaveCSS('color', Colors.DarkGrey);
     });
 
-    test.skip('Text content of page elements', async () => {
-      await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner);
+    test('Text content of page elements', async ({ page }) => {
+      await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner.Home, { useInnerText: true });
       await expect.soft(pageHeader.searchInput).toBeEmpty();
       await expect.soft(pageHeader.searchInput).toHaveAttribute('placeholder', ExpectedText.Search);
       const topnavMenuItems = await pageHeader.getTopnavMenuItem(pageHeader.topnav, 0);
@@ -47,11 +48,18 @@ test.describe('Page header tests', () => {
           .soft(await pageHeader.getTopnavMenuLink(topnavMenuItems.nth(i)))
           .toHaveText(ExpectedText.Topnav[i]);
       }
+
+      // The banner text is different on the home page to other pages so check on another random top-level page
+      const url = Object.values(TopnavLvl0)[Math.floor(Math.random() * Object.keys(TopnavLvl0).length)];
+      await page.goto(url);
+      await expect.soft(pageHeader.banner).toHaveText(ExpectedText.Banner.Other, { useInnerText: true });
     });
   });
 
-  test.describe.skip('Visual tests', () => {
+  test.describe('Visual tests', () => {
     test('Default page header appearance', async () => {
+      // Although the banner differs between the home page and other pages there are is only one visual tests for the header
+      // as one of the previous tests verifies the text content of the banner, which is the only visual difference between pages
       await expect(pageHeader.header).toHaveScreenshot('header.png', {
         timeout: Timeouts.Visual,
       });
@@ -62,10 +70,22 @@ test.describe('Page header tests', () => {
   });
 
   test.describe('Link tests', () => {
-    test('Banner links', async ({ baseURL }) => {
-      await expect.soft(pageHeader.bannerLink.first()).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
+    test('Banner links', async ({ page, baseURL }) => {
+      await expect.soft(pageHeader.bannerLink.first()).toHaveAttribute('href', new RegExp(Links.PracticeAPITesting));
+      await expect.soft(pageHeader.bannerLink.nth(1)).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
       await expect
-        .soft(pageHeader.bannerLink.nth(1))
+        .soft(pageHeader.bannerLink.nth(2))
+        .toHaveAttribute('href', new RegExp(`${baseURL}${Links.CreateAnAccount}`));
+
+      // The first banner link is different on the home page to other pages so check on another random top-level page
+      const url = Object.values(TopnavLvl0)[Math.floor(Math.random() * Object.keys(TopnavLvl0).length)];
+      await page.goto(url);
+      await expect
+        .soft(pageHeader.bannerLink.first())
+        .toHaveAttribute('href', Links.SupportThisProject, { timeout: Timeouts.Link });
+      await expect.soft(pageHeader.bannerLink.nth(1)).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
+      await expect
+        .soft(pageHeader.bannerLink.nth(2))
         .toHaveAttribute('href', new RegExp(`${baseURL}${Links.CreateAnAccount}`));
     });
 
