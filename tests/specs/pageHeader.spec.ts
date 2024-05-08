@@ -4,6 +4,7 @@ import PageHeader from '../pages/components/pageHeader';
 import BasePage from '../pages/basePage';
 
 const Timeouts = {
+  Link: 10000,
   Visual: 20000,
 };
 
@@ -62,10 +63,22 @@ test.describe('Page header tests', () => {
   });
 
   test.describe('Link tests', () => {
-    test('Banner links', async ({ baseURL }) => {
-      await expect.soft(pageHeader.bannerLink.first()).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
+    test('Banner links', async ({ page, baseURL }) => {
+      await expect.soft(pageHeader.bannerLink.first()).toHaveAttribute('href', new RegExp(Links.PracticeAPITesting));
+      await expect.soft(pageHeader.bannerLink.nth(1)).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
       await expect
-        .soft(pageHeader.bannerLink.nth(1))
+        .soft(pageHeader.bannerLink.nth(2))
+        .toHaveAttribute('href', new RegExp(`${baseURL}${Links.CreateAnAccount}`));
+
+      // The first banner link is different on the home page to other pages so check on another random top-level page
+      const url = Object.values(TopnavLvl0)[Math.floor(Math.random() * Object.keys(TopnavLvl0).length)];
+      await page.goto(url);
+      await expect
+        .soft(pageHeader.bannerLink.first())
+        .toHaveAttribute('href', Links.SupportThisProject, { timeout: Timeouts.Link });
+      await expect.soft(pageHeader.bannerLink.nth(1)).toHaveAttribute('href', new RegExp(`${baseURL}${Links.SignIn}`));
+      await expect
+        .soft(pageHeader.bannerLink.nth(2))
         .toHaveAttribute('href', new RegExp(`${baseURL}${Links.CreateAnAccount}`));
     });
 

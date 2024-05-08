@@ -67,6 +67,8 @@ const TrainingSubMenu = {
 };
 
 export const Links = {
+  PracticeAPITesting: 'https://softwaretestingboard.com/practice-api-testing-using-magento-2/*',
+  SupportThisProject: 'https://buymeacoffee.com/softwaretestingboard',
   SignIn: '/customer/account/login/referer/*/',
   CreateAnAccount: '/customer/account/create/',
   Logo: '/',
