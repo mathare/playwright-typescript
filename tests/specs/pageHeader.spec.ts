@@ -56,8 +56,10 @@ test.describe('Page header tests', () => {
     });
   });
 
-  test.describe.skip('Visual tests', () => {
+  test.describe('Visual tests', () => {
     test('Default page header appearance', async () => {
+      // Although the banner differs between the home page and other pages there are is only one visual tests for the header
+      // as one of the previous tests verifies the text content of the banner, which is the only visual difference between pages
       await expect(pageHeader.header).toHaveScreenshot('header.png', {
         timeout: Timeouts.Visual,
       });
