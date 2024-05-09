@@ -43,8 +43,13 @@ test.describe('Collection page tests', () => {
       for (let i = 0; i < collectionExpectedText.PromoBlocks.length; i++) {
         await expect.soft(promoBlocks.nth(i)).toHaveText(collectionExpectedText.PromoBlocks[i], { useInnerText: true });
       }
-      await expect.soft(collectionPage.productsGridTitle).toHaveText(collectionExpectedText.ProductsGrid.Title);
-      await expect.soft(collectionPage.productsGridSubtitle).toHaveText(collectionExpectedText.ProductsGrid.Subtitle);
+      if (
+        collectionExpectedText.ProductsGrid.hasOwnProperty('Title') &&
+        collectionExpectedText.ProductsGrid.hasOwnProperty('Subtitle')
+      ) {
+        await expect.soft(collectionPage.productsGridTitle).toHaveText(collectionExpectedText.ProductsGrid.Title);
+        await expect.soft(collectionPage.productsGridSubtitle).toHaveText(collectionExpectedText.ProductsGrid.Subtitle);
+      }
     });
 
     test('Product item details', async () => {
@@ -119,7 +124,7 @@ test.describe('Collection page tests', () => {
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(Links[collection].PromoBlocks.length);
       for (let i = 0; i < Links[collection].PromoBlocks.length; i++) {
-        if (Links[collection].PromoBlocks[i]) {
+        if (Links[collection].PromoBlocks[i] !== '') {
           await expect
             .soft(promoBlocks.nth(i))
             .toHaveAttribute('href', `${baseURL}${Links[collection].PromoBlocks[i]}`);
