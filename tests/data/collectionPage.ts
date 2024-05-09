@@ -29,6 +29,7 @@ export const Links = {
 };
 
 export const Filters = {
+  Sale: [...Sale.Filters],
   WhatsNew: [...WhatsNew.Filters],
 };
 
