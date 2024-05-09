@@ -53,13 +53,13 @@ test.describe.skip('My Account page tests', () => {
         .toHaveText(`${dummyCustomer.name}\n${dummyCustomer.email}`);
       let actions = myAccountPage.getBlockElement(myAccountPage.contactInfoBlock, BlockElements.Actions);
       await expect.soft(actions).toHaveCount(ExpectedText.AccountInfo.ContactInfo.Actions.length);
-      for (let i = 0; i < (await actions.count()); i++) {
+      for (let i = 0; i < ExpectedText.AccountInfo.ContactInfo.Actions.length; i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AccountInfo.ContactInfo.Actions[i]);
       }
       await expect.soft(myAccountPage.addressBookTitle).toHaveText(ExpectedText.AddressBook.Title);
       actions = myAccountPage.addressBookActions;
       await expect.soft(actions).toHaveCount(ExpectedText.AddressBook.Actions.length);
-      for (let i = 0; i < (await actions.count()); i++) {
+      for (let i = 0; i < ExpectedText.AddressBook.Actions.length; i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.Actions[i]);
       }
       await expect
@@ -70,7 +70,7 @@ test.describe.skip('My Account page tests', () => {
         .toHaveText(ExpectedText.AddressBook.BillingAddress.Placeholder);
       actions = myAccountPage.getBlockElement(myAccountPage.billingAddressBlock, BlockElements.Actions);
       await expect.soft(actions).toHaveCount(ExpectedText.AddressBook.BillingAddress.Actions.length);
-      for (let i = 0; i < (await actions.count()); i++) {
+      for (let i = 0; i < ExpectedText.AddressBook.BillingAddress.Actions.length; i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.BillingAddress.Actions[i]);
       }
       await expect
@@ -81,12 +81,12 @@ test.describe.skip('My Account page tests', () => {
         .toHaveText(ExpectedText.AddressBook.ShippingAddress.Placeholder);
       actions = myAccountPage.getBlockElement(myAccountPage.shippingAddressBlock, BlockElements.Actions);
       await expect.soft(actions).toHaveCount(ExpectedText.AddressBook.ShippingAddress.Actions.length);
-      for (let i = 0; i < (await actions.count()); i++) {
+      for (let i = 0; i < ExpectedText.AddressBook.ShippingAddress.Actions.length; i++) {
         await expect.soft(actions.nth(i)).toHaveText(ExpectedText.AddressBook.ShippingAddress.Actions[i]);
       }
       const sidenavOptions = myAccountPage.sidenavOption;
       await expect.soft(sidenavOptions).toHaveCount(ExpectedText.PrimarySidenav.length);
-      for (let i = 0; i < (await sidenavOptions.count()); i++) {
+      for (let i = 0; i < ExpectedText.PrimarySidenav.length; i++) {
         await expect.soft(sidenavOptions.nth(i)).toHaveText(ExpectedText.PrimarySidenav[i]);
       }
       await expect
@@ -106,7 +106,7 @@ test.describe.skip('My Account page tests', () => {
       const sidenavOptions = myAccountPage.sidenavOption;
       await expect.soft(sidenavOptions).toHaveCount(ExpectedText.PrimarySidenav.length);
       await expect(sidenavOptions.first()).toHaveClass(selectedClass);
-      for (let i = 1; i < (await sidenavOptions.count()); i++) {
+      for (let i = 1; i < ExpectedText.PrimarySidenav.length; i++) {
         await expect.soft(sidenavOptions.nth(i)).not.toHaveClass(selectedClass);
       }
     });
@@ -130,7 +130,7 @@ test.describe.skip('My Account page tests', () => {
     test('Sidenav links', async ({ baseURL }) => {
       const sidenavLinks = myAccountPage.sidenavLink;
       await expect.soft(sidenavLinks).toHaveCount(Links.Sidenav.length);
-      for (let i = 0; i < (await sidenavLinks.count()); i++) {
+      for (let i = 0; i < Links.Sidenav.length; i++) {
         await expect.soft(sidenavLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.Sidenav[i]}`);
       }
     });
@@ -138,7 +138,7 @@ test.describe.skip('My Account page tests', () => {
     test('Account info links', async ({ baseURL }) => {
       const actionLinks = myAccountPage.getBlockElement(myAccountPage.contactInfoBlock, BlockElements.Actions);
       await expect.soft(actionLinks).toHaveCount(Links.ContactInfoActions.length);
-      for (let i = 0; i < (await actionLinks.count()); i++) {
+      for (let i = 0; i < Links.ContactInfoActions.length; i++) {
         await expect.soft(actionLinks.nth(i)).toHaveAttribute('href', `${baseURL}${Links.ContactInfoActions[i]}`);
       }
     });

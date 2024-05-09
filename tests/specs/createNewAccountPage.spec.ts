@@ -51,8 +51,9 @@ test.describe('Create New Account page tests', () => {
     test('Required fields', async () => {
       // All fields are required
       const fields = createNewAccountPage.field;
-      expect(await fields.count()).toBeGreaterThan(0);
-      for (let j = 0; j < (await fields.count()); j++) {
+      const numFields = await fields.count();
+      expect(numFields).toBeGreaterThan(0);
+      for (let j = 0; j < numFields; j++) {
         await expect.soft(fields.nth(j)).toHaveClass(/required/);
       }
     });
@@ -87,7 +88,7 @@ test.describe('Create New Account page tests', () => {
       await expect.soft(createNewAccountPage.blockTitle.nth(1)).toHaveText(ExpectedText.BlockTitles.SignInInfo);
       const fields = createNewAccountPage.field;
       await expect.soft(fields).toHaveCount(ExpectedText.Fields.length);
-      for (let i = 0; i < (await fields.count()); i++) {
+      for (let i = 0; i < ExpectedText.Fields.length; i++) {
         await expect.soft(createNewAccountPage.formElement(i, FieldElements.Label)).toHaveText(ExpectedText.Fields[i]);
       }
       await expect.soft(createNewAccountPage.passwordStrengthIndicator).toHaveText(ExpectedText.PasswordStrength.None);
@@ -108,7 +109,7 @@ test.describe('Create New Account page tests', () => {
     test('Validation errors not triggered on field blur', async () => {
       const fields = createNewAccountPage.field;
       await expect.soft(fields).toHaveCount(ExpectedText.Fields.length);
-      for (let i = 0; i < (await fields.count()); i++) {
+      for (let i = 0; i < ExpectedText.Fields.length; i++) {
         await createNewAccountPage.formElement(i, FieldElements.Input).focus();
         await createNewAccountPage.formElement(i, FieldElements.Input).blur();
         await expect.soft(createNewAccountPage.formElement(i, FieldElements.Input)).not.toHaveClass(/mage-error/);
@@ -120,7 +121,7 @@ test.describe('Create New Account page tests', () => {
       await createNewAccountPage.createAccountButton.click();
       const fields = createNewAccountPage.field;
       await expect.soft(fields).toHaveCount(ExpectedText.Fields.length);
-      for (let i = 0; i < (await fields.count()); i++) {
+      for (let i = 0; i < ExpectedText.Fields.length; i++) {
         await expect.soft(createNewAccountPage.formElement(i, FieldElements.Input)).toHaveClass(/mage-error/);
         await expect
           .soft(createNewAccountPage.formElement(i, FieldElements.Input))

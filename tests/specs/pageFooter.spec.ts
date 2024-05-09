@@ -34,7 +34,7 @@ test.describe('Page footer tests', () => {
     test('Text content of page elements', async () => {
       const footerLinks = pageFooter.footerLink;
       await expect.soft(footerLinks).toHaveCount(ExpectedText.FooterLinks.length);
-      for (let i = 0; i < (await footerLinks.count()); i++) {
+      for (let i = 0; i < ExpectedText.FooterLinks.length; i++) {
         await expect.soft(footerLinks.nth(i)).toHaveText(ExpectedText.FooterLinks[i]);
       }
       await expect.soft(pageFooter.copyrightFooter).toHaveText(ExpectedText.Copyright);
@@ -56,7 +56,7 @@ test.describe('Page footer tests', () => {
     test('Footer links', async ({ baseURL }) => {
       const footerLinks = pageFooter.footerLink;
       await expect.soft(footerLinks).toHaveCount(FooterLinks.length);
-      for (let i = 0; i < (await footerLinks.count()); i++) {
+      for (let i = 0; i < FooterLinks.length; i++) {
         const expectedLink = FooterLinks[i].startsWith('https') ? FooterLinks[i] : `${baseURL}${FooterLinks[i]}`;
         await expect.soft(footerLinks.nth(i)).toHaveAttribute('href', expectedLink);
       }
