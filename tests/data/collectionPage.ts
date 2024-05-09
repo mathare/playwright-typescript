@@ -32,6 +32,7 @@ export const Filters = {
   Gear: [...Gear.Filters],
   Men: [...Men.Filters],
   Sale: [...Sale.Filters],
+  Training: [...Training.Filters],
   WhatsNew: [...WhatsNew.Filters],
   Women: [...Women.Filters],
 };
