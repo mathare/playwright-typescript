@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
-import { Collections, ExpectedText, Links, Products } from '../data/collectionPage';
+import { Collections, ExpectedText, Links, Filters, Products } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors } from '../data/pageHeader';
 
@@ -10,6 +10,7 @@ test.describe('Collection page tests', () => {
   test.beforeEach(async ({ page }) => {
     collectionPage = new CollectionPage(page);
     collection = Object.keys(Collections)[Math.floor(Math.random() * Object.keys(Collections).length)];
+    collection = 'WhatsNew';
     await collectionPage.open(Collections[collection]);
     console.log(collection);
   });
@@ -37,7 +38,19 @@ test.describe('Collection page tests', () => {
       const collectionExpectedText = ExpectedText[collection];
       await expect.soft(collectionPage.breadcrumbsContainer).toHaveText(collectionExpectedText.Breadcrumbs);
       await expect.soft(collectionPage.pageTitle).toHaveText(collectionExpectedText.Title);
-      // Add sidebar expected text verification
+
+      const collectionFilters = Filters[collection];
+      const filterLists = collectionPage.filterList;
+      await expect.soft(filterLists).toHaveCount(collectionFilters.length);
+      for (let i = 0; i < collectionFilters.length; i++) {
+        await expect.soft(collectionPage.filterTitle.nth(i)).toHaveText(collectionFilters[i].title);
+        const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
+        await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
+        for (let j = 0; j < collectionFilters[i].categories.length; j++) {
+          await expect.soft(filterCategories.nth(j)).toHaveText(collectionFilters[i].categories[j].title);
+        }
+      }
+
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(collectionExpectedText.PromoBlocks.length);
       for (let i = 0; i < collectionExpectedText.PromoBlocks.length; i++) {

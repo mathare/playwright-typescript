@@ -28,6 +28,10 @@ export const Links = {
   Women: { ...Women.Links },
 };
 
+export const Filters = {
+  WhatsNew: [...WhatsNew.Filters],
+};
+
 export const Products = {
   Gear: [...Gear.Products],
   Men: [...Men.Products],

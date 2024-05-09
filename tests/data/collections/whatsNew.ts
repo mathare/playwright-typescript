@@ -1,5 +1,6 @@
 import { Product } from '../products';
-import { CollectionExpectedText } from './shared';
+import { CollectionExpectedText, Filter } from './shared';
+import { Links as HeaderLinks } from '../pageHeader';
 import * as GearBags from '../productCategories/gearBags';
 import * as GearWatches from '../productCategories/gearWatches';
 
@@ -23,6 +24,31 @@ export const Links = {
   },
   PromoBlocks: ['/collections/yoga-new.html', '/collections/performance-new.html', '/collections/eco-new.html'],
 };
+
+export const Filters: Filter[] = [
+  {
+    title: "New in women's",
+    categories: [
+      { title: 'Hoodies & Sweatshirts', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts },
+      { title: 'Jackets', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets },
+      { title: 'Tees', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees },
+      { title: 'Bras & Tanks', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks },
+      { title: 'Pants', link: HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants },
+      { title: 'Shorts', link: HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts },
+    ],
+  },
+  {
+    title: "New in men's",
+    categories: [
+      { title: 'Hoodies & Sweatshirts', link: HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts },
+      { title: 'Jackets', link: HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Jackets },
+      { title: 'Tees', link: HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tees },
+      { title: 'Tanks', link: HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tanks },
+      { title: 'Pants', link: HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Pants },
+      { title: 'Shorts', link: HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts },
+    ],
+  },
+];
 
 export const Products: Product[] = [
   GearBags.Products[10],
