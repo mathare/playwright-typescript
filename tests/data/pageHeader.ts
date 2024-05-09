@@ -1,10 +1,7 @@
 import { Locator } from '@playwright/test';
 
 export const ExpectedText = {
-  Banner: {
-    Home: 'Skip to Content\nPractice API Testing Sign In  Create an Account',
-    Other: 'Skip to Content\nSupport This Project Sign In  Create an Account',
-  },
+  Banner: 'Skip to Content\nSupport This Project Sign In  Create an Account',
   Search: 'Search entire store here...',
   Topnav: ["What's New", 'Women', 'Men', 'Gear', 'Training', 'Sale'],
 };
@@ -70,7 +67,6 @@ const TrainingSubMenu = {
 };
 
 export const Links = {
-  PracticeAPITesting: 'https://softwaretestingboard.com/practice-api-testing-using-magento-2/*',
   SupportThisProject: 'https://buymeacoffee.com/softwaretestingboard',
   SignIn: '/customer/account/login/referer/*/',
   CreateAnAccount: '/customer/account/create/',
