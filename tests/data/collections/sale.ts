@@ -28,7 +28,7 @@ export const Links = {
     HeaderLinks.Topnav.Gear,
     '',
     '',
-    HeaderLinks.Topnav.WomenSubMenu.Tees,
+    HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees,
   ],
 };
 

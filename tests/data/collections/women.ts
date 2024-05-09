@@ -30,12 +30,12 @@ export const Links = {
   },
   PromoBlocks: [
     HeaderLinks.Topnav.Women,
-    HeaderLinks.Topnav.WomenSubMenu.Tees,
-    HeaderLinks.Topnav.WomenSubMenu.Pants,
+    HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees,
+    HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants,
     '/collections/erin-recommends.html',
-    HeaderLinks.Topnav.WomenSubMenu.Pants,
-    HeaderLinks.Topnav.WomenSubMenu.Shorts,
-    HeaderLinks.Topnav.WomenSubMenu.BrasTanks,
+    HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants,
+    HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts,
+    HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks,
   ],
 };
 
