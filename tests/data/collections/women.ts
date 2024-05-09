@@ -1,5 +1,5 @@
 import { Product } from '../products';
-import { CollectionExpectedText } from './shared';
+import { CollectionExpectedText, Filter } from './shared';
 import * as Hoodies from '../productCategories/womenHoodies';
 import * as Pants from '../productCategories/womenPants';
 import * as Tanks from '../productCategories/womenTanks';
@@ -38,5 +38,24 @@ export const Links = {
     HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks,
   ],
 };
+
+export const Filters: Filter[] = [
+  {
+    title: 'Tops',
+    categories: [
+      { title: 'Hoodies & Sweatshirts', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts },
+      { title: 'Jackets', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Jackets },
+      { title: 'Tees', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees },
+      { title: 'Bras & Tanks', link: HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.BrasTanks },
+    ],
+  },
+  {
+    title: 'Bottoms',
+    categories: [
+      { title: 'Pants', link: HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Pants },
+      { title: 'Shorts', link: HeaderLinks.Topnav.WomenSubMenu.BottomsSubMenu.Shorts },
+    ],
+  },
+];
 
 export const Products: Product[] = [Tees.Products[2], Tanks.Products[0], Hoodies.Products[7], Pants.Products[1]];
