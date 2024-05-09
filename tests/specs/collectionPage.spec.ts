@@ -43,8 +43,13 @@ test.describe('Collection page tests', () => {
       for (let i = 0; i < (await promoBlocks.count()); i++) {
         await expect.soft(promoBlocks.nth(i)).toHaveText(collectionExpectedText.PromoBlocks[i], { useInnerText: true });
       }
-      await expect.soft(collectionPage.productsGridTitle).toHaveText(collectionExpectedText.ProductsGrid.Title);
-      await expect.soft(collectionPage.productsGridSubtitle).toHaveText(collectionExpectedText.ProductsGrid.Subtitle);
+      if (
+        collectionExpectedText.ProductsGrid.hasOwnProperty('Title') &&
+        collectionExpectedText.ProductsGrid.hasOwnProperty('Subtitle')
+      ) {
+        await expect.soft(collectionPage.productsGridTitle).toHaveText(collectionExpectedText.ProductsGrid.Title);
+        await expect.soft(collectionPage.productsGridSubtitle).toHaveText(collectionExpectedText.ProductsGrid.Subtitle);
+      }
     });
 
     test('Product item details', async () => {
