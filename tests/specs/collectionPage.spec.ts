@@ -133,6 +133,21 @@ test.describe('Collection page tests', () => {
       }
     });
 
+    test('Filter links', async ({ baseURL }) => {
+      const collectionFilters = Filters[collection];
+      const filterLists = collectionPage.filterList;
+      await expect.soft(filterLists).toHaveCount(collectionFilters.length);
+      for (let i = 0; i < collectionFilters.length; i++) {
+        const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
+        await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
+        for (let j = 0; j < collectionFilters[i].categories.length; j++) {
+          await expect
+            .soft(filterCategories.nth(j))
+            .toHaveAttribute('href', `${baseURL}${collectionFilters[i].categories[j].link}`);
+        }
+      }
+    });
+
     test('Promo block links', async ({ baseURL }) => {
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(Links[collection].PromoBlocks.length);
