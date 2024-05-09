@@ -1,7 +1,5 @@
 import { Product } from '../products';
 import { CollectionExpectedText } from './shared';
-import * as Bags from '../productCategories/gearBags';
-import * as Equipment from '../productCategories/gearFitnessEquipment';
 import { Links as HeaderLinks } from '../pageHeader';
 
 export const ExpectedText: CollectionExpectedText = {
@@ -28,7 +26,7 @@ export const Links = {
     HeaderLinks.Topnav.Gear,
     '',
     '',
-    HeaderLinks.Topnav.WomenSubMenu.Tees,
+    HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.Tees,
   ],
 };
 

@@ -29,11 +29,11 @@ export const Links = {
   },
   PromoBlocks: [
     HeaderLinks.Topnav.Men,
-    HeaderLinks.Topnav.MenSubMenu.Tees,
-    HeaderLinks.Topnav.MenSubMenu.Pants,
-    HeaderLinks.Topnav.MenSubMenu.Shorts,
-    HeaderLinks.Topnav.MenSubMenu.Tees,
-    HeaderLinks.Topnav.MenSubMenu.HoodiesSweatshirts,
+    HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tees,
+    HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Pants,
+    HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts,
+    HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tees,
+    HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts,
   ],
 };
 
