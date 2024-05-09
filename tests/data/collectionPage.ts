@@ -29,6 +29,7 @@ export const Links = {
 };
 
 export const Filters = {
+  Gear: [...Gear.Filters],
   Men: [...Men.Filters],
   Sale: [...Sale.Filters],
   WhatsNew: [...WhatsNew.Filters],

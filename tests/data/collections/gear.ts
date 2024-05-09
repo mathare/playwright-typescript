@@ -1,5 +1,5 @@
 import { Product } from '../products';
-import { CollectionExpectedText } from './shared';
+import { CollectionExpectedText, Filter } from './shared';
 import * as Bags from '../productCategories/gearBags';
 import * as Equipment from '../productCategories/gearFitnessEquipment';
 import { Links as HeaderLinks } from '../pageHeader';
@@ -34,5 +34,16 @@ export const Links = {
     HeaderLinks.Topnav.GearSubMenu.Watches,
   ],
 };
+
+export const Filters: Filter[] = [
+  {
+    title: '',
+    categories: [
+      { title: 'Bags', link: HeaderLinks.Topnav.GearSubMenu.Bags },
+      { title: 'Fitness Equipment', link: HeaderLinks.Topnav.GearSubMenu.FitnessEquipment },
+      { title: 'Watches', link: HeaderLinks.Topnav.GearSubMenu.Watches },
+    ],
+  },
+];
 
 export const Products: Product[] = [Bags.Products[8], Bags.Products[0], Equipment.Products[10], Equipment.Products[0]];
