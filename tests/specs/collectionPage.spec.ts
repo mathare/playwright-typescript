@@ -62,6 +62,12 @@ test.describe('Collection page tests', () => {
         }
       }
 
+      const sidebarBlocks = collectionPage.sidebarBlock;
+      await expect.soft(sidebarBlocks).toHaveCount(ExpectedText.SidebarBlocks.length);
+      for (let i = 0; i < ExpectedText.SidebarBlocks.length; i++) {
+        await expect.soft(sidebarBlocks.nth(i)).toHaveText(ExpectedText.SidebarBlocks[i], { useInnerText: true });
+      }
+
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(collectionExpectedText.PromoBlocks.length);
       for (let i = 0; i < collectionExpectedText.PromoBlocks.length; i++) {

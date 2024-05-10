@@ -17,6 +17,7 @@ export default class CollectionPage extends BasePage {
   readonly filterTitle: Locator;
   readonly filterList: Locator;
   readonly secondarySidebar: Locator;
+  readonly sidebarBlock: Locator;
   readonly promoBlock: Locator;
   readonly productsGridTitle: Locator;
   readonly productsGridSubtitle: Locator;
@@ -38,6 +39,7 @@ export default class CollectionPage extends BasePage {
     this.filterTitle = this.filtersBlock.locator('.title');
     this.filterList = this.filtersBlock.locator('ul.items');
     this.secondarySidebar = this.mainContent.locator('.sidebar-additional');
+    this.sidebarBlock = this.secondarySidebar.locator('.block');
     this.promoBlock = this.mainContent.locator('.block-promo');
     this.productsGrid = this.mainContent.locator('.products-grid');
     this.productsGridTitle = this.mainContent.locator('.content-heading').getByRole('heading', { level: 2 });

@@ -17,6 +17,10 @@ export const ExpectedText = {
   Training: { ...Training.ExpectedText },
   WhatsNew: { ...WhatsNew.ExpectedText },
   Women: { ...Women.ExpectedText },
+  SidebarBlocks: [
+    'Compare Products\nYou have no items to compare.',
+    'My Wish List\nYou have no items in your wish list.',
+  ],
 };
 
 export const Links = {
