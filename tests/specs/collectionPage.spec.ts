@@ -10,7 +10,6 @@ test.describe('Collection page tests', () => {
   test.beforeEach(async ({ page }) => {
     collectionPage = new CollectionPage(page);
     collection = Object.keys(Collections)[Math.floor(Math.random() * Object.keys(Collections).length)];
-    collection = 'WhatsNew';
     await collectionPage.open(Collections[collection]);
     console.log(collection);
   });
@@ -146,6 +145,17 @@ test.describe('Collection page tests', () => {
     });
 
     test('Filter links', async ({ baseURL }) => {
+      if (ShoppingOptions.hasOwnProperty(collection)) {
+        const collectionShoppingOptions = ShoppingOptions[collection];
+        const categories = await collectionPage.getFilterCategories(collectionPage.shoppingOptionsList);
+        await expect.soft(categories).toHaveCount(collectionShoppingOptions.categories.length);
+        for (let i = 0; i < collectionShoppingOptions.categories.length; i++) {
+          await expect
+            .soft(categories.nth(i))
+            .toHaveAttribute('href', `${baseURL}${collectionShoppingOptions.categories[i].link}`);
+        }
+      }
+
       const collectionFilters = Filters[collection];
       const filterLists = collectionPage.filterList;
       await expect.soft(filterLists).toHaveCount(collectionFilters.length);
