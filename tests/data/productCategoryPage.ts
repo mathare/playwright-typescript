@@ -68,6 +68,10 @@ export const ExpectedText = {
   GearBags: { ...GearBags.ExpectedText },
   GearFitnessEquipment: { ...GearFitnessEquipment.ExpectedText },
   GearWatches: { ...GearWatches.ExpectedText },
+  SidebarBlocks: [
+    'Compare Products\nYou have no items to compare.',
+    'My Wish List\nYou have no items in your wish list.',
+  ],
 };
 
 export const Links = {
