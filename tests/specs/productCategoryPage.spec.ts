@@ -100,6 +100,23 @@ test.describe('Product category page tests', () => {
       }
     });
 
+    test('Only one filter can be expanded at a time', async ({}, testInfo) => {
+      test.setTimeout(testInfo.timeout + 30000);
+      const filterCategories = productCategoryPage.filterCategory;
+      const numFilterCategories = Object.keys(Filters[category]).length;
+      await expect.soft(filterCategories).toHaveCount(numFilterCategories);
+      for (let i = 0; i < numFilterCategories; i++) {
+        await filterCategories.nth(i).click();
+        for (let j = 0; j < numFilterCategories; j++) {
+          const categoryTitle = productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'title');
+          const categoryContent = productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'content');
+          await expect.soft(categoryTitle).toHaveAttribute('aria-selected', (i === j).toString());
+          await expect.soft(categoryTitle).toHaveAttribute('aria-expanded', (i === j).toString());
+          await expect.soft(categoryContent).toHaveAttribute('aria-hidden', (i !== j).toString());
+        }
+      }
+    });
+
     test('Default product item details', async () => {
       //There are a maximum of 12 products displayed by default
       const productDetails = Products[category].slice(0, 12);

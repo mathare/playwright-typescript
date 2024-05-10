@@ -55,4 +55,8 @@ export default class ProductCategoryPage extends BasePage {
     const locator = ['Size', 'Color'].includes(name) ? '.swatch-attribute-options a' : 'li.item a';
     return category.locator(locator);
   }
+
+  getFilterCategoryElement(category: Locator, element: 'title' | 'content'): Locator {
+    return category.locator(`.filter-options-${element}`);
+  }
 }
