@@ -107,15 +107,11 @@ test.describe('Product category page tests', () => {
       for (let i = 0; i < numFilterCategories; i++) {
         await filterCategories.nth(i).click();
         for (let j = 0; j < numFilterCategories; j++) {
-          await expect
-            .soft(productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'title'))
-            .toHaveAttribute('aria-selected', (i === j).toString());
-          await expect
-            .soft(productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'title'))
-            .toHaveAttribute('aria-expanded', (i === j).toString());
-          await expect
-            .soft(productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'content'))
-            .toHaveAttribute('aria-hidden', (i !== j).toString());
+          const categoryTitle = productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'title');
+          const categoryContent = productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'content');
+          await expect.soft(categoryTitle).toHaveAttribute('aria-selected', (i === j).toString());
+          await expect.soft(categoryTitle).toHaveAttribute('aria-expanded', (i === j).toString());
+          await expect.soft(categoryContent).toHaveAttribute('aria-hidden', (i !== j).toString());
         }
       }
     });
