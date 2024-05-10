@@ -1,5 +1,5 @@
 import { Product } from '../products';
-import { CollectionExpectedText, Filter } from './shared';
+import { CollectionExpectedText, Filter, ShoppingOptions } from './shared';
 import * as Hoodies from '../productCategories/menHoodies';
 import * as Pants from '../productCategories/menPants';
 import * as Shorts from '../productCategories/menShorts';
@@ -34,6 +34,23 @@ export const Links = {
     HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts,
     HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.Tees,
     HeaderLinks.Topnav.MenSubMenu.TopsSubMenu.HoodiesSweatshirts,
+  ],
+};
+
+export const Options: ShoppingOptions = {
+  title: 'Shop By',
+  subtitle: 'Category',
+  categories: [
+    {
+      title: 'Tops',
+      link: HeaderLinks.Topnav.MenSubMenu.Tops,
+      count: 48,
+    },
+    {
+      title: 'Bottoms',
+      link: HeaderLinks.Topnav.MenSubMenu.Bottoms,
+      count: 24,
+    },
   ],
 };
 

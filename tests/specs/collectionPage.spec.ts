@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
-import { Collections, ExpectedText, Links, Filters, Products } from '../data/collectionPage';
+import { Collections, ExpectedText, Links, Filters, Products, ShoppingOptions } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors } from '../data/pageHeader';
 
@@ -38,6 +38,16 @@ test.describe('Collection page tests', () => {
       const collectionExpectedText = ExpectedText[collection];
       await expect.soft(collectionPage.breadcrumbsContainer).toHaveText(collectionExpectedText.Breadcrumbs);
       await expect.soft(collectionPage.pageTitle).toHaveText(collectionExpectedText.Title);
+
+      const collectionShoppingOptions = ShoppingOptions[collection];
+      await expect.soft(collectionPage.shoppingOptionsTitle).toHaveText(collectionShoppingOptions.title);
+      await expect.soft(collectionPage.shoppingOptionsSubtitle).toHaveText(collectionShoppingOptions.subtitle);
+      const categories = await collectionPage.getFilterCategories(collectionPage.shoppingOptionsList);
+      await expect.soft(categories).toHaveCount(collectionShoppingOptions.categories.length);
+      for (let i = 0; i < collectionShoppingOptions.categories.length; i++) {
+        const expectedText = `${collectionShoppingOptions.categories[i].title} ${collectionShoppingOptions.categories[i].count}`;
+        await expect.soft(categories.nth(i).locator('..')).toHaveText(expectedText, { useInnerText: true });
+      }
 
       const collectionFilters = Filters[collection];
       const filterLists = collectionPage.filterList;

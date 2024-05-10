@@ -1,7 +1,5 @@
 import { Product } from '../products';
-import { CollectionExpectedText, Filter } from './shared';
-import * as Bags from '../productCategories/gearBags';
-import * as Equipment from '../productCategories/gearFitnessEquipment';
+import { CollectionExpectedText, Filter, ShoppingOptions } from './shared';
 import { Links as HeaderLinks } from '../pageHeader';
 
 export const ExpectedText: CollectionExpectedText = {
@@ -26,6 +24,18 @@ export const Links = {
     HeaderLinks.Topnav.Training,
     '/collections/erin-recommends.html',
     HeaderLinks.Topnav.TrainingSubMenu.VideoDownload,
+  ],
+};
+
+export const Options: ShoppingOptions = {
+  title: 'Shop By',
+  subtitle: 'Category',
+  categories: [
+    {
+      title: 'Video Download',
+      link: HeaderLinks.Topnav.TrainingSubMenu.VideoDownload,
+      count: 0,
+    },
   ],
 };
 

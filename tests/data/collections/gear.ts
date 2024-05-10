@@ -1,5 +1,5 @@
 import { Product } from '../products';
-import { CollectionExpectedText, Filter } from './shared';
+import { CollectionExpectedText, Filter, ShoppingOptions } from './shared';
 import * as Bags from '../productCategories/gearBags';
 import * as Equipment from '../productCategories/gearFitnessEquipment';
 import { Links as HeaderLinks } from '../pageHeader';
@@ -32,6 +32,28 @@ export const Links = {
     HeaderLinks.Topnav.GearSubMenu.Bags,
     HeaderLinks.Topnav.GearSubMenu.FitnessEquipment,
     HeaderLinks.Topnav.GearSubMenu.Watches,
+  ],
+};
+
+export const Options: ShoppingOptions = {
+  title: 'Shop By',
+  subtitle: 'Category',
+  categories: [
+    {
+      title: 'Bags',
+      link: HeaderLinks.Topnav.GearSubMenu.Bags,
+      count: 14,
+    },
+    {
+      title: 'Fitness Equipment',
+      link: HeaderLinks.Topnav.GearSubMenu.FitnessEquipment,
+      count: 11,
+    },
+    {
+      title: 'Watches',
+      link: HeaderLinks.Topnav.GearSubMenu.Watches,
+      count: 9,
+    },
   ],
 };
 
