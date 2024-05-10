@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
-import { Collections, ExpectedText, Links, Products } from '../data/collectionPage';
+import { Collections, ExpectedText, Links, Filters, Products, ShoppingOptions } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors } from '../data/pageHeader';
 
@@ -37,7 +37,31 @@ test.describe('Collection page tests', () => {
       const collectionExpectedText = ExpectedText[collection];
       await expect.soft(collectionPage.breadcrumbsContainer).toHaveText(collectionExpectedText.Breadcrumbs);
       await expect.soft(collectionPage.pageTitle).toHaveText(collectionExpectedText.Title);
-      // Add sidebar expected text verification
+
+      if (ShoppingOptions.hasOwnProperty(collection)) {
+        const collectionShoppingOptions = ShoppingOptions[collection];
+        await expect.soft(collectionPage.shoppingOptionsTitle).toHaveText(collectionShoppingOptions.title);
+        await expect.soft(collectionPage.shoppingOptionsSubtitle).toHaveText(collectionShoppingOptions.subtitle);
+        const categories = await collectionPage.getFilterCategories(collectionPage.shoppingOptionsList);
+        await expect.soft(categories).toHaveCount(collectionShoppingOptions.categories.length);
+        for (let i = 0; i < collectionShoppingOptions.categories.length; i++) {
+          const expectedText = `${collectionShoppingOptions.categories[i].title} ${collectionShoppingOptions.categories[i].count}`;
+          await expect.soft(categories.nth(i).locator('..')).toHaveText(expectedText, { useInnerText: true });
+        }
+      }
+
+      const collectionFilters = Filters[collection];
+      const filterLists = collectionPage.filterList;
+      await expect.soft(filterLists).toHaveCount(collectionFilters.length);
+      for (let i = 0; i < collectionFilters.length; i++) {
+        await expect.soft(collectionPage.filterTitle.nth(i)).toHaveText(collectionFilters[i].title);
+        const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
+        await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
+        for (let j = 0; j < collectionFilters[i].categories.length; j++) {
+          await expect.soft(filterCategories.nth(j)).toHaveText(collectionFilters[i].categories[j].title);
+        }
+      }
+
       const promoBlocks = collectionPage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(collectionExpectedText.PromoBlocks.length);
       for (let i = 0; i < collectionExpectedText.PromoBlocks.length; i++) {
@@ -117,6 +141,32 @@ test.describe('Collection page tests', () => {
         await expect
           .soft(collectionPage.breadcrumb.nth(i))
           .toHaveAttribute('href', `${baseURL}${Links[collection].Breadcrumbs[breadcrumbs[i]]}`);
+      }
+    });
+
+    test('Filter links', async ({ baseURL }) => {
+      if (ShoppingOptions.hasOwnProperty(collection)) {
+        const collectionShoppingOptions = ShoppingOptions[collection];
+        const categories = await collectionPage.getFilterCategories(collectionPage.shoppingOptionsList);
+        await expect.soft(categories).toHaveCount(collectionShoppingOptions.categories.length);
+        for (let i = 0; i < collectionShoppingOptions.categories.length; i++) {
+          await expect
+            .soft(categories.nth(i))
+            .toHaveAttribute('href', `${baseURL}${collectionShoppingOptions.categories[i].link}`);
+        }
+      }
+
+      const collectionFilters = Filters[collection];
+      const filterLists = collectionPage.filterList;
+      await expect.soft(filterLists).toHaveCount(collectionFilters.length);
+      for (let i = 0; i < collectionFilters.length; i++) {
+        const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
+        await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
+        for (let j = 0; j < collectionFilters[i].categories.length; j++) {
+          await expect
+            .soft(filterCategories.nth(j))
+            .toHaveAttribute('href', `${baseURL}${collectionFilters[i].categories[j].link}`);
+        }
       }
     });
 

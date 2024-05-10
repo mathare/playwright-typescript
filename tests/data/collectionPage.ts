@@ -28,6 +28,22 @@ export const Links = {
   Women: { ...Women.Links },
 };
 
+export const ShoppingOptions = {
+  Gear: { ...Gear.Options },
+  Men: { ...Men.Options },
+  Training: { ...Training.Options },
+  Women: { ...Women.Options },
+};
+
+export const Filters = {
+  Gear: [...Gear.Filters],
+  Men: [...Men.Filters],
+  Sale: [...Sale.Filters],
+  Training: [...Training.Filters],
+  WhatsNew: [...WhatsNew.Filters],
+  Women: [...Women.Filters],
+};
+
 export const Products = {
   Gear: [...Gear.Products],
   Men: [...Men.Products],
