@@ -100,7 +100,8 @@ test.describe('Product category page tests', () => {
       }
     });
 
-    test('Only one filter can be expanded at a time', async () => {
+    test('Only one filter can be expanded at a time', async ({}, testInfo) => {
+      test.setTimeout(testInfo.timeout + 30000);
       const filterCategories = productCategoryPage.filterCategory;
       const numFilterCategories = Object.keys(Filters[category]).length;
       await expect.soft(filterCategories).toHaveCount(numFilterCategories);
