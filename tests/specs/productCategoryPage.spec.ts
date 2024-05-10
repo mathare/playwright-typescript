@@ -70,6 +70,11 @@ test.describe('Product category page tests', () => {
       const categoryExpectedText = ExpectedText[category];
       await expect.soft(productCategoryPage.breadcrumbsContainer).toHaveText(categoryExpectedText.Breadcrumbs);
       await expect.soft(productCategoryPage.pageTitle).toHaveText(categoryExpectedText.Title);
+      const sidebarBlocks = productCategoryPage.sidebarBlock;
+      await expect.soft(sidebarBlocks).toHaveCount(ExpectedText.SidebarBlocks.length);
+      for (let i = 0; i < ExpectedText.SidebarBlocks.length; i++) {
+        await expect.soft(sidebarBlocks.nth(i)).toHaveText(ExpectedText.SidebarBlocks[i], { useInnerText: true });
+      }
       await expect
         .soft(productCategoryPage.productCount)
         .toHaveText(categoryExpectedText.ProductCount, { useInnerText: true });
