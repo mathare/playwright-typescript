@@ -6,27 +6,20 @@ import { Colors } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-const pages =
-  process.env.TEST_MODE === 'full'
-    ? Object.keys(Collections)
-    : Array.of(Object.keys(Collections)[Math.floor(Math.random() * Object.keys(Collections).length)]);
-// for (const collection of pages) {
-for (let c = 0; c < pages.length; c++) {
-  const collection = pages[c];
+const pages = process.env.TEST_MODE === 'full' ? Object.keys(Collections) : ['Gear'];
+for (const collection of pages) {
   test.describe(`${collection} page tests zzz`, () => {
     let collectionPage: CollectionPage;
 
     test.beforeEach(async ({ page }) => {
       collectionPage = new CollectionPage(page);
       await collectionPage.open(Collections[collection]);
-      console.log(collection);
     });
 
     test.describe('Appearance tests', () => {
       // This is an example of performing visual-style testing by asserting against various element properties rather than actually using image comparison
       // The tests could be combined but I have split them here to make them easier to read and maintain
 
-      // test(`Main page elements displayed - ${collection}`, async () => {
       test('Main page elements displayed', async () => {
         await expect.soft(collectionPage.globalMessage).toBeVisible();
         await expect.soft(collectionPage.pageHeader.header).toBeVisible();
@@ -41,7 +34,6 @@ for (let c = 0; c < pages.length; c++) {
         await expect.soft(collectionPage.productItem).toHaveCount(Products[collection].length);
       });
 
-      // test(`Text content of page elements - ${collection}`, async () => {
       test('Text content of page elements', async () => {
         const collectionExpectedText = ExpectedText[collection];
         await expect.soft(collectionPage.breadcrumbsContainer).toHaveText(collectionExpectedText.Breadcrumbs);
@@ -95,7 +87,6 @@ for (let c = 0; c < pages.length; c++) {
         }
       });
 
-      // test(`Product item details - ${collection}`, async () => {
       test('Product item details', async () => {
         const productDetails = Products[collection];
         const productItems = collectionPage.productItem;
@@ -134,7 +125,6 @@ for (let c = 0; c < pages.length; c++) {
         }
       });
 
-      // test(`Corresponding topnav item highlighted - ${collection}`, async () => {
       test('Corresponding topnav item highlighted', async () => {
         const activeClass = /active/;
         const topnavLinks = await collectionPage.pageHeader.getTopnavMenuItem(collectionPage.pageHeader.topnav, 0);
@@ -155,7 +145,6 @@ for (let c = 0; c < pages.length; c++) {
     });
 
     test.describe('Link tests', () => {
-      // test(`Breadcrumb links - ${collection}`, async ({ baseURL }) => {
       test('Breadcrumb links', async ({ baseURL }) => {
         const breadcrumbs = (await collectionPage.breadcrumbsContainer.innerText()).split('  ');
         // The last breadcrumb doesn't have a link as it is the current page
@@ -166,7 +155,6 @@ for (let c = 0; c < pages.length; c++) {
         }
       });
 
-      // test(`Filter links - ${collection}`, async ({ baseURL }) => {
       test('Filter links', async ({ baseURL }) => {
         if (ShoppingOptions.hasOwnProperty(collection)) {
           const collectionShoppingOptions = ShoppingOptions[collection];
@@ -193,7 +181,6 @@ for (let c = 0; c < pages.length; c++) {
         }
       });
 
-      // test(`Promo block links - ${collection}`, async ({ baseURL }) => {
       test('Promo block links', async ({ baseURL }) => {
         const promoBlocks = collectionPage.promoBlock;
         await expect.soft(promoBlocks).toHaveCount(Links[collection].PromoBlocks.length);
@@ -206,7 +193,6 @@ for (let c = 0; c < pages.length; c++) {
         }
       });
 
-      // test(`Product links - ${collection}`, async ({ baseURL }) => {
       test('Product links', async ({ baseURL }) => {
         const productDetails = Products[collection];
         const products = collectionPage.productItem;
