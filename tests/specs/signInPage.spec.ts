@@ -122,10 +122,7 @@ test.describe('Sign in page tests', () => {
     });
 
     test('Visual test', async () => {
-      await expect(signInPage.mainContent).toHaveScreenshot('default.png', {
-        mask: [signInPage.adsWidget],
-        timeout: Timeouts.Visual,
-      });
+      await expect(signInPage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
     });
   });
 });
