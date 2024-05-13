@@ -83,10 +83,7 @@ test.describe('Home page tests', () => {
 
   test.describe('Visual tests', () => {
     test('Default page appearance', async () => {
-      await expect(homePage.mainContent).toHaveScreenshot('default.png', {
-        mask: [homePage.adsWidget],
-        timeout: Timeouts.Visual,
-      });
+      await expect(homePage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
     });
 
     test('Product hover', async () => {

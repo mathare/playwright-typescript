@@ -119,10 +119,7 @@ test.describe.skip('My Account page tests', () => {
 
   test.describe('Visual tests', () => {
     test('Default page appearance', async () => {
-      await expect(myAccountPage.mainContent).toHaveScreenshot('default.png', {
-        mask: [myAccountPage.adsWidget],
-        timeout: Timeouts.Visual,
-      });
+      await expect(myAccountPage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
     });
   });
 
