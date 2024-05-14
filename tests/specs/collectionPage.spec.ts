@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 const pages = process.env.TEST_MODE === 'full' ? Object.keys(Collections) : ['Gear'];
 for (const collection of pages) {
-  test.describe(`${collection} page tests zzz`, () => {
+  test.describe(`${collection} page tests`, () => {
     let collectionPage: CollectionPage;
 
     test.beforeEach(async ({ page }) => {
