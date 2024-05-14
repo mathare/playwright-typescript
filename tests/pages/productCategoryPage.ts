@@ -53,12 +53,12 @@ export default class ProductCategoryPage extends BasePage {
     return this.productItem.nth(productIndex).locator(element);
   }
 
-  getFilterItems(category: Locator, name: string): Locator {
+  async getFilterItems(category: Locator, name: string): Promise<Locator> {
     const locator = ['Size', 'Color'].includes(name) ? '.swatch-attribute-options a' : 'li.item a';
     return category.locator(locator);
   }
 
-  getFilterCategoryElement(category: Locator, element: 'title' | 'content'): Locator {
+  async getFilterCategoryElement(category: Locator, element: 'title' | 'content'): Promise<Locator> {
     return category.locator(`.filter-options-${element}`);
   }
 }
