@@ -89,6 +89,9 @@ for (const lvl0Category of lvl0Categories) {
             const expectedFilters = Filters[category];
             await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
             for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
+              await expect
+                .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.nth(i), 'title'))
+                .toHaveAttribute('aria-expanded', 'false');
               const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
               expect.soft(categoryName).toEqual(Object.keys(expectedFilters)[i]);
               const filterItems = await productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
@@ -112,6 +115,9 @@ for (const lvl0Category of lvl0Categories) {
             const filterCategories = productCategoryPage.filterCategory;
             const numFilterCategories = Object.keys(Filters[category]).length;
             await expect.soft(filterCategories).toHaveCount(numFilterCategories);
+            await expect
+              .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.first(), 'title'))
+              .toHaveAttribute('aria-expanded', 'false');
             for (let i = 0; i < numFilterCategories; i++) {
               await filterCategories.nth(i).click();
               for (let j = 0; j < numFilterCategories; j++) {
@@ -246,6 +252,9 @@ for (const lvl0Category of lvl0Categories) {
             const expectedFilters = Filters[category];
             await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
             for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
+              await expect
+                .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.nth(i), 'title'))
+                .toHaveAttribute('aria-expanded', 'false');
               const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
               const filterItems = await productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
               await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
