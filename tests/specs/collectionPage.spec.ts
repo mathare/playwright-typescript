@@ -223,7 +223,7 @@ for (const collection of pages) {
 
     test.describe('Visual tests', () => {
       test('Collection page appearance', async () => {
-        const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toUpperCase())}.png`;
+        const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
         await expect(collectionPage.mainContent).toHaveScreenshot(imageName, { timeout: Timeouts.Visual });
       });
     });
