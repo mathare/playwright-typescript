@@ -5,6 +5,7 @@ on:
     branches: main
 env:
   PASSWORD: ${{ secrets.PASSWORD }}
+  TEST_MODE: 'full'
 jobs:
   test:
     timeout-minutes: 60
