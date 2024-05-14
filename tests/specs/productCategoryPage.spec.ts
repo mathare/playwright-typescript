@@ -24,16 +24,16 @@ async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bo
 }
 
 dotenv.config();
-const lvl0Categories = process.env.TEST_MODE === 'limited' ? ['Women'] : Object.keys(ProductCategories);
+const lvl0Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
 for (const lvl0Category of lvl0Categories) {
-  const lvl1Categories = process.env.TEST_MODE === 'limited' ? ['Tops'] : Object.keys(ProductCategories[lvl0Category]);
+  const lvl1Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories[lvl0Category]) : ['Tops'];
   for (const lvl1Category of lvl1Categories) {
     const lvl2Categories =
-      process.env.TEST_MODE === 'limited'
-        ? ['']
-        : lvl1Category.endsWith('SubMenu')
+      process.env.TEST_MODE === 'full'
+        ? lvl1Category.endsWith('SubMenu')
           ? Object.keys(ProductCategories[lvl0Category][lvl1Category])
-          : [''];
+          : ['']
+        : [''];
     for (const lvl2Category of lvl2Categories) {
       const category = lvl2Category ? `${lvl0Category}${lvl2Category}` : `${lvl0Category}${lvl1Category}`;
       const pageName = lvl2Category
