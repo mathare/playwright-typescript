@@ -14,10 +14,14 @@ export default class ProductCategoryPage extends BasePage {
   readonly sidebar: Locator;
   readonly sidebarBlock: Locator;
   readonly displayToolbar: Locator;
+  readonly displayAsGridButton: Locator;
+  readonly displayAsListButton: Locator;
+  readonly sortDirectionButton: Locator;
   readonly productCount: Locator;
   readonly productsGrid: Locator;
   readonly productItem: Locator;
   readonly paginationToolbar: Locator;
+  readonly nextPageButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -31,10 +35,14 @@ export default class ProductCategoryPage extends BasePage {
     this.sidebar = this.mainContent.locator('.sidebar-additional');
     this.sidebarBlock = this.sidebar.locator('.block');
     this.displayToolbar = this.mainContent.locator('.toolbar-products').first();
+    this.displayAsGridButton = this.displayToolbar.locator('.mode-grid');
+    this.displayAsListButton = this.displayToolbar.locator('.mode-list');
+    this.sortDirectionButton = this.displayToolbar.locator('[data-role=direction-switcher]');
     this.productCount = this.displayToolbar.locator('#toolbar-amount');
     this.productsGrid = this.mainContent.locator('.products-grid');
     this.productItem = new ProductItem(this.productsGrid).product;
     this.paginationToolbar = this.mainContent.locator('.toolbar-products').last();
+    this.nextPageButton = this.paginationToolbar.locator('a.action.next');
   }
 
   async open(url?: string): Promise<void> {

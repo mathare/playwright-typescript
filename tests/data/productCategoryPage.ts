@@ -72,6 +72,13 @@ export const ExpectedText = {
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
   ],
+  Tooltips: {
+    Grid: 'Grid',
+    List: 'List',
+    SortDescending: 'Set Descending Direction',
+    SortAscending: 'Set Ascending Direction',
+    NextPage: 'Next',
+  },
 };
 
 export const Links = {

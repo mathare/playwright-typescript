@@ -305,6 +305,23 @@ for (const lvl0Category of lvl0Categories) {
             });
           });
         });
+
+        test.describe('Display options tests', () => {
+          test('Display options tooltips', async () => {
+            // It seems the 'title' attribute is used to determine what to display in the tooltips
+            const tooltips = ExpectedText.Tooltips;
+            await expect.soft(productCategoryPage.displayAsGridButton).toHaveAttribute('title', tooltips.Grid);
+            await expect.soft(productCategoryPage.displayAsListButton).toHaveAttribute('title', tooltips.List);
+            await expect
+              .soft(productCategoryPage.sortDirectionButton)
+              .toHaveAttribute('title', tooltips.SortDescending);
+            await productCategoryPage.sortDirectionButton.click();
+            await expect.soft(productCategoryPage.sortDirectionButton).toHaveAttribute('title', tooltips.SortAscending);
+            if (Products[category].length > 12) {
+              await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('title', tooltips.NextPage);
+            }
+          });
+        });
       });
     }
   }
