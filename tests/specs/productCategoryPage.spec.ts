@@ -294,10 +294,15 @@ for (const lvl0Category of lvl0Categories) {
           });
         });
 
-        test.describe('Visual tests zzz', () => {
-          test('Product category page appearance', async () => {
+        test.describe('Visual tests', () => {
+          test('Product category page appearance', async ({ browserName }) => {
             const imageName = `${category.replace(category.charAt(0), category.charAt(0).toLowerCase())}.png`;
-            await expect(productCategoryPage.mainContent).toHaveScreenshot(imageName, { timeout: Timeouts.Visual });
+            // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
+            const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
+            await expect(productCategoryPage.mainContent).toHaveScreenshot(imageName, {
+              timeout: Timeouts.Visual,
+              maxDiffPixels: maxDiffPixels,
+            });
           });
         });
       });
