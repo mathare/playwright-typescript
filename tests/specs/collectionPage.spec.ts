@@ -5,6 +5,10 @@ import { ProductItemElements } from '../pages/components/productItem';
 import { Colors } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
 
+const Timeouts = {
+  Visual: 20000,
+};
+
 dotenv.config();
 const pages = process.env.TEST_MODE === 'full' ? Object.keys(Collections) : ['Gear'];
 for (const collection of pages) {
@@ -214,6 +218,13 @@ for (const collection of pages) {
               .not.toBeVisible();
           }
         }
+      });
+    });
+
+    test.describe('Visual tests', () => {
+      test('Collection page appearance', async () => {
+        const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
+        await expect(collectionPage.mainContent).toHaveScreenshot(imageName, { timeout: Timeouts.Visual });
       });
     });
   });
