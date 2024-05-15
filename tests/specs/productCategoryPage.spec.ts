@@ -24,6 +24,9 @@ async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bo
 }
 
 dotenv.config();
+const Timeouts = {
+  Visual: 20000,
+};
 const lvl0Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
 for (const lvl0Category of lvl0Categories) {
   const lvl1Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories[lvl0Category]) : ['Tops'];
@@ -39,6 +42,7 @@ for (const lvl0Category of lvl0Categories) {
       const pageName = lvl2Category
         ? `${lvl0Category} > ${lvl1Category.replace('SubMenu', '')} > ${lvl2Category}`
         : `${lvl0Category} > ${lvl1Category}`;
+
       test.describe(`${pageName} page tests`, () => {
         let productCategoryPage: ProductCategoryPage;
         let url: string;
@@ -287,6 +291,13 @@ for (const lvl0Category of lvl0Categories) {
                   .not.toBeVisible();
               }
             }
+          });
+        });
+
+        test.describe('Visual tests zzz', () => {
+          test('Product category page appearance', async () => {
+            const imageName = `${category.replace(category.charAt(0), category.charAt(0).toLowerCase())}.png`;
+            await expect(productCategoryPage.mainContent).toHaveScreenshot(imageName, { timeout: Timeouts.Visual });
           });
         });
       });
