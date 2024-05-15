@@ -335,6 +335,24 @@ for (const lvl0Category of lvl0Categories) {
               await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('title', tooltips.NextPage);
             }
           });
+
+          test('Display as list', async ({ baseURL }) => {
+            await productCategoryPage.displayAsListButton.click();
+            await expect.soft(productCategoryPage.productsGrid).not.toBeVisible();
+            await expect.soft(productCategoryPage.productsList).toBeVisible();
+            await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}?product_list_mode=list`);
+
+            // Verify the same products are displayed just as a list rather than a grid
+            const productDetails = Products[category].slice(0, 10);
+            const productItems = productCategoryPage.productItem;
+            await expect.soft(productItems).toHaveCount(productDetails.length);
+            for (let i = 0; i < productDetails.length; i++) {
+              // Only check title as we check the full product details in another test
+              await expect
+                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+                .toHaveText(productDetails[i].title);
+            }
+          });
         });
       });
     }

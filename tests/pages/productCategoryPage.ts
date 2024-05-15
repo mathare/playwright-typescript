@@ -20,6 +20,7 @@ export default class ProductCategoryPage extends BasePage {
   readonly sortDirectionButton: Locator;
   readonly productCount: Locator;
   readonly productsGrid: Locator;
+  readonly productsList: Locator;
   readonly productItem: Locator;
   readonly paginationToolbar: Locator;
   readonly nextPageButton: Locator;
@@ -43,7 +44,8 @@ export default class ProductCategoryPage extends BasePage {
     this.sortDirectionButton = this.displayToolbar.locator('[data-role=direction-switcher]');
     this.productCount = this.displayToolbar.locator('#toolbar-amount');
     this.productsGrid = this.mainContent.locator('.products-grid');
-    this.productItem = new ProductItem(this.productsGrid).product;
+    this.productsList = this.mainContent.locator('.products-list');
+    this.productItem = new ProductItem(this.mainContent.locator('.products')).product;
     this.paginationToolbar = this.mainContent.locator('.toolbar-products').last();
     this.nextPageButton = this.paginationToolbar.locator('a.action.next');
     this.pageSizeDropdown = this.paginationToolbar.locator('#limiter');
