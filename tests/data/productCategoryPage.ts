@@ -151,3 +151,9 @@ export const Products = {
   GearFitnessEquipment: [...GearFitnessEquipment.Products],
   GearWatches: [...GearWatches.Products],
 };
+export const Defaults = {
+  PageSize: {
+    Grid: 12,
+    List: 10,
+  },
+};

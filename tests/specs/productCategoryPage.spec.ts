@@ -7,6 +7,7 @@ import {
   Filters,
   Products,
   FilterCategoryName,
+  Defaults,
 } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
@@ -25,6 +26,7 @@ async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bo
 
 dotenv.config();
 const Timeouts = {
+  Test: 30000,
   Visual: 20000,
 };
 const lvl0Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
@@ -115,7 +117,7 @@ for (const lvl0Category of lvl0Categories) {
           });
 
           test('Only one filter can be expanded at a time', async ({}, testInfo) => {
-            test.setTimeout(testInfo.timeout + 30000);
+            test.setTimeout(testInfo.timeout + Timeouts.Test);
             const filterCategories = productCategoryPage.filterCategory;
             const numFilterCategories = Object.keys(Filters[category]).length;
             await expect.soft(filterCategories).toHaveCount(numFilterCategories);
@@ -141,8 +143,7 @@ for (const lvl0Category of lvl0Categories) {
           });
 
           test('Default product item details', async () => {
-            //There are a maximum of 12 products displayed by default
-            const productDetails = Products[category].slice(0, 12);
+            const productDetails = Products[category].slice(0, Defaults.PageSize.Grid);
             const productItems = productCategoryPage.productItem;
             await expect.soft(productItems).toHaveCount(productDetails.length);
             for (let i = 0; i < productDetails.length; i++) {
@@ -270,8 +271,7 @@ for (const lvl0Category of lvl0Categories) {
           });
 
           test('Default product links', async ({ baseURL }) => {
-            //There are a maximum of 12 products displayed by default
-            const productDetails = Products[category].slice(0, 12);
+            const productDetails = Products[category].slice(0, Defaults.PageSize.Grid);
             const products = productCategoryPage.productItem;
             await expect.soft(products).toHaveCount(productDetails.length);
             for (let i = 0; i < productDetails.length; i++) {
@@ -331,7 +331,7 @@ for (const lvl0Category of lvl0Categories) {
               .toHaveAttribute('title', tooltips.SortDescending);
             await productCategoryPage.sortDirectionButton.click();
             await expect.soft(productCategoryPage.sortDirectionButton).toHaveAttribute('title', tooltips.SortAscending);
-            if (Products[category].length > 12) {
+            if (Products[category].length > Defaults.PageSize.Grid) {
               await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('title', tooltips.NextPage);
             }
           });
@@ -343,7 +343,8 @@ for (const lvl0Category of lvl0Categories) {
             await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}?product_list_mode=list`);
 
             // Verify the same products are displayed just as a list rather than a grid
-            let productDetails = Products[category].slice(0, 10);
+            let pageSize = Defaults.PageSize.List;
+            let productDetails = Products[category].slice(0, pageSize);
             let productItems = productCategoryPage.productItem;
             await expect.soft(productItems).toHaveCount(productDetails.length);
             for (let i = 0; i < productDetails.length; i++) {
@@ -359,7 +360,8 @@ for (const lvl0Category of lvl0Categories) {
             await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}`);
 
             // Verify the original products are displayed
-            productDetails = Products[category].slice(0, 12);
+            pageSize = Defaults.PageSize.List;
+            productDetails = Products[category].slice(0, pageSize);
             productItems = productCategoryPage.productItem;
             await expect.soft(productItems).toHaveCount(productDetails.length);
             for (let i = 0; i < productDetails.length; i++) {
