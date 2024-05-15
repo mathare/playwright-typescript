@@ -222,9 +222,14 @@ for (const collection of pages) {
     });
 
     test.describe('Visual tests', () => {
-      test('Collection page appearance', async () => {
+      test('Collection page appearance', async ({ browserName }) => {
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
-        await expect(collectionPage.mainContent).toHaveScreenshot(imageName, { timeout: Timeouts.Visual });
+        // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
+        const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
+        await expect(collectionPage.mainContent).toHaveScreenshot(imageName, {
+          timeout: Timeouts.Visual,
+          maxDiffPixels: maxDiffPixels,
+        });
       });
     });
   });
