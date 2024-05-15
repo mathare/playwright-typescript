@@ -313,8 +313,12 @@ for (const lvl0Category of lvl0Categories) {
           });
 
           test('Page size options', async () => {
-            const pageSizeOptions = ExpectedText.PageSizes.join('\n');
-            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(pageSizeOptions, { useInnerText: true });
+            const gridPageSizes = ExpectedText.PageSizes.Grid.join('\n');
+            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(gridPageSizes, { useInnerText: true });
+
+            await productCategoryPage.displayAsListButton.click();
+            const listPageSizes = ExpectedText.PageSizes.List.join('\n');
+            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(listPageSizes, { useInnerText: true });
           });
 
           test('Display options tooltips', async () => {

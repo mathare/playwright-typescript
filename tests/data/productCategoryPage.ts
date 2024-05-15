@@ -73,7 +73,10 @@ export const ExpectedText = {
     'My Wish List\nYou have no items in your wish list.',
   ],
   SortOptions: ['Position', 'Product Name', 'Price'],
-  PageSizes: [12, 24, 36],
+  PageSizes: {
+    Grid: [12, 24, 36],
+    List: [5, 10, 15, 20, 25],
+  },
   Tooltips: {
     Grid: 'Grid',
     List: 'List',
