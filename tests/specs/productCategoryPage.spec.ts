@@ -336,18 +336,33 @@ for (const lvl0Category of lvl0Categories) {
             }
           });
 
-          test('Display as list', async ({ baseURL }) => {
+          test('Display as list/grid', async ({ baseURL }) => {
             await productCategoryPage.displayAsListButton.click();
             await expect.soft(productCategoryPage.productsGrid).not.toBeVisible();
             await expect.soft(productCategoryPage.productsList).toBeVisible();
             await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}?product_list_mode=list`);
 
             // Verify the same products are displayed just as a list rather than a grid
-            const productDetails = Products[category].slice(0, 10);
-            const productItems = productCategoryPage.productItem;
+            let productDetails = Products[category].slice(0, 10);
+            let productItems = productCategoryPage.productItem;
             await expect.soft(productItems).toHaveCount(productDetails.length);
             for (let i = 0; i < productDetails.length; i++) {
               // Only check title as we check the full product details in another test
+              await expect
+                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+                .toHaveText(productDetails[i].title);
+            }
+
+            await productCategoryPage.displayAsGridButton.click();
+            await expect.soft(productCategoryPage.productsList).not.toBeVisible();
+            await expect.soft(productCategoryPage.productsGrid).toBeVisible();
+            await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}`);
+
+            // Verify the original products are displayed
+            productDetails = Products[category].slice(0, 12);
+            productItems = productCategoryPage.productItem;
+            await expect.soft(productItems).toHaveCount(productDetails.length);
+            for (let i = 0; i < productDetails.length; i++) {
               await expect
                 .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
                 .toHaveText(productDetails[i].title);
