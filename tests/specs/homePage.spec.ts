@@ -82,8 +82,13 @@ test.describe('Home page tests', () => {
   });
 
   test.describe('Visual tests', () => {
-    test('Default page appearance', async () => {
-      await expect(homePage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
+    test('Default page appearance', async ({ browserName }) => {
+      // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
+      const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
+      await expect(homePage.mainContent).toHaveScreenshot('default.png', {
+        timeout: Timeouts.Visual,
+        maxDiffPixels: maxDiffPixels,
+      });
     });
 
     test('Product hover', async () => {
