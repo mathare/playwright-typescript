@@ -312,6 +312,11 @@ for (const lvl0Category of lvl0Categories) {
             await expect.soft(productCategoryPage.sortByDropdown).toHaveText(sortOptions, { useInnerText: true });
           });
 
+          test('Page size options', async () => {
+            const pageSizeOptions = ExpectedText.PageSizes.join('\n');
+            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(pageSizeOptions, { useInnerText: true });
+          });
+
           test('Display options tooltips', async () => {
             // It seems the 'title' attribute is used to determine what to display in the tooltips
             const tooltips = ExpectedText.Tooltips;

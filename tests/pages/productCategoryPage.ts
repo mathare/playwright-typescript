@@ -23,6 +23,7 @@ export default class ProductCategoryPage extends BasePage {
   readonly productItem: Locator;
   readonly paginationToolbar: Locator;
   readonly nextPageButton: Locator;
+  readonly pageSizeDropdown: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -45,6 +46,7 @@ export default class ProductCategoryPage extends BasePage {
     this.productItem = new ProductItem(this.productsGrid).product;
     this.paginationToolbar = this.mainContent.locator('.toolbar-products').last();
     this.nextPageButton = this.paginationToolbar.locator('a.action.next');
+    this.pageSizeDropdown = this.paginationToolbar.locator('#limiter');
   }
 
   async open(url?: string): Promise<void> {
