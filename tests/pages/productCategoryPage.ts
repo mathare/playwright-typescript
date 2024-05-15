@@ -16,6 +16,7 @@ export default class ProductCategoryPage extends BasePage {
   readonly displayToolbar: Locator;
   readonly displayAsGridButton: Locator;
   readonly displayAsListButton: Locator;
+  readonly sortByDropdown: Locator;
   readonly sortDirectionButton: Locator;
   readonly productCount: Locator;
   readonly productsGrid: Locator;
@@ -37,6 +38,7 @@ export default class ProductCategoryPage extends BasePage {
     this.displayToolbar = this.mainContent.locator('.toolbar-products').first();
     this.displayAsGridButton = this.displayToolbar.locator('.mode-grid');
     this.displayAsListButton = this.displayToolbar.locator('.mode-list');
+    this.sortByDropdown = this.displayToolbar.locator('#sorter');
     this.sortDirectionButton = this.displayToolbar.locator('[data-role=direction-switcher]');
     this.productCount = this.displayToolbar.locator('#toolbar-amount');
     this.productsGrid = this.mainContent.locator('.products-grid');

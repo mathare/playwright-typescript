@@ -307,6 +307,11 @@ for (const lvl0Category of lvl0Categories) {
         });
 
         test.describe('Display options tests', () => {
+          test('Sort options', async () => {
+            const sortOptions = ExpectedText.SortOptions.join('\n');
+            await expect.soft(productCategoryPage.sortByDropdown).toHaveText(sortOptions, { useInnerText: true });
+          });
+
           test('Display options tooltips', async () => {
             // It seems the 'title' attribute is used to determine what to display in the tooltips
             const tooltips = ExpectedText.Tooltips;

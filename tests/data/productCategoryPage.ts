@@ -72,6 +72,7 @@ export const ExpectedText = {
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
   ],
+  SortOptions: ['Position', 'Product Name', 'Price'],
   Tooltips: {
     Grid: 'Grid',
     List: 'List',
