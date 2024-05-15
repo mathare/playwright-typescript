@@ -360,7 +360,7 @@ for (const lvl0Category of lvl0Categories) {
             await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}`);
 
             // Verify the original products are displayed
-            pageSize = Defaults.PageSize.List;
+            pageSize = Defaults.PageSize.Grid;
             productDetails = Products[category].slice(0, pageSize);
             productItems = productCategoryPage.productItem;
             await expect.soft(productItems).toHaveCount(productDetails.length);
