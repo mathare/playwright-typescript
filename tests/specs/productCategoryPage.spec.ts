@@ -370,6 +370,29 @@ for (const lvl0Category of lvl0Categories) {
                 .toHaveText(productDetails[i].title);
             }
           });
+
+          test('Sort by', async ({ baseURL }) => {
+            for (const sortOption of ExpectedText.SortOptions) {
+              let productDetails = [...Products[category]];
+              let queryParams: string = '';
+              await productCategoryPage.sortByDropdown.selectOption(sortOption);
+              if (sortOption !== 'Position') {
+                const sortKey = sortOption === 'Product Name' ? 'title' : 'price';
+                productDetails.sort((a, b) => a[sortKey].localeCompare(b[sortKey]));
+                queryParams = `?product_list_order=${sortKey.replace('title', 'name')}`;
+              }
+              productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
+              // This should be a standard "hard" assertion as there is no point continuing if the URL isn't correct
+              await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`);
+              const productItems = productCategoryPage.productItem;
+              await expect.soft(productItems).toHaveCount(productDetails.length);
+              for (let i = 0; i < productDetails.length; i++) {
+                await expect
+                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+                  .toHaveText(productDetails[i].title);
+              }
+            }
+          });
         });
       });
     }
