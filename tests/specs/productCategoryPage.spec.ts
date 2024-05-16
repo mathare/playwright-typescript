@@ -24,6 +24,11 @@ async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bo
   }
 }
 
+function buildQueryParams(...args) {
+  const queryParams = args.filter((arg) => arg != '');
+  return queryParams.length === 0 ? '' : `?${queryParams.join('&')}`;
+}
+
 dotenv.config();
 const Timeouts = {
   Test: 30000,
@@ -393,6 +398,32 @@ for (const lvl0Category of lvl0Categories) {
               }
             }
           });
+
+          test('Sort direction', async ({ baseURL }) => {
+            // The sort effect is much easier to see and verify when sorted by product name
+            await productCategoryPage.sortByDropdown.selectOption('Product Name');
+            const sortByQueryParam = 'product_list_order=name';
+            await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${buildQueryParams(sortByQueryParam)}`);
+            for (const sortDirection of ['descending', 'ascending']) {
+              let productDetails = [...Products[category]];
+              productDetails.sort((a, b) => a['title'].localeCompare(b['title']));
+              if (sortDirection === 'descending') productDetails.reverse();
+              productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
+              const sortDirectionQueryParam = sortDirection === 'descending' ? 'product_list_dir=desc' : '';
+              await productCategoryPage.sortDirectionButton.click();
+              await expect(productCategoryPage.page).toHaveURL(
+                `${baseURL}${url}${buildQueryParams(sortByQueryParam, sortDirectionQueryParam)}`,
+              );
+              const productItems = productCategoryPage.productItem;
+              await expect.soft(productItems).toHaveCount(productDetails.length);
+              for (let i = 0; i < productDetails.length; i++) {
+                await expect
+                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+                  .toHaveText(productDetails[i].title);
+              }
+            }
+          });
+
         });
       });
     }
