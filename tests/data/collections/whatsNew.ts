@@ -1,8 +1,9 @@
 import { Product } from '../products';
 import { CollectionExpectedText, Filter } from './shared';
 import { Links as HeaderLinks } from '../pageHeader';
-import * as GearBags from '../productCategories/gearBags';
-import * as GearWatches from '../productCategories/gearWatches';
+import * as MenPants from '../productCategories/menPants';
+import * as MenShorts from '../productCategories/menShorts';
+import * as WomenHoodiesSweatshirts from '../productCategories/womenHoodies';
 
 export const ExpectedText: CollectionExpectedText = {
   Breadcrumbs: "Home  What's New",
@@ -51,8 +52,8 @@ export const Filters: Filter[] = [
 ];
 
 export const Products: Product[] = [
-  GearBags.Products[10],
-  GearBags.Products[1],
-  GearWatches.Products[6],
-  GearWatches.Products[4],
+  MenPants.Products[5],
+  MenPants.Products[3],
+  MenShorts.Products[2],
+  WomenHoodiesSweatshirts.Products[5],
 ];
