@@ -321,7 +321,9 @@ for (const lvl0Category of lvl0Categories) {
             const gridPageSizes = ExpectedText.PageSizes.Grid.join('\n');
             await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(gridPageSizes, { useInnerText: true });
 
-            await productCategoryPage.displayAsListButton.click();
+            do {
+              await productCategoryPage.displayAsListButton.click();
+            } while (!productCategoryPage.page.url().endsWith('?product_list_mode=list'));
             await expect.soft(productCategoryPage.productsList).toBeVisible();
             const listPageSizes = ExpectedText.PageSizes.List.join('\n');
             await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(listPageSizes, { useInnerText: true });
