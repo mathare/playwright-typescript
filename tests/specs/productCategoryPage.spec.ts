@@ -322,6 +322,7 @@ for (const lvl0Category of lvl0Categories) {
             await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(gridPageSizes, { useInnerText: true });
 
             await productCategoryPage.displayAsListButton.click();
+            await expect.soft(productCategoryPage.productsList).toBeVisible();
             const listPageSizes = ExpectedText.PageSizes.List.join('\n');
             await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(listPageSizes, { useInnerText: true });
           });
@@ -334,7 +335,9 @@ for (const lvl0Category of lvl0Categories) {
             await expect
               .soft(productCategoryPage.sortDirectionButton)
               .toHaveAttribute('title', tooltips.SortDescending);
-            await productCategoryPage.sortDirectionButton.click();
+            do {
+              await productCategoryPage.sortDirectionButton.click();
+            } while (productCategoryPage.page.url().endsWith('#'));
             await expect.soft(productCategoryPage.sortDirectionButton).toHaveAttribute('title', tooltips.SortAscending);
             if (Products[category].length > Defaults.PageSize.Grid) {
               await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('title', tooltips.NextPage);
