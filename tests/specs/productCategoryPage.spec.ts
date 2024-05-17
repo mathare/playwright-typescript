@@ -424,6 +424,22 @@ for (const lvl0Category of lvl0Categories) {
             }
           });
 
+          test('Page size', async ({ baseURL }) => {
+            for (const pageSize of ExpectedText.PageSizes.Grid) {
+              let productDetails = [...Products[category]];
+              const queryParams = pageSize === 12 ? '' : `?product_list_limit=${pageSize}`;
+              await productCategoryPage.pageSizeDropdown.selectOption(pageSize.toString());
+              productDetails = productDetails.slice(0, pageSize);
+              await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`);
+              const productItems = productCategoryPage.productItem;
+              await expect.soft(productItems).toHaveCount(productDetails.length);
+              for (let i = 0; i < productDetails.length; i++) {
+                await expect
+                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+                  .toHaveText(productDetails[i].title);
+              }
+            }
+          });
         });
       });
     }
