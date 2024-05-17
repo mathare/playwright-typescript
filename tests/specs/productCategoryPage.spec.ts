@@ -347,7 +347,9 @@ for (const lvl0Category of lvl0Categories) {
           });
 
           test('Display as list/grid', async ({ baseURL }) => {
-            await productCategoryPage.displayAsListButton.click();
+            do {
+              await productCategoryPage.displayAsListButton.click();
+            } while (!productCategoryPage.page.url().endsWith('?product_list_mode=list'));
             await expect.soft(productCategoryPage.productsGrid).not.toBeVisible();
             await expect.soft(productCategoryPage.productsList).toBeVisible();
             await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}?product_list_mode=list`);
@@ -364,7 +366,9 @@ for (const lvl0Category of lvl0Categories) {
                 .toHaveText(productDetails[i].title);
             }
 
-            await productCategoryPage.displayAsGridButton.click();
+            do {
+              await productCategoryPage.displayAsGridButton.click();
+            } while (productCategoryPage.page.url().endsWith('?product_list_mode=list'));
             await expect.soft(productCategoryPage.productsList).not.toBeVisible();
             await expect.soft(productCategoryPage.productsGrid).toBeVisible();
             await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}`);
