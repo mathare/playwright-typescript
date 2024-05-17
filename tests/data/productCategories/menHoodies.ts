@@ -255,7 +255,7 @@ export const Products: Product[] = [
   },
   {
     title: 'Chaz Kangeroo Hoodie',
-    price: 'As low as $63.00',
+    price: 'As low as $52.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Grey, Colors.Orange],
     link: '/chaz-kangeroo-hoodie.html',
