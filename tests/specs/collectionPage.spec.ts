@@ -221,7 +221,7 @@ for (const collection of pages) {
       });
     });
 
-    test.describe('Visual tests', () => {
+    test.describe('Visual tests zzz', () => {
       test('Collection page appearance', async ({ browserName }) => {
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
         // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
