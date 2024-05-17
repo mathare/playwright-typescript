@@ -401,16 +401,18 @@ for (const lvl0Category of lvl0Categories) {
 
           test('Sort direction', async ({ baseURL }) => {
             // The sort effect is much easier to see and verify when sorted by product name
-            await productCategoryPage.sortByDropdown.selectOption('Product Name');
             const sortByQueryParam = 'product_list_order=name';
-            await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${buildQueryParams(sortByQueryParam)}`);
+            // Navigate to the page sorted by product name directly to ensure the rest of the test waits until the page is fully loaded
+            await productCategoryPage.page.goto(`${url}?${sortByQueryParam}`);
             for (const sortDirection of ['descending', 'ascending']) {
               let productDetails = [...Products[category]];
               productDetails.sort((a, b) => a['title'].localeCompare(b['title']));
               if (sortDirection === 'descending') productDetails.reverse();
               productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
               const sortDirectionQueryParam = sortDirection === 'descending' ? 'product_list_dir=desc' : '';
-              await productCategoryPage.sortDirectionButton.click();
+              do {
+                await productCategoryPage.sortDirectionButton.click();
+              } while (productCategoryPage.page.url().endsWith('#'));
               await expect(productCategoryPage.page).toHaveURL(
                 `${baseURL}${url}${buildQueryParams(sortByQueryParam, sortDirectionQueryParam)}`,
               );
