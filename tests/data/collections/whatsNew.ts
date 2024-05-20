@@ -1,9 +1,5 @@
-import { Product } from '../products';
 import { CollectionExpectedText, Filter } from './shared';
 import { Links as HeaderLinks } from '../pageHeader';
-import * as MenPants from '../productCategories/menPants';
-import * as MenShorts from '../productCategories/menShorts';
-import * as WomenHoodiesSweatshirts from '../productCategories/womenHoodies';
 
 export const ExpectedText: CollectionExpectedText = {
   Breadcrumbs: "Home  What's New",
@@ -49,11 +45,4 @@ export const Filters: Filter[] = [
       { title: 'Shorts', link: HeaderLinks.Topnav.MenSubMenu.BottomsSubMenu.Shorts },
     ],
   },
-];
-
-export const Products: Product[] = [
-  MenPants.Products[5],
-  MenPants.Products[3],
-  MenShorts.Products[2],
-  WomenHoodiesSweatshirts.Products[5],
 ];

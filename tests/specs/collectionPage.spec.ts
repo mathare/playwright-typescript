@@ -31,11 +31,13 @@ for (const collection of pages) {
         await expect.soft(collectionPage.breadcrumbsContainer).toBeVisible();
         await expect.soft(collectionPage.primarySidebar).toBeVisible();
         await expect.soft(collectionPage.secondarySidebar).toBeVisible();
-        if (Products[collection].length) await expect.soft(collectionPage.productsGrid).toBeVisible();
+        if (Products.hasOwnProperty(collection) && Products[collection].length) {
+          await expect.soft(collectionPage.productsGrid).toBeVisible();
+          await expect.soft(collectionPage.productItem).toHaveCount(Products[collection].length);
+        }
         await expect.soft(collectionPage.pageFooter.footer).toBeVisible();
         await expect.soft(collectionPage.pageFooter.copyrightFooter).toBeVisible();
         await expect.soft(collectionPage.promoBlock).toHaveCount(ExpectedText[collection].PromoBlocks.length);
-        await expect.soft(collectionPage.productItem).toHaveCount(Products[collection].length);
       });
 
       test('Text content of page elements', async () => {
@@ -91,7 +93,9 @@ for (const collection of pages) {
         }
       });
 
-      test('Product item details', async () => {
+      test('Product item details', async ({}, testInfo) => {
+        // The products displayed on the What's New page keep changing so there is no point verifying they are correct
+        testInfo.skip(collection === 'WhatsNew', `Skip test for "What's New" page`);
         const productDetails = Products[collection];
         const productItems = collectionPage.productItem;
         await expect.soft(productItems).toHaveCount(productDetails.length);
@@ -197,7 +201,9 @@ for (const collection of pages) {
         }
       });
 
-      test('Product links', async ({ baseURL }) => {
+      test('Product links', async ({ baseURL }, testInfo) => {
+        // The products displayed on the What's New page keep changing so there is no point verifying the links are correct
+        testInfo.skip(collection === 'WhatsNew', `Skip test for "What's New" page`);
         const productDetails = Products[collection];
         const products = collectionPage.productItem;
         await expect.soft(products).toHaveCount(productDetails.length);
@@ -224,11 +230,14 @@ for (const collection of pages) {
     test.describe('Visual tests', () => {
       test('Collection page appearance', async ({ browserName }) => {
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
+        // Mask products grid for What's New page since it keeps changing
+        const mask = collection === 'WhatsNew' ? [collectionPage.productsGrid] : [];
         // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
         const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
         await expect(collectionPage.mainContent).toHaveScreenshot(imageName, {
           timeout: Timeouts.Visual,
           maxDiffPixels: maxDiffPixels,
+          mask: mask,
         });
       });
     });
