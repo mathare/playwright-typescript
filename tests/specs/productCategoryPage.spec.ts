@@ -304,25 +304,30 @@ for (const lvl0Category of lvl0Categories) {
             }
           });
 
-          test('Default product links', async ({ baseURL }) => {
-            const productDetails = Products[category].slice(0, Defaults.PageSize.Grid);
-            const products = productCategoryPage.productItem;
-            await expect.soft(products).toHaveCount(productDetails.length);
-            for (let i = 0; i < productDetails.length; i++) {
-              await expect
-                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.PhotoLink))
-                .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
-              await expect
-                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.NameLink))
-                .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
-              if (productDetails[i].reviews) {
+          test('Product links', async ({ baseURL }, testInfo) => {
+            testInfo.setTimeout(testInfo.timeout * 2);
+            const pageSize = Defaults.PageSize.Grid;
+            for (let p = 0; p < Math.ceil(Products[category].length / pageSize); p++) {
+              if (p > 0) await productCategoryPage.page.goto(`${url}?p=${p + 1}`);
+              const productDetails = Products[category].slice(p * pageSize, (p + 1) * pageSize);
+              const products = productCategoryPage.productItem;
+              await expect.soft(products).toHaveCount(productDetails.length);
+              for (let i = 0; i < productDetails.length; i++) {
                 await expect
-                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
-                  .toHaveAttribute('href', `${baseURL}${productDetails[i].link}#reviews`);
-              } else {
+                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.PhotoLink))
+                  .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
                 await expect
-                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
-                  .not.toBeVisible();
+                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.NameLink))
+                  .toHaveAttribute('href', `${baseURL}${productDetails[i].link}`);
+                if (productDetails[i].reviews) {
+                  await expect
+                    .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
+                    .toHaveAttribute('href', `${baseURL}${productDetails[i].link}#reviews`);
+                } else {
+                  await expect
+                    .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
+                    .not.toBeVisible();
+                }
               }
             }
           });
