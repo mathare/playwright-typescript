@@ -297,6 +297,31 @@ for (const lvl0Category of lvl0Categories) {
               }
             }
           });
+
+          test('Pagination button links', async ({ baseURL }) => {
+            // Page 1 will be displayed by default and the currently selected page doesn't have a link
+            const pageNumButtons = productCategoryPage.numberedPageButton;
+            const expectedNumPages = Math.ceil(Products[category].length / Defaults.PageSize.Grid);
+            await expect.soft(pageNumButtons).toHaveCount(expectedNumPages - 1);
+            for (let i = 0; i < expectedNumPages - 1; i++) {
+              await expect.soft(pageNumButtons.nth(i)).toHaveAttribute('href', `${baseURL}${url}?p=${i + 2}`);
+            }
+
+            if (expectedNumPages > 1) {
+              await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('href', `${baseURL}${url}?p=2`);
+              for (let i = 2; i <= expectedNumPages; i++) {
+                await productCategoryPage.nextPageButton.click();
+                await expect
+                  .soft(productCategoryPage.previousPageButton)
+                  .toHaveAttribute('href', `${baseURL}${url}?p=${i - 1}`);
+                if (i < expectedNumPages) {
+                  await expect
+                    .soft(productCategoryPage.nextPageButton)
+                    .toHaveAttribute('href', `${baseURL}${url}?p=${i + 1}`);
+                }
+              }
+            }
+          });
         });
 
         test.describe('Visual tests', () => {
