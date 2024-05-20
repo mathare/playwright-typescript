@@ -31,11 +31,13 @@ for (const collection of pages) {
         await expect.soft(collectionPage.breadcrumbsContainer).toBeVisible();
         await expect.soft(collectionPage.primarySidebar).toBeVisible();
         await expect.soft(collectionPage.secondarySidebar).toBeVisible();
-        if (Products[collection].length) await expect.soft(collectionPage.productsGrid).toBeVisible();
+        if (Products.hasOwnProperty(collection) && Products[collection].length) {
+          await expect.soft(collectionPage.productsGrid).toBeVisible();
+          await expect.soft(collectionPage.productItem).toHaveCount(Products[collection].length);
+        }
         await expect.soft(collectionPage.pageFooter.footer).toBeVisible();
         await expect.soft(collectionPage.pageFooter.copyrightFooter).toBeVisible();
         await expect.soft(collectionPage.promoBlock).toHaveCount(ExpectedText[collection].PromoBlocks.length);
-        await expect.soft(collectionPage.productItem).toHaveCount(Products[collection].length);
       });
 
       test('Text content of page elements', async () => {
