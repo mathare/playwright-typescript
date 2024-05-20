@@ -93,7 +93,9 @@ for (const collection of pages) {
         }
       });
 
-      test('Product item details', async () => {
+      test('Product item details', async ({}, testInfo) => {
+        // The products displayed on the What's New page keep changing so there is no point verifying they are correct
+        testInfo.skip(collection === 'WhatsNew', `Skip test for "What's New" page`);
         const productDetails = Products[collection];
         const productItems = collectionPage.productItem;
         await expect.soft(productItems).toHaveCount(productDetails.length);
@@ -199,7 +201,9 @@ for (const collection of pages) {
         }
       });
 
-      test('Product links', async ({ baseURL }) => {
+      test('Product links', async ({ baseURL }, testInfo) => {
+        // The products displayed on the What's New page keep changing so there is no point verifying the links are correct
+        testInfo.skip(collection === 'WhatsNew', `Skip test for "What's New" page`);
         const productDetails = Products[collection];
         const products = collectionPage.productItem;
         await expect.soft(products).toHaveCount(productDetails.length);
