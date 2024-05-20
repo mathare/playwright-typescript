@@ -23,7 +23,9 @@ export default class ProductCategoryPage extends BasePage {
   readonly productsList: Locator;
   readonly productItem: Locator;
   readonly paginationToolbar: Locator;
+  readonly previousPageButton: Locator;
   readonly nextPageButton: Locator;
+  readonly numberedPageButton: Locator;
   readonly pageSizeDropdown: Locator;
 
   constructor(page: Page) {
@@ -47,6 +49,8 @@ export default class ProductCategoryPage extends BasePage {
     this.productsList = this.mainContent.locator('.products-list');
     this.productItem = new ProductItem(this.mainContent.locator('.products')).product;
     this.paginationToolbar = this.mainContent.locator('.toolbar-products').last();
+    this.numberedPageButton = this.paginationToolbar.locator('a.page');
+    this.previousPageButton = this.paginationToolbar.locator('a.action.previous');
     this.nextPageButton = this.paginationToolbar.locator('a.action.next');
     this.pageSizeDropdown = this.paginationToolbar.locator('#limiter');
   }

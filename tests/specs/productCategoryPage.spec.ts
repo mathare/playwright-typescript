@@ -244,6 +244,30 @@ for (const lvl0Category of lvl0Categories) {
               }
             }
           });
+
+          test('Display of pagination controls', async () => {
+            if (Products[category].length > 12) {
+              const numPages = Math.ceil(Products[category].length / Defaults.PageSize.Grid);
+              // First page
+              await expect.soft(productCategoryPage.previousPageButton).not.toBeVisible();
+              expect.soft(await productCategoryPage.numberedPageButton.count()).toBeGreaterThan(0);
+              await expect.soft(productCategoryPage.nextPageButton).toBeVisible();
+              // Other pages
+              for (let i = 1; i < numPages; i++) {
+                await productCategoryPage.nextPageButton.click();
+                await expect.soft(productCategoryPage.previousPageButton).toBeVisible();
+                if (i < numPages - 1) {
+                  await expect.soft(productCategoryPage.nextPageButton).toBeVisible();
+                } else {
+                  await expect.soft(productCategoryPage.nextPageButton).not.toBeVisible();
+                }
+              }
+            } else {
+              await expect.soft(productCategoryPage.previousPageButton).not.toBeVisible();
+              await expect.soft(productCategoryPage.numberedPageButton).not.toBeVisible();
+              await expect.soft(productCategoryPage.nextPageButton).not.toBeVisible();
+            }
+          });
         });
 
         test.describe('Link tests', () => {
@@ -294,6 +318,31 @@ for (const lvl0Category of lvl0Categories) {
                 await expect
                   .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.ReviewsLink))
                   .not.toBeVisible();
+              }
+            }
+          });
+
+          test('Pagination button links', async ({ baseURL }) => {
+            // Page 1 will be displayed by default and the currently selected page doesn't have a link
+            const pageNumButtons = productCategoryPage.numberedPageButton;
+            const expectedNumPages = Math.ceil(Products[category].length / Defaults.PageSize.Grid);
+            await expect.soft(pageNumButtons).toHaveCount(expectedNumPages - 1);
+            for (let i = 0; i < expectedNumPages - 1; i++) {
+              await expect.soft(pageNumButtons.nth(i)).toHaveAttribute('href', `${baseURL}${url}?p=${i + 2}`);
+            }
+
+            if (expectedNumPages > 1) {
+              await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('href', `${baseURL}${url}?p=2`);
+              for (let i = 2; i <= expectedNumPages; i++) {
+                await productCategoryPage.nextPageButton.click();
+                await expect
+                  .soft(productCategoryPage.previousPageButton)
+                  .toHaveAttribute('href', `${baseURL}${url}?p=${i - 1}`);
+                if (i < expectedNumPages) {
+                  await expect
+                    .soft(productCategoryPage.nextPageButton)
+                    .toHaveAttribute('href', `${baseURL}${url}?p=${i + 1}`);
+                }
               }
             }
           });
