@@ -244,6 +244,30 @@ for (const lvl0Category of lvl0Categories) {
               }
             }
           });
+
+          test('Display of pagination controls', async () => {
+            if (Products[category].length > 12) {
+              const numPages = Math.ceil(Products[category].length / Defaults.PageSize.Grid);
+              // First page
+              await expect.soft(productCategoryPage.previousPageButton).not.toBeVisible();
+              expect.soft(await productCategoryPage.numberedPageButton.count()).toBeGreaterThan(0);
+              await expect.soft(productCategoryPage.nextPageButton).toBeVisible();
+              // Other pages
+              for (let i = 1; i < numPages; i++) {
+                await productCategoryPage.nextPageButton.click();
+                await expect.soft(productCategoryPage.previousPageButton).toBeVisible();
+                if (i < numPages - 1) {
+                  await expect.soft(productCategoryPage.nextPageButton).toBeVisible();
+                } else {
+                  await expect.soft(productCategoryPage.nextPageButton).not.toBeVisible();
+                }
+              }
+            } else {
+              await expect.soft(productCategoryPage.previousPageButton).not.toBeVisible();
+              await expect.soft(productCategoryPage.numberedPageButton).not.toBeVisible();
+              await expect.soft(productCategoryPage.nextPageButton).not.toBeVisible();
+            }
+          });
         });
 
         test.describe('Link tests', () => {
