@@ -27,6 +27,13 @@ test.describe('Sign in page tests', () => {
     });
 
     test.describe('Unsuccessful logins', () => {
+      test.beforeEach(async ({}) => {
+        // I HATE hardcoded waits and would rather wait on a page or element state but I _think_ the tests for unsuccessful logins
+        // sometimes fail when the page isn't in the right state at the point the test runs - but I can't find a way of verifying
+        // the correct page state before running these tests but a short wait seems to do the trick
+        await signInPage.page.waitForTimeout(250);
+      });
+
       test('Invalid credentials', async ({ page }) => {
         await signInPage.loginAs(unregisteredUser.email, unregisteredUser.password);
         await expect.soft(signInPage.errorMessage).toBeVisible();
