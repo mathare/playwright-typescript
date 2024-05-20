@@ -147,39 +147,44 @@ for (const lvl0Category of lvl0Categories) {
             }
           });
 
-          test('Default product item details', async () => {
-            const productDetails = Products[category].slice(0, Defaults.PageSize.Grid);
-            const productItems = productCategoryPage.productItem;
-            await expect.soft(productItems).toHaveCount(productDetails.length);
-            for (let i = 0; i < productDetails.length; i++) {
-              await expect
-                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                .toHaveText(productDetails[i].title);
-              if (productDetails[i].rating) {
+          test('Product item details', async ({}, testInfo) => {
+            testInfo.setTimeout(testInfo.timeout * 2);
+            const pageSize = Defaults.PageSize.Grid;
+            for (let p = 0; p < Math.ceil(Products[category].length / pageSize); p++) {
+              if (p > 0) await productCategoryPage.page.goto(`${url}?p=${p + 1}`);
+              const productDetails = Products[category].slice(p * pageSize, (p + 1) * pageSize);
+              const productItems = productCategoryPage.productItem;
+              await expect.soft(productItems).toHaveCount(productDetails.length);
+              for (let i = 0; i < productDetails.length; i++) {
                 await expect
-                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Rating))
-                  .toHaveText(productDetails[i].rating!);
-              }
-              if (productDetails[i].reviews) {
-                await expect
-                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Reviews))
-                  .toHaveText(productDetails[i].reviews!);
-              }
-              await expect
-                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Price).first())
-                .toHaveText(productDetails[i].price);
-              if (productDetails[i].sizes) {
-                const sizes = productCategoryPage.getProductItemElement(i, ProductItemElements.Sizes);
-                await expect.soft(sizes).toHaveCount(productDetails[i].sizes!.length);
-                for (let j = 0; j < productDetails[i].sizes!.length; j++) {
-                  await expect.soft(sizes.nth(j)).toHaveText(productDetails[i].sizes![j]);
+                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+                  .toHaveText(productDetails[i].title);
+                if (productDetails[i].rating) {
+                  await expect
+                    .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Rating))
+                    .toHaveText(productDetails[i].rating!);
                 }
-              }
-              if (productDetails[i].colors) {
-                const colors = productCategoryPage.getProductItemElement(i, ProductItemElements.Colors);
-                await expect.soft(colors).toHaveCount(productDetails[i].colors!.length);
-                for (let j = 0; j < productDetails[i].colors!.length; j++) {
-                  await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
+                if (productDetails[i].reviews) {
+                  await expect
+                    .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Reviews))
+                    .toHaveText(productDetails[i].reviews!);
+                }
+                await expect
+                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Price).first())
+                  .toHaveText(productDetails[i].price);
+                if (productDetails[i].sizes) {
+                  const sizes = productCategoryPage.getProductItemElement(i, ProductItemElements.Sizes);
+                  await expect.soft(sizes).toHaveCount(productDetails[i].sizes!.length);
+                  for (let j = 0; j < productDetails[i].sizes!.length; j++) {
+                    await expect.soft(sizes.nth(j)).toHaveText(productDetails[i].sizes![j]);
+                  }
+                }
+                if (productDetails[i].colors) {
+                  const colors = productCategoryPage.getProductItemElement(i, ProductItemElements.Colors);
+                  await expect.soft(colors).toHaveCount(productDetails[i].colors!.length);
+                  for (let j = 0; j < productDetails[i].colors!.length; j++) {
+                    await expect.soft(colors.nth(j)).toHaveCSS('background-color', productDetails[i].colors![j]);
+                  }
                 }
               }
             }
