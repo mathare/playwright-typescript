@@ -72,6 +72,18 @@ export const ExpectedText = {
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
   ],
+  SortOptions: ['Position', 'Product Name', 'Price'],
+  PageSizes: {
+    Grid: [12, 24, 36],
+    List: [5, 10, 15, 20, 25],
+  },
+  Tooltips: {
+    Grid: 'Grid',
+    List: 'List',
+    SortDescending: 'Set Descending Direction',
+    SortAscending: 'Set Ascending Direction',
+    NextPage: 'Next',
+  },
 };
 
 export const Links = {
@@ -138,4 +150,10 @@ export const Products = {
   GearBags: [...GearBags.Products],
   GearFitnessEquipment: [...GearFitnessEquipment.Products],
   GearWatches: [...GearWatches.Products],
+};
+export const Defaults = {
+  PageSize: {
+    Grid: 12,
+    List: 10,
+  },
 };

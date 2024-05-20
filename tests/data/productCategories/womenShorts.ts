@@ -232,13 +232,4 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Green, Colors.Red],
     link: '/fiona-fitness-short.html',
   },
-  {
-    title: 'Karmen Yoga Pant',
-    rating: '80%',
-    reviews: '2 Reviews',
-    price: 'As low as $39.00',
-    sizes: Sizes.All,
-    colors: [Colors.Black, Colors.Grey, Colors.White],
-    link: '/karmen-yoga-pant.html',
-  },
 ];
