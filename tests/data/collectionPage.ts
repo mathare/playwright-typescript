@@ -53,6 +53,6 @@ export const Products = {
   Men: [...Men.Products],
   Sale: [...Sale.Products],
   Training: [...Training.Products],
-  WhatsNew: [...WhatsNew.Products],
+  // The products displayed on the What's New page keep changing so are not included here
   Women: [...Women.Products],
 };
