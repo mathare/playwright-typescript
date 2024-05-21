@@ -51,7 +51,7 @@ test.describe('Home page tests', () => {
       const productItems = homePage.productItem;
       await expect.soft(productItems).toHaveCount(Products.length);
       for (let i = 0; i < Products.length; i++) {
-        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.Name)).toHaveText(Products[i].title);
+        await expect.soft(homePage.getProductItemElement(i, ProductItemElements.Name)).toHaveText(Products[i].name);
         if (Products[i].rating) {
           await expect
             .soft(homePage.getProductItemElement(i, ProductItemElements.Rating))

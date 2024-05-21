@@ -87,7 +87,7 @@ export const Filters: Record<string, Filter[]> = {
 
 export const Products: Product[] = [
   {
-    title: 'Strike Endurance Tee',
+    name: 'Strike Endurance Tee',
     rating: '65%',
     reviews: '4 Reviews',
     price: 'As low as $39.00',
@@ -96,7 +96,7 @@ export const Products: Product[] = [
     link: '/strike-endurance-tee.html',
   },
   {
-    title: 'Deion Long-Sleeve EverCool™ Tee',
+    name: 'Deion Long-Sleeve EverCool™ Tee',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $39.00',
@@ -105,7 +105,7 @@ export const Products: Product[] = [
     link: '/deion-long-sleeve-evercool-trade-tee.html',
   },
   {
-    title: 'Logan HeatTec® Tee',
+    name: 'Logan HeatTec® Tee',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $24.00',
@@ -114,7 +114,7 @@ export const Products: Product[] = [
     link: '/logan-heattec-reg-tee.html',
   },
   {
-    title: 'Ryker LumaTech™ Tee (V-neck)',
+    name: 'Ryker LumaTech™ Tee (V-neck)',
     rating: '90%',
     reviews: '2 Reviews',
     price: 'As low as $28.00',
@@ -123,7 +123,7 @@ export const Products: Product[] = [
     link: '/ryker-lumatech-trade-tee-v-neck.html',
   },
   {
-    title: 'Aero Daily Fitness Tee',
+    name: 'Aero Daily Fitness Tee',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $24.00',
@@ -132,7 +132,7 @@ export const Products: Product[] = [
     link: '/aero-daily-fitness-tee.html',
   },
   {
-    title: 'Zoltan Gym Tee',
+    name: 'Zoltan Gym Tee',
     rating: '70%',
     reviews: '2 Reviews',
     price: 'As low as $29.00',
@@ -141,7 +141,7 @@ export const Products: Product[] = [
     link: '/zoltan-gym-tee.html',
   },
   {
-    title: 'Balboa Persistence Tee',
+    name: 'Balboa Persistence Tee',
     rating: '60%',
     reviews: '2 Reviews',
     price: 'As low as $29.00',
@@ -150,7 +150,7 @@ export const Products: Product[] = [
     link: '/balboa-persistence-tee.html',
   },
   {
-    title: 'Atomic Endurance Running Tee (Crew-Neck)',
+    name: 'Atomic Endurance Running Tee (Crew-Neck)',
     rating: '53%',
     reviews: '3 Reviews',
     price: 'As low as $29.00',
@@ -159,7 +159,7 @@ export const Products: Product[] = [
     link: '/atomic-endurance-running-tee-crew-neck.html',
   },
   {
-    title: 'Atomic Endurance Running Tee (V-neck)',
+    name: 'Atomic Endurance Running Tee (V-neck)',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $28.00',
@@ -168,7 +168,7 @@ export const Products: Product[] = [
     link: '/atomic-endurance-running-tee-v-neck.html',
   },
   {
-    title: 'Ryker LumaTech™ Tee (Crew-neck)',
+    name: 'Ryker LumaTech™ Tee (Crew-neck)',
     rating: '73%',
     reviews: '3 Reviews',
     price: 'As low as $32.00',
@@ -177,7 +177,7 @@ export const Products: Product[] = [
     link: '/ryker-lumatech-trade-tee-crew-neck.html',
   },
   {
-    title: 'Helios EverCool™ Tee',
+    name: 'Helios EverCool™ Tee',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $24.00',
@@ -186,7 +186,7 @@ export const Products: Product[] = [
     link: '/helios-evercool-trade-tee.html',
   },
   {
-    title: 'Gobi HeatTec® Tee',
+    name: 'Gobi HeatTec® Tee',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $29.00',

@@ -125,7 +125,7 @@ const Sizes = { All: ['28', '29', '30', '31', '32'], Small: ['28', '29'] };
 
 export const Products: Product[] = [
   {
-    title: 'Erika Running Short',
+    name: 'Erika Running Short',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $45.00',
@@ -134,7 +134,7 @@ export const Products: Product[] = [
     link: '/erika-running-short.html',
   },
   {
-    title: 'Ina Compression Short',
+    name: 'Ina Compression Short',
     rating: '73%',
     reviews: '3 Reviews',
     price: 'As low as $49.00',
@@ -143,7 +143,7 @@ export const Products: Product[] = [
     link: '/ina-compression-short.html',
   },
   {
-    title: 'Ana Running Short',
+    name: 'Ana Running Short',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $40.00',
@@ -152,7 +152,7 @@ export const Products: Product[] = [
     link: '/ana-running-short.html',
   },
   {
-    title: 'Mimi All-Purpose Short',
+    name: 'Mimi All-Purpose Short',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $44.00',
@@ -161,7 +161,7 @@ export const Products: Product[] = [
     link: '/mimi-all-purpose-short.html',
   },
   {
-    title: 'Sybil Running Short',
+    name: 'Sybil Running Short',
     rating: '93%',
     reviews: '3 Reviews',
     price: 'As low as $44.00',
@@ -170,7 +170,7 @@ export const Products: Product[] = [
     link: '/sybil-running-short.html',
   },
   {
-    title: 'Echo Fit Compression Short',
+    name: 'Echo Fit Compression Short',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $24.00',
@@ -179,7 +179,7 @@ export const Products: Product[] = [
     link: '/echo-fit-compression-short.html',
   },
   {
-    title: 'Angel Light Running Short',
+    name: 'Angel Light Running Short',
     rating: '70%',
     reviews: '2 Reviews',
     price: 'As low as $42.00',
@@ -188,7 +188,7 @@ export const Products: Product[] = [
     link: '/angel-light-running-short.html',
   },
   {
-    title: 'Bess Yoga Short',
+    name: 'Bess Yoga Short',
     rating: '73%',
     reviews: '3 Reviews',
     price: 'As low as $28.00',
@@ -197,7 +197,7 @@ export const Products: Product[] = [
     link: '/bess-yoga-short.html',
   },
   {
-    title: 'Artemis Running Short',
+    name: 'Artemis Running Short',
     rating: '80%',
     reviews: '2 Reviews',
     price: 'As low as $45.00',
@@ -206,7 +206,7 @@ export const Products: Product[] = [
     link: '/artemis-running-short.html',
   },
   {
-    title: 'Gwen Drawstring Bike Short',
+    name: 'Gwen Drawstring Bike Short',
     rating: '90%',
     reviews: '2 Reviews',
     price: 'As low as $50.00',
@@ -215,7 +215,7 @@ export const Products: Product[] = [
     link: '/gwen-drawstring-bike-short.html',
   },
   {
-    title: 'Maxima Drawstring Short',
+    name: 'Maxima Drawstring Short',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $28.00',
@@ -224,7 +224,7 @@ export const Products: Product[] = [
     link: '/maxima-drawstring-short.html',
   },
   {
-    title: 'Fiona Fitness Short',
+    name: 'Fiona Fitness Short',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $29.00',

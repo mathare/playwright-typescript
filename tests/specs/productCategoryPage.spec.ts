@@ -158,7 +158,7 @@ for (const lvl0Category of lvl0Categories) {
               for (let i = 0; i < productDetails.length; i++) {
                 await expect
                   .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                  .toHaveText(productDetails[i].title);
+                  .toHaveText(productDetails[i].name);
                 if (productDetails[i].rating) {
                   await expect
                     .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Rating))
@@ -419,10 +419,10 @@ for (const lvl0Category of lvl0Categories) {
             let productItems = productCategoryPage.productItem;
             await expect.soft(productItems).toHaveCount(productDetails.length);
             for (let i = 0; i < productDetails.length; i++) {
-              // Only check title as we check the full product details in another test
+              // Only check name as we check the full product details in another test
               await expect
                 .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                .toHaveText(productDetails[i].title);
+                .toHaveText(productDetails[i].name);
             }
 
             do {
@@ -440,7 +440,7 @@ for (const lvl0Category of lvl0Categories) {
             for (let i = 0; i < productDetails.length; i++) {
               await expect
                 .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                .toHaveText(productDetails[i].title);
+                .toHaveText(productDetails[i].name);
             }
           });
 
@@ -454,9 +454,9 @@ for (const lvl0Category of lvl0Categories) {
               let productDetails = [...Products[category]];
               let queryParams: string = '';
               if (sortOption !== 'Position') {
-                const sortKey = sortOption === 'Product Name' ? 'title' : 'price';
+                const sortKey = sortOption === 'Product Name' ? 'name' : 'price';
                 productDetails.sort((a, b) => a[sortKey].localeCompare(b[sortKey]));
-                queryParams = `?product_list_order=${sortKey.replace('title', 'name')}`;
+                queryParams = `?product_list_order=${sortKey}`;
               }
               productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
               do {
@@ -469,7 +469,7 @@ for (const lvl0Category of lvl0Categories) {
               for (let i = 0; i < productDetails.length; i++) {
                 await expect
                   .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                  .toHaveText(productDetails[i].title);
+                  .toHaveText(productDetails[i].name);
               }
             }
           });
@@ -481,7 +481,7 @@ for (const lvl0Category of lvl0Categories) {
             await productCategoryPage.page.goto(`${url}?${sortByQueryParam}`);
             for (const sortDirection of ['descending', 'ascending']) {
               let productDetails = [...Products[category]];
-              productDetails.sort((a, b) => a['title'].localeCompare(b['title']));
+              productDetails.sort((a, b) => a['name'].localeCompare(b['name']));
               if (sortDirection === 'descending') productDetails.reverse();
               productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
               const sortDirectionQueryParam = sortDirection === 'descending' ? 'product_list_dir=desc' : '';
@@ -496,7 +496,7 @@ for (const lvl0Category of lvl0Categories) {
               for (let i = 0; i < productDetails.length; i++) {
                 await expect
                   .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                  .toHaveText(productDetails[i].title);
+                  .toHaveText(productDetails[i].name);
               }
             }
           });
@@ -513,7 +513,7 @@ for (const lvl0Category of lvl0Categories) {
               for (let i = 0; i < productDetails.length; i++) {
                 await expect
                   .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                  .toHaveText(productDetails[i].title);
+                  .toHaveText(productDetails[i].name);
               }
             }
           });
