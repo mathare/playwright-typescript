@@ -199,49 +199,49 @@ export const Filters: Record<string, Filter[]> = {
 
 export const Products: Product[] = [
   {
-    title: 'Circe Hooded Ice Fleece',
+    name: 'Circe Hooded Ice Fleece',
     price: 'As low as $68.00',
     sizes: Sizes,
     colors: [Colors.Grey, Colors.Green, Colors.Purple],
     link: '/circe-hooded-ice-fleece.html',
   },
   {
-    title: 'Eos V-Neck Hoodie',
+    name: 'Eos V-Neck Hoodie',
     price: 'As low as $54.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Orange],
     link: '/eos-v-neck-hoodie.html',
   },
   {
-    title: 'Helena Hooded Fleece',
+    name: 'Helena Hooded Fleece',
     price: 'As low as $55.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Grey, Colors.Yellow],
     link: '/helena-hooded-fleece.html',
   },
   {
-    title: 'Ariel Roll Sleeve Sweatshirt',
+    name: 'Ariel Roll Sleeve Sweatshirt',
     price: 'As low as $39.00',
     sizes: Sizes,
     colors: [Colors.Green, Colors.Purple, Colors.Red],
     link: '/ariel-roll-sleeve-sweatshirt.html',
   },
   {
-    title: 'Cassia Funnel Sweatshirt',
+    name: 'Cassia Funnel Sweatshirt',
     price: 'As low as $48.00',
     sizes: Sizes,
     colors: [Colors.Orange, Colors.Purple, Colors.White],
     link: '/cassia-funnel-sweatshirt.html',
   },
   {
-    title: 'Phoebe Zipper Sweatshirt',
+    name: 'Phoebe Zipper Sweatshirt',
     price: 'As low as $59.00',
     sizes: Sizes,
     colors: [Colors.Grey, Colors.Purple, Colors.White],
     link: '/phoebe-zipper-sweatshirt.html',
   },
   {
-    title: 'Daphne Full-Zip Hoodie',
+    name: 'Daphne Full-Zip Hoodie',
     rating: '80%',
     reviews: '2 Reviews',
     price: 'As low as $59.00',
@@ -250,7 +250,7 @@ export const Products: Product[] = [
     link: '/daphne-full-zip-hoodie.html',
   },
   {
-    title: 'Selene Yoga Hoodie',
+    name: 'Selene Yoga Hoodie',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $42.00',
@@ -259,7 +259,7 @@ export const Products: Product[] = [
     link: '/selene-yoga-hoodie.html',
   },
   {
-    title: 'Miko Pullover Hoodie',
+    name: 'Miko Pullover Hoodie',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $69.00',
@@ -268,7 +268,7 @@ export const Products: Product[] = [
     link: '/miko-pullover-hoodie.html',
   },
   {
-    title: 'Autumn Pullie',
+    name: 'Autumn Pullie',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $57.00',
@@ -277,7 +277,7 @@ export const Products: Product[] = [
     link: '/autumn-pullie.html',
   },
   {
-    title: 'Hera Pullover Hoodie',
+    name: 'Hera Pullover Hoodie',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $48.00',
@@ -287,7 +287,7 @@ export const Products: Product[] = [
   },
   {
     // This is surely a typo but because I want my tests to pass and I can't change the actual product data I have to include the same typo here
-    title: 'Mona Pullover Hoodlie',
+    name: 'Mona Pullover Hoodlie',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $57.00',

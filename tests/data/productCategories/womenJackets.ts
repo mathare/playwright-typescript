@@ -123,14 +123,14 @@ export const Filters: Record<string, Filter[]> = {
 
 export const Products: Product[] = [
   {
-    title: 'Olivia 1/4 Zip Light Jacket',
+    name: 'Olivia 1/4 Zip Light Jacket',
     price: 'As low as $77.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/olivia-1-4-zip-light-jacket.html',
   },
   {
-    title: 'Juno Jacket',
+    name: 'Juno Jacket',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $77.00',
@@ -139,7 +139,7 @@ export const Products: Product[] = [
     link: '/juno-jacket.html',
   },
   {
-    title: 'Neve Studio Dance Jacket',
+    name: 'Neve Studio Dance Jacket',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $69.00',
@@ -148,7 +148,7 @@ export const Products: Product[] = [
     link: '/neve-studio-dance-jacket.html',
   },
   {
-    title: 'Nadia Elements Shell',
+    name: 'Nadia Elements Shell',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $69.00',
@@ -157,7 +157,7 @@ export const Products: Product[] = [
     link: '/nadia-elements-shell.html',
   },
   {
-    title: 'Jade Yoga Jacket',
+    name: 'Jade Yoga Jacket',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $32.00',
@@ -166,7 +166,7 @@ export const Products: Product[] = [
     link: '/jade-yoga-jacket.html',
   },
   {
-    title: 'Adrienne Trek Jacket',
+    name: 'Adrienne Trek Jacket',
     rating: '60%',
     reviews: '2 Reviews',
     price: 'As low as $57.00',
@@ -175,7 +175,7 @@ export const Products: Product[] = [
     link: '/adrienne-trek-jacket.html',
   },
   {
-    title: 'Inez Full Zip Jacket',
+    name: 'Inez Full Zip Jacket',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $59.00',
@@ -184,7 +184,7 @@ export const Products: Product[] = [
     link: '/inez-full-zip-jacket.html',
   },
   {
-    title: 'Riona Full Zip Jacket',
+    name: 'Riona Full Zip Jacket',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $60.00',
@@ -193,7 +193,7 @@ export const Products: Product[] = [
     link: '/riona-full-zip-jacket.html',
   },
   {
-    title: 'Ingrid Running Jacket',
+    name: 'Ingrid Running Jacket',
     rating: '90%',
     reviews: '2 Reviews',
     price: 'As low as $84.00',
@@ -202,7 +202,7 @@ export const Products: Product[] = [
     link: '/ingrid-running-jacket.html',
   },
   {
-    title: 'Augusta Pullover Jacket',
+    name: 'Augusta Pullover Jacket',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $57.00',
@@ -211,7 +211,7 @@ export const Products: Product[] = [
     link: '/augusta-pullover-jacket.html',
   },
   {
-    title: 'Josie Yoga Jacket',
+    name: 'Josie Yoga Jacket',
     rating: '70%',
     reviews: '4 Reviews',
     price: 'As low as $56.25',
@@ -220,7 +220,7 @@ export const Products: Product[] = [
     link: '/josie-yoga-jacket.html',
   },
   {
-    title: 'Stellar Solar Jacket',
+    name: 'Stellar Solar Jacket',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $75.00',

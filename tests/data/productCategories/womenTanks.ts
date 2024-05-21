@@ -106,7 +106,7 @@ export const Filters: Record<string, Filter[]> = {
 
 export const Products: Product[] = [
   {
-    title: 'Breathe-Easy Tank',
+    name: 'Breathe-Easy Tank',
     rating: '70%',
     reviews: '2 Reviews',
     price: 'As low as $34.00',
@@ -120,7 +120,7 @@ export const Products: Product[] = [
     },
   },
   {
-    title: 'Antonia Racer Tank',
+    name: 'Antonia Racer Tank',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $34.00',
@@ -129,7 +129,7 @@ export const Products: Product[] = [
     link: '/antonia-racer-tank.html',
   },
   {
-    title: 'Maya Tunic',
+    name: 'Maya Tunic',
     rating: '80%',
     reviews: '1 Review',
     price: 'As low as $29.00',
@@ -138,7 +138,7 @@ export const Products: Product[] = [
     link: '/maya-tunic.html',
   },
   {
-    title: 'Chloe Compete Tank',
+    name: 'Chloe Compete Tank',
     rating: '73%',
     reviews: '3 Reviews',
     price: 'As low as $39.00',
@@ -147,28 +147,28 @@ export const Products: Product[] = [
     link: '/chloe-compete-tank.html',
   },
   {
-    title: 'Leah Yoga Top',
+    name: 'Leah Yoga Top',
     price: 'As low as $39.00',
     sizes: Sizes,
     colors: [Colors.Orange, Colors.Purple, Colors.White],
     link: '/leah-yoga-top.html',
   },
   {
-    title: 'Nona Fitness Tank',
+    name: 'Nona Fitness Tank',
     price: 'As low as $39.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Purple, Colors.Red],
     link: '/nona-fitness-tank.html',
   },
   {
-    title: 'Nora Practice Tank',
+    name: 'Nora Practice Tank',
     price: 'As low as $39.00',
     sizes: Sizes,
     colors: [Colors.Orange, Colors.Purple, Colors.Red],
     link: '/nora-practice-tank.html',
   },
   {
-    title: 'Zoe Tank',
+    name: 'Zoe Tank',
     rating: '53%',
     reviews: '3 Reviews',
     price: 'As low as $29.00',
@@ -177,7 +177,7 @@ export const Products: Product[] = [
     link: '/zoe-tank.html',
   },
   {
-    title: 'Bella Tank',
+    name: 'Bella Tank',
     rating: '80%',
     reviews: '2 Reviews',
     price: 'As low as $29.00',
@@ -186,7 +186,7 @@ export const Products: Product[] = [
     link: '/bella-tank.html',
   },
   {
-    title: 'Lucia Cross-Fit Bra',
+    name: 'Lucia Cross-Fit Bra',
     rating: '40%',
     reviews: '3 Reviews',
     price: 'As low as $39.00',
@@ -195,7 +195,7 @@ export const Products: Product[] = [
     link: '/lucia-cross-fit-bra.html',
   },
   {
-    title: 'Prima Compete Bra Top',
+    name: 'Prima Compete Bra Top',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $24.00',
@@ -204,7 +204,7 @@ export const Products: Product[] = [
     link: '/prima-compete-bra-top.html',
   },
   {
-    title: 'Celeste Sports Bra',
+    name: 'Celeste Sports Bra',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $39.00',
@@ -213,7 +213,7 @@ export const Products: Product[] = [
     link: '/celeste-sports-bra.html',
   },
   {
-    title: 'Erica Evercool Sports Bra',
+    name: 'Erica Evercool Sports Bra',
     rating: '60%',
     reviews: '4 Reviews',
     price: 'As low as $39.00',
@@ -222,7 +222,7 @@ export const Products: Product[] = [
     link: '/erica-evercool-sports-bra.html',
   },
   {
-    title: 'Electra Bra Top',
+    name: 'Electra Bra Top',
     rating: '75%',
     reviews: '4 Reviews',
     price: 'As low as $39.00',

@@ -109,14 +109,14 @@ export const Filters: Record<string, Filter[]> = {
 
 export const Products: Product[] = [
   {
-    title: 'Proteus Fitness Jackshirt',
+    name: 'Proteus Fitness Jackshirt',
     price: 'As low as $45.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Orange],
     link: '/proteus-fitness-jackshirt.html',
   },
   {
-    title: 'Montana Wind Jacket',
+    name: 'Montana Wind Jacket',
     rating: '53%',
     reviews: '3 Reviews',
     price: 'As low as $49.00',
@@ -125,7 +125,7 @@ export const Products: Product[] = [
     link: '/montana-wind-jacket.html',
   },
   {
-    title: 'Jupiter All-Weather Trainer',
+    name: 'Jupiter All-Weather Trainer',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $56.99',
@@ -134,14 +134,14 @@ export const Products: Product[] = [
     link: '/jupiter-all-weather-trainer.html',
   },
   {
-    title: 'Typhon Performance Fleece-lined Jacket',
+    name: 'Typhon Performance Fleece-lined Jacket',
     price: 'As low as $60.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Green, Colors.Red],
     link: '/typhon-performance-fleece-lined-jacket.html',
   },
   {
-    title: 'Mars HeatTech™ Pullover',
+    name: 'Mars HeatTech™ Pullover',
     rating: '70%',
     reviews: '2 Reviews',
     price: 'As low as $66.00',
@@ -150,7 +150,7 @@ export const Products: Product[] = [
     link: '/mars-heattech-trade-pullover.html',
   },
   {
-    title: 'Taurus Elements Shell',
+    name: 'Taurus Elements Shell',
     rating: '70%',
     reviews: '2 Reviews',
     price: 'As low as $65.00',
@@ -159,7 +159,7 @@ export const Products: Product[] = [
     link: '/taurus-elements-shell.html',
   },
   {
-    title: 'Lando Gym Jacket',
+    name: 'Lando Gym Jacket',
     rating: '67%',
     reviews: '3 Reviews',
     price: 'As low as $99.00',
@@ -168,7 +168,7 @@ export const Products: Product[] = [
     link: '/lando-gym-jacket.html',
   },
   {
-    title: 'Orion Two-Tone Fitted Jacket',
+    name: 'Orion Two-Tone Fitted Jacket',
     rating: '50%',
     reviews: '2 Reviews',
     price: 'As low as $72.00',
@@ -177,7 +177,7 @@ export const Products: Product[] = [
     link: '/orion-two-tone-fitted-jacket.html',
   },
   {
-    title: 'Kenobi Trail Jacket',
+    name: 'Kenobi Trail Jacket',
     rating: '93%',
     reviews: '3 Reviews',
     price: 'As low as $47.00',
@@ -186,7 +186,7 @@ export const Products: Product[] = [
     link: '/kenobi-trail-jacket.html',
   },
   {
-    title: 'Hyperion Elements Jacket',
+    name: 'Hyperion Elements Jacket',
     rating: '90%',
     reviews: '2 Reviews',
     price: 'As low as $51.00',
@@ -195,7 +195,7 @@ export const Products: Product[] = [
     link: '/hyperion-elements-jacket.html',
   },
   {
-    title: 'Beaumont Summit Kit',
+    name: 'Beaumont Summit Kit',
     rating: '90%',
     reviews: '2 Reviews',
     price: 'As low as $42.00',

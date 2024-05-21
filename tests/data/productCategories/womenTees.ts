@@ -86,7 +86,7 @@ export const Filters: Record<string, Filter[]> = {
 
 export const Products: Product[] = [
   {
-    title: 'Desiree Fitness Tee',
+    name: 'Desiree Fitness Tee',
     rating: '73%',
     reviews: '3 Reviews',
     price: 'As low as $24.00',
@@ -95,7 +95,7 @@ export const Products: Product[] = [
     link: '/desiree-fitness-tee.html',
   },
   {
-    title: 'Gwyn Endurance Tee',
+    name: 'Gwyn Endurance Tee',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $24.00',
@@ -104,7 +104,7 @@ export const Products: Product[] = [
     link: '/gwyn-endurance-tee.html',
   },
   {
-    title: 'Radiant Tee',
+    name: 'Radiant Tee',
     rating: '60%',
     reviews: '3 Reviews',
     price: 'As low as $22.00',
@@ -125,7 +125,7 @@ export const Products: Product[] = [
     },
   },
   {
-    title: 'Diva Gym Tee',
+    name: 'Diva Gym Tee',
     rating: '87%',
     reviews: '3 Reviews',
     price: 'As low as $32.00',
@@ -134,7 +134,7 @@ export const Products: Product[] = [
     link: '/diva-gym-tee.html',
   },
   {
-    title: 'Karissa V-Neck Tee',
+    name: 'Karissa V-Neck Tee',
     rating: '80%',
     reviews: '3 Reviews',
     price: 'As low as $32.00',
@@ -143,7 +143,7 @@ export const Products: Product[] = [
     link: '/karissa-v-neck-tee.html',
   },
   {
-    title: 'Tiffany Fitness Tee',
+    name: 'Tiffany Fitness Tee',
     rating: '73%',
     reviews: '3 Reviews',
     price: 'As low as $28.00',
@@ -152,7 +152,7 @@ export const Products: Product[] = [
     link: '/tiffany-fitness-tee.html',
   },
   {
-    title: 'Minerva LumaTech™ V-Tee',
+    name: 'Minerva LumaTech™ V-Tee',
     rating: '47%',
     reviews: '3 Reviews',
     price: 'As low as $32.00',
@@ -161,7 +161,7 @@ export const Products: Product[] = [
     link: '/minerva-lumatech-trade-v-tee.html',
   },
   {
-    title: 'Juliana Short-Sleeve Tee',
+    name: 'Juliana Short-Sleeve Tee',
     rating: '60%',
     reviews: '2 Reviews',
     price: 'As low as $42.00',
@@ -170,14 +170,14 @@ export const Products: Product[] = [
     link: '/juliana-short-sleeve-tee.html',
   },
   {
-    title: 'Elisa EverCool™ Tee',
+    name: 'Elisa EverCool™ Tee',
     price: 'As low as $29.00',
     sizes: Sizes,
     colors: [Colors.Grey, Colors.Purple, Colors.Red],
     link: '/elisa-evercool-trade-tee.html',
   },
   {
-    title: 'Layla Tee',
+    name: 'Layla Tee',
     rating: '60%',
     reviews: '2 Reviews',
     price: 'As low as $29.00',
@@ -186,7 +186,7 @@ export const Products: Product[] = [
     link: '/layla-tee.html',
   },
   {
-    title: 'Iris Workout Top',
+    name: 'Iris Workout Top',
     rating: '60%',
     reviews: '4 Reviews',
     price: 'As low as $29.00',
@@ -195,7 +195,7 @@ export const Products: Product[] = [
     link: '/iris-workout-top.html',
   },
   {
-    title: 'Gabrielle Micro Sleeve Top',
+    name: 'Gabrielle Micro Sleeve Top',
     rating: '73%',
     reviews: '3 Reviews',
     price: 'As low as $28.00',
