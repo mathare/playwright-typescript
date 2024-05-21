@@ -102,7 +102,7 @@ for (const collection of pages) {
         for (let i = 0; i < productDetails.length; i++) {
           await expect
             .soft(collectionPage.getProductItemElement(i, ProductItemElements.Name))
-            .toHaveText(productDetails[i].title);
+            .toHaveText(productDetails[i].name);
           if (productDetails[i].rating) {
             await expect
               .soft(collectionPage.getProductItemElement(i, ProductItemElements.Rating))
