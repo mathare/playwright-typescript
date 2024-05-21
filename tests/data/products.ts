@@ -39,7 +39,7 @@ export const SwatchOutlineStyles = {
 };
 
 export type Product = {
-  title: string;
+  name: string;
   rating?: string;
   reviews?: string;
   price: string;
