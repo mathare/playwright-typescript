@@ -116,8 +116,8 @@ export const Links = {
 export const Filters = {
   WomenBottoms: [...WomenBottoms.Filters],
   // WomenBrasTanks: { ...WomenTanks.Filters },
-  // WomenHoodiesSweatshirts: { ...WomenHoodies.Filters },
-  // WomenJackets: { ...WomenJackets.Filters },
+  WomenHoodiesSweatshirts: [...WomenHoodies.Filters],
+  WomenJackets: [...WomenJackets.Filters],
   // WomenPants: { ...WomenPants.Filters },
   // WomenShorts: { ...WomenShorts.Filters },
   // WomenTees: { ...WomenTees.Filters },
