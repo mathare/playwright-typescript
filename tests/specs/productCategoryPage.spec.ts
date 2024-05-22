@@ -9,6 +9,7 @@ import {
   FilterCategoryName,
   Defaults,
   QueryParams,
+  PrimaryProductCategories,
 } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
