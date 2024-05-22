@@ -30,7 +30,7 @@ export function FilterCategoryName(filterCategory: string): string {
     .join('');
 }
 
-export const ProductCategories = {
+export const PrimaryProductCategories = {
   Women: {
     Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,
     TopsSubMenu: { ...HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu },
@@ -45,6 +45,11 @@ export const ProductCategories = {
   },
   Gear: { ...HeaderLinks.Topnav.GearSubMenu },
   // There are no products under Training > Video Downloads so the whole Training category is omitted
+};
+
+
+export const ProductCategories = {
+  ...PrimaryProductCategories,
 };
 
 export const ExpectedText = {
