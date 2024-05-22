@@ -16,186 +16,250 @@ export const Links = {
   },
 };
 
-export const Filters: Record<string, Filter[]> = {
-  Style: [
-    {
-      title: 'Full Zip',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=128`,
-    },
-    {
-      title: 'Sweatshirt',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=132`,
-    },
-    {
-      title: 'Pullover',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=136`,
-    },
-    {
-      title: 'Hoodie',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=137`,
-    },
-  ],
-  Size: [
-    { title: 'XS', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=166` },
-    { title: 'S', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=167` },
-    { title: 'M', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=168` },
-    { title: 'L', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=169` },
-    { title: 'XL', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=170` },
-  ],
-  Climate: [
-    {
-      title: 'All-Weather',
-      count: 5,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=201`,
-    },
-    { title: 'Cold', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=202` },
-    { title: 'Cool', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=203` },
-    {
-      title: 'Indoor',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=204`,
-    },
-    { title: 'Mild', count: 8, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=205` },
-    {
-      title: 'Spring',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=207`,
-    },
-    { title: 'Warm', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=208` },
-    { title: 'Windy', count: 1, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=209` },
-    {
-      title: 'Wintry',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=210`,
-    },
-  ],
-  Color: [
-    { title: 'Blue', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=50` },
-    { title: 'Gray', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=52` },
-    { title: 'Green', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=53` },
-    { title: 'Orange', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=56` },
-    { title: 'Purple', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=57` },
-    { title: 'Red', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=58` },
-    { title: 'White', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=59` },
-    { title: 'Yellow', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=60` },
-  ],
-  EcoCollection: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?eco_collection=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?eco_collection=0`,
-    },
-  ],
-  ErinRecommends: [
-    {
-      title: 'Yes',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?erin_recommends=1`,
-    },
-    {
-      title: 'No',
-      count: 9,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?erin_recommends=0`,
-    },
-  ],
-  Material: [
-    {
-      title: 'Cotton',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=33`,
-    },
-    {
-      title: 'Fleece',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=144`,
-    },
-    {
-      title: 'Jersey',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=146`,
-    },
-    { title: 'Nylon', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=37` },
-    {
-      title: 'Polyester',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=38`,
-    },
-    {
-      title: 'Spandex',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=150`,
-    },
-    {
-      title: 'CoolTech™',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=155`,
-    },
-    { title: 'Wool', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=158` },
-  ],
-  New: [
-    { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=1` },
-    { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=0` },
-  ],
-  Pattern: [
-    {
-      title: 'Color-Blocked',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=194`,
-    },
-    {
-      title: 'Solid',
-      count: 11,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=196`,
-    },
-  ],
-  PerformanceFabric: [
-    {
-      title: 'Yes',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?performance_fabric=1`,
-    },
-    {
-      title: 'No',
-      count: 10,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?performance_fabric=0`,
-    },
-  ],
-  Price: [
-    {
-      title: '$30.00 - $39.99',
-      count: 1,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=30-40`,
-    },
-    {
-      title: '$40.00 - $49.99',
-      count: 3,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=40-50`,
-    },
-    {
-      title: '$50.00 - $59.99',
-      count: 6,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=50-60`,
-    },
-    {
-      title: '$60.00 and above',
-      count: 2,
-      link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=60-`,
-    },
-  ],
-  Sale: [
-    { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=1` },
-    { title: 'No', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=0` },
-  ],
-};
+export const Filters = [
+  {
+    title: 'STYLE',
+    options: [
+      {
+        title: 'Full Zip',
+        count: 6,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=128`,
+      },
+      {
+        title: 'Sweatshirt',
+        count: 5,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=132`,
+      },
+      {
+        title: 'Pullover',
+        count: 6,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=136`,
+      },
+      {
+        title: 'Hoodie',
+        count: 9,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?style_general=137`,
+      },
+    ],
+  },
+  {
+    title: 'SIZE',
+    options: [
+      { title: 'XS', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=166` },
+      { title: 'S', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=167` },
+      { title: 'M', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=168` },
+      { title: 'L', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=169` },
+      { title: 'XL', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?size=170` },
+    ],
+  },
+  {
+    title: 'CLIMATE',
+    options: [
+      {
+        title: 'All-Weather',
+        count: 5,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=201`,
+      },
+      {
+        title: 'Cold',
+        count: 2,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=202`,
+      },
+      {
+        title: 'Cool',
+        count: 9,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=203`,
+      },
+      {
+        title: 'Indoor',
+        count: 6,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=204`,
+      },
+      {
+        title: 'Mild',
+        count: 8,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=205`,
+      },
+      {
+        title: 'Spring',
+        count: 9,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=207`,
+      },
+      {
+        title: 'Warm',
+        count: 1,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=208`,
+      },
+      {
+        title: 'Windy',
+        count: 1,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=209`,
+      },
+      {
+        title: 'Wintry',
+        count: 2,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?climate=210`,
+      },
+    ],
+  },
+  {
+    title: 'COLOR',
+    options: [
+      { title: 'Blue', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=50` },
+      { title: 'Gray', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=52` },
+      { title: 'Green', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=53` },
+      { title: 'Orange', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=56` },
+      { title: 'Purple', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=57` },
+      { title: 'Red', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=58` },
+      { title: 'White', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=59` },
+      { title: 'Yellow', link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?color=60` },
+    ],
+  },
+  {
+    title: 'ECO COLLECTION',
+    options: [
+      {
+        title: 'Yes',
+        count: 2,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?eco_collection=1`,
+      },
+      {
+        title: 'No',
+        count: 10,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?eco_collection=0`,
+      },
+    ],
+  },
+  {
+    title: 'ERIN RECOMMENDS',
+    options: [
+      {
+        title: 'Yes',
+        count: 3,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?erin_recommends=1`,
+      },
+      {
+        title: 'No',
+        count: 9,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?erin_recommends=0`,
+      },
+    ],
+  },
+  {
+    title: 'MATERIAL',
+    options: [
+      {
+        title: 'Cotton',
+        count: 6,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=33`,
+      },
+      {
+        title: 'Fleece',
+        count: 3,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=144`,
+      },
+      {
+        title: 'Jersey',
+        count: 1,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=146`,
+      },
+      {
+        title: 'Nylon',
+        count: 2,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=37`,
+      },
+      {
+        title: 'Polyester',
+        count: 6,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=38`,
+      },
+      {
+        title: 'Spandex',
+        count: 6,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=150`,
+      },
+      {
+        title: 'CoolTech™',
+        count: 1,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=155`,
+      },
+      {
+        title: 'Wool',
+        count: 2,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?material=158`,
+      },
+    ],
+  },
+  {
+    title: 'NEW',
+    options: [
+      { title: 'Yes', count: 3, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=1` },
+      { title: 'No', count: 9, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?new=0` },
+    ],
+  },
+  {
+    title: 'PATTERN',
+    options: [
+      {
+        title: 'Color-Blocked',
+        count: 1,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=194`,
+      },
+      {
+        title: 'Solid',
+        count: 11,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?pattern=196`,
+      },
+    ],
+  },
+  {
+    title: 'PERFORMANCE FABRIC',
+    options: [
+      {
+        title: 'Yes',
+        count: 2,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?performance_fabric=1`,
+      },
+      {
+        title: 'No',
+        count: 10,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?performance_fabric=0`,
+      },
+    ],
+  },
+  {
+    title: 'PRICE',
+    options: [
+      {
+        title: '$30.00 - $39.99',
+        count: 1,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=30-40`,
+      },
+      {
+        title: '$40.00 - $49.99',
+        count: 3,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=40-50`,
+      },
+      {
+        title: '$50.00 - $59.99',
+        count: 6,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=50-60`,
+      },
+      {
+        title: '$60.00 and above',
+        count: 2,
+        link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?price=60-`,
+      },
+    ],
+  },
+  {
+    title: 'SALE',
+    options: [
+      { title: 'Yes', count: 2, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=1` },
+      { title: 'No', count: 10, link: `${HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu.HoodiesSweatshirts}?sale=0` },
+    ],
+  },
+];
 
 export const Products: Product[] = [
   {
