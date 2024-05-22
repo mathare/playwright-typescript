@@ -14,6 +14,47 @@ import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
 
+function getProductCategories(lvl: number, ...args: string[]): string[] {
+  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Yoga'];
+  if (lvl === 1)
+    return process.env.TEST_MODE === 'full'
+      ? PrimaryProductCategories.hasOwnProperty(args[0])
+        ? Object.keys(ProductCategories[args[0]])
+        : ['Tops']
+      : [''];
+  if (lvl === 2)
+    return process.env.TEST_MODE === 'full'
+      ? args[1].endsWith('SubMenu')
+        ? Object.keys(ProductCategories[args[0]][args[1]])
+        : ['']
+      : [''];
+  else return [''];
+}
+
+function getUrl(lvl0Category: string, lvl1Category: string, lvl2Category: string): string {
+  return lvl1Category
+    ? lvl2Category
+      ? ProductCategories[lvl0Category][lvl1Category][lvl2Category]
+      : ProductCategories[lvl0Category][lvl1Category]
+    : ProductCategories[lvl0Category];
+}
+
+function getCategory(lvl0Category: string, lvl1Category: string, lvl2Category: string): string {
+  return lvl1Category
+    ? lvl2Category
+      ? `${lvl0Category}${lvl2Category}`
+      : `${lvl0Category}${lvl1Category}`
+    : lvl0Category;
+}
+
+function getPageName(lvl0Category: string, lvl1Category: string, lvl2Category: string): string {
+  return lvl1Category
+    ? lvl2Category
+      ? `${lvl0Category} > ${lvl1Category.replace('SubMenu', '')} > ${lvl2Category}`
+      : `${lvl0Category} > ${lvl1Category}`
+    : lvl0Category;
+}
+
 async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bottom') {
   if (!position) {
     await expect.soft(link).toHaveCSS('border-color', Colors.Border.Inactive);
@@ -30,35 +71,24 @@ function buildQueryParams(...args) {
   return queryParams.length === 0 ? '' : `?${queryParams.join('&')}`;
 }
 
-dotenv.config();
 const Timeouts = {
   Test: 30000,
   Visual: 20000,
 };
-const lvl0Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
-for (const lvl0Category of lvl0Categories) {
-  const lvl1Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories[lvl0Category]) : ['Tops'];
-  for (const lvl1Category of lvl1Categories) {
-    const lvl2Categories =
-      process.env.TEST_MODE === 'full'
-        ? lvl1Category.endsWith('SubMenu')
-          ? Object.keys(ProductCategories[lvl0Category][lvl1Category])
-          : ['']
-        : [''];
-    for (const lvl2Category of lvl2Categories) {
-      const category = lvl2Category ? `${lvl0Category}${lvl2Category}` : `${lvl0Category}${lvl1Category}`;
-      const pageName = lvl2Category
-        ? `${lvl0Category} > ${lvl1Category.replace('SubMenu', '')} > ${lvl2Category}`
-        : `${lvl0Category} > ${lvl1Category}`;
+
+dotenv.config();
+for (const lvl0Category of getProductCategories(0)) {
+  for (const lvl1Category of getProductCategories(1, lvl0Category)) {
+    for (const lvl2Category of getProductCategories(2, lvl0Category, lvl1Category)) {
+      const category = getCategory(lvl0Category, lvl1Category, lvl2Category);
+      const pageName = getPageName(lvl0Category, lvl1Category, lvl2Category);
 
       test.describe(`${pageName} page tests`, () => {
         let productCategoryPage: ProductCategoryPage;
         let url: string;
         test.beforeEach(async ({ page }) => {
           productCategoryPage = new ProductCategoryPage(page);
-          url = lvl2Category
-            ? ProductCategories[lvl0Category][lvl1Category][lvl2Category]
-            : ProductCategories[lvl0Category][lvl1Category];
+          url = getUrl(lvl0Category, lvl1Category, lvl2Category);
           await productCategoryPage.open(url);
         });
 
