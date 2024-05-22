@@ -157,3 +157,17 @@ export const Defaults = {
     List: 10,
   },
 };
+
+export const QueryParams = {
+  DisplayMode: {
+    Grid: '',
+    List: 'product_list_mode=list',
+  },
+  SortBy: 'product_list_order',
+  SortDir: {
+    Ascending: '',
+    Descending: 'product_list_dir=desc',
+  },
+  Page: 'p',
+  PageSize: 'product_list_limit',
+};
