@@ -16,13 +16,13 @@ import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data
 import * as dotenv from 'dotenv';
 
 function getProductCategories(lvl: number, ...args: string[]): string[] {
-  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Yoga'];
+  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
   if (lvl === 1)
     return process.env.TEST_MODE === 'full'
       ? PrimaryProductCategories.hasOwnProperty(args[0])
         ? Object.keys(ProductCategories[args[0]])
-        : ['Tops']
-      : [''];
+        : ['']
+      : ['Tops'];
   if (lvl === 2)
     return process.env.TEST_MODE === 'full'
       ? args[1].endsWith('SubMenu')
