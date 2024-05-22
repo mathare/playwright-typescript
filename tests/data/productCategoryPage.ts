@@ -114,14 +114,14 @@ export const Links = {
 };
 
 export const Filters = {
-  // WomenBottoms: { ...WomenBottoms.Filters },
+  WomenBottoms: [...WomenBottoms.Filters],
   // WomenBrasTanks: { ...WomenTanks.Filters },
   // WomenHoodiesSweatshirts: { ...WomenHoodies.Filters },
   // WomenJackets: { ...WomenJackets.Filters },
   // WomenPants: { ...WomenPants.Filters },
   // WomenShorts: { ...WomenShorts.Filters },
   // WomenTees: { ...WomenTees.Filters },
-  WomenTops:[ ...WomenTops.Filters ],
+  WomenTops: [...WomenTops.Filters],
   // MenBottoms: { ...MenBottoms.Filters },
   // MenHoodiesSweatshirts: { ...MenHoodies.Filters },
   // MenJackets: { ...MenJackets.Filters },
