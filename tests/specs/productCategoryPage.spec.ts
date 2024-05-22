@@ -323,16 +323,18 @@ for (const lvl0Category of getProductCategories(0)) {
           test('Filter links', async ({ baseURL }) => {
             const filterCategories = productCategoryPage.filterCategory;
             const expectedFilters = Filters[category];
-            await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
-            for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
+            await expect.soft(filterCategories).toHaveCount(expectedFilters.length);
+            for (let i = 0; i < expectedFilters.length; i++) {
               await expect
                 .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.nth(i), 'title'))
                 .toHaveAttribute('aria-expanded', 'false');
-              const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
-              const filterItems = await productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
-              await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
-              for (let j = 0; j < expectedFilters[categoryName].length; j++) {
-                const expectedUrl = `${baseURL}${expectedFilters[categoryName][j].link}`;
+              const filterItems = await productCategoryPage.getFilterItems(
+                filterCategories.nth(i),
+                expectedFilters[i].title,
+              );
+              await expect.soft(filterItems).toHaveCount(expectedFilters[i].options.length);
+              for (let j = 0; j < expectedFilters[i].options.length; j++) {
+                const expectedUrl = `${baseURL}${expectedFilters[i].options[j].link}`;
                 await expect.soft(filterItems.nth(j)).toHaveAttribute('href', expectedUrl);
               }
             }
