@@ -67,7 +67,7 @@ async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bo
   }
 }
 
-function buildQueryParams(...args) {
+function buildQueryParams(...args: string[]) {
   const queryParams = args.filter((arg) => arg != '');
   return queryParams.length === 0 ? '' : `?${queryParams.join('&')}`;
 }
