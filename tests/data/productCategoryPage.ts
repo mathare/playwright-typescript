@@ -122,7 +122,6 @@ export const Filters = {
   WomenShorts: [...WomenShorts.Filters],
   WomenTees: [...WomenTees.Filters],
   WomenTops: [...WomenTops.Filters],
-  // MenBottoms: { ...MenBottoms.Filters },
   // MenHoodiesSweatshirts: { ...MenHoodies.Filters },
   // MenJackets: { ...MenJackets.Filters },
   // MenPants: { ...MenPants.Filters },
@@ -133,6 +132,7 @@ export const Filters = {
   // GearBags: { ...GearBags.Filters },
   // GearFitnessEquipment: { ...GearFitnessEquipment.Filters },
   // GearWatches: { ...GearWatches.Filters },
+  MenBottoms: [...MenBottoms.Filters],
 };
 
 export const Products = {
