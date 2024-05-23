@@ -6,7 +6,6 @@ import {
   Links,
   Filters,
   Products,
-  FilterCategoryName,
   Defaults,
   QueryParams,
   PrimaryProductCategories,
