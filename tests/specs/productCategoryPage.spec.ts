@@ -490,7 +490,13 @@ for (const lvl0Category of getProductCategories(0)) {
 
           test('Sort by', async ({ baseURL }) => {
             // Some product categories have complicated/incorrect price data that affects the sort order so skip the sort by price test for those categories
-            const incorrectPriceDataCategories = ['WomenBottoms', 'MenBottoms', 'GearBags', 'GearFitnessEquipment'];
+            const incorrectPriceDataCategories = [
+              'WomenBottoms',
+              'MenBottoms',
+              'GearBags',
+              'GearFitnessEquipment',
+              'Yoga',
+            ];
             const sortOptions = incorrectPriceDataCategories.includes(category)
               ? ExpectedText.SortOptions.slice(0, -1)
               : ExpectedText.SortOptions;
