@@ -18,6 +18,7 @@ import * as MenTops from './productCategories/menTops';
 import * as GearBags from './productCategories/gearBags';
 import * as GearFitnessEquipment from './productCategories/gearFitnessEquipment';
 import * as GearWatches from './productCategories/gearWatches';
+import * as Yoga from './productCategories/yoga';
 
 export const PrimaryProductCategories = {
   Women: {
@@ -36,9 +37,13 @@ export const PrimaryProductCategories = {
   // There are no products under Training > Video Downloads so the whole Training category is omitted
 };
 
+export const SecondaryProductCategories = {
+  Yoga: Yoga.Url,
+};
 
 export const ProductCategories = {
   ...PrimaryProductCategories,
+  ...SecondaryProductCategories,
 };
 
 export const ExpectedText = {
@@ -62,6 +67,7 @@ export const ExpectedText = {
   GearBags: { ...GearBags.ExpectedText },
   GearFitnessEquipment: { ...GearFitnessEquipment.ExpectedText },
   GearWatches: { ...GearWatches.ExpectedText },
+  Yoga: { ...Yoga.ExpectedText },
   SidebarBlocks: [
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
@@ -100,6 +106,7 @@ export const Links = {
   GearBags: { ...GearBags.Links },
   GearFitnessEquipment: { ...GearFitnessEquipment.Links },
   GearWatches: { ...GearWatches.Links },
+  Yoga: { ...Yoga.Links },
 };
 
 export const Filters = {
@@ -122,6 +129,7 @@ export const Filters = {
   GearBags: [...GearBags.Filters],
   GearFitnessEquipment: [...GearFitnessEquipment.Filters],
   GearWatches: [...GearWatches.Filters],
+  Yoga: [...Yoga.Filters],
 };
 
 export const Products = {
@@ -144,6 +152,7 @@ export const Products = {
   GearBags: [...GearBags.Products],
   GearFitnessEquipment: [...GearFitnessEquipment.Products],
   GearWatches: [...GearWatches.Products],
+  Yoga: [...Yoga.Products],
 };
 
 export const Defaults = {
