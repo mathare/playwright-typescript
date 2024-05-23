@@ -496,6 +496,7 @@ for (const lvl0Category of getProductCategories(0)) {
               'GearBags',
               'GearFitnessEquipment',
               'Yoga',
+              'ErinRecommends',
             ];
             const sortOptions = incorrectPriceDataCategories.includes(category)
               ? ExpectedText.SortOptions.slice(0, -1)
