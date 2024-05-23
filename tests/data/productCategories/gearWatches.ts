@@ -1,6 +1,6 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Product } from '../products';
-import { Filter, ProductCategoryExpectedText } from './shared';
+import { FilterCategory, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Gear  Watches',
@@ -15,7 +15,7 @@ export const Links = {
   },
 };
 
-export const Filters = [
+export const Filters: FilterCategory[] = [
   {
     title: 'CATEGORY',
     options: [

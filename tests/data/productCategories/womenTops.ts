@@ -1,6 +1,6 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Product } from '../products';
-import { Filter, ProductCategoryExpectedText } from './shared';
+import { FilterCategory, ProductCategoryExpectedText } from './shared';
 import { Products as Hoodies } from './womenHoodies';
 import { Products as Jackets } from './womenJackets';
 import { Products as Tanks } from './womenTanks';
@@ -19,7 +19,7 @@ export const Links = {
   },
 };
 
-export const Filters = [
+export const Filters: FilterCategory[] = [
   {
     title: 'CATEGORY',
     options: [

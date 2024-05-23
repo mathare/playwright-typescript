@@ -1,6 +1,6 @@
 import { Links as HeaderLinks } from '../pageHeader';
 import { Colors, Product, Sizes } from '../products';
-import { Filter, ProductCategoryExpectedText } from './shared';
+import { FilterCategory, ProductCategoryExpectedText } from './shared';
 
 export const ExpectedText: ProductCategoryExpectedText = {
   Breadcrumbs: 'Home  Men  Tops  Tanks',
@@ -15,7 +15,8 @@ export const Links = {
     Tops: HeaderLinks.Topnav.MenSubMenu.Tops,
   },
 };
-export const Filters = [
+
+export const Filters: FilterCategory[] = [
   {
     title: 'STYLE',
     options: [
