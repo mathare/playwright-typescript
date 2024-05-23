@@ -4,7 +4,12 @@ export type ProductCategoryExpectedText = {
   ProductCount: string;
 };
 
-export type Filter = {
+export type FilterCategory = {
+  title: string;
+  options: Filter[];
+};
+
+type Filter = {
   title: string;
   count?: number;
   link: string;

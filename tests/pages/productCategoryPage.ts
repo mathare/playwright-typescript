@@ -72,7 +72,7 @@ export default class ProductCategoryPage extends BasePage {
   }
 
   async getFilterItems(category: Locator, name: string): Promise<Locator> {
-    const locator = ['Size', 'Color'].includes(name) ? '.swatch-attribute-options a' : 'li.item a';
+    const locator = ['SIZE', 'COLOR'].includes(name) ? '.swatch-attribute-options a' : 'li.item a';
     return category.locator(locator);
   }
 

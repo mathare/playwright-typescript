@@ -6,13 +6,54 @@ import {
   Links,
   Filters,
   Products,
-  FilterCategoryName,
   Defaults,
   QueryParams,
+  PrimaryProductCategories,
 } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
+
+function getProductCategories(lvl: number, ...args: string[]): string[] {
+  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
+  if (lvl === 1)
+    return process.env.TEST_MODE === 'full'
+      ? PrimaryProductCategories.hasOwnProperty(args[0])
+        ? Object.keys(ProductCategories[args[0]])
+        : ['']
+      : ['Tops'];
+  if (lvl === 2)
+    return process.env.TEST_MODE === 'full'
+      ? args[1].endsWith('SubMenu')
+        ? Object.keys(ProductCategories[args[0]][args[1]])
+        : ['']
+      : [''];
+  else return [''];
+}
+
+function getUrl(lvl0Category: string, lvl1Category: string, lvl2Category: string): string {
+  return lvl1Category
+    ? lvl2Category
+      ? ProductCategories[lvl0Category][lvl1Category][lvl2Category]
+      : ProductCategories[lvl0Category][lvl1Category]
+    : ProductCategories[lvl0Category];
+}
+
+function getCategory(lvl0Category: string, lvl1Category: string, lvl2Category: string): string {
+  return lvl1Category
+    ? lvl2Category
+      ? `${lvl0Category}${lvl2Category}`
+      : `${lvl0Category}${lvl1Category}`
+    : lvl0Category;
+}
+
+function getPageName(lvl0Category: string, lvl1Category: string, lvl2Category: string): string {
+  return lvl1Category
+    ? lvl2Category
+      ? `${lvl0Category} > ${lvl1Category.replace('SubMenu', '')} > ${lvl2Category}`
+      : `${lvl0Category} > ${lvl1Category}`
+    : lvl0Category;
+}
 
 async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bottom') {
   if (!position) {
@@ -25,40 +66,29 @@ async function verifyMenuItemHighlighting(link: Locator, position?: 'left' | 'bo
   }
 }
 
-function buildQueryParams(...args) {
+function buildQueryParams(...args: string[]) {
   const queryParams = args.filter((arg) => arg != '');
   return queryParams.length === 0 ? '' : `?${queryParams.join('&')}`;
 }
 
-dotenv.config();
 const Timeouts = {
   Test: 30000,
   Visual: 20000,
 };
-const lvl0Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
-for (const lvl0Category of lvl0Categories) {
-  const lvl1Categories = process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories[lvl0Category]) : ['Tops'];
-  for (const lvl1Category of lvl1Categories) {
-    const lvl2Categories =
-      process.env.TEST_MODE === 'full'
-        ? lvl1Category.endsWith('SubMenu')
-          ? Object.keys(ProductCategories[lvl0Category][lvl1Category])
-          : ['']
-        : [''];
-    for (const lvl2Category of lvl2Categories) {
-      const category = lvl2Category ? `${lvl0Category}${lvl2Category}` : `${lvl0Category}${lvl1Category}`;
-      const pageName = lvl2Category
-        ? `${lvl0Category} > ${lvl1Category.replace('SubMenu', '')} > ${lvl2Category}`
-        : `${lvl0Category} > ${lvl1Category}`;
+
+dotenv.config();
+for (const lvl0Category of getProductCategories(0)) {
+  for (const lvl1Category of getProductCategories(1, lvl0Category)) {
+    for (const lvl2Category of getProductCategories(2, lvl0Category, lvl1Category)) {
+      const category = getCategory(lvl0Category, lvl1Category, lvl2Category);
+      const pageName = getPageName(lvl0Category, lvl1Category, lvl2Category);
 
       test.describe(`${pageName} page tests`, () => {
         let productCategoryPage: ProductCategoryPage;
         let url: string;
         test.beforeEach(async ({ page }) => {
           productCategoryPage = new ProductCategoryPage(page);
-          url = lvl2Category
-            ? ProductCategories[lvl0Category][lvl1Category][lvl2Category]
-            : ProductCategories[lvl0Category][lvl1Category];
+          url = getUrl(lvl0Category, lvl1Category, lvl2Category);
           await productCategoryPage.open(url);
         });
 
@@ -99,19 +129,21 @@ for (const lvl0Category of lvl0Categories) {
             await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
             const filterCategories = productCategoryPage.filterCategory;
             const expectedFilters = Filters[category];
-            await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
-            for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
+            await expect.soft(filterCategories).toHaveCount(expectedFilters.length);
+            for (let i = 0; i < expectedFilters.length; i++) {
               await expect
                 .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.nth(i), 'title'))
                 .toHaveAttribute('aria-expanded', 'false');
-              const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
-              expect.soft(categoryName).toEqual(Object.keys(expectedFilters)[i]);
-              const filterItems = await productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
-              await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
-              for (let j = 0; j < expectedFilters[categoryName].length; j++) {
-                const expectedTitle = expectedFilters[categoryName][j].title;
-                const expectedText = `${expectedFilters[categoryName][j].title} ${expectedFilters[categoryName][j].count}\n item`;
-                if (['Size', 'Color'].includes(categoryName)) {
+              await expect.soft(filterCategories.nth(i)).toHaveText(expectedFilters[i].title, { useInnerText: true });
+              const filterItems = await productCategoryPage.getFilterItems(
+                filterCategories.nth(i),
+                expectedFilters[i].title,
+              );
+              await expect.soft(filterItems).toHaveCount(expectedFilters[i].options.length);
+              for (let j = 0; j < expectedFilters[i].options.length; j++) {
+                const expectedTitle = expectedFilters[i].options[j].title;
+                const expectedText = `${expectedFilters[i].options[j].title} ${expectedFilters[i].options[j].count}\n item`;
+                if (['SIZE', 'COLOR'].includes(expectedFilters[i].title)) {
                   await expect.soft(filterItems.nth(j)).toHaveAttribute('aria-label', expectedTitle);
                 } else {
                   await expect.soft(filterItems.nth(j)).toHaveText(expectedText, {
@@ -290,16 +322,18 @@ for (const lvl0Category of lvl0Categories) {
           test('Filter links', async ({ baseURL }) => {
             const filterCategories = productCategoryPage.filterCategory;
             const expectedFilters = Filters[category];
-            await expect.soft(filterCategories).toHaveCount(Object.keys(expectedFilters).length);
-            for (let i = 0; i < Object.keys(expectedFilters).length; i++) {
+            await expect.soft(filterCategories).toHaveCount(expectedFilters.length);
+            for (let i = 0; i < expectedFilters.length; i++) {
               await expect
                 .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.nth(i), 'title'))
                 .toHaveAttribute('aria-expanded', 'false');
-              const categoryName = FilterCategoryName(await filterCategories.nth(i).innerText());
-              const filterItems = await productCategoryPage.getFilterItems(filterCategories.nth(i), categoryName);
-              await expect.soft(filterItems).toHaveCount(expectedFilters[categoryName].length);
-              for (let j = 0; j < expectedFilters[categoryName].length; j++) {
-                const expectedUrl = `${baseURL}${expectedFilters[categoryName][j].link}`;
+              const filterItems = await productCategoryPage.getFilterItems(
+                filterCategories.nth(i),
+                expectedFilters[i].title,
+              );
+              await expect.soft(filterItems).toHaveCount(expectedFilters[i].options.length);
+              for (let j = 0; j < expectedFilters[i].options.length; j++) {
+                const expectedUrl = `${baseURL}${expectedFilters[i].options[j].link}`;
                 await expect.soft(filterItems.nth(j)).toHaveAttribute('href', expectedUrl);
               }
             }

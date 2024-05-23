@@ -19,18 +19,7 @@ import * as GearBags from './productCategories/gearBags';
 import * as GearFitnessEquipment from './productCategories/gearFitnessEquipment';
 import * as GearWatches from './productCategories/gearWatches';
 
-export function FilterCategoryName(filterCategory: string): string {
-  return filterCategory
-    .replace(/\W+/g, ' ')
-    .toLowerCase()
-    .split(' ')
-    .map(function (word) {
-      return word.replace(word.charAt(0), word.charAt(0).toUpperCase());
-    })
-    .join('');
-}
-
-export const ProductCategories = {
+export const PrimaryProductCategories = {
   Women: {
     Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,
     TopsSubMenu: { ...HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu },
@@ -45,6 +34,11 @@ export const ProductCategories = {
   },
   Gear: { ...HeaderLinks.Topnav.GearSubMenu },
   // There are no products under Training > Video Downloads so the whole Training category is omitted
+};
+
+
+export const ProductCategories = {
+  ...PrimaryProductCategories,
 };
 
 export const ExpectedText = {
@@ -109,25 +103,25 @@ export const Links = {
 };
 
 export const Filters = {
-  WomenBottoms: { ...WomenBottoms.Filters },
-  WomenBrasTanks: { ...WomenTanks.Filters },
-  WomenHoodiesSweatshirts: { ...WomenHoodies.Filters },
-  WomenJackets: { ...WomenJackets.Filters },
-  WomenPants: { ...WomenPants.Filters },
-  WomenShorts: { ...WomenShorts.Filters },
-  WomenTees: { ...WomenTees.Filters },
-  WomenTops: { ...WomenTops.Filters },
-  MenBottoms: { ...MenBottoms.Filters },
-  MenHoodiesSweatshirts: { ...MenHoodies.Filters },
-  MenJackets: { ...MenJackets.Filters },
-  MenPants: { ...MenPants.Filters },
-  MenShorts: { ...MenShorts.Filters },
-  MenTanks: { ...MenTanks.Filters },
-  MenTees: { ...MenTees.Filters },
-  MenTops: { ...MenTops.Filters },
-  GearBags: { ...GearBags.Filters },
-  GearFitnessEquipment: { ...GearFitnessEquipment.Filters },
-  GearWatches: { ...GearWatches.Filters },
+  WomenBottoms: [...WomenBottoms.Filters],
+  WomenBrasTanks: [...WomenTanks.Filters],
+  WomenHoodiesSweatshirts: [...WomenHoodies.Filters],
+  WomenJackets: [...WomenJackets.Filters],
+  WomenPants: [...WomenPants.Filters],
+  WomenShorts: [...WomenShorts.Filters],
+  WomenTees: [...WomenTees.Filters],
+  WomenTops: [...WomenTops.Filters],
+  MenBottoms: [...MenBottoms.Filters],
+  MenHoodiesSweatshirts: [...MenHoodies.Filters],
+  MenJackets: [...MenJackets.Filters],
+  MenPants: [...MenPants.Filters],
+  MenShorts: [...MenShorts.Filters],
+  MenTanks: [...MenTanks.Filters],
+  MenTees: [...MenTees.Filters],
+  MenTops: [...MenTops.Filters],
+  GearBags: [...GearBags.Filters],
+  GearFitnessEquipment: [...GearFitnessEquipment.Filters],
+  GearWatches: [...GearWatches.Filters],
 };
 
 export const Products = {
@@ -151,6 +145,7 @@ export const Products = {
   GearFitnessEquipment: [...GearFitnessEquipment.Products],
   GearWatches: [...GearWatches.Products],
 };
+
 export const Defaults = {
   PageSize: {
     Grid: 12,
