@@ -1,7 +1,4 @@
 import { FilterCategory, ProductCategoryExpectedText } from './shared';
-import { Products as Bags } from './gearBags';
-import { Products as FitnessEquipment } from './gearFitnessEquipment';
-import { Products as Watches } from './gearWatches';
 import { Products as MenPants } from './menPants';
 import { Products as MenShorts } from './menShorts';
 import { Products as WomenHoodies } from './womenHoodies';
