@@ -21,6 +21,7 @@ import * as GearWatches from './productCategories/gearWatches';
 import * as Yoga from './productCategories/yoga';
 import * as ErinRecommends from './productCategories/erinRecommends';
 import * as WomenSale from './productCategories/womenSale';
+import * as MenSale from './productCategories/menSale';
 
 export const PrimaryProductCategories = {
   Women: {
@@ -43,6 +44,7 @@ export const SecondaryProductCategories = {
   Yoga: Yoga.Url,
   ErinRecommends: ErinRecommends.Url,
   WomenSale: WomenSale.Url,
+  MenSale: MenSale.Url,
 };
 
 export const ProductCategories = {
@@ -74,6 +76,7 @@ export const ExpectedText = {
   Yoga: { ...Yoga.ExpectedText },
   ErinRecommends: { ...ErinRecommends.ExpectedText },
   WomenSale: { ...WomenSale.ExpectedText },
+  MenSale: { ...MenSale.ExpectedText },
   SidebarBlocks: [
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
@@ -115,6 +118,7 @@ export const Links = {
   Yoga: { ...Yoga.Links },
   ErinRecommends: { ...ErinRecommends.Links },
   WomenSale: { ...WomenSale.Links },
+  MenSale: { ...MenSale.Links },
 };
 
 export const Filters = {
@@ -140,6 +144,7 @@ export const Filters = {
   Yoga: [...Yoga.Filters],
   ErinRecommends: [...ErinRecommends.Filters],
   WomenSale: [...WomenSale.Filters],
+  MenSale: [...MenSale.Filters],
 };
 
 export const Products = {
@@ -165,6 +170,7 @@ export const Products = {
   Yoga: [...Yoga.Products],
   ErinRecommends: [...ErinRecommends.Products],
   WomenSale: [...WomenSale.Products],
+  MenSale: [...MenSale.Products],
 };
 
 export const Defaults = {
