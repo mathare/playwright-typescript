@@ -3,6 +3,10 @@ import * as WomenTees from './productCategories/womenTees';
 import * as MenHoodies from './productCategories/menHoodies';
 import * as MenTanks from './productCategories/menTanks';
 import * as GearBags from './productCategories/gearBags';
+import * as Yoga from './productCategories/yoga';
+import * as ErinRecommends from './productCategories/erinRecommends';
+import * as AllPants from './productCategories/allPants';
+import * as AllTees from './productCategories/allTees';
 
 export const ExpectedText = {
   PromoBlocks: [
@@ -28,10 +32,10 @@ export const Products = [
 ];
 
 export const PromoBlockLinks = [
-  '/collections/yoga-new.html',
-  '/promotions/pants-all.html',
-  '/promotions/tees-all.html',
-  '/collections/erin-recommends.html',
+  Yoga.Url,
+  AllPants.Url,
+  AllTees.Url,
+  ErinRecommends.Url,
   '/collections/performance-fabrics.html',
   '/collections/eco-friendly.html',
 ];

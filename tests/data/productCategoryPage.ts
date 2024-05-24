@@ -18,8 +18,14 @@ import * as MenTops from './productCategories/menTops';
 import * as GearBags from './productCategories/gearBags';
 import * as GearFitnessEquipment from './productCategories/gearFitnessEquipment';
 import * as GearWatches from './productCategories/gearWatches';
+import * as Yoga from './productCategories/yoga';
+import * as ErinRecommends from './productCategories/erinRecommends';
+import * as WomenSale from './productCategories/womenSale';
+import * as MenSale from './productCategories/menSale';
+import * as AllPants from './productCategories/allPants';
+import * as AllTees from './productCategories/allTees';
 
-export const PrimaryProductCategories = {
+export const ProductCategories = {
   Women: {
     Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,
     TopsSubMenu: { ...HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu },
@@ -34,11 +40,12 @@ export const PrimaryProductCategories = {
   },
   Gear: { ...HeaderLinks.Topnav.GearSubMenu },
   // There are no products under Training > Video Downloads so the whole Training category is omitted
-};
-
-
-export const ProductCategories = {
-  ...PrimaryProductCategories,
+  Yoga: Yoga.Url,
+  ErinRecommends: ErinRecommends.Url,
+  WomenSale: WomenSale.Url,
+  MenSale: MenSale.Url,
+  AllPants: AllPants.Url,
+  AllTees: AllTees.Url,
 };
 
 export const ExpectedText = {
@@ -62,6 +69,12 @@ export const ExpectedText = {
   GearBags: { ...GearBags.ExpectedText },
   GearFitnessEquipment: { ...GearFitnessEquipment.ExpectedText },
   GearWatches: { ...GearWatches.ExpectedText },
+  Yoga: { ...Yoga.ExpectedText },
+  ErinRecommends: { ...ErinRecommends.ExpectedText },
+  WomenSale: { ...WomenSale.ExpectedText },
+  MenSale: { ...MenSale.ExpectedText },
+  AllPants: { ...AllPants.ExpectedText },
+  AllTees: { ...AllTees.ExpectedText },
   SidebarBlocks: [
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
@@ -100,6 +113,12 @@ export const Links = {
   GearBags: { ...GearBags.Links },
   GearFitnessEquipment: { ...GearFitnessEquipment.Links },
   GearWatches: { ...GearWatches.Links },
+  Yoga: { ...Yoga.Links },
+  ErinRecommends: { ...ErinRecommends.Links },
+  WomenSale: { ...WomenSale.Links },
+  MenSale: { ...MenSale.Links },
+  AllPants: { ...AllPants.Links },
+  AllTees: { ...AllTees.Links },
 };
 
 export const Filters = {
@@ -122,6 +141,12 @@ export const Filters = {
   GearBags: [...GearBags.Filters],
   GearFitnessEquipment: [...GearFitnessEquipment.Filters],
   GearWatches: [...GearWatches.Filters],
+  Yoga: [...Yoga.Filters],
+  ErinRecommends: [...ErinRecommends.Filters],
+  WomenSale: [...WomenSale.Filters],
+  MenSale: [...MenSale.Filters],
+  AllPants: [...AllPants.Filters],
+  AllTees: [...AllTees.Filters],
 };
 
 export const Products = {
@@ -144,6 +169,12 @@ export const Products = {
   GearBags: [...GearBags.Products],
   GearFitnessEquipment: [...GearFitnessEquipment.Products],
   GearWatches: [...GearWatches.Products],
+  Yoga: [...Yoga.Products],
+  ErinRecommends: [...ErinRecommends.Products],
+  WomenSale: [...WomenSale.Products],
+  MenSale: [...MenSale.Products],
+  AllPants: [...AllPants.Products],
+  AllTees: [...AllTees.Products],
 };
 
 export const Defaults = {
