@@ -6,6 +6,8 @@ import * as WomenJackets from '../productCategories/womenJackets';
 import * as WomenTees from '../productCategories/womenTees';
 import * as WomenShorts from '../productCategories/womenShorts';
 
+export const Url = '/collections/performance-new.html';
+
 export const ExpectedText: CollectionExpectedText = {
   Breadcrumbs: 'Home  Performance Sportswear New',
   Title: 'Performance Sportswear New',

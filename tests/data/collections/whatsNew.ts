@@ -1,6 +1,8 @@
 import { CollectionExpectedText, Filter } from './shared';
 import { Links as HeaderLinks } from '../pageHeader';
 import * as Yoga from '../productCategories/yoga';
+import * as PerformanceFabrics from '../collections/performanceFabrics';
+import * as EcoCollection from '../collections/ecoCollection';
 
 export const ExpectedText: CollectionExpectedText = {
   Breadcrumbs: "Home  What's New",
@@ -20,7 +22,7 @@ export const Links = {
   Breadcrumbs: {
     Home: '/',
   },
-  PromoBlocks: [Yoga.Url, '/collections/performance-new.html', '/collections/eco-new.html'],
+  PromoBlocks: [Yoga.Url, PerformanceFabrics.Url, EcoCollection.Url],
 };
 
 export const Filters: Filter[] = [

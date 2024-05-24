@@ -5,6 +5,8 @@ import * as WomenTees from '../productCategories/womenTees';
 import * as WomenShorts from '../productCategories/womenShorts';
 import * as WomenJackets from '../productCategories/womenJackets';
 
+export const Url = '/collections/eco-new.html';
+
 export const ExpectedText: CollectionExpectedText = {
   Breadcrumbs: 'Home  Eco Collection New',
   Title: 'Eco Collection New',
