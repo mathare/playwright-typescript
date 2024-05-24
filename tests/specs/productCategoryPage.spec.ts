@@ -8,8 +8,6 @@ import {
   Products,
   Defaults,
   QueryParams,
-  SecondaryProductCategories,
-  PrimaryProductCategories,
 } from '../data/productCategoryPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
@@ -19,7 +17,7 @@ function getProductCategories(lvl: number, ...args: string[]): string[] {
   if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
   if (lvl === 1)
     return process.env.TEST_MODE === 'full'
-      ? PrimaryProductCategories.hasOwnProperty(args[0])
+      ? HeaderLinks.Topnav.hasOwnProperty(args[0])
         ? Object.keys(ProductCategories[args[0]])
         : ['']
       : ['Tops'];
@@ -226,7 +224,7 @@ for (const lvl0Category of getProductCategories(0)) {
 
           test('Corresponding topnav item highlighted', async ({}, testInfo) => {
             testInfo.skip(
-              SecondaryProductCategories.hasOwnProperty(category),
+              !HeaderLinks.Topnav.hasOwnProperty(lvl0Category),
               `${pageName} has no corresponding topnav item so skip test`,
             );
             const pageHeader = productCategoryPage.pageHeader;

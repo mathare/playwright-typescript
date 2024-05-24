@@ -25,7 +25,7 @@ import * as MenSale from './productCategories/menSale';
 import * as AllPants from './productCategories/allPants';
 import * as AllTees from './productCategories/allTees';
 
-export const PrimaryProductCategories = {
+export const ProductCategories = {
   Women: {
     Tops: HeaderLinks.Topnav.WomenSubMenu.Tops,
     TopsSubMenu: { ...HeaderLinks.Topnav.WomenSubMenu.TopsSubMenu },
@@ -40,20 +40,12 @@ export const PrimaryProductCategories = {
   },
   Gear: { ...HeaderLinks.Topnav.GearSubMenu },
   // There are no products under Training > Video Downloads so the whole Training category is omitted
-};
-
-export const SecondaryProductCategories = {
   Yoga: Yoga.Url,
   ErinRecommends: ErinRecommends.Url,
   WomenSale: WomenSale.Url,
   MenSale: MenSale.Url,
   AllPants: AllPants.Url,
   AllTees: AllTees.Url,
-};
-
-export const ProductCategories = {
-  ...PrimaryProductCategories,
-  ...SecondaryProductCategories,
 };
 
 export const ExpectedText = {
