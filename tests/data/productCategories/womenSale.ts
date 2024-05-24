@@ -1,7 +1,6 @@
 import { FilterCategory, ProductCategoryExpectedText } from './shared';
 import { Products as WomenHoodies } from './womenHoodies';
 import { Products as WomenJackets } from './womenJackets';
-import { Products as WomenPants } from './womenPants';
 import { Products as WomenShorts } from './womenShorts';
 import { Products as WomenTanks } from './womenTanks';
 import { Products as WomenTees } from './womenTees';
