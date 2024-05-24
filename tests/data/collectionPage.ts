@@ -5,9 +5,13 @@ import * as Men from './collections/men';
 import * as Gear from './collections/gear';
 import * as Training from './collections/training';
 import * as Sale from './collections/sale';
+import * as PerformanceFabrics from './collections/performanceFabrics';
+import * as EcoCollection from './collections/ecoCollection';
 
 export const Collections = {
   ...TopnavLvl0,
+  PerformanceFabrics: '/collections/performance-new.html',
+  EcoCollection: '/collections/eco-new.html',
 };
 
 export const ExpectedText = {
@@ -17,6 +21,8 @@ export const ExpectedText = {
   Training: { ...Training.ExpectedText },
   WhatsNew: { ...WhatsNew.ExpectedText },
   Women: { ...Women.ExpectedText },
+  PerformanceFabrics: { ...PerformanceFabrics.ExpectedText },
+  EcoCollection: { ...EcoCollection.ExpectedText },
   SidebarBlocks: [
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
@@ -30,6 +36,8 @@ export const Links = {
   Training: { ...Training.Links },
   WhatsNew: { ...WhatsNew.Links },
   Women: { ...Women.Links },
+  PerformanceFabrics: { ...PerformanceFabrics.Links },
+  EcoCollection: { ...EcoCollection.Links },
 };
 
 export const ShoppingOptions = {
@@ -55,4 +63,6 @@ export const Products = {
   Training: [...Training.Products],
   // The products displayed on the What's New page keep changing so are not included here
   Women: [...Women.Products],
+  PerformanceFabrics: [...PerformanceFabrics.Products],
+  EcoCollection: [...EcoCollection.Products],
 };
