@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
 import { Collections, ExpectedText, Links, Filters, Products, ShoppingOptions } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
-import { Colors } from '../data/pageHeader';
+import { Colors, Links as HeaderLinks, TopnavLvl0 } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
 
 const Timeouts = {
@@ -29,8 +29,10 @@ for (const collection of pages) {
         await expect.soft(collectionPage.pageHeader.header).toBeVisible();
         await expect.soft(collectionPage.pageHeader.topnav).toBeVisible();
         await expect.soft(collectionPage.breadcrumbsContainer).toBeVisible();
-        await expect.soft(collectionPage.primarySidebar).toBeVisible();
-        await expect.soft(collectionPage.secondarySidebar).toBeVisible();
+        if (HeaderLinks.Topnav.hasOwnProperty(collection)) {
+          await expect.soft(collectionPage.primarySidebar).toBeVisible();
+          await expect.soft(collectionPage.secondarySidebar).toBeVisible();
+        }
         if (Products.hasOwnProperty(collection) && Products[collection].length) {
           await expect.soft(collectionPage.productsGrid).toBeVisible();
           await expect.soft(collectionPage.productItem).toHaveCount(Products[collection].length);
@@ -57,22 +59,27 @@ for (const collection of pages) {
           }
         }
 
-        const collectionFilters = Filters[collection];
-        const filterLists = collectionPage.filterList;
-        await expect.soft(filterLists).toHaveCount(collectionFilters.length);
-        for (let i = 0; i < collectionFilters.length; i++) {
-          await expect.soft(collectionPage.filterTitle.nth(i)).toHaveText(collectionFilters[i].title);
-          const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
-          await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
-          for (let j = 0; j < collectionFilters[i].categories.length; j++) {
-            await expect.soft(filterCategories.nth(j)).toHaveText(collectionFilters[i].categories[j].title);
+        if (Filters.hasOwnProperty(collection)) {
+          const collectionFilters = Filters[collection];
+          const filterLists = collectionPage.filterList;
+          await expect.soft(filterLists).toHaveCount(collectionFilters.length);
+          for (let i = 0; i < collectionFilters.length; i++) {
+            await expect.soft(collectionPage.filterTitle.nth(i)).toHaveText(collectionFilters[i].title);
+            const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
+            await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
+            for (let j = 0; j < collectionFilters[i].categories.length; j++) {
+              await expect.soft(filterCategories.nth(j)).toHaveText(collectionFilters[i].categories[j].title);
+            }
           }
         }
 
-        const sidebarBlocks = collectionPage.sidebarBlock;
-        await expect.soft(sidebarBlocks).toHaveCount(ExpectedText.SidebarBlocks.length);
-        for (let i = 0; i < ExpectedText.SidebarBlocks.length; i++) {
-          await expect.soft(sidebarBlocks.nth(i)).toHaveText(ExpectedText.SidebarBlocks[i], { useInnerText: true });
+        // "Secondary" collection pages don't have a sidebar
+        if (HeaderLinks.Topnav.hasOwnProperty(collection)) {
+          const sidebarBlocks = collectionPage.sidebarBlock;
+          await expect.soft(sidebarBlocks).toHaveCount(ExpectedText.SidebarBlocks.length);
+          for (let i = 0; i < ExpectedText.SidebarBlocks.length; i++) {
+            await expect.soft(sidebarBlocks.nth(i)).toHaveText(ExpectedText.SidebarBlocks[i], { useInnerText: true });
+          }
         }
 
         const promoBlocks = collectionPage.promoBlock;
@@ -133,11 +140,15 @@ for (const collection of pages) {
         }
       });
 
-      test('Corresponding topnav item highlighted', async () => {
+      test('Corresponding topnav item highlighted', async ({}, testInfo) => {
+        testInfo.skip(
+          !HeaderLinks.Topnav.hasOwnProperty(collection),
+          `${collection} has no corresponding topnav item so skip test`,
+        );
         const activeClass = /active/;
         const topnavLinks = await collectionPage.pageHeader.getTopnavMenuItem(collectionPage.pageHeader.topnav, 0);
-        await expect.soft(topnavLinks).toHaveCount(Object.keys(Collections).length);
-        for (let i = 0; i < Object.keys(Collections).length; i++) {
+        await expect.soft(topnavLinks).toHaveCount(Object.keys(TopnavLvl0).length);
+        for (let i = 0; i < Object.keys(TopnavLvl0).length; i++) {
           const link = await collectionPage.pageHeader.getTopnavMenuLink(topnavLinks.nth(i));
           if ((await link.textContent()) === collection.replace('WhatsNew', "What's New")) {
             await expect.soft(topnavLinks.nth(i)).toHaveClass(activeClass);
@@ -175,16 +186,18 @@ for (const collection of pages) {
           }
         }
 
-        const collectionFilters = Filters[collection];
-        const filterLists = collectionPage.filterList;
-        await expect.soft(filterLists).toHaveCount(collectionFilters.length);
-        for (let i = 0; i < collectionFilters.length; i++) {
-          const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
-          await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
-          for (let j = 0; j < collectionFilters[i].categories.length; j++) {
-            await expect
-              .soft(filterCategories.nth(j))
-              .toHaveAttribute('href', `${baseURL}${collectionFilters[i].categories[j].link}`);
+        if (Filters.hasOwnProperty(collection)) {
+          const collectionFilters = Filters[collection];
+          const filterLists = collectionPage.filterList;
+          await expect.soft(filterLists).toHaveCount(collectionFilters.length);
+          for (let i = 0; i < collectionFilters.length; i++) {
+            const filterCategories = await collectionPage.getFilterCategories(filterLists.nth(i));
+            await expect.soft(filterCategories).toHaveCount(collectionFilters[i].categories.length);
+            for (let j = 0; j < collectionFilters[i].categories.length; j++) {
+              await expect
+                .soft(filterCategories.nth(j))
+                .toHaveAttribute('href', `${baseURL}${collectionFilters[i].categories[j].link}`);
+            }
           }
         }
       });
