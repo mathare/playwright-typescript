@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import CollectionPage from '../pages/collectionPage';
 import { Collections, ExpectedText, Links, Filters, Products, ShoppingOptions } from '../data/collectionPage';
 import { ProductItemElements } from '../pages/components/productItem';
-import { Colors, Links as HeaderLinks } from '../data/pageHeader';
+import { Colors, Links as HeaderLinks, TopnavLvl0 } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
 
 const Timeouts = {
@@ -147,8 +147,8 @@ for (const collection of pages) {
         );
         const activeClass = /active/;
         const topnavLinks = await collectionPage.pageHeader.getTopnavMenuItem(collectionPage.pageHeader.topnav, 0);
-        await expect.soft(topnavLinks).toHaveCount(Object.keys(Collections).length);
-        for (let i = 0; i < Object.keys(Collections).length; i++) {
+        await expect.soft(topnavLinks).toHaveCount(Object.keys(TopnavLvl0).length);
+        for (let i = 0; i < Object.keys(TopnavLvl0).length; i++) {
           const link = await collectionPage.pageHeader.getTopnavMenuLink(topnavLinks.nth(i));
           if ((await link.textContent()) === collection.replace('WhatsNew', "What's New")) {
             await expect.soft(topnavLinks.nth(i)).toHaveClass(activeClass);
