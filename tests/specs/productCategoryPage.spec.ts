@@ -400,7 +400,7 @@ for (const lvl0Category of getProductCategories(0)) {
           });
         });
 
-        test.describe('Visual tests', () => {
+        test.describe('Visual tests zzz', () => {
           test('Product category page appearance', async ({ browserName }) => {
             const imageName = `${category.replace(category.charAt(0), category.charAt(0).toLowerCase())}.png`;
             // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
