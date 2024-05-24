@@ -240,7 +240,7 @@ for (const collection of pages) {
       });
     });
 
-    test.describe('Visual tests zzz', () => {
+    test.describe('Visual tests', () => {
       test('Collection page appearance', async ({ browserName }) => {
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
         // Mask products grid for What's New page since it keeps changing
