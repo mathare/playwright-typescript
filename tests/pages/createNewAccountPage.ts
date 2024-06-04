@@ -38,7 +38,7 @@ export class CreateNewAccountPage extends BasePage {
     return this.field.nth(index).locator(element);
   }
 
-  async passwordStrengthIndicatorStyle() {
+  async passwordStrengthIndicatorStyle(): Promise<Record<string, string>> {
     const width = await this.passwordStrengthIndicator.evaluate((el) => window.getComputedStyle(el, ':before').width);
     const backgroundColor = await this.passwordStrengthIndicator.evaluate(
       (el) => window.getComputedStyle(el, ':before').backgroundColor,
