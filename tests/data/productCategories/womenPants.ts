@@ -179,7 +179,7 @@ export const Products: Product[] = [
   },
   {
     name: 'Deirdre Relaxed-Fit Capri',
-    price: 'As low as $63.00',
+    price: 'As low as $50.40',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Grey, Colors.Green],
     link: '/deirdre-relaxed-fit-capri.html',

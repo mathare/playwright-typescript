@@ -219,7 +219,7 @@ export const Products: Product[] = [
     name: 'Geo Insulated Jogging Pant',
     rating: '70%',
     reviews: '2 Reviews',
-    price: 'As low as $51.00',
+    price: 'As low as $40.80',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/geo-insulated-jogging-pant.html',
