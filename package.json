@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "pw:chromium": "npx playwright test --project=chromium",
     "pw:firefox": "npx playwright test --project=firefox",
     "pw:webkit": "npx playwright test --project=webkit",
