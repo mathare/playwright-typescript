@@ -240,13 +240,13 @@ for (const collection of pages) {
       });
     });
 
-    test.describe('Visual tests zzz', () => {
+    test.describe('Visual tests', () => {
       test('Collection page appearance', async ({ browserName }) => {
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
         // Mask products grid for What's New page since it keeps changing
         const mask = collection === 'WhatsNew' ? [collectionPage.productsGrid] : [];
         // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
-        const maxDiffPixels = browserName === 'firefox' ? 0 : 0;
+        const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
         await expect(collectionPage.mainContent).toHaveScreenshot(imageName, {
           timeout: Timeouts.Visual,
           maxDiffPixels: maxDiffPixels,
