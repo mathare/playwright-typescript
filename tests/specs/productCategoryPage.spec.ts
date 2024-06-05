@@ -14,19 +14,19 @@ import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data
 import * as dotenv from 'dotenv';
 
 function getProductCategories(lvl: number, ...args: string[]): string[] {
-  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
+  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Men'];
   if (lvl === 1)
     return process.env.TEST_MODE === 'full'
       ? HeaderLinks.Topnav.hasOwnProperty(args[0])
         ? Object.keys(ProductCategories[args[0]])
         : ['']
-      : ['Tops'];
+      : ['BottomsSubMenu'];
   if (lvl === 2)
     return process.env.TEST_MODE === 'full'
       ? args[1].endsWith('SubMenu')
         ? Object.keys(ProductCategories[args[0]][args[1]])
         : ['']
-      : [''];
+      : ['Pants'];
   else return [''];
 }
 
@@ -400,11 +400,11 @@ for (const lvl0Category of getProductCategories(0)) {
           });
         });
 
-        test.describe('Visual tests', () => {
+        test.describe('Visual tests zzz', () => {
           test('Product category page appearance', async ({ browserName }) => {
             const imageName = `${category.replace(category.charAt(0), category.charAt(0).toLowerCase())}.png`;
             // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
-            const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
+            const maxDiffPixels = browserName === 'firefox' ? 0 : 0;
             await expect(productCategoryPage.mainContent).toHaveScreenshot(imageName, {
               timeout: Timeouts.Visual,
               maxDiffPixels: maxDiffPixels,
