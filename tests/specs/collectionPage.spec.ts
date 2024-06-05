@@ -122,7 +122,7 @@ for (const collection of pages) {
           }
           await expect
             .soft(collectionPage.getProductItemElement(i, ProductItemElements.Price).first())
-            .toHaveText(productDetails[i].price);
+            .toHaveText(productDetails[i].price, { useInnerText: true });
           if (productDetails[i].sizes) {
             const sizes = collectionPage.getProductItemElement(i, ProductItemElements.Sizes);
             await expect.soft(sizes).toHaveCount(productDetails[i].sizes!.length);
