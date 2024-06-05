@@ -401,13 +401,13 @@ for (const lvl0Category of getProductCategories(0)) {
         });
 
         test.describe('Visual tests', () => {
-          test('Product category page appearance', async ({ browserName }) => {
+          test('Product category page appearance', async () => {
             const imageName = `${category.replace(category.charAt(0), category.charAt(0).toLowerCase())}.png`;
-            // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
-            const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
+            // Mask colour swatches as they can render inconsistently on Firefox and we already have a test
+            // for the RGB value of each colour
             await expect(productCategoryPage.mainContent).toHaveScreenshot(imageName, {
               timeout: Timeouts.Visual,
-              maxDiffPixels: maxDiffPixels,
+              mask: [productCategoryPage.productItem.locator(ProductItemElements.Colors)],
             });
           });
         });
