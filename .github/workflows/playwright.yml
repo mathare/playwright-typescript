@@ -7,8 +7,7 @@ env:
   PASSWORD: ${{ secrets.PASSWORD }}
   TEST_MODE: 'full'
 jobs:
-  test:
-    timeout-minutes: 60
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,11 +18,39 @@ jobs:
         run: npm ci
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+  chromium:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
       - name: Run Playwright tests
         run: npm run pw:chromium
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
+          name: playwright-chromium
+          path: tests/playwright-report/
+          retention-days: 30
+  firefox:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Run Playwright tests
+        run: npm run pw:firefox
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-firefox
+          path: tests/playwright-report/
+          retention-days: 30
+  webkit:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Run Playwright tests
+        run: npm run pw:webkit
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-webkit
           path: tests/playwright-report/
           retention-days: 30
