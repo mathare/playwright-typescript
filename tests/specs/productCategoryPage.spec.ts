@@ -401,13 +401,15 @@ for (const lvl0Category of getProductCategories(0)) {
         });
 
         test.describe('Visual tests', () => {
-          test('Product category page appearance', async () => {
+          test('Product category page appearance', async ({ browserName }) => {
             const imageName = `${category.replace(category.charAt(0), category.charAt(0).toLowerCase())}.png`;
-            // Mask colour swatches as they can render inconsistently on Firefox and we already have a test
+            // Mask colour swatches on Firefox as they can render inconsistently and we already have a test
             // for the RGB value of each colour
+            const mask =
+              browserName === 'firefox' ? [productCategoryPage.productItem.locator(ProductItemElements.Colors)] : [];
             await expect(productCategoryPage.mainContent).toHaveScreenshot(imageName, {
               timeout: Timeouts.Visual,
-              mask: [productCategoryPage.productItem.locator(ProductItemElements.Colors)],
+              mask: mask,
             });
           });
         });

@@ -241,14 +241,17 @@ for (const collection of pages) {
     });
 
     test.describe('Visual tests', () => {
-      test('Collection page appearance', async () => {
+      test('Collection page appearance', async ({ browserName }) => {
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
-        // Mask products grid for What's New page since it keeps changing. Otherwise mask colour swatches as
-        // they can render inconsistently on Firefox and we already have a test for the RGB value of each colour
+        // Mask products grid for What's New page since it keeps changing
         const mask =
           collection === 'WhatsNew'
             ? [collectionPage.productsGrid]
-            : [collectionPage.productItem.locator(ProductItemElements.Colors)];
+            : // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for
+              // the RGB value of each colour
+              browserName === 'firefox'
+              ? [collectionPage.productItem.locator(ProductItemElements.Colors)]
+              : [];
         await expect(collectionPage.mainContent).toHaveScreenshot(imageName, { timeout: Timeouts.Visual, mask: mask });
       });
     });
