@@ -417,19 +417,19 @@ for (const lvl0Category of getProductCategories(0)) {
         test.describe('Display options tests', () => {
           test('Sort options', async () => {
             const sortOptions = ExpectedText.SortOptions.join('\n');
-            await expect.soft(productCategoryPage.sortByDropdown).toHaveText(sortOptions, { useInnerText: true });
+            await expect.soft(productCategoryPage.sortByDropdown).toHaveText(sortOptions);
           });
 
           test('Page size options', async () => {
             const gridPageSizes = ExpectedText.PageSizes.Grid.join('\n');
-            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(gridPageSizes, { useInnerText: true });
+            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(gridPageSizes);
 
             do {
               await productCategoryPage.displayAsListButton.click();
             } while (!productCategoryPage.page.url().endsWith(`?${QueryParams.DisplayMode.List}`));
             await expect.soft(productCategoryPage.productsList).toBeVisible();
             const listPageSizes = ExpectedText.PageSizes.List.join('\n');
-            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(listPageSizes, { useInnerText: true });
+            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(listPageSizes);
           });
 
           test('Display options tooltips', async () => {
