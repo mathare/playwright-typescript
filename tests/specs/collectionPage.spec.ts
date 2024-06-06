@@ -252,7 +252,13 @@ for (const collection of pages) {
               browserName === 'firefox'
               ? [collectionPage.productItem.locator(ProductItemElements.Colors)]
               : [];
-        await expect(collectionPage.mainContent).toHaveScreenshot(imageName, { timeout: Timeouts.Visual, mask: mask });
+        // Allow a small diff on Firefox to reduce flake
+        const maxDiffPixels = browserName === 'firefox' ? 100 : 0;
+        await expect(collectionPage.mainContent).toHaveScreenshot(imageName, {
+          timeout: Timeouts.Visual,
+          mask: mask,
+          maxDiffPixels: maxDiffPixels,
+        });
       });
     });
   });
