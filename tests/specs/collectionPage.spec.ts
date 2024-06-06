@@ -244,13 +244,20 @@ for (const collection of pages) {
       test('Collection page appearance', async ({ browserName }) => {
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
         // Mask products grid for What's New page since it keeps changing
-        const mask = collection === 'WhatsNew' ? [collectionPage.productsGrid] : [];
-        // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
-        const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
+        const mask =
+          collection === 'WhatsNew'
+            ? [collectionPage.productsGrid]
+            : // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for
+              // the RGB value of each colour
+              browserName === 'firefox'
+              ? [collectionPage.productItem.locator(ProductItemElements.Colors)]
+              : [];
+        // Allow a small diff on Firefox to reduce flake
+        const maxDiffPixels = browserName === 'firefox' ? 100 : 0;
         await expect(collectionPage.mainContent).toHaveScreenshot(imageName, {
           timeout: Timeouts.Visual,
-          maxDiffPixels: maxDiffPixels,
           mask: mask,
+          maxDiffPixels: maxDiffPixels,
         });
       });
     });

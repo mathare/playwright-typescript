@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Locator } from '@playwright/test';
 import { HomePage } from '../pages/homePage';
 import { ExpectedText, Products, PromoBlockLinks } from '../data/homePage';
 import { Colors } from '../data/products';
@@ -81,19 +81,20 @@ test.describe('Home page tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe('Visual tests zzz', () => {
+    // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for each RGB value
     test('Default page appearance', async ({ browserName }) => {
-      // I don't like having any differences when comparing screenshots but Firefox can render the colour swatches slightly differently
-      const maxDiffPixels = browserName === 'firefox' ? 600 : 0;
-      await expect(homePage.mainContent).toHaveScreenshot('default.png', {
-        timeout: Timeouts.Visual,
-        maxDiffPixels: maxDiffPixels,
-      });
+      const mask = browserName === 'firefox' ? [homePage.productItem.locator(ProductItemElements.Colors)] : [];
+      await expect(homePage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual, mask: mask });
     });
 
-    test('Product hover', async () => {
+    test('Product hover', async ({ browserName }) => {
+      const mask = browserName === 'firefox' ? [homePage.productItem.locator(ProductItemElements.Colors)] : [];
       await homePage.productItem.first().hover();
-      await expect(homePage.productsGrid).toHaveScreenshot('productHover.png', { timeout: Timeouts.Visual });
+      await expect(homePage.productsGrid).toHaveScreenshot('productHover.png', {
+        timeout: Timeouts.Visual,
+        mask: mask,
+      });
     });
 
     // There is no need for visual testing of the product images for the various colour options as we can verify
