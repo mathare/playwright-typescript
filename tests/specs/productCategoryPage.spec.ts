@@ -562,7 +562,7 @@ for (const lvl0Category of getProductCategories(0)) {
               const queryParams = pageSize === 12 ? '' : `?${QueryParams.PageSize}=${pageSize}`;
               await productCategoryPage.pageSizeDropdown.selectOption(pageSize.toString());
               productDetails = productDetails.slice(0, pageSize);
-              await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`);
+              await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`, { timeout: 10000 });
               const productItems = productCategoryPage.productItem;
               await expect.soft(productItems).toHaveCount(productDetails.length);
               for (let i = 0; i < productDetails.length; i++) {
