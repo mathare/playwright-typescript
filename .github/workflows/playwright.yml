@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
       - name: Run Playwright tests
         run: npm run pw:chromium
       - uses: actions/upload-artifact@v4
@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps firefox
       - name: Run Playwright tests
         run: npm run pw:firefox
       - uses: actions/upload-artifact@v4
@@ -55,7 +55,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps webkit
       - name: Run Playwright tests
         run: npm run pw:webkit
       - uses: actions/upload-artifact@v4
