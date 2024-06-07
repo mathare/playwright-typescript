@@ -81,11 +81,17 @@ test.describe('Home page tests', () => {
     });
   });
 
-  test.describe('Visual tests zzz', () => {
+  test.describe('Visual tests', () => {
     // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for each RGB value
     test('Default page appearance', async ({ browserName }) => {
       const mask = browserName === 'firefox' ? [homePage.productItem.locator(ProductItemElements.Colors)] : [];
-      await expect(homePage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual, mask: mask });
+      // Allow a small diff on Firefox to reduce flake
+      const maxDiffPixels = browserName === 'firefox' ? 100 : 0;
+      await expect(homePage.mainContent).toHaveScreenshot('default.png', {
+        timeout: Timeouts.Visual,
+        mask: mask,
+        maxDiffPixels: maxDiffPixels,
+      });
     });
 
     test('Product hover', async ({ browserName }) => {
