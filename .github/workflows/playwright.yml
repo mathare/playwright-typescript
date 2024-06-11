@@ -17,8 +17,7 @@ jobs:
       matrix:
         browser: [chromium, firefox, webkit]
         exclude:
-          - browser: ${{ github.event_name == 'pull_request' && 'firefox'}}
-          - browser: ${{ github.event_name == 'pull_request' && 'webkit'}}
+          - browser: ${{ github.event_name == 'pull_request' && 'firefox' && 'webkit'}}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
