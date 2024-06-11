@@ -1,6 +1,8 @@
 name: Visual Tests
 on:
   workflow_dispatch:
+  pull_request:
+    branches: main
 env:
   PASSWORD: ${{ secrets.PASSWORD }}
   TEST_MODE: 'full'
