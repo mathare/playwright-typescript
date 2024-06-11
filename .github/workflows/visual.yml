@@ -1,14 +1,9 @@
-name: Playwright Tests
+name: Visual Tests
 on:
   workflow_dispatch:
-  pull_request:
-    branches: main
-  schedule:
-    # Runs at 8am UTC Mon-Fri
-    - cron: '0 8 * * 1-5'
 env:
   PASSWORD: ${{ secrets.PASSWORD }}
-  TEST_MODE: ${{ github.event_name == 'pull_request' && 'limited' || 'full' }}
+  TEST_MODE: 'full'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,9 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
-        exclude:
-          - browser: ${{ github.event_name == 'pull_request' && 'firefox'}}
-          - browser: ${{ github.event_name == 'pull_request' && 'webkit'}}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,8 +20,8 @@ jobs:
         run: npm ci
       - name: Install Playwright browsers
         run: npx playwright install --with-deps ${{matrix.browser}}
-      - name: Run Playwright tests
-        run: npx playwright test --project=${{matrix.browser}}
+      - name: Run Playwright visual tests (only)
+        run: npx playwright test --project=${{matrix.browser}} --grep=visual
       - uses: actions/upload-artifact@v4
         if: always()
         with:

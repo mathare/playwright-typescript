@@ -8,7 +8,8 @@
     "pw:chromium": "npx playwright test --project=chromium",
     "pw:firefox": "npx playwright test --project=firefox",
     "pw:webkit": "npx playwright test --project=webkit",
-    "pw:all": "npx playwright test"
+    "pw:all": "npx playwright test",
+    "pw:visual": "npm run pw:all -- --grep=visual"
   },
   "keywords": [],
   "author": "",
