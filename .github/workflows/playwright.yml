@@ -5,7 +5,7 @@ on:
     branches: main
 env:
   PASSWORD: ${{ secrets.PASSWORD }}
-  TEST_MODE: 'full'
+  TEST_MODE: ${{ github.event_name == 'pull_request' && 'limited' || 'full' }}
 jobs:
   test:
     runs-on: ubuntu-latest
