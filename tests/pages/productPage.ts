@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
 
-export default class ProductPage extends BasePage {
+export class ProductPage extends BasePage {
   readonly breadcrumbsContainer: Locator;
   readonly breadcrumb: Locator;
   readonly mainContent: Locator;
@@ -22,9 +22,15 @@ export default class ProductPage extends BasePage {
   readonly sizeSwatch: Locator;
   readonly colorSwatch: Locator;
   readonly quantityInput: Locator;
+  readonly addToCartButton: Locator;
+  readonly addToWishlistButton: Locator;
+  readonly addToCompareButton: Locator;
+  readonly secondaryInfo: Locator;
+  readonly descriptionTab: Locator;
+  readonly additionalInfoTab: Locator;
+  readonly reviewsTab: Locator;
   readonly description: Locator;
   readonly additionalInfo: Locator;
-  readonly reviewsTab: Locator;
   readonly review: Locator;
   readonly similarProductsGrid: Locator;
 
@@ -51,10 +57,17 @@ export default class ProductPage extends BasePage {
     this.sizeSwatch = this.productInfo.locator('.swatch-attribute.size .swatch-option');
     this.colorSwatch = this.productInfo.locator('.swatch-attribute.color .swatch-option');
     this.quantityInput = this.productInfo.locator('#qty');
-    this.description = this.mainContent.locator('#description');
-    this.additionalInfo = this.mainContent.locator('#additional tbody');
-    this.reviewsTab = this.mainContent.locator('#tab-label-reviews');
-    this.review = this.mainContent.locator('#customer-reviews li.review-item');
+    this.addToCartButton = this.productInfo.locator('#product-addtocart-button');
+    this.addToWishlistButton = this.productInfo.locator('.action.towishlist');
+    this.addToCompareButton = this.productInfo.locator('.action.tocompare');
+    this.secondaryInfo = this.mainContent.locator('.product.info.detailed');
+    this.descriptionTab = this.secondaryInfo.locator('#tab-label-description');
+    this.additionalInfoTab = this.secondaryInfo.locator('#tab-label-additional');
+    this.reviewsTab = this.secondaryInfo.locator('#tab-label-reviews');
+    this.description = this.secondaryInfo.locator('#description');
+    this.additionalInfo = this.secondaryInfo.locator('#additional tbody');
+    this.review = this.secondaryInfo.locator('#customer-reviews li.review-item');
+    this.similarProductsGrid = this.mainContent.locator('.block.upsell .products-grid');
   }
 
   getReviewDetail(index: number, detail: ReviewDetails): Locator {

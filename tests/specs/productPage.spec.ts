@@ -25,7 +25,16 @@ for (const product of products) {
         await expect.soft(productPage.pageHeader.header).toBeVisible();
         await expect.soft(productPage.pageHeader.topnav).toBeVisible();
         await expect.soft(productPage.breadcrumbsContainer).toBeVisible();
-
+        await expect.soft(productPage.imageCarousel).toBeVisible();
+        await expect.soft(productPage.productInfo).toBeVisible();
+        await expect.soft(productPage.addToCartButton).toBeVisible();
+        await expect.soft(productPage.addToWishlistButton).toBeVisible();
+        await expect.soft(productPage.addToCompareButton).toBeVisible();
+        await expect.soft(productPage.secondaryInfo).toBeVisible();
+        // Description/details tab selected by default
+        await expect.soft(productPage.descriptionTab).toHaveClass(/active/);
+        await expect.soft(productPage.descriptionTab).toHaveAttribute('aria-expanded', 'true');
+        await expect.soft(productPage.similarProductsGrid).toBeVisible();
         await expect.soft(productPage.pageFooter.footer).toBeVisible();
         await expect.soft(productPage.pageFooter.copyrightFooter).toBeVisible();
       });
