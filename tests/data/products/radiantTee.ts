@@ -12,6 +12,7 @@ export const ProductDetails: Product = {
   link: '/radiant-tee.html',
   images: {
     default: '/w/s/ws12-orange_main_2.jpg',
+    thumbnails: ['/w/s/ws12-orange_main_2.jpg', '/w/s/ws12-orange_back_2.jpg'],
     colors: ['/w/s/ws12-blue_main_1.jpg', '/w/s/ws12-orange_main_1.jpg', '/w/s/ws12-purple_main_1.jpg'],
     // The tee has 2 different images for the size options
     sizes: [
