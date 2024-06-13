@@ -43,6 +43,8 @@ export type Product = {
   rating?: string;
   reviews?: string;
   price: string;
+  inStock?: boolean;
+  sku?: string;
   sizes?: string[];
   colors?: string[];
   link: string;

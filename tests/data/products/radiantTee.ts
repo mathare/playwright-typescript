@@ -5,6 +5,8 @@ export const ProductDetails: Product = {
   rating: '60%',
   reviews: '3 Reviews',
   price: 'As low as $22.00',
+  inStock: true,
+  sku: 'WS12',
   sizes: Sizes,
   colors: [Colors.Blue, Colors.Orange, Colors.Purple],
   link: '/radiant-tee.html',
