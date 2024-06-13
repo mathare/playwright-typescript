@@ -28,9 +28,23 @@ for (const product of products) {
         await expect.soft(productPage.pageFooter.copyrightFooter).toBeVisible();
       });
 
-      test('Product details', async () => {
+      test('Product details', async ({ baseURL }) => {
         const breadcrumbsExpectedText = `Home  ${Products[product].name}`;
         await expect.soft(productPage.breadcrumbsContainer).toHaveText(breadcrumbsExpectedText);
+
+        if (Products[product].images) {
+          const mediaDir = `${baseURL}/pub/media/catalog/product/cache/[0-9a-f]+`;
+          await expect
+            .soft(productPage.productImage)
+            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images.default));
+          await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images.thumbnails.length);
+          for (let i = 0; i < Products[product].images.thumbnails.length; i++) {
+            await expect
+              .soft(productPage.productThumbnail.nth(i))
+              .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images.thumbnails[i]));
+          }
+        }
+
         await expect.soft(productPage.productName).toHaveText(Products[product].name);
         await expect.soft(productPage.reviews).toHaveText(Products[product].reviews);
         if (Products[product].rating) {
@@ -45,18 +59,19 @@ for (const product of products) {
         await expect.soft(productPage.sku).toHaveText(Products[product].sku);
         if (Products[product].sizes) {
           await expect.soft(productPage.sizeSwatch).toHaveCount(Products[product].sizes!.length);
-          for (let j = 0; j < Products[product].sizes!.length; j++) {
-            await expect.soft(productPage.sizeSwatch.nth(j)).toHaveText(Products[product].sizes![j]);
+          for (let i = 0; i < Products[product].sizes!.length; i++) {
+            await expect.soft(productPage.sizeSwatch.nth(i)).toHaveText(Products[product].sizes![i]);
           }
         }
         if (Products[product].colors) {
           await expect.soft(productPage.colorSwatch).toHaveCount(Products[product].colors!.length);
-          for (let j = 0; j < Products[product].colors!.length; j++) {
+          for (let i = 0; i < Products[product].colors!.length; i++) {
             await expect
-              .soft(productPage.colorSwatch.nth(j))
-              .toHaveCSS('background-color', Products[product].colors![j]);
+              .soft(productPage.colorSwatch.nth(i))
+              .toHaveCSS('background-color', Products[product].colors![i]);
           }
         }
+        await expect.soft(productPage.quantityInput).toHaveValue('1');
       });
     });
   });
