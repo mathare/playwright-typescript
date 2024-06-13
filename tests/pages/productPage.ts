@@ -22,6 +22,11 @@ export default class ProductPage extends BasePage {
   readonly sizeSwatch: Locator;
   readonly colorSwatch: Locator;
   readonly quantityInput: Locator;
+  readonly description: Locator;
+  readonly additionalInfo: Locator;
+  readonly reviewsTab: Locator;
+  readonly review: Locator;
+  readonly similarProductsGrid: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -46,5 +51,21 @@ export default class ProductPage extends BasePage {
     this.sizeSwatch = this.productInfo.locator('.swatch-attribute.size .swatch-option');
     this.colorSwatch = this.productInfo.locator('.swatch-attribute.color .swatch-option');
     this.quantityInput = this.productInfo.locator('#qty');
+    this.description = this.mainContent.locator('#description');
+    this.additionalInfo = this.mainContent.locator('#additional tbody');
+    this.reviewsTab = this.mainContent.locator('#tab-label-reviews');
+    this.review = this.mainContent.locator('#customer-reviews li.review-item');
   }
+
+  getReviewDetail(index: number, detail: ReviewDetails): Locator {
+    return this.review.nth(index).locator(detail);
+  }
+}
+
+export enum ReviewDetails {
+  title = '.review-title',
+  rating = '.rating-result',
+  description = '.review-content',
+  reviewer = '.review-author .review-details-value',
+  date = '.review-date .review-details-value',
 }

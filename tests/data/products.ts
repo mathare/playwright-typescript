@@ -38,6 +38,14 @@ export const SwatchOutlineStyles = {
   },
 };
 
+type Review = {
+  title: string;
+  rating: string;
+  reviewText: string;
+  reviewer: string;
+  date: string;
+};
+
 export type Product = {
   name: string;
   rating?: string;
@@ -49,4 +57,7 @@ export type Product = {
   colors?: string[];
   link: string;
   images?: Record<string, string | string[]>;
+  description?: string;
+  additionalInfo?: string;
+  reviewDetails?: Review[];
 };
