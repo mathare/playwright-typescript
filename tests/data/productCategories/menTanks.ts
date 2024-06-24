@@ -120,43 +120,43 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Cassius: {
     name: 'Cassius Sparring Tank',
     price: 'As low as $18.00',
     sizes: Sizes,
     colors: [Colors.Blue],
     link: '/cassius-sparring-tank.html',
   },
-  {
+  Atlas: {
     name: 'Atlas Fitness Tank',
     price: 'As low as $18.00',
     sizes: Sizes,
     colors: [Colors.Blue],
     link: '/atlas-fitness-tank.html',
   },
-  {
+  Tiberius: {
     name: 'Tiberius Gym Tank',
     price: 'As low as $18.00',
     sizes: Sizes,
     colors: [Colors.Yellow],
     link: '/tiberius-gym-tank.html',
   },
-  {
+  Sinbad: {
     name: 'Sinbad Fitness Tank',
     price: 'As low as $29.00',
     sizes: Sizes,
     colors: [Colors.Blue],
     link: '/sinbad-fitness-tank.html',
   },
-  {
+  Sparta: {
     name: 'Sparta Gym Tank',
     price: 'As low as $29.00',
     sizes: Sizes,
     colors: [Colors.Green],
     link: '/sparta-gym-tank.html',
   },
-  {
+  Argus: {
     name: 'Argus All-Weather Tank',
     price: 'As low as $22.00',
     sizes: Sizes,
@@ -168,21 +168,21 @@ export const Products: Product[] = [
       sizes: '/m/t/mt07-gray_main_1.jpg',
     },
   },
-  {
+  Vulcan: {
     name: 'Vulcan Weightlifting Tank',
     price: 'As low as $28.00',
     sizes: Sizes,
     colors: [Colors.Black],
     link: '/vulcan-weightlifting-tank.html',
   },
-  {
+  Rocco: {
     name: 'Rocco Gym Tank',
     price: 'As low as $24.00',
     sizes: Sizes,
     colors: [Colors.Blue],
     link: '/rocco-gym-tank.html',
   },
-  {
+  Helios: {
     name: 'Helios Endurance Tank',
     rating: '70%',
     reviews: '4 Reviews',
@@ -191,7 +191,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue],
     link: '/helios-endurance-tank.html',
   },
-  {
+  Primo: {
     name: 'Primo Endurance Tank',
     rating: '53%',
     reviews: '3 Reviews',
@@ -200,7 +200,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Red, Colors.Yellow],
     link: '/primo-endurance-tank.html',
   },
-  {
+  Tristan: {
     name: 'Tristan Endurance Tank',
     rating: '80%',
     reviews: '3 Reviews',
@@ -209,7 +209,7 @@ export const Products: Product[] = [
     colors: [Colors.Grey, Colors.Red, Colors.White],
     link: '/tristan-endurance-tank.html',
   },
-  {
+  Erikssen: {
     name: 'Erikssen CoolTech™ Fitness Tank',
     rating: '55%',
     reviews: '4 Reviews',
@@ -218,4 +218,19 @@ export const Products: Product[] = [
     colors: [Colors.Grey, Colors.Orange, Colors.Red],
     link: '/erikssen-cooltech-trade-fitness-tank.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Cassius,
+  ProductDetails.Atlas,
+  ProductDetails.Tiberius,
+  ProductDetails.Sinbad,
+  ProductDetails.Sparta,
+  ProductDetails.Argus,
+  ProductDetails.Vulcan,
+  ProductDetails.Rocco,
+  ProductDetails.Helios,
+  ProductDetails.Primo,
+  ProductDetails.Tristan,
+  ProductDetails.Erikssen,
 ];
