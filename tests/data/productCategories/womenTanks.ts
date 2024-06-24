@@ -273,7 +273,7 @@ export const ProductDetails: Record<string, Product> = {
 };
 
 export const Products = [
-  ProductDetails.BreathEasy,
+  ProductDetails.BreatheEasy,
   ProductDetails.Antonia,
   ProductDetails.Maya,
   ProductDetails.Chloe,
