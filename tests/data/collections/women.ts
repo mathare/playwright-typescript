@@ -1,9 +1,9 @@
 import { Product } from '../products';
 import { CollectionExpectedText, Filter, ShoppingOptions } from './shared';
-import * as Hoodies from '../productCategories/womenHoodies';
-import * as Pants from '../productCategories/womenPants';
-import * as Tanks from '../productCategories/womenTanks';
-import * as Tees from '../productCategories/womenTees';
+import { ProductDetails as Hoodies } from '../productCategories/womenHoodies';
+import { ProductDetails as Pants } from '../productCategories/womenPants';
+import { ProductDetails as Tanks } from '../productCategories/womenTanks';
+import { ProductDetails as Tees } from '../productCategories/womenTees';
 import { Links as HeaderLinks } from '../pageHeader';
 
 export const ExpectedText: CollectionExpectedText = {
@@ -75,4 +75,4 @@ export const Filters: Filter[] = [
   },
 ];
 
-export const Products: Product[] = [Tees.Products[2], Tanks.Products[0], Hoodies.Products[7], Pants.Products[1]];
+export const Products: Product[] = [Tees.Radiant, Tanks.BreatheEasy, Hoodies.Selene, Pants.Deirdre];

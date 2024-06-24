@@ -152,29 +152,29 @@ export const Filters: FilterCategory[] = [
 
 const Sizes = ['32', '33', '34', '36'];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Pierce: {
     name: 'Pierce Gym Short',
     price: 'As low as $27.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Grey, Colors.Red],
     link: '/pierce-gym-short.html',
   },
-  {
+  Arcadio: {
     name: 'Arcadio Gym Short',
     price: 'As low as $20.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Red],
     link: '/arcadio-gym-short.html',
   },
-  {
+  Sol: {
     name: 'Sol Active Short',
     price: 'As low as $32.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Purple],
     link: '/sol-active-short.html',
   },
-  {
+  Troy: {
     name: 'Troy Yoga Short',
     rating: '67%',
     reviews: '3 Reviews',
@@ -183,7 +183,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Green],
     link: '/troy-yoga-short.html',
   },
-  {
+  Orestes: {
     name: 'Orestes Fitness Short',
     rating: '60%',
     reviews: '2 Reviews',
@@ -192,7 +192,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Green],
     link: '/orestes-fitness-short.html',
   },
-  {
+  Rapha: {
     name: 'Rapha Sports Short',
     rating: '87%',
     reviews: '3 Reviews',
@@ -201,7 +201,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/rapha-sports-short.html',
   },
-  {
+  Lono: {
     name: 'Lono Yoga Short',
     rating: '70%',
     reviews: '2 Reviews',
@@ -210,7 +210,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Grey, Colors.Red],
     link: '/lono-yoga-short.html',
   },
-  {
+  Hawkeye: {
     name: 'Hawkeye Yoga Short',
     rating: '73%',
     reviews: '3 Reviews',
@@ -219,7 +219,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Grey],
     link: '/hawkeye-yoga-short.html',
   },
-  {
+  Torque: {
     name: 'Torque Power Short',
     rating: '60%',
     reviews: '3 Reviews',
@@ -228,7 +228,7 @@ export const Products: Product[] = [
     colors: [Colors.Grey, Colors.Purple, Colors.Yellow],
     link: '/torque-power-short.html',
   },
-  {
+  Meteor: {
     name: 'Meteor Workout Short',
     rating: '73%',
     reviews: '3 Reviews',
@@ -237,14 +237,14 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Green],
     link: '/meteor-workout-short.html',
   },
-  {
+  Apollo: {
     name: 'Apollo Running Short',
     price: 'As low as $32.50',
     sizes: Sizes,
     colors: [Colors.Black],
     link: '/apollo-running-short.html',
   },
-  {
+  Cobalt: {
     name: 'Cobalt CoolTech™ Fitness Short',
     rating: '80%',
     reviews: '3 Reviews',
@@ -253,4 +253,19 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Red],
     link: '/cobalt-cooltech-trade-fitness-short.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Pierce,
+  ProductDetails.Arcadio,
+  ProductDetails.Sol,
+  ProductDetails.Troy,
+  ProductDetails.Orestes,
+  ProductDetails.Rapha,
+  ProductDetails.Lono,
+  ProductDetails.Hawkeye,
+  ProductDetails.Torque,
+  ProductDetails.Meteor,
+  ProductDetails.Apollo,
+  ProductDetails.Cobalt,
 ];

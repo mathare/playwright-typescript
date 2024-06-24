@@ -92,74 +92,88 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  SpriteKit: {
     name: 'Sprite Yoga Companion Kit',
     price: 'From $61.00\n\nTo $77.00',
     link: '/sprite-yoga-companion-kit.html',
   },
-  {
+  SpriteStraps: {
     name: 'Set of Sprite Yoga Straps',
     price: 'Starting at\n$14.00',
     link: '/set-of-sprite-yoga-straps.html',
   },
-  {
+  HarmonyKit: {
     name: 'Harmony Lumaflex™ Strength Band Kit',
     rating: '60%',
     reviews: '3 Reviews',
     price: '$22.00',
     link: '/harmony-lumaflex-trade-strength-band-kit.html',
   },
-  {
+  SpriteRoller: {
     name: 'Sprite Foam Roller',
     price: '$19.00',
     link: '/sprite-foam-roller.html',
   },
-  {
+  SpriteBrick: {
     name: 'Sprite Foam Yoga Brick',
     price: '$5.00',
     link: '/sprite-foam-yoga-brick.html',
   },
-  {
+  QuestBand: {
     name: 'Quest Lumaflex™ Band',
     rating: '67%',
     reviews: '3 Reviews',
     price: '$19.00',
     link: '/quest-lumaflex-trade-band.html',
   },
-  {
+  PushupGrips: {
     name: "Go-Get'r Pushup Grips",
     rating: '87%',
     reviews: '3 Reviews',
     price: '$19.00',
     link: '/go-get-r-pushup-grips.html',
   },
-  {
+  PursuitBand: {
     name: 'Pursuit Lumaflex™ Tone Band',
     rating: '60%',
     reviews: '2 Reviews',
     price: '$16.00',
     link: '/pursuit-lumaflex-trade-tone-band.html',
   },
-  {
+  JumpRope: {
     name: 'Zing Jump Rope',
     rating: '93%',
     reviews: '3 Reviews',
     price: '$12.00',
     link: '/zing-jump-rope.html',
   },
-  {
+  CardioBall: {
     name: 'Dual Handle Cardio Ball',
     rating: '100%',
     reviews: '2 Reviews',
     price: '$12.00',
     link: '/dual-handle-cardio-ball.html',
   },
-  {
+  WaterBottle: {
     name: 'Affirm Water Bottle',
     rating: '60%',
     reviews: '1 Review',
     price: '$7.00',
     link: '/affirm-water-bottle.html',
   },
+};
+
+export const Products = [
+  ProductDetails.SpriteKit,
+  ProductDetails.SpriteStraps,
+  ProductDetails.HarmonyKit,
+  ProductDetails.SpriteRoller,
+  ProductDetails.SpriteBrick,
+  ProductDetails.QuestBand,
+  ProductDetails.PushupGrips,
+  ProductDetails.PursuitBand,
+  ProductDetails.JumpRope,
+  ProductDetails.CardioBall,
+  ProductDetails.WaterBottle,
 ];

@@ -167,8 +167,8 @@ export const Filters: FilterCategory[] = [
 
 const Sizes = { All: ['28', '29', '30', '31', '32'], Small: ['28', '29'] };
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Erika: {
     name: 'Erika Running Short',
     rating: '60%',
     reviews: '3 Reviews',
@@ -177,7 +177,7 @@ export const Products: Product[] = [
     colors: [Colors.Green, Colors.Purple, Colors.Red],
     link: '/erika-running-short.html',
   },
-  {
+  Ina: {
     name: 'Ina Compression Short',
     rating: '73%',
     reviews: '3 Reviews',
@@ -186,7 +186,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Orange, Colors.Red],
     link: '/ina-compression-short.html',
   },
-  {
+  Ana: {
     name: 'Ana Running Short',
     rating: '80%',
     reviews: '3 Reviews',
@@ -195,7 +195,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Orange, Colors.White],
     link: '/ana-running-short.html',
   },
-  {
+  Mimi: {
     name: 'Mimi All-Purpose Short',
     rating: '67%',
     reviews: '3 Reviews',
@@ -204,7 +204,7 @@ export const Products: Product[] = [
     colors: [Colors.Grey, Colors.Green, Colors.White],
     link: '/mimi-all-purpose-short.html',
   },
-  {
+  Sybil: {
     name: 'Sybil Running Short',
     rating: '93%',
     reviews: '3 Reviews',
@@ -213,7 +213,7 @@ export const Products: Product[] = [
     colors: [Colors.Purple],
     link: '/sybil-running-short.html',
   },
-  {
+  Echo: {
     name: 'Echo Fit Compression Short',
     rating: '67%',
     reviews: '3 Reviews',
@@ -222,7 +222,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/echo-fit-compression-short.html',
   },
-  {
+  Angel: {
     name: 'Angel Light Running Short',
     rating: '70%',
     reviews: '2 Reviews',
@@ -231,7 +231,7 @@ export const Products: Product[] = [
     colors: [Colors.Grey, Colors.Orange, Colors.Purple],
     link: '/angel-light-running-short.html',
   },
-  {
+  Bess: {
     name: 'Bess Yoga Short',
     rating: '73%',
     reviews: '3 Reviews',
@@ -240,7 +240,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Purple, Colors.Yellow],
     link: '/bess-yoga-short.html',
   },
-  {
+  Artemis: {
     name: 'Artemis Running Short',
     rating: '80%',
     reviews: '2 Reviews',
@@ -249,7 +249,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Green, Colors.Orange],
     link: '/artemis-running-short.html',
   },
-  {
+  Gwen: {
     name: 'Gwen Drawstring Bike Short',
     rating: '90%',
     reviews: '2 Reviews',
@@ -258,7 +258,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Grey, Colors.Orange],
     link: '/gwen-drawstring-bike-short.html',
   },
-  {
+  Maxima: {
     name: 'Maxima Drawstring Short',
     rating: '80%',
     reviews: '3 Reviews',
@@ -267,7 +267,7 @@ export const Products: Product[] = [
     colors: [Colors.Grey, Colors.Orange, Colors.Yellow],
     link: '/maxima-drawstring-short.html',
   },
-  {
+  Fiona: {
     name: 'Fiona Fitness Short',
     rating: '60%',
     reviews: '3 Reviews',
@@ -276,4 +276,19 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Green, Colors.Red],
     link: '/fiona-fitness-short.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Erika,
+  ProductDetails.Ina,
+  ProductDetails.Ana,
+  ProductDetails.Mimi,
+  ProductDetails.Sybil,
+  ProductDetails.Echo,
+  ProductDetails.Angel,
+  ProductDetails.Bess,
+  ProductDetails.Artemis,
+  ProductDetails.Gwen,
+  ProductDetails.Maxima,
+  ProductDetails.Fiona,
 ];

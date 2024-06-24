@@ -151,15 +151,15 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Proteus: {
     name: 'Proteus Fitness Jackshirt',
     price: 'As low as $45.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Orange],
     link: '/proteus-fitness-jackshirt.html',
   },
-  {
+  Montana: {
     name: 'Montana Wind Jacket',
     rating: '53%',
     reviews: '3 Reviews',
@@ -168,7 +168,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Green, Colors.Red],
     link: '/montana-wind-jacket.html',
   },
-  {
+  Jupiter: {
     name: 'Jupiter All-Weather Trainer',
     rating: '80%',
     reviews: '3 Reviews',
@@ -177,14 +177,14 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Green, Colors.Purple],
     link: '/jupiter-all-weather-trainer.html',
   },
-  {
+  Typhon: {
     name: 'Typhon Performance Fleece-lined Jacket',
     price: 'As low as $60.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Green, Colors.Red],
     link: '/typhon-performance-fleece-lined-jacket.html',
   },
-  {
+  Mars: {
     name: 'Mars HeatTech™ Pullover',
     rating: '70%',
     reviews: '2 Reviews',
@@ -193,7 +193,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Orange, Colors.Red],
     link: '/mars-heattech-trade-pullover.html',
   },
-  {
+  Taurus: {
     name: 'Taurus Elements Shell',
     rating: '70%',
     reviews: '2 Reviews',
@@ -202,7 +202,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.White, Colors.Yellow],
     link: '/taurus-elements-shell.html',
   },
-  {
+  Lando: {
     name: 'Lando Gym Jacket',
     rating: '67%',
     reviews: '3 Reviews',
@@ -211,7 +211,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Grey, Colors.Green],
     link: '/lando-gym-jacket.html',
   },
-  {
+  Orion: {
     name: 'Orion Two-Tone Fitted Jacket',
     rating: '50%',
     reviews: '2 Reviews',
@@ -220,7 +220,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Red, Colors.Yellow],
     link: '/orion-two-tone-fitted-jacket.html',
   },
-  {
+  Kenobi: {
     name: 'Kenobi Trail Jacket',
     rating: '93%',
     reviews: '3 Reviews',
@@ -229,7 +229,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/kenobi-trail-jacket.html',
   },
-  {
+  Hyperion: {
     name: 'Hyperion Elements Jacket',
     rating: '90%',
     reviews: '2 Reviews',
@@ -238,7 +238,7 @@ export const Products: Product[] = [
     colors: [Colors.Green, Colors.Orange, Colors.Red],
     link: '/hyperion-elements-jacket.html',
   },
-  {
+  Beaumont: {
     name: 'Beaumont Summit Kit',
     rating: '90%',
     reviews: '2 Reviews',
@@ -247,4 +247,18 @@ export const Products: Product[] = [
     colors: [Colors.Orange, Colors.Red, Colors.Yellow],
     link: '/beaumont-summit-kit.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Proteus,
+  ProductDetails.Montana,
+  ProductDetails.Jupiter,
+  ProductDetails.Typhon,
+  ProductDetails.Mars,
+  ProductDetails.Taurus,
+  ProductDetails.Lando,
+  ProductDetails.Orion,
+  ProductDetails.Kenobi,
+  ProductDetails.Hyperion,
+  ProductDetails.Beaumont,
 ];

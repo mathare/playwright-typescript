@@ -144,8 +144,8 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  BreatheEasy: {
     name: 'Breathe-Easy Tank',
     rating: '70%',
     reviews: '2 Reviews',
@@ -159,7 +159,7 @@ export const Products: Product[] = [
       sizes: '/w/t/wt09-purple_main_1.jpg',
     },
   },
-  {
+  Antonia: {
     name: 'Antonia Racer Tank',
     rating: '60%',
     reviews: '3 Reviews',
@@ -168,7 +168,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Purple, Colors.Yellow],
     link: '/antonia-racer-tank.html',
   },
-  {
+  Maya: {
     name: 'Maya Tunic',
     rating: '80%',
     reviews: '1 Review',
@@ -177,7 +177,7 @@ export const Products: Product[] = [
     colors: [Colors.Green, Colors.White, Colors.Yellow],
     link: '/maya-tunic.html',
   },
-  {
+  Chloe: {
     name: 'Chloe Compete Tank',
     rating: '73%',
     reviews: '3 Reviews',
@@ -186,28 +186,28 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Red, Colors.Yellow],
     link: '/chloe-compete-tank.html',
   },
-  {
+  Leah: {
     name: 'Leah Yoga Top',
     price: 'As low as $39.00',
     sizes: Sizes,
     colors: [Colors.Orange, Colors.Purple, Colors.White],
     link: '/leah-yoga-top.html',
   },
-  {
+  Nona: {
     name: 'Nona Fitness Tank',
     price: 'As low as $39.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Purple, Colors.Red],
     link: '/nona-fitness-tank.html',
   },
-  {
+  Nora: {
     name: 'Nora Practice Tank',
     price: 'As low as $39.00',
     sizes: Sizes,
     colors: [Colors.Orange, Colors.Purple, Colors.Red],
     link: '/nora-practice-tank.html',
   },
-  {
+  Zoe: {
     name: 'Zoe Tank',
     rating: '53%',
     reviews: '3 Reviews',
@@ -216,7 +216,7 @@ export const Products: Product[] = [
     colors: [Colors.Green, Colors.Orange, Colors.Yellow],
     link: '/zoe-tank.html',
   },
-  {
+  Bella: {
     name: 'Bella Tank',
     rating: '80%',
     reviews: '2 Reviews',
@@ -225,7 +225,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Orange],
     link: '/bella-tank.html',
   },
-  {
+  Lucia: {
     name: 'Lucia Cross-Fit Bra',
     rating: '40%',
     reviews: '3 Reviews',
@@ -234,7 +234,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Orange, Colors.Purple],
     link: '/lucia-cross-fit-bra.html',
   },
-  {
+  Prima: {
     name: 'Prima Compete Bra Top',
     rating: '60%',
     reviews: '3 Reviews',
@@ -243,7 +243,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Purple, Colors.Yellow],
     link: '/prima-compete-bra-top.html',
   },
-  {
+  Celeste: {
     name: 'Celeste Sports Bra',
     rating: '67%',
     reviews: '3 Reviews',
@@ -252,7 +252,7 @@ export const Products: Product[] = [
     colors: [Colors.Green, Colors.Red, Colors.Yellow],
     link: '/celeste-sports-bra.html',
   },
-  {
+  Erica: {
     name: 'Erica Evercool Sports Bra',
     rating: '60%',
     reviews: '4 Reviews',
@@ -261,7 +261,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Orange, Colors.Yellow],
     link: '/erica-evercool-sports-bra.html',
   },
-  {
+  Electra: {
     name: 'Electra Bra Top',
     rating: '75%',
     reviews: '4 Reviews',
@@ -270,4 +270,21 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Grey, Colors.Purple],
     link: '/electra-bra-top.html',
   },
+};
+
+export const Products = [
+  ProductDetails.BreatheEasy,
+  ProductDetails.Antonia,
+  ProductDetails.Maya,
+  ProductDetails.Chloe,
+  ProductDetails.Leah,
+  ProductDetails.Nona,
+  ProductDetails.Nora,
+  ProductDetails.Zoe,
+  ProductDetails.Bella,
+  ProductDetails.Lucia,
+  ProductDetails.Prima,
+  ProductDetails.Celeste,
+  ProductDetails.Erica,
+  ProductDetails.Electra,
 ];
