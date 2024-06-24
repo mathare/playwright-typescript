@@ -72,68 +72,80 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Didi: {
     name: 'Didi Sport Watch',
     rating: '70%',
     reviews: '2 Reviews',
     price: '$92.00',
     link: '/didi-sport-watch.html',
   },
-  {
+  Clamber: {
     name: 'Clamber Watch',
     rating: '53%',
     reviews: '3 Reviews',
     price: '$54.00',
     link: '/clamber-watch.html',
   },
-  {
+  Bolo: {
     name: 'Bolo Sport Watch',
     rating: '67%',
     reviews: '3 Reviews',
     price: '$49.00',
     link: '/bolo-sport-watch.html',
   },
-  {
+  Luma: {
     name: 'Luma Analog Watch',
     rating: '80%',
     reviews: '2 Reviews',
     price: '$43.00',
     link: '/luma-analog-watch.html',
   },
-  {
+  Dash: {
     name: 'Dash Digital Watch',
     rating: '73%',
     reviews: '3 Reviews',
     price: '$92.00',
     link: '/dash-digital-watch.html',
   },
-  {
+  Cruise: {
     name: 'Cruise Dual Analog Watch',
     rating: '65%',
     reviews: '4 Reviews',
     price: '$55.00',
     link: '/cruise-dual-analog-watch.html',
   },
-  {
+  Summit: {
     name: 'Summit Watch',
     rating: '47%',
     reviews: '3 Reviews',
     price: '$54.00',
     link: '/summit-watch.html',
   },
-  {
+  Endurance: {
     name: 'Endurance Watch',
     rating: '87%',
     reviews: '3 Reviews',
     price: '$49.00',
     link: '/endurance-watch.html',
   },
-  {
+  Aim: {
     name: 'Aim Analog Watch',
     rating: '80%',
     reviews: '2 Reviews',
     price: '$45.00',
     link: '/aim-analog-watch.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Didi,
+  ProductDetails.Clamber,
+  ProductDetails.Bolo,
+  ProductDetails.Luma,
+  ProductDetails.Dash,
+  ProductDetails.Cruise,
+  ProductDetails.Summit,
+  ProductDetails.Endurance,
+  ProductDetails.Aim,
 ];
