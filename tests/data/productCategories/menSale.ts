@@ -1,5 +1,5 @@
 import { FilterCategory, ProductCategoryExpectedText } from './shared';
-import { Products as MenShorts } from './menShorts';
+import { ProductDetails as MenShorts } from './menShorts';
 import { Product } from '../products';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -109,4 +109,4 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [MenShorts[0], MenShorts[4], MenShorts[5]];
+export const Products: Product[] = [MenShorts.Pierce, MenShorts.Orestes, MenShorts.Rapha];

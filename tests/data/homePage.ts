@@ -1,8 +1,8 @@
-import * as WomenTanks from './productCategories/womenTanks';
-import * as WomenTees from './productCategories/womenTees';
-import * as MenHoodies from './productCategories/menHoodies';
-import * as MenTanks from './productCategories/menTanks';
-import * as GearBags from './productCategories/gearBags';
+import { ProductDetails as WomenTanks } from './productCategories/womenTanks';
+import { ProductDetails as WomenTees } from './productCategories/womenTees';
+import { ProductDetails as MenHoodies } from './productCategories/menHoodies';
+import { ProductDetails as MenTanks } from './productCategories/menTanks';
+import { ProductDetails as GearBags } from './productCategories/gearBags';
 import * as Yoga from './productCategories/yoga';
 import * as ErinRecommends from './productCategories/erinRecommends';
 import * as AllPants from './productCategories/allPants';
@@ -20,15 +20,13 @@ export const ExpectedText = {
   ContentHeading: 'Hot Sellers Here is what`s trending on Luma right now',
 };
 
-// I'm not convinced this is the best way of doing this as I would like to avoid using hardcoded array indices where possible
-// However, this works for now and I will look at a better way of doing it down the line
 export const Products = [
-  WomenTees.Products[2],
-  WomenTanks.Products[0],
-  MenTanks.Products[5],
-  MenHoodies.Products[6],
-  GearBags.Products[8],
-  GearBags.Products[0],
+  WomenTees.Radiant,
+  WomenTanks.BreatheEasy,
+  MenTanks.Argus,
+  MenHoodies.Hero,
+  GearBags.Fusion,
+  GearBags.PushIt,
 ];
 
 export const PromoBlockLinks = [

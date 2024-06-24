@@ -197,15 +197,15 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Olivia: {
     name: 'Olivia 1/4 Zip Light Jacket',
     price: 'As low as $77.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/olivia-1-4-zip-light-jacket.html',
   },
-  {
+  Juno: {
     name: 'Juno Jacket',
     rating: '87%',
     reviews: '3 Reviews',
@@ -214,7 +214,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Green, Colors.Purple],
     link: '/juno-jacket.html',
   },
-  {
+  Neve: {
     name: 'Neve Studio Dance Jacket',
     rating: '87%',
     reviews: '3 Reviews',
@@ -223,7 +223,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Orange],
     link: '/neve-studio-dance-jacket.html',
   },
-  {
+  Nadia: {
     name: 'Nadia Elements Shell',
     rating: '60%',
     reviews: '3 Reviews',
@@ -232,7 +232,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Orange, Colors.Yellow],
     link: '/nadia-elements-shell.html',
   },
-  {
+  Jade: {
     name: 'Jade Yoga Jacket',
     rating: '87%',
     reviews: '3 Reviews',
@@ -241,7 +241,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Grey, Colors.Green],
     link: '/jade-yoga-jacket.html',
   },
-  {
+  Adrienne: {
     name: 'Adrienne Trek Jacket',
     rating: '60%',
     reviews: '2 Reviews',
@@ -250,7 +250,7 @@ export const Products: Product[] = [
     colors: [Colors.Grey, Colors.Orange, Colors.Purple],
     link: '/adrienne-trek-jacket.html',
   },
-  {
+  Inez: {
     name: 'Inez Full Zip Jacket',
     rating: '67%',
     reviews: '3 Reviews',
@@ -259,7 +259,7 @@ export const Products: Product[] = [
     colors: [Colors.Orange, Colors.Purple, Colors.Red],
     link: '/inez-full-zip-jacket.html',
   },
-  {
+  Riona: {
     name: 'Riona Full Zip Jacket',
     rating: '87%',
     reviews: '3 Reviews',
@@ -268,7 +268,7 @@ export const Products: Product[] = [
     colors: [Colors.Brown, Colors.Green, Colors.Red],
     link: '/riona-full-zip-jacket.html',
   },
-  {
+  Ingrid: {
     name: 'Ingrid Running Jacket',
     rating: '90%',
     reviews: '2 Reviews',
@@ -277,7 +277,7 @@ export const Products: Product[] = [
     colors: [Colors.Orange, Colors.Red, Colors.White],
     link: '/ingrid-running-jacket.html',
   },
-  {
+  Augusta: {
     name: 'Augusta Pullover Jacket',
     rating: '87%',
     reviews: '3 Reviews',
@@ -286,7 +286,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Orange, Colors.Red],
     link: '/augusta-pullover-jacket.html',
   },
-  {
+  Josie: {
     name: 'Josie Yoga Jacket',
     rating: '70%',
     reviews: '4 Reviews',
@@ -295,7 +295,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Grey],
     link: '/josie-yoga-jacket.html',
   },
-  {
+  Stellar: {
     name: 'Stellar Solar Jacket',
     rating: '67%',
     reviews: '3 Reviews',
@@ -304,4 +304,19 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Red, Colors.Yellow],
     link: '/stellar-solar-jacket.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Olivia,
+  ProductDetails.Juno,
+  ProductDetails.Neve,
+  ProductDetails.Nadia,
+  ProductDetails.Jade,
+  ProductDetails.Adrienne,
+  ProductDetails.Inez,
+  ProductDetails.Riona,
+  ProductDetails.Ingrid,
+  ProductDetails.Augusta,
+  ProductDetails.Josie,
+  ProductDetails.Stellar,
 ];

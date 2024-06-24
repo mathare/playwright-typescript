@@ -147,57 +147,57 @@ export const Filters: FilterCategory[] = [
 
 const Sizes = ['32', '33', '34', '36'];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Cronus: {
     name: 'Cronus Yoga Pant',
     price: 'As low as $38.40',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Red],
     link: '/cronus-yoga-pant.html',
   },
-  {
+  Aether: {
     name: 'Aether Gym Pant',
     price: 'As low as $59.20',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Brown, Colors.Green],
     link: '/aether-gym-pant.html',
   },
-  {
+  Orestes: {
     name: 'Orestes Yoga Pant',
     price: 'As low as $52.80',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Green],
     link: '/orestes-yoga-pant.html',
   },
-  {
+  Livingston: {
     name: 'Livingston All-Purpose Tight',
     price: 'As low as $60.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Red],
     link: '/livingston-all-purpose-tight.html',
   },
-  {
+  Zeppelin: {
     name: 'Zeppelin Yoga Pant',
     price: 'As low as $65.60',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/zeppelin-yoga-pant.html',
   },
-  {
+  Thorpe: {
     name: 'Thorpe Track Pant',
     price: 'As low as $54.40',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/thorpe-track-pant.html',
   },
-  {
+  Mithra: {
     name: 'Mithra Warmup Pant',
     price: 'As low as $22.40',
     sizes: Sizes,
     colors: [Colors.Grey, Colors.Green, Colors.Orange],
     link: '/mithra-warmup-pant.html',
   },
-  {
+  Kratos: {
     name: 'Kratos Gym Pant',
     rating: '73%',
     reviews: '3 Reviews',
@@ -206,7 +206,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Green],
     link: '/kratos-gym-pant.html',
   },
-  {
+  Supernova: {
     name: 'Supernova Sport Pant',
     rating: '87%',
     reviews: '3 Reviews',
@@ -215,7 +215,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Grey, Colors.Green],
     link: '/supernova-sport-pant.html',
   },
-  {
+  Geo: {
     name: 'Geo Insulated Jogging Pant',
     rating: '70%',
     reviews: '2 Reviews',
@@ -224,7 +224,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/geo-insulated-jogging-pant.html',
   },
-  {
+  Viktor: {
     name: 'Viktor LumaTech™ Pant',
     rating: '47%',
     reviews: '3 Reviews',
@@ -233,7 +233,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Grey, Colors.Red],
     link: '/viktor-lumatech-trade-pant.html',
   },
-  {
+  Caesar: {
     name: 'Caesar Warm-Up Pant',
     rating: '47%',
     reviews: '3 Reviews',
@@ -242,4 +242,19 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Grey, Colors.Purple],
     link: '/caesar-warm-up-pant.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Cronus,
+  ProductDetails.Aether,
+  ProductDetails.Orestes,
+  ProductDetails.Livingston,
+  ProductDetails.Zeppelin,
+  ProductDetails.Thorpe,
+  ProductDetails.Mithra,
+  ProductDetails.Kratos,
+  ProductDetails.Supernova,
+  ProductDetails.Geo,
+  ProductDetails.Viktor,
+  ProductDetails.Caesar,
 ];

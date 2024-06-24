@@ -205,50 +205,50 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Marco: {
     name: 'Marco Lightweight Active Hoodie',
     price: 'As low as $74.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Lavender],
     link: '/marco-lightweight-active-hoodie.html',
   },
-  {
+  Ajax: {
     name: 'Ajax Full-Zip Sweatshirt',
     price: 'As low as $69.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/ajax-full-zip-sweatshirt.html',
   },
-  {
+  Grayson: {
     name: 'Grayson Crewneck Sweatshirt',
     price: 'As low as $64.00',
     sizes: Sizes,
     colors: [Colors.Orange, Colors.Red, Colors.White],
     link: '/grayson-crewneck-sweatshirt.html',
   },
-  {
+  Mach: {
     name: 'Mach Street Sweatshirt',
     price: 'As low as $62.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Red],
     link: '/mach-street-sweatshirt.html',
   },
-  {
+  Abominable: {
     name: 'Abominable Hoodie',
     price: 'As low as $69.00',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/abominable-hoodie.html',
   },
-  {
+  Oslo: {
     name: 'Oslo Trek Hoodie',
     price: 'As low as $42.00',
     sizes: Sizes,
     colors: [Colors.Brown, Colors.Purple, Colors.Red],
     link: '/oslo-trek-hoodie.html',
   },
-  {
+  Hero: {
     name: 'Hero Hoodie',
     price: 'As low as $54.00',
     sizes: Sizes,
@@ -267,46 +267,62 @@ export const Products: Product[] = [
       ],
     },
   },
-  {
+  Stark: {
     name: 'Stark Fundamental Hoodie',
     price: 'As low as $42.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/stark-fundamental-hoodie.html',
   },
-  {
+  Hollister: {
     name: 'Hollister Backyard Sweatshirt',
     price: 'As low as $52.00',
     sizes: Sizes,
     colors: [Colors.Green, Colors.Red, Colors.White],
     link: '/hollister-backyard-sweatshirt.html',
   },
-  {
+  Frankie: {
     name: 'Frankie Sweatshirt',
     price: 'As low as $60.00',
     sizes: Sizes,
     colors: [Colors.Green, Colors.White, Colors.Yellow],
     link: '/frankie-sweatshirt.html',
   },
-  {
+  Bruno: {
     name: 'Bruno Compete Hoodie',
     price: 'As low as $63.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Green],
     link: '/bruno-compete-hoodie.html',
   },
-  {
+  Teton: {
     name: 'Teton Pullover Hoodie',
     price: 'As low as $70.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Purple, Colors.Red],
     link: '/teton-pullover-hoodie.html',
   },
-  {
+  Chaz: {
     name: 'Chaz Kangeroo Hoodie',
     price: 'As low as $52.00',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Grey, Colors.Orange],
     link: '/chaz-kangeroo-hoodie.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Marco,
+  ProductDetails.Ajax,
+  ProductDetails.Grayson,
+  ProductDetails.Mach,
+  ProductDetails.Abominable,
+  ProductDetails.Oslo,
+  ProductDetails.Hero,
+  ProductDetails.Stark,
+  ProductDetails.Hollister,
+  ProductDetails.Frankie,
+  ProductDetails.Bruno,
+  ProductDetails.Teton,
+  ProductDetails.Chaz,
 ];

@@ -1,9 +1,9 @@
 import { Product } from '../products';
 import { CollectionExpectedText } from './shared';
-import * as MenHoodies from '../productCategories/menHoodies';
-import * as WomenTees from '../productCategories/womenTees';
-import * as WomenShorts from '../productCategories/womenShorts';
-import * as WomenJackets from '../productCategories/womenJackets';
+import { ProductDetails as MenHoodies } from '../productCategories/menHoodies';
+import { ProductDetails as WomenTees } from '../productCategories/womenTees';
+import { ProductDetails as WomenShorts } from '../productCategories/womenShorts';
+import { ProductDetails as WomenJackets } from '../productCategories/womenJackets';
 
 export const Url = '/collections/eco-new.html';
 
@@ -22,9 +22,9 @@ export const Links = {
 };
 
 export const Products: Product[] = [
-  MenHoodies.Products[10],
-  WomenTees.Products[9],
-  WomenShorts.Products[11],
-  WomenJackets.Products[11],
-  WomenTees.Products[8],
+  MenHoodies.Bruno,
+  WomenTees.Layla,
+  WomenShorts.Fiona,
+  WomenJackets.Stellar,
+  WomenTees.Elisa,
 ];

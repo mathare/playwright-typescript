@@ -1,9 +1,9 @@
 import { Product } from '../products';
 import { CollectionExpectedText, Filter, ShoppingOptions } from './shared';
-import * as Hoodies from '../productCategories/menHoodies';
-import * as Pants from '../productCategories/menPants';
-import * as Shorts from '../productCategories/menShorts';
-import * as Tanks from '../productCategories/menTanks';
+import { ProductDetails as Hoodies } from '../productCategories/menHoodies';
+import { ProductDetails as Pants } from '../productCategories/menPants';
+import { ProductDetails as Shorts } from '../productCategories/menShorts';
+import { ProductDetails as Tanks } from '../productCategories/menTanks';
 import { Links as HeaderLinks } from '../pageHeader';
 
 export const ExpectedText: CollectionExpectedText = {
@@ -73,4 +73,4 @@ export const Filters: Filter[] = [
   },
 ];
 
-export const Products: Product[] = [Tanks.Products[5], Hoodies.Products[6], Shorts.Products[9], Pants.Products[9]];
+export const Products: Product[] = [Tanks.Argus, Hoodies.Hero, Shorts.Meteor, Pants.Geo];

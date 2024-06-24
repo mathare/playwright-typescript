@@ -122,8 +122,8 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Desiree: {
     name: 'Desiree Fitness Tee',
     rating: '73%',
     reviews: '3 Reviews',
@@ -132,7 +132,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Orange, Colors.Yellow],
     link: '/desiree-fitness-tee.html',
   },
-  {
+  Gwyn: {
     name: 'Gwyn Endurance Tee',
     rating: '87%',
     reviews: '3 Reviews',
@@ -141,7 +141,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Green, Colors.Yellow],
     link: '/gwyn-endurance-tee.html',
   },
-  {
+  Radiant: {
     name: 'Radiant Tee',
     rating: '60%',
     reviews: '3 Reviews',
@@ -162,7 +162,7 @@ export const Products: Product[] = [
       ],
     },
   },
-  {
+  Diva: {
     name: 'Diva Gym Tee',
     rating: '87%',
     reviews: '3 Reviews',
@@ -171,7 +171,7 @@ export const Products: Product[] = [
     colors: [Colors.Green, Colors.Orange, Colors.Yellow],
     link: '/diva-gym-tee.html',
   },
-  {
+  Karissa: {
     name: 'Karissa V-Neck Tee',
     rating: '80%',
     reviews: '3 Reviews',
@@ -180,7 +180,7 @@ export const Products: Product[] = [
     colors: [Colors.Green, Colors.Red, Colors.Yellow],
     link: '/karissa-v-neck-tee.html',
   },
-  {
+  Tiffany: {
     name: 'Tiffany Fitness Tee',
     rating: '73%',
     reviews: '3 Reviews',
@@ -189,7 +189,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Red, Colors.White],
     link: '/tiffany-fitness-tee.html',
   },
-  {
+  Minerva: {
     name: 'Minerva LumaTech™ V-Tee',
     rating: '47%',
     reviews: '3 Reviews',
@@ -198,7 +198,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Red],
     link: '/minerva-lumatech-trade-v-tee.html',
   },
-  {
+  Juliana: {
     name: 'Juliana Short-Sleeve Tee',
     rating: '60%',
     reviews: '2 Reviews',
@@ -207,14 +207,14 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.White, Colors.Yellow],
     link: '/juliana-short-sleeve-tee.html',
   },
-  {
+  Elisa: {
     name: 'Elisa EverCool™ Tee',
     price: 'As low as $29.00',
     sizes: Sizes,
     colors: [Colors.Grey, Colors.Purple, Colors.Red],
     link: '/elisa-evercool-trade-tee.html',
   },
-  {
+  Layla: {
     name: 'Layla Tee',
     rating: '60%',
     reviews: '2 Reviews',
@@ -223,7 +223,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/layla-tee.html',
   },
-  {
+  Iris: {
     name: 'Iris Workout Top',
     rating: '60%',
     reviews: '4 Reviews',
@@ -232,7 +232,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/iris-workout-top.html',
   },
-  {
+  Gabrielle: {
     name: 'Gabrielle Micro Sleeve Top',
     rating: '73%',
     reviews: '3 Reviews',
@@ -241,4 +241,19 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/gabrielle-micro-sleeve-top.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Desiree,
+  ProductDetails.Gwyn,
+  ProductDetails.Radiant,
+  ProductDetails.Diva,
+  ProductDetails.Karissa,
+  ProductDetails.Tiffany,
+  ProductDetails.Minerva,
+  ProductDetails.Juliana,
+  ProductDetails.Elisa,
+  ProductDetails.Layla,
+  ProductDetails.Iris,
+  ProductDetails.Gabrielle,
 ];

@@ -1,7 +1,7 @@
 import { Product } from '../products';
 import { CollectionExpectedText, Filter, ShoppingOptions } from './shared';
-import * as Bags from '../productCategories/gearBags';
-import * as Equipment from '../productCategories/gearFitnessEquipment';
+import { ProductDetails as Bags } from '../productCategories/gearBags';
+import { ProductDetails as Equipment } from '../productCategories/gearFitnessEquipment';
 import { Links as HeaderLinks } from '../pageHeader';
 
 export const ExpectedText: CollectionExpectedText = {
@@ -68,4 +68,4 @@ export const Filters: Filter[] = [
   },
 ];
 
-export const Products: Product[] = [Bags.Products[8], Bags.Products[0], Equipment.Products[10], Equipment.Products[0]];
+export const Products: Product[] = [Bags.Fusion, Bags.PushIt, Equipment.WaterBottle, Equipment.SpriteKit];

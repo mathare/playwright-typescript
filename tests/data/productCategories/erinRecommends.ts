@@ -1,12 +1,12 @@
 import { FilterCategory, ProductCategoryExpectedText } from './shared';
-import { Products as MenPants } from './menPants';
-import { Products as MenShorts } from './menShorts';
-import { Products as WomenHoodies } from './womenHoodies';
-import { Products as WomenJackets } from './womenJackets';
-import { Products as WomenPants } from './womenPants';
-import { Products as WomenShorts } from './womenShorts';
-import { Products as WomenTanks } from './womenTanks';
-import { Products as WomenTees } from './womenTees';
+import { ProductDetails as MenPants } from './menPants';
+import { ProductDetails as MenShorts } from './menShorts';
+import { ProductDetails as WomenHoodies } from './womenHoodies';
+import { ProductDetails as WomenJackets } from './womenJackets';
+import { ProductDetails as WomenPants } from './womenPants';
+import { ProductDetails as WomenShorts } from './womenShorts';
+import { ProductDetails as WomenTanks } from './womenTanks';
+import { ProductDetails as WomenTees } from './womenTees';
 import { Product } from '../products';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -179,25 +179,25 @@ export const Filters: FilterCategory[] = [
 ];
 
 export const Products: Product[] = [
-  WomenShorts[0],
-  WomenShorts[1],
-  WomenPants[0],
-  WomenPants[7],
-  WomenPants[8],
-  WomenTanks[0],
-  WomenTanks[4],
-  WomenTanks[6],
-  WomenTees[3],
-  WomenTees[7],
-  WomenJackets[4],
-  WomenJackets[5],
-  WomenJackets[11],
-  WomenHoodies[1],
-  WomenHoodies[5],
-  WomenHoodies[11],
-  MenShorts[5],
-  MenShorts[11],
-  MenPants[1],
-  MenPants[2],
-  MenPants[3],
+  WomenShorts.Erika,
+  WomenShorts.Ina,
+  WomenPants.Portia,
+  WomenPants.Diana,
+  WomenPants.Sahara,
+  WomenTanks.BreatheEasy,
+  WomenTanks.Leah,
+  WomenTanks.Nora,
+  WomenTees.Diva,
+  WomenTees.Juliana,
+  WomenJackets.Jade,
+  WomenJackets.Adrienne,
+  WomenJackets.Stellar,
+  WomenHoodies.Eos,
+  WomenHoodies.Phoebe,
+  WomenHoodies.Mona,
+  MenShorts.Rapha,
+  MenShorts.Cobalt,
+  MenPants.Aether,
+  MenPants.Orestes,
+  MenPants.Livingston,
 ];

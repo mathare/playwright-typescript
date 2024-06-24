@@ -169,57 +169,57 @@ export const Filters: FilterCategory[] = [
 
 const Sizes = ['28', '29'];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  Portia: {
     name: 'Portia Capri',
     price: 'As low as $39.20',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Orange],
     link: '/portia-capri.html',
   },
-  {
+  Deirdre: {
     name: 'Deirdre Relaxed-Fit Capri',
     price: 'As low as $50.40',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Grey, Colors.Green],
     link: '/deirdre-relaxed-fit-capri.html',
   },
-  {
+  Sylvia: {
     name: 'Sylvia Capri',
     price: 'As low as $33.60',
     sizes: Sizes,
     colors: [Colors.Blue, Colors.Green, Colors.Red],
     link: '/sylvia-capri.html',
   },
-  {
+  Daria: {
     name: 'Daria Bikram Pant',
     price: 'As low as $40.80',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Grey, Colors.White],
     link: '/daria-bikram-pant.html',
   },
-  {
+  Carina: {
     name: 'Carina Basic Capri',
     price: 'As low as $40.80',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/carina-basic-capri.html',
   },
-  {
+  Bardot: {
     name: 'Bardot Capri',
     price: 'As low as $38.40',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Green, Colors.Red],
     link: '/bardot-capri.html',
   },
-  {
+  Aeon: {
     name: 'Aeon Capri',
     price: 'As low as $38.40',
     sizes: Sizes,
     colors: [Colors.Black, Colors.Blue, Colors.Orange],
     link: '/aeon-capri.html',
   },
-  {
+  Diana: {
     name: 'Diana Tights',
     rating: '67%',
     reviews: '3 Reviews',
@@ -228,7 +228,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Orange],
     link: '/diana-tights.html',
   },
-  {
+  Sahara: {
     name: 'Sahara Leggings',
     rating: '60%',
     reviews: '2 Reviews',
@@ -237,7 +237,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Grey, Colors.Red],
     link: '/sahara-leggings.html',
   },
-  {
+  Cora: {
     name: 'Cora Parachute Pant',
     rating: '80%',
     reviews: '4 Reviews',
@@ -246,7 +246,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.White],
     link: '/cora-parachute-pant.html',
   },
-  {
+  Ida: {
     name: 'Ida Workout Parachute Pant',
     rating: '67%',
     reviews: '3 Reviews',
@@ -255,7 +255,7 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Blue, Colors.Purple],
     link: '/ida-workout-parachute-pant.html',
   },
-  {
+  Emma: {
     name: 'Emma Leggings',
     rating: '93%',
     reviews: '3 Reviews',
@@ -264,7 +264,7 @@ export const Products: Product[] = [
     colors: [Colors.Blue, Colors.Purple, Colors.Red],
     link: '/emma-leggings.html',
   },
-  {
+  Karmen: {
     name: 'Karmen Yoga Pant',
     rating: '80%',
     reviews: '2 Reviews',
@@ -273,4 +273,20 @@ export const Products: Product[] = [
     colors: [Colors.Black, Colors.Grey, Colors.White],
     link: '/karmen-yoga-pant.html',
   },
+};
+
+export const Products = [
+  ProductDetails.Portia,
+  ProductDetails.Deirdre,
+  ProductDetails.Sylvia,
+  ProductDetails.Daria,
+  ProductDetails.Carina,
+  ProductDetails.Bardot,
+  ProductDetails.Aeon,
+  ProductDetails.Diana,
+  ProductDetails.Sahara,
+  ProductDetails.Cora,
+  ProductDetails.Ida,
+  ProductDetails.Emma,
+  ProductDetails.Karmen,
 ];

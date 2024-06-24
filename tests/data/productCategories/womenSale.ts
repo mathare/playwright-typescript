@@ -1,9 +1,9 @@
 import { FilterCategory, ProductCategoryExpectedText } from './shared';
-import { Products as WomenHoodies } from './womenHoodies';
-import { Products as WomenJackets } from './womenJackets';
-import { Products as WomenShorts } from './womenShorts';
-import { Products as WomenTanks } from './womenTanks';
-import { Products as WomenTees } from './womenTees';
+import { ProductDetails as WomenHoodies } from './womenHoodies';
+import { ProductDetails as WomenJackets } from './womenJackets';
+import { ProductDetails as WomenShorts } from './womenShorts';
+import { ProductDetails as WomenTanks } from './womenTanks';
+import { ProductDetails as WomenTees } from './womenTees';
 import { Product } from '../products';
 
 export const ExpectedText: ProductCategoryExpectedText = {
@@ -157,18 +157,18 @@ export const Filters: FilterCategory[] = [
 ];
 
 export const Products: Product[] = [
-  WomenShorts[7],
-  WomenShorts[10],
-  WomenTanks[0],
-  WomenTanks[1],
-  WomenTanks[13],
-  WomenTees[3],
-  WomenTees[5],
-  WomenTees[6],
-  WomenJackets[0],
-  WomenJackets[1],
-  WomenJackets[5],
-  WomenJackets[10],
-  WomenHoodies[4],
-  WomenHoodies[10],
+  WomenShorts.Bess,
+  WomenShorts.Maxima,
+  WomenTanks.BreatheEasy,
+  WomenTanks.Antonia,
+  WomenTanks.Electra,
+  WomenTees.Diva,
+  WomenTees.Tiffany,
+  WomenTees.Minerva,
+  WomenJackets.Olivia,
+  WomenJackets.Juno,
+  WomenJackets.Adrienne,
+  WomenJackets.Josie,
+  WomenHoodies.Cassia,
+  WomenHoodies.Hera,
 ];
