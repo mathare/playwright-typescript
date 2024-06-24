@@ -1,10 +1,10 @@
 import { Product } from '../products';
 import { CollectionExpectedText } from './shared';
-import * as MenJackets from '../productCategories/menJackets';
-import * as MenTanks from '../productCategories/menTanks';
-import * as WomenJackets from '../productCategories/womenJackets';
-import * as WomenTees from '../productCategories/womenTees';
-import * as WomenShorts from '../productCategories/womenShorts';
+import { ProductDetails as MenJackets } from '../productCategories/menJackets';
+import { ProductDetails as MenTanks } from '../productCategories/menTanks';
+import { ProductDetails as WomenJackets } from '../productCategories/womenJackets';
+import { ProductDetails as WomenTees } from '../productCategories/womenTees';
+import { ProductDetails as WomenShorts } from '../productCategories/womenShorts';
 
 export const Url = '/collections/performance-new.html';
 
@@ -23,9 +23,9 @@ export const Links = {
 };
 
 export const Products: Product[] = [
-  MenJackets.Products[9],
-  MenTanks.Products[8],
-  WomenJackets.Products[8],
-  WomenTees.Products[7],
-  WomenShorts.Products[9],
+  MenJackets.Hyperion,
+  MenTanks.Helios,
+  WomenJackets.Ingrid,
+  WomenTees.Juliana,
+  WomenShorts.Gwen,
 ];
