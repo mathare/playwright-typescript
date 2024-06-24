@@ -111,8 +111,8 @@ export const Filters: FilterCategory[] = [
   },
 ];
 
-export const Products: Product[] = [
-  {
+export const ProductDetails: Record<string, Product> = {
+  PushIt: {
     name: 'Push It Messenger Bag',
     rating: '67%',
     reviews: '3 Reviews',
@@ -120,56 +120,56 @@ export const Products: Product[] = [
     link: '/push-it-messenger-bag.html',
     images: { default: '/w/b/wb04-blue-0.jpg' },
   },
-  {
+  Overnight: {
     name: 'Overnight Duffle',
     rating: '60%',
     reviews: '3 Reviews',
     price: '$45.00',
     link: '/overnight-duffle.html',
   },
-  {
+  Driven: {
     name: 'Driven Backpack',
     rating: '90%',
     reviews: '2 Reviews',
     price: '$36.00',
     link: '/driven-backpack.html',
   },
-  {
+  Endeavor: {
     name: 'Endeavor Daytrip Backpack',
     rating: '73%',
     reviews: '3 Reviews',
     price: '$33.00',
     link: '/endeavor-daytrip-backpack.html',
   },
-  {
+  Savvy: {
     name: 'Savvy Shoulder Tote',
     rating: '80%',
     reviews: '2 Reviews',
     price: 'Special Price\n$24.00 Regular Price $32.00',
     link: '/savvy-shoulder-tote.html',
   },
-  {
+  Compete: {
     name: 'Compete Track Tote',
     rating: '70%',
     reviews: '2 Reviews',
     price: '$32.00',
     link: '/compete-track-tote.html',
   },
-  {
+  Voyage: {
     name: 'Voyage Yoga Bag',
     rating: '67%',
     reviews: '3 Reviews',
     price: '$32.00',
     link: '/voyage-yoga-bag.html',
   },
-  {
+  Impulse: {
     name: 'Impulse Duffle',
     rating: '80%',
     reviews: '3 Reviews',
     price: '$74.00',
     link: '/impulse-duffle.html',
   },
-  {
+  Fusion: {
     name: 'Fusion Backpack',
     rating: '67%',
     reviews: '3 Reviews',
@@ -177,39 +177,56 @@ export const Products: Product[] = [
     link: '/fusion-backpack.html',
     images: { default: '/m/b/mb02-gray-0.jpg' },
   },
-  {
+  Rival: {
     name: 'Rival Field Messenger',
     rating: '70%',
     reviews: '2 Reviews',
     price: '$45.00',
     link: '/rival-field-messenger.html',
   },
-  {
+  Wayfarer: {
     name: 'Wayfarer Messenger Bag',
     rating: '67%',
     reviews: '3 Reviews',
     price: '$45.00',
     link: '/wayfarer-messenger-bag.html',
   },
-  {
+  Crown: {
     name: 'Crown Summit Backpack',
     rating: '67%',
     reviews: '3 Reviews',
     price: '$38.00',
     link: '/crown-summit-backpack.html',
   },
-  {
+  Strive: {
     name: 'Strive Shoulder Pack',
     rating: '90%',
     reviews: '2 Reviews',
     price: '$32.00',
     link: '/strive-shoulder-pack.html',
   },
-  {
+  Joust: {
     name: 'Joust Duffle Bag',
     rating: '50%',
     reviews: '2 Reviews',
     price: '$34.00',
     link: '/joust-duffle-bag.html',
   },
+};
+
+export const Products = [
+  ProductDetails.PushIt,
+  ProductDetails.Overnight,
+  ProductDetails.Driven,
+  ProductDetails.Endeavor,
+  ProductDetails.Savvy,
+  ProductDetails.Compete,
+  ProductDetails.Voyage,
+  ProductDetails.Impulse,
+  ProductDetails.Fusion,
+  ProductDetails.Rival,
+  ProductDetails.Wayfarer,
+  ProductDetails.Crown,
+  ProductDetails.Strive,
+  ProductDetails.Joust,
 ];
