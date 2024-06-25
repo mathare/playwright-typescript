@@ -39,6 +39,8 @@ for (const product of products) {
       });
 
       test('Product details', async ({ baseURL }) => {
+        // The breadcrumbs will vary depending on the route taken to the page but by navigating to the product page
+        // directly the breadcrumbs will always be Home > {Product Name}
         const breadcrumbsExpectedText = `Home  ${Products[product].name}`;
         await expect.soft(productPage.breadcrumbsContainer).toHaveText(breadcrumbsExpectedText);
 
@@ -124,6 +126,41 @@ for (const product of products) {
             await expect
               .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.Price).first())
               .toHaveText(SimilarProducts[product][i].price);
+          }
+        }
+      });
+    });
+
+    test.describe('Link tests', () => {
+      // I have chosen to omit the breadcrumbs link test for individual product pages as such a test would be of low
+      // value since the breadcrumbs can vary depending on the route taken to the product page, although as these
+      // tests navigate to the product page directly the breadcrumbs are always Home > {Product Name}. I could verify
+      // the Home breadcrumb link is correct but is it worth it?
+
+      test('Product details links', async ({ baseURL }) => {
+        if (Products[product].reviews) {
+          await expect.soft(productPage.reviews).toHaveAttribute('href', `${baseURL}${Products[product].link}#reviews`);
+        } else {
+          await expect.soft(productPage.reviews).not.toBeVisible();
+        }
+        await expect
+          .soft(productPage.addReview)
+          .toHaveAttribute('href', `${baseURL}${Products[product].link}#review-form`);
+        // The tab links don't include the product page URL in the href attribute for some reason
+        await expect.soft(productPage.getTabLink(productPage.descriptionTab)).toHaveAttribute('href', '#description');
+        await expect.soft(productPage.getTabLink(productPage.additionalInfoTab)).toHaveAttribute('href', '#additional');
+        await expect.soft(productPage.getTabLink(productPage.reviewsTab)).toHaveAttribute('href', '#reviews');
+      });
+
+      test('Similar product item links', async ({ baseURL }) => {
+        if (SimilarProducts[product]) {
+          for (let i = 0; i < SimilarProducts[product].length; i++) {
+            await expect
+              .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.PhotoLink))
+              .toHaveAttribute('href', `${baseURL}${SimilarProducts[product][i].link}`);
+            await expect
+              .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.NameLink))
+              .toHaveAttribute('href', `${baseURL}${SimilarProducts[product][i].link}`);
           }
         }
       });

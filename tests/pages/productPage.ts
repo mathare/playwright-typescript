@@ -73,6 +73,10 @@ export class ProductPage extends BasePage {
     this.similarProductItem = new ProductItem(this.similarProductsGrid).product;
   }
 
+  getTabLink(tab: Locator): Locator {
+    return tab.locator('a');
+  }
+
   getReviewDetail(index: number, detail: ReviewDetails): Locator {
     return this.review.nth(index).locator(detail);
   }
