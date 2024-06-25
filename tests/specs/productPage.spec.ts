@@ -3,8 +3,6 @@ import * as dotenv from 'dotenv';
 import { ProductPage, ReviewDetails } from '../pages/productPage';
 import { Products } from '../data/productPage';
 
-const mediaDir = '/pub/media/catalog/product/cache/[0-9a-f]+';
-
 dotenv.config();
 const products = process.env.TEST_MODE === 'full' ? Object.keys(Products) : ['RadiantTee'];
 for (const product of products) {

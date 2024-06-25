@@ -1,3 +1,3 @@
-import * as RadiantTee from './products/radiantTee';
+import { ProductDetails as WomenTees } from './productCategories/womenTees';
 
-export const Products = { RadiantTee: { ...RadiantTee.ProductDetails } };
+export const Products = { RadiantTee: WomenTees.Radiant };
