@@ -45,27 +45,29 @@ for (const product of products) {
           const mediaDir = `${baseURL}/pub/media/catalog/product/cache/[0-9a-f]+`;
           await expect
             .soft(productPage.productImage)
-            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images.default));
-          await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images.thumbnails.length);
-          for (let i = 0; i < Products[product].images.thumbnails.length; i++) {
+            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.default));
+          await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
+          for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
             await expect
               .soft(productPage.productThumbnail.nth(i))
-              .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images.thumbnails[i]));
+              .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
           }
         }
 
         await expect.soft(productPage.productName).toHaveText(Products[product].name);
-        await expect.soft(productPage.reviews).toHaveText(Products[product].reviews);
+        if (Products[product].reviews) {
+          await expect.soft(productPage.reviews).toHaveText(Products[product].reviews!);
+        }
         if (Products[product].rating) {
           await expect.soft(productPage.rating).toHaveAttribute('title', Products[product].rating!);
         }
         if (Products[product].reviewDetails) {
-          await expect.soft(productPage.reviews).toHaveText(`${Products[product].reviewDetails.length} Reviews`);
+          await expect.soft(productPage.reviews).toHaveText(`${Products[product].reviewDetails!.length} Reviews`);
         }
         await expect.soft(productPage.price).toHaveText(Products[product].price);
         const availability = Products[product].inStock ? 'In stock' : 'Out of stock';
         await expect.soft(productPage.availability).toHaveText(availability);
-        await expect.soft(productPage.sku).toHaveText(Products[product].sku);
+        await expect.soft(productPage.sku).toHaveText(Products[product].sku!);
         if (Products[product].sizes) {
           await expect.soft(productPage.sizeSwatch).toHaveCount(Products[product].sizes!.length);
           for (let i = 0; i < Products[product].sizes!.length; i++) {
@@ -83,31 +85,31 @@ for (const product of products) {
         await expect.soft(productPage.quantityInput).toHaveValue('1');
 
         if (Products[product].description) {
-          await expect.soft(productPage.description).toHaveText(Products[product].description, { useInnerText: true });
+          await expect.soft(productPage.description).toHaveText(Products[product].description!, { useInnerText: true });
         }
         if (Products[product].additionalInfo) {
-          await expect.soft(productPage.additionalInfo).toHaveText(Products[product].additionalInfo);
+          await expect.soft(productPage.additionalInfo).toHaveText(Products[product].additionalInfo!);
         }
         if (Products[product].reviewDetails) {
           // Reviews only loaded when tab selected
           await productPage.reviewsTab.click();
-          await expect(productPage.review).toHaveCount(Products[product].reviewDetails.length);
-          for (let i = 0; i < Products[product].reviewDetails.length; i++) {
+          await expect(productPage.review).toHaveCount(Products[product].reviewDetails!.length);
+          for (let i = 0; i < Products[product].reviewDetails!.length; i++) {
             await expect
               .soft(productPage.getReviewDetail(i, ReviewDetails.title))
-              .toHaveText(Products[product].reviewDetails[i].title);
+              .toHaveText(Products[product].reviewDetails![i].title);
             await expect
               .soft(productPage.getReviewDetail(i, ReviewDetails.rating))
-              .toHaveText(Products[product].reviewDetails[i].rating, { useInnerText: true });
+              .toHaveText(Products[product].reviewDetails![i].rating, { useInnerText: true });
             await expect
               .soft(productPage.getReviewDetail(i, ReviewDetails.description))
-              .toHaveText(Products[product].reviewDetails[i].reviewText);
+              .toHaveText(Products[product].reviewDetails![i].reviewText);
             await expect
               .soft(productPage.getReviewDetail(i, ReviewDetails.reviewer))
-              .toHaveText(Products[product].reviewDetails[i].reviewer);
+              .toHaveText(Products[product].reviewDetails![i].reviewer);
             await expect
               .soft(productPage.getReviewDetail(i, ReviewDetails.date))
-              .toHaveText(Products[product].reviewDetails[i].date);
+              .toHaveText(Products[product].reviewDetails![i].date);
           }
         }
       });
