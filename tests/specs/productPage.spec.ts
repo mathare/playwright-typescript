@@ -41,19 +41,6 @@ for (const product of products) {
         const breadcrumbsExpectedText = `Home  ${Products[product].name}`;
         await expect.soft(productPage.breadcrumbsContainer).toHaveText(breadcrumbsExpectedText);
 
-        if (Products[product].images) {
-          const mediaDir = `${baseURL}/pub/media/catalog/product/cache/[0-9a-f]+`;
-          await expect
-            .soft(productPage.productImage)
-            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.default));
-          await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
-          for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
-            await expect
-              .soft(productPage.productThumbnail.nth(i))
-              .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
-          }
-        }
-
         await expect.soft(productPage.productName).toHaveText(Products[product].name);
         if (Products[product].reviews) {
           await expect.soft(productPage.reviews).toHaveText(Products[product].reviews!);
@@ -68,12 +55,14 @@ for (const product of products) {
         const availability = Products[product].inStock ? 'In stock' : 'Out of stock';
         await expect.soft(productPage.availability).toHaveText(availability);
         await expect.soft(productPage.sku).toHaveText(Products[product].sku!);
+
         if (Products[product].sizes) {
           await expect.soft(productPage.sizeSwatch).toHaveCount(Products[product].sizes!.length);
           for (let i = 0; i < Products[product].sizes!.length; i++) {
             await expect.soft(productPage.sizeSwatch.nth(i)).toHaveText(Products[product].sizes![i]);
           }
         }
+
         if (Products[product].colors) {
           await expect.soft(productPage.colorSwatch).toHaveCount(Products[product].colors!.length);
           for (let i = 0; i < Products[product].colors!.length; i++) {
@@ -82,6 +71,7 @@ for (const product of products) {
               .toHaveCSS('background-color', Products[product].colors![i]);
           }
         }
+
         await expect.soft(productPage.quantityInput).toHaveValue('1');
 
         if (Products[product].description) {
@@ -123,6 +113,37 @@ for (const product of products) {
             await expect
               .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.Price).first())
               .toHaveText(SimilarProducts[product][i].price);
+          }
+        }
+      });
+
+      test('Product images', async ({ baseURL }, testInfo) => {
+        testInfo.skip(!Products[product].images, 'Product has no images defined');
+        const mediaDir = `${baseURL}/pub/media/catalog/product/cache/[0-9a-f]+`;
+        await expect
+          .soft(productPage.productImage)
+          .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.default));
+        await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
+        for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
+          await expect
+            .soft(productPage.productThumbnail.nth(i))
+            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
+        }
+        if (Products[product].images!.sizes) {
+          for (let i = 0; i < Products[product].sizes!.length; i++) {
+            await productPage.sizeSwatch.nth(i).click();
+            const imageSrc = Array.isArray(Products[product].images!.sizes)
+              ? new RegExp(mediaDir + Products[product].images!.sizes[i])
+              : new RegExp(mediaDir + Products[product].images!.sizes);
+            await expect.soft(productPage.productImage).toHaveAttribute('src', imageSrc);
+          }
+          await productPage.sizeSwatch.first().click();
+        }
+        if (Products[product].images!.colors) {
+          for (let i = 0; i < Products[product].colors!.length; i++) {
+            await productPage.colorSwatch.nth(i).click();
+            const imageSrc = new RegExp(mediaDir + Products[product].images!.colors[i]);
+            await expect.soft(productPage.productImage).toHaveAttribute('src', imageSrc);
           }
         }
       });
