@@ -1,5 +1,6 @@
 import { Locator, Page } from '@playwright/test';
 import BasePage from './basePage';
+import ProductItem, { ProductItemElements } from './components/productItem';
 
 export class ProductPage extends BasePage {
   readonly breadcrumbsContainer: Locator;
@@ -33,6 +34,7 @@ export class ProductPage extends BasePage {
   readonly additionalInfo: Locator;
   readonly review: Locator;
   readonly similarProductsGrid: Locator;
+  readonly similarProductItem: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -68,10 +70,15 @@ export class ProductPage extends BasePage {
     this.additionalInfo = this.secondaryInfo.locator('#additional tbody');
     this.review = this.secondaryInfo.locator('#customer-reviews li.review-item');
     this.similarProductsGrid = this.mainContent.locator('.block.upsell .products-grid');
+    this.similarProductItem = new ProductItem(this.similarProductsGrid).product;
   }
 
   getReviewDetail(index: number, detail: ReviewDetails): Locator {
     return this.review.nth(index).locator(detail);
+  }
+
+  getSimilarProductItemElement(productIndex: number, element: ProductItemElements): Locator {
+    return this.similarProductItem.nth(productIndex).locator(element);
   }
 }
 

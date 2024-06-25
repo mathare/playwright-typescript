@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import { ProductPage, ReviewDetails } from '../pages/productPage';
-import { Products } from '../data/productPage';
+import { Products, SimilarProducts } from '../data/productPage';
+import { ProductItemElements } from '../pages/components/productItem';
 
 dotenv.config();
 const products = process.env.TEST_MODE === 'full' ? Object.keys(Products) : ['RadiantTee'];
@@ -110,6 +111,19 @@ for (const product of products) {
             await expect
               .soft(productPage.getReviewDetail(i, ReviewDetails.date))
               .toHaveText(Products[product].reviewDetails![i].date);
+          }
+        }
+
+        if (SimilarProducts[product]) {
+          const similarProductItems = productPage.similarProductItem;
+          await expect.soft(similarProductItems).toHaveCount(SimilarProducts[product].length);
+          for (let i = 0; i < SimilarProducts[product].length; i++) {
+            await expect
+              .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.Name))
+              .toHaveText(SimilarProducts[product][i].name);
+            await expect
+              .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.Price).first())
+              .toHaveText(SimilarProducts[product][i].price);
           }
         }
       });
