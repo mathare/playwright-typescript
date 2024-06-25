@@ -30,9 +30,6 @@ for (const product of products) {
         await expect.soft(productPage.addToWishlistButton).toBeVisible();
         await expect.soft(productPage.addToCompareButton).toBeVisible();
         await expect.soft(productPage.secondaryInfo).toBeVisible();
-        // Description/details tab selected by default
-        await expect.soft(productPage.descriptionTab).toHaveClass(/active/);
-        await expect.soft(productPage.descriptionTab).toHaveAttribute('aria-expanded', 'true');
         await expect.soft(productPage.similarProductsGrid).toBeVisible();
         await expect.soft(productPage.pageFooter.footer).toBeVisible();
         await expect.soft(productPage.pageFooter.copyrightFooter).toBeVisible();
@@ -126,6 +123,29 @@ for (const product of products) {
             await expect
               .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.Price).first())
               .toHaveText(SimilarProducts[product][i].price);
+          }
+        }
+      });
+
+      test('Product info tabs', async () => {
+        // Description/details tab selected by default
+        await expect.soft(productPage.descriptionTab).toHaveClass(/active/);
+        await expect.soft(productPage.descriptionTab).toHaveAttribute('aria-expanded', 'true');
+        await expect.soft(productPage.additionalInfoTab).not.toHaveClass(/active/);
+        await expect.soft(productPage.additionalInfoTab).toHaveAttribute('aria-expanded', 'false');
+        await expect.soft(productPage.reviewsTab).not.toHaveClass(/active/);
+        await expect.soft(productPage.reviewsTab).toHaveAttribute('aria-expanded', 'false');
+
+        const tabs = [productPage.additionalInfoTab, productPage.reviewsTab, productPage.descriptionTab];
+        for (let i = 0; i < tabs.length; i++) {
+          await tabs[i].click();
+          for (let j = 0; j < tabs.length; j++) {
+            if (i === j) {
+              await expect.soft(tabs[j]).toHaveClass(/active/);
+            } else {
+              await expect.soft(tabs[j]).not.toHaveClass(/active/);
+            }
+            await expect.soft(tabs[j]).toHaveAttribute('aria-expanded', (i === j).toString());
           }
         }
       });
