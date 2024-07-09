@@ -95,6 +95,16 @@ export class ProductPage extends BasePage {
     // Without this sleep the highlight border may not be in the right place
     await new Promise((r) => setTimeout(r, 1000));
   }
+
+  async selectNextImage() {
+    await this.nextImageButton.click();
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+
+  async selectPreviousImage() {
+    await this.prevImageButton.click();
+    await new Promise((r) => setTimeout(r, 1000));
+  }
 }
 
 export enum ReviewDetails {
