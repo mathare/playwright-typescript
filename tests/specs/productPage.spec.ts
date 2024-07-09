@@ -172,6 +172,32 @@ for (const product of products) {
       });
     });
 
+    test.describe('Product image carousel tests', () => {
+      test('Image carousel fullscreen behaviour', async () => {
+        await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
+        const origBox = await productPage.imageCarousel.boundingBox();
+        await productPage.productImage.click();
+        await expect.soft(productPage.imageCarousel).toHaveClass(/fotorama--fullscreen/);
+        const fullscreenBox = await productPage.imageCarousel.boundingBox();
+        expect.soft(fullscreenBox!.width).toBeGreaterThan(origBox!.width);
+        expect.soft(fullscreenBox!.height).not.toEqual(origBox!.height);
+
+        await productPage.imageCarousel.press('Escape');
+        await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
+        let box = await productPage.imageCarousel.boundingBox();
+        expect.soft(box!.width).toEqual(origBox!.width);
+        expect.soft(box!.height).toEqual(origBox!.height);
+
+        await productPage.productImage.click();
+        await expect.soft(productPage.imageCarousel).toHaveClass(/fotorama--fullscreen/);
+        await productPage.exitFullscreenButton.click();
+        await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
+        box = await productPage.imageCarousel.boundingBox();
+        expect.soft(box!.width).toEqual(origBox!.width);
+        expect.soft(box!.height).toEqual(origBox!.height);
+      });
+    });
+
     test.describe('Link tests', () => {
       // I have chosen to omit the breadcrumbs link test for individual product pages as such a test would be of low
       // value since the breadcrumbs can vary depending on the route taken to the product page, although as these

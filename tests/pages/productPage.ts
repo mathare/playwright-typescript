@@ -8,6 +8,7 @@ export class ProductPage extends BasePage {
   readonly mainContent: Locator;
   readonly imageCarousel: Locator;
   readonly productImage: Locator;
+  readonly exitFullscreenButton: Locator;
   readonly prevImageButton: Locator;
   readonly nextImageButton: Locator;
   readonly productThumbnail: Locator;
@@ -41,9 +42,11 @@ export class ProductPage extends BasePage {
     this.breadcrumbsContainer = page.locator('.breadcrumbs');
     this.breadcrumb = this.breadcrumbsContainer.locator('a');
     this.mainContent = page.locator('#maincontent');
-    this.imageCarousel = this.mainContent.locator('.fotorama-item');
+    // When the image carousel is full screen it is not within the main content area so use locator from page instead
+    this.imageCarousel = this.page.locator('.fotorama-item');
     // Split the locators so we get the 1st img tag not the first element with matching class
     this.productImage = this.imageCarousel.locator('.fotorama__stage__frame').locator('img').first();
+    this.exitFullscreenButton = this.imageCarousel.getByLabel('Exit fullscreen');
     this.prevImageButton = this.imageCarousel.locator('.fotorama__arr--prev');
     this.nextImageButton = this.imageCarousel.locator('.fotorama__arr--next');
     this.productThumbnail = this.imageCarousel.locator('.fotorama__thumb img');
