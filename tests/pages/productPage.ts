@@ -46,7 +46,7 @@ export class ProductPage extends BasePage {
     // When the image carousel is full screen it is not within the main content area so use locator from page instead
     this.imageCarousel = this.page.locator('.fotorama-item');
     // Split the locators so we get the 1st img tag not the first element with matching class
-    this.productImage = this.imageCarousel.locator('.fotorama__stage__frame').locator('img').first();
+    this.productImage = this.imageCarousel.locator('.fotorama__stage__frame.fotorama__active').locator('img').first();
     this.exitFullscreenButton = this.imageCarousel.getByLabel('Exit fullscreen');
     this.prevImageButton = this.imageCarousel.locator('.fotorama__arr--prev');
     this.nextImageButton = this.imageCarousel.locator('.fotorama__arr--next');
@@ -88,6 +88,12 @@ export class ProductPage extends BasePage {
 
   getSimilarProductItemElement(productIndex: number, element: ProductItemElements): Locator {
     return this.similarProductItem.nth(productIndex).locator(element);
+  }
+
+  async selectThumbnail(index: number) {
+    await this.productThumbnail.nth(index).click();
+    // Without this sleep the highlight border may not be in the right place
+    await new Promise((r) => setTimeout(r, 1000));
   }
 }
 

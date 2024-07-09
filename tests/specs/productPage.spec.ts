@@ -187,6 +187,28 @@ for (const product of products) {
           .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
       });
 
+      test('Product image changes when thumbnail selected', async () => {
+        await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
+        for (let i = 1; i < (await productPage.productThumbnail.count()); i++) {
+          await productPage.selectThumbnail(i);
+          const thumbnailSrc = await productPage.productThumbnail.nth(i).getAttribute('src');
+          const mainImageSrc = await productPage.productImage.getAttribute('src');
+          expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+          expect
+            .soft(await productPage.productThumbnailBorder.boundingBox())
+            .toEqual(await productPage.productThumbnail.nth(i).boundingBox());
+        }
+
+        // Reselect first thumbnail
+        await productPage.selectThumbnail(0);
+        const thumbnailSrc = await productPage.productThumbnail.nth(0).getAttribute('src');
+        const mainImageSrc = await productPage.productImage.getAttribute('src');
+        expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+        expect
+          .soft(await productPage.productThumbnailBorder.boundingBox())
+          .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
+      });
+
       test('Image carousel fullscreen behaviour', async () => {
         await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
         const origBox = await productPage.imageCarousel.boundingBox();
