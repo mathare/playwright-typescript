@@ -12,6 +12,7 @@ export class ProductPage extends BasePage {
   readonly prevImageButton: Locator;
   readonly nextImageButton: Locator;
   readonly productThumbnail: Locator;
+  readonly productThumbnailBorder: Locator;
   readonly productInfo: Locator;
   readonly productName: Locator;
   readonly reviewsContainer: Locator;
@@ -50,6 +51,7 @@ export class ProductPage extends BasePage {
     this.prevImageButton = this.imageCarousel.locator('.fotorama__arr--prev');
     this.nextImageButton = this.imageCarousel.locator('.fotorama__arr--next');
     this.productThumbnail = this.imageCarousel.locator('.fotorama__thumb img');
+    this.productThumbnailBorder = this.imageCarousel.locator('.fotorama__thumb-border');
     this.productInfo = this.mainContent.locator('.product-info-main');
     this.productName = this.productInfo.getByRole('heading', { level: 1 });
     this.reviewsContainer = this.productInfo.locator('.product-reviews-summary');

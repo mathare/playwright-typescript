@@ -173,6 +173,20 @@ for (const product of products) {
     });
 
     test.describe('Product image carousel tests', () => {
+      test('First thumbnail selected by default', async () => {
+        const thumbnailSrc = await productPage.productThumbnail.first().getAttribute('src');
+        const mainImageSrc = await productPage.productImage.getAttribute('src');
+        // The images can be in different folders in the media cache so can't compare the src attributes directly
+        expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+
+        // The selected thumbnail has an orange border but this is a separate DOM element drawn over the thumbnail
+        // rather than being a property of the thumbnail element itself. As such it's difficult to assert that the
+        // border is applied to correct thumbnail but we can compare the bounding box for the elements
+        expect
+          .soft(await productPage.productThumbnailBorder.boundingBox())
+          .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
+      });
+
       test('Image carousel fullscreen behaviour', async () => {
         await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
         const origBox = await productPage.imageCarousel.boundingBox();
