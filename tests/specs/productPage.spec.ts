@@ -176,7 +176,7 @@ for (const product of products) {
       test('Image carousel fullscreen behaviour', async () => {
         await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
         const origBox = await productPage.imageCarousel.boundingBox();
-        await productPage.productImage.click();
+        await productPage.imageCarousel.click();
         await expect.soft(productPage.imageCarousel).toHaveClass(/fotorama--fullscreen/);
         const fullscreenBox = await productPage.imageCarousel.boundingBox();
         expect.soft(fullscreenBox!.width).toBeGreaterThan(origBox!.width);
@@ -188,7 +188,7 @@ for (const product of products) {
         expect.soft(box!.width).toEqual(origBox!.width);
         expect.soft(box!.height).toEqual(origBox!.height);
 
-        await productPage.productImage.click();
+        await productPage.imageCarousel.click();
         await expect.soft(productPage.imageCarousel).toHaveClass(/fotorama--fullscreen/);
         await productPage.exitFullscreenButton.click();
         await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
