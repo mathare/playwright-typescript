@@ -7,6 +7,8 @@ import * as Yoga from './productCategories/yoga';
 import * as ErinRecommends from './productCategories/erinRecommends';
 import * as AllPants from './productCategories/allPants';
 import * as AllTees from './productCategories/allTees';
+import * as EcoFriendly from './productCategories/ecoFriendly';
+import * as PerformanceFabrics from './productCategories/performanceFabrics';
 
 export const ExpectedText = {
   PromoBlocks: [
@@ -34,6 +36,6 @@ export const PromoBlockLinks = [
   AllPants.Url,
   AllTees.Url,
   ErinRecommends.Url,
-  '/collections/performance-fabrics.html',
-  '/collections/eco-friendly.html',
+  PerformanceFabrics.Url,
+  EcoFriendly.Url,
 ];
