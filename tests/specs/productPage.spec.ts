@@ -4,10 +4,16 @@ import { ProductPage, ReviewDetails } from '../pages/productPage';
 import { Products, SimilarProducts } from '../data/productPage';
 import { ProductItemElements } from '../pages/components/productItem';
 
+function verifyImageSrcEquality(actualSrc: string, expectedSrc: string) {
+  // The images can be in different folders in the media cache so can't compare the src attributes directly
+  // Instead just compare the filenames which will be the last element of the array split by slash
+  expect.soft(actualSrc?.split('/').pop()).toEqual(expectedSrc?.split('/').pop());
+}
+
 type BoundingBox = { x: number; y: number; width: number; height: number } | null;
 const range = (midpoint: number, tolerance: number) =>
   Array.from({ length: 2 * tolerance + 1 }, (_, i) => midpoint - tolerance + i);
-async function verifyBoundingBoxEquality(actualBox: BoundingBox, expectedBox: BoundingBox) {
+function verifyBoundingBoxEquality(actualBox: BoundingBox, expectedBox: BoundingBox) {
   // NB x & y are not checked for equality as they can vary based on scroll position, which can
   // change during a test so only check width & height of the element
   // Widths can be up to 1px different, heights should match exactly
@@ -188,8 +194,7 @@ for (const product of products) {
       test('First thumbnail selected by default', async () => {
         const thumbnailSrc = await productPage.productThumbnail.first().getAttribute('src');
         const mainImageSrc = await productPage.productImage.getAttribute('src');
-        // The images can be in different folders in the media cache so can't compare the src attributes directly
-        expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+        verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
 
         // The selected thumbnail has an orange border but this is a separate DOM element drawn over the thumbnail
         // rather than being a property of the thumbnail element itself. As such it's difficult to assert that the
@@ -205,7 +210,7 @@ for (const product of products) {
           await productPage.selectThumbnail(i);
           const thumbnailSrc = await productPage.productThumbnail.nth(i).getAttribute('src');
           const mainImageSrc = await productPage.productImage.getAttribute('src');
-          expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+          verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
           expect
             .soft(await productPage.productThumbnailBorder.boundingBox())
             .toEqual(await productPage.productThumbnail.nth(i).boundingBox());
@@ -215,7 +220,7 @@ for (const product of products) {
         await productPage.selectThumbnail(0);
         const thumbnailSrc = await productPage.productThumbnail.nth(0).getAttribute('src');
         const mainImageSrc = await productPage.productImage.getAttribute('src');
-        expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+        verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
         expect
           .soft(await productPage.productThumbnailBorder.boundingBox())
           .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
@@ -227,7 +232,7 @@ for (const product of products) {
           await productPage.selectNextImage();
           const thumbnailSrc = await productPage.productThumbnail.nth(i + 1).getAttribute('src');
           const mainImageSrc = await productPage.productImage.getAttribute('src');
-          expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+          verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
           expect
             .soft(await productPage.productThumbnailBorder.boundingBox())
             .toEqual(await productPage.productThumbnail.nth(i + 1).boundingBox());
@@ -236,7 +241,7 @@ for (const product of products) {
           await productPage.selectPreviousImage();
           const thumbnailSrc = await productPage.productThumbnail.nth(i - 1).getAttribute('src');
           const mainImageSrc = await productPage.productImage.getAttribute('src');
-          expect.soft(mainImageSrc?.split('/').pop()).toEqual(thumbnailSrc?.split('/').pop());
+          verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
           expect
             .soft(await productPage.productThumbnailBorder.boundingBox())
             .toEqual(await productPage.productThumbnail.nth(i - 1).boundingBox());
