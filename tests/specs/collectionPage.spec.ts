@@ -10,7 +10,7 @@ const Timeouts = {
 };
 
 dotenv.config();
-const pages = process.env.TEST_MODE === 'full' ? Object.keys(Collections) : ['WhatsNew'];
+const pages = process.env.TEST_MODE === 'full' ? Object.keys(Collections) : ['Women'];
 for (const collection of pages) {
   test.describe(`${collection} page tests`, () => {
     let collectionPage: CollectionPage;
