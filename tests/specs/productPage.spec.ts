@@ -4,6 +4,18 @@ import { ProductPage, ReviewDetails } from '../pages/productPage';
 import { Products, SimilarProducts } from '../data/productPage';
 import { ProductItemElements } from '../pages/components/productItem';
 
+type BoundingBox = { x: number; y: number; width: number; height: number } | null;
+const range = (midpoint: number, tolerance: number) =>
+  Array.from({ length: 2 * tolerance + 1 }, (_, i) => midpoint - tolerance + i);
+async function verifyBoundingBoxEquality(actualBox: BoundingBox, expectedBox: BoundingBox) {
+  // NB x & y are not checked for equality as they can vary based on scroll position, which can
+  // change during a test so only check width & height of the element
+  // Widths can be up to 1px different, heights should match exactly
+  const tolerance = { width: 1, height: 0 };
+  expect.soft(range(Math.round(expectedBox!.width), tolerance.width)).toContain(Math.round(actualBox!.width));
+  expect.soft(range(Math.round(expectedBox!.height), tolerance.height)).toContain(Math.round(actualBox!.height));
+}
+
 dotenv.config();
 const products = process.env.TEST_MODE === 'full' ? Object.keys(Products) : ['RadiantTee'];
 for (const product of products) {
@@ -240,19 +252,17 @@ for (const product of products) {
         expect.soft(fullscreenBox!.width).toBeGreaterThan(origBox!.width);
         expect.soft(fullscreenBox!.height).not.toEqual(origBox!.height);
 
+        // Exit fullscreen via Esc key
         await productPage.imageCarousel.press('Escape');
         await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
-        let box = await productPage.imageCarousel.boundingBox();
-        expect.soft(box!.width).toEqual(origBox!.width);
-        expect.soft(box!.height).toEqual(origBox!.height);
+        verifyBoundingBoxEquality(await productPage.imageCarousel.boundingBox(), origBox);
 
+        // Exit fullscreen via x button
         await productPage.imageCarousel.click();
         await expect.soft(productPage.imageCarousel).toHaveClass(/fotorama--fullscreen/);
         await productPage.exitFullscreenButton.click();
         await expect.soft(productPage.imageCarousel).not.toHaveClass(/fotorama--fullscreen/);
-        box = await productPage.imageCarousel.boundingBox();
-        expect.soft(box!.width).toEqual(origBox!.width);
-        expect.soft(box!.height).toEqual(origBox!.height);
+        verifyBoundingBoxEquality(await productPage.imageCarousel.boundingBox(), origBox);
       });
 
       test('Image carousel zoom behaviour', async () => {
@@ -264,11 +274,9 @@ for (const product of products) {
 
         // Cannot zoom out from default image size
         await productPage.zoomOut();
-        expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(origBox!.width);
-        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(origBox!.height);
+        verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
 
         // Can zoom in 6 times max
-        let maxBox: { x: number; y: number; width: number; height: number } | null;
         for (let i = 0; i <= maxZooms; i++) {
           const box = await productPage.productImage.boundingBox();
           await productPage.zoomIn();
@@ -276,11 +284,10 @@ for (const product of products) {
             expect.soft((await productPage.productImage.boundingBox())!.width).toBeGreaterThan(box!.width);
             expect.soft((await productPage.productImage.boundingBox())!.height).toBeGreaterThan(box!.height);
           } else {
-            expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(box!.width);
-            expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(box!.height);
-            maxBox = await productPage.productImage.boundingBox();
+            verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), box);
           }
         }
+        const maxBox = await productPage.productImage.boundingBox();
         // Can zoom out 5 times max. Why it's not 6 as for zooming in I have no idea!
         for (let i = 0; i < maxZooms; i++) {
           const box = await productPage.productImage.boundingBox();
@@ -289,29 +296,20 @@ for (const product of products) {
             expect.soft((await productPage.productImage.boundingBox())!.width).toBeLessThan(box!.width);
             expect.soft((await productPage.productImage.boundingBox())!.height).toBeLessThan(box!.height);
           } else {
-            expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(box!.width);
-            expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(box!.height);
+            verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), box);
           }
         }
-        // Zoom level is returned to the original setting although the image width can differ from the
-        // original by a fraction of a pixel for some reason
-        expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(Math.round(origBox!.width));
-        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(origBox!.height);
+        // Zoom level is returned to the original setting
+        verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
 
         // Double-clicking product image zooms in to the max
         await productPage.productImage.dblclick();
         await new Promise((r) => setTimeout(r, 1000));
-        expect
-          .soft(Math.floor((await productPage.productImage.boundingBox())!.width))
-          .toEqual(Math.round(maxBox!.width));
-        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(maxBox!.height);
+        verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), maxBox!);
         // Double-clicking again returns to the original zoom level
         await productPage.productImage.dblclick();
         await new Promise((r) => setTimeout(r, 1000));
-        expect
-          .soft(Math.round((await productPage.productImage.boundingBox())!.width))
-          .toEqual(Math.round(origBox!.width));
-        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(origBox!.height);
+        verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
       });
     });
 
