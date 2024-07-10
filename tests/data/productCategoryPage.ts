@@ -24,6 +24,7 @@ import * as WomenSale from './productCategories/womenSale';
 import * as MenSale from './productCategories/menSale';
 import * as AllPants from './productCategories/allPants';
 import * as AllTees from './productCategories/allTees';
+import * as EcoFriendly from './productCategories/ecoFriendly';
 
 export const ProductCategories = {
   Women: {
@@ -46,6 +47,7 @@ export const ProductCategories = {
   MenSale: MenSale.Url,
   AllPants: AllPants.Url,
   AllTees: AllTees.Url,
+  EcoFriendly: EcoFriendly.Url,
 };
 
 export const ExpectedText = {
@@ -75,6 +77,7 @@ export const ExpectedText = {
   MenSale: { ...MenSale.ExpectedText },
   AllPants: { ...AllPants.ExpectedText },
   AllTees: { ...AllTees.ExpectedText },
+  EcoFriendly: { ...EcoFriendly.ExpectedText },
   SidebarBlocks: [
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
@@ -119,6 +122,7 @@ export const Links = {
   MenSale: { ...MenSale.Links },
   AllPants: { ...AllPants.Links },
   AllTees: { ...AllTees.Links },
+  EcoFriendly: { ...EcoFriendly.Links },
 };
 
 export const Filters = {
@@ -147,6 +151,7 @@ export const Filters = {
   MenSale: [...MenSale.Filters],
   AllPants: [...AllPants.Filters],
   AllTees: [...AllTees.Filters],
+  EcoFriendly: [...EcoFriendly.Filters],
 };
 
 export const Products = {
@@ -175,6 +180,7 @@ export const Products = {
   MenSale: [...MenSale.Products],
   AllPants: [...AllPants.Products],
   AllTees: [...AllTees.Products],
+  EcoFriendly: [...EcoFriendly.Products],
 };
 
 export const Defaults = {
