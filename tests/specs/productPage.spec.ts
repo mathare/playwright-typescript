@@ -254,6 +254,65 @@ for (const product of products) {
         expect.soft(box!.width).toEqual(origBox!.width);
         expect.soft(box!.height).toEqual(origBox!.height);
       });
+
+      test('Image carousel zoom behaviour', async () => {
+        const maxZooms = 6;
+        await productPage.imageCarousel.click();
+        await expect.soft(productPage.imageCarousel).toHaveClass(/fotorama--fullscreen/);
+        await expect.soft(productPage.productImage).toBeVisible();
+        const origBox = await productPage.productImage.boundingBox();
+
+        // Cannot zoom out from default image size
+        await productPage.zoomOut();
+        expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(origBox!.width);
+        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(origBox!.height);
+
+        // Can zoom in 6 times max
+        let maxBox: { x: number; y: number; width: number; height: number } | null;
+        for (let i = 0; i <= maxZooms; i++) {
+          const box = await productPage.productImage.boundingBox();
+          await productPage.zoomIn();
+          if (i < maxZooms) {
+            expect.soft((await productPage.productImage.boundingBox())!.width).toBeGreaterThan(box!.width);
+            expect.soft((await productPage.productImage.boundingBox())!.height).toBeGreaterThan(box!.height);
+          } else {
+            expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(box!.width);
+            expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(box!.height);
+            maxBox = await productPage.productImage.boundingBox();
+          }
+        }
+        // Can zoom out 5 times max. Why it's not 6 as for zooming in I have no idea!
+        for (let i = 0; i < maxZooms; i++) {
+          const box = await productPage.productImage.boundingBox();
+          await productPage.zoomOut();
+          if (i < maxZooms - 1) {
+            expect.soft((await productPage.productImage.boundingBox())!.width).toBeLessThan(box!.width);
+            expect.soft((await productPage.productImage.boundingBox())!.height).toBeLessThan(box!.height);
+          } else {
+            expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(box!.width);
+            expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(box!.height);
+          }
+        }
+        // Zoom level is returned to the original setting although the image width can differ from the
+        // original by a fraction of a pixel for some reason
+        expect.soft((await productPage.productImage.boundingBox())!.width).toEqual(Math.round(origBox!.width));
+        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(origBox!.height);
+
+        // Double-clicking product image zooms in to the max
+        await productPage.productImage.dblclick();
+        await new Promise((r) => setTimeout(r, 1000));
+        expect
+          .soft(Math.floor((await productPage.productImage.boundingBox())!.width))
+          .toEqual(Math.round(maxBox!.width));
+        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(maxBox!.height);
+        // Double-clicking again returns to the original zoom level
+        await productPage.productImage.dblclick();
+        await new Promise((r) => setTimeout(r, 1000));
+        expect
+          .soft(Math.round((await productPage.productImage.boundingBox())!.width))
+          .toEqual(Math.round(origBox!.width));
+        expect.soft((await productPage.productImage.boundingBox())!.height).toEqual(origBox!.height);
+      });
     });
 
     test.describe('Link tests', () => {

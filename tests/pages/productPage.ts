@@ -8,9 +8,11 @@ export class ProductPage extends BasePage {
   readonly mainContent: Locator;
   readonly imageCarousel: Locator;
   readonly productImage: Locator;
+  private readonly zoomInButton: Locator;
+  private readonly zoomOutButton: Locator;
   readonly exitFullscreenButton: Locator;
-  readonly prevImageButton: Locator;
-  readonly nextImageButton: Locator;
+  private readonly prevImageButton: Locator;
+  private readonly nextImageButton: Locator;
   readonly productThumbnail: Locator;
   readonly productThumbnailBorder: Locator;
   readonly productInfo: Locator;
@@ -47,6 +49,8 @@ export class ProductPage extends BasePage {
     this.imageCarousel = this.page.locator('.fotorama-item');
     // Split the locators so we get the 1st img tag not the first element with matching class
     this.productImage = this.imageCarousel.locator('.fotorama__stage__frame.fotorama__active').locator('img').first();
+    this.zoomInButton = this.imageCarousel.getByLabel('Zoom in');
+    this.zoomOutButton = this.imageCarousel.getByLabel('Zoom out');
     this.exitFullscreenButton = this.imageCarousel.getByLabel('Exit fullscreen');
     this.prevImageButton = this.imageCarousel.locator('.fotorama__arr--prev');
     this.nextImageButton = this.imageCarousel.locator('.fotorama__arr--next');
@@ -104,6 +108,16 @@ export class ProductPage extends BasePage {
   async selectPreviousImage() {
     await this.prevImageButton.click();
     await new Promise((r) => setTimeout(r, 1000));
+  }
+
+  async zoomIn() {
+    await this.zoomInButton.click();
+    await new Promise((r) => setTimeout(r, 500));
+  }
+
+  async zoomOut() {
+    await this.zoomOutButton.click();
+    await new Promise((r) => setTimeout(r, 500));
   }
 }
 
