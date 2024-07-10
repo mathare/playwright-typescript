@@ -25,6 +25,7 @@ import * as MenSale from './productCategories/menSale';
 import * as AllPants from './productCategories/allPants';
 import * as AllTees from './productCategories/allTees';
 import * as EcoFriendly from './productCategories/ecoFriendly';
+import * as PerformanceFabrics from './productCategories/performanceFabrics';
 
 export const ProductCategories = {
   Women: {
@@ -48,6 +49,7 @@ export const ProductCategories = {
   AllPants: AllPants.Url,
   AllTees: AllTees.Url,
   EcoFriendly: EcoFriendly.Url,
+  PerformanceFabrics: PerformanceFabrics.Url,
 };
 
 export const ExpectedText = {
@@ -78,6 +80,7 @@ export const ExpectedText = {
   AllPants: { ...AllPants.ExpectedText },
   AllTees: { ...AllTees.ExpectedText },
   EcoFriendly: { ...EcoFriendly.ExpectedText },
+  PerformanceFabrics: { ...PerformanceFabrics.ExpectedText },
   SidebarBlocks: [
     'Compare Products\nYou have no items to compare.',
     'My Wish List\nYou have no items in your wish list.',
@@ -123,6 +126,7 @@ export const Links = {
   AllPants: { ...AllPants.Links },
   AllTees: { ...AllTees.Links },
   EcoFriendly: { ...EcoFriendly.Links },
+  PerformanceFabrics: { ...PerformanceFabrics.Links },
 };
 
 export const Filters = {
@@ -152,6 +156,7 @@ export const Filters = {
   AllPants: [...AllPants.Filters],
   AllTees: [...AllTees.Filters],
   EcoFriendly: [...EcoFriendly.Filters],
+  PerformanceFabrics: [...PerformanceFabrics.Filters],
 };
 
 export const Products = {
@@ -181,6 +186,7 @@ export const Products = {
   AllPants: [...AllPants.Products],
   AllTees: [...AllTees.Products],
   EcoFriendly: [...EcoFriendly.Products],
+  PerformanceFabrics: [...PerformanceFabrics.Products],
 };
 
 export const Defaults = {
