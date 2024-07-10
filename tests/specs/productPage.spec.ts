@@ -135,37 +135,6 @@ for (const product of products) {
         }
       });
 
-      test('Product images', async ({ baseURL }, testInfo) => {
-        testInfo.skip(!Products[product].images, 'Product has no images defined');
-        const mediaDir = `${baseURL}/pub/media/catalog/product/cache/[0-9a-f]+`;
-        await expect
-          .soft(productPage.productImage)
-          .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.default));
-        await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
-        for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
-          await expect
-            .soft(productPage.productThumbnail.nth(i))
-            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
-        }
-        if (Products[product].images!.sizes) {
-          for (let i = 0; i < Products[product].sizes!.length; i++) {
-            await productPage.sizeSwatch.nth(i).click();
-            const imageSrc = Array.isArray(Products[product].images!.sizes)
-              ? new RegExp(mediaDir + Products[product].images!.sizes[i])
-              : new RegExp(mediaDir + Products[product].images!.sizes);
-            await expect.soft(productPage.productImage).toHaveAttribute('src', imageSrc);
-          }
-          await productPage.sizeSwatch.first().click();
-        }
-        if (Products[product].images!.colors) {
-          for (let i = 0; i < Products[product].colors!.length; i++) {
-            await productPage.colorSwatch.nth(i).click();
-            const imageSrc = new RegExp(mediaDir + Products[product].images!.colors[i]);
-            await expect.soft(productPage.productImage).toHaveAttribute('src', imageSrc);
-          }
-        }
-      });
-
       test('Product info tabs', async () => {
         // Description/details tab selected by default
         await expect.soft(productPage.descriptionTab).toHaveClass(/active/);
@@ -315,6 +284,37 @@ for (const product of products) {
         await productPage.productImage.dblclick();
         await new Promise((r) => setTimeout(r, 1000));
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
+      });
+
+      test('Product image sources', async ({ baseURL }, testInfo) => {
+        testInfo.skip(!Products[product].images, 'Product has no images defined');
+        const mediaDir = `${baseURL}/pub/media/catalog/product/cache/[0-9a-f]+`;
+        await expect
+          .soft(productPage.productImage)
+          .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.default));
+        await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
+        for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
+          await expect
+            .soft(productPage.productThumbnail.nth(i))
+            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
+        }
+        if (Products[product].images!.sizes) {
+          for (let i = 0; i < Products[product].sizes!.length; i++) {
+            await productPage.sizeSwatch.nth(i).click();
+            const imageSrc = Array.isArray(Products[product].images!.sizes)
+              ? new RegExp(mediaDir + Products[product].images!.sizes[i])
+              : new RegExp(mediaDir + Products[product].images!.sizes);
+            await expect.soft(productPage.productImage).toHaveAttribute('src', imageSrc);
+          }
+          await productPage.sizeSwatch.first().click();
+        }
+        if (Products[product].images!.colors) {
+          for (let i = 0; i < Products[product].colors!.length; i++) {
+            await productPage.colorSwatch.nth(i).click();
+            const imageSrc = new RegExp(mediaDir + Products[product].images!.colors[i]);
+            await expect.soft(productPage.productImage).toHaveAttribute('src', imageSrc);
+          }
+        }
       });
     });
 
