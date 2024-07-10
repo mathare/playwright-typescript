@@ -109,8 +109,6 @@ test.describe('Home page tests', () => {
   });
 
   test.describe('Link tests', () => {
-    const mediaDir = '/pub/media/catalog/product/cache/7c4c1ed835fbbf2269f24539582c6d44';
-
     test('Promo block links', async ({ baseURL }) => {
       const promoBlocks = homePage.promoBlock;
       await expect.soft(promoBlocks).toHaveCount(PromoBlockLinks.length);
@@ -138,8 +136,12 @@ test.describe('Home page tests', () => {
         }
       }
     });
+  });
+  
+  test.describe('Product image source tests', () => {
+    const mediaDir = '/pub/media/catalog/product/cache/7c4c1ed835fbbf2269f24539582c6d44';
 
-    test('Default product image links', async ({ baseURL }) => {
+    test('Default product image source', async ({ baseURL }) => {
       const products = homePage.productItem;
       await expect.soft(products).toHaveCount(Products.length);
       for (let i = 0; i < Products.length; i++) {
@@ -150,7 +152,7 @@ test.describe('Home page tests', () => {
       }
     });
 
-    test('Product image links for all size options', async ({ baseURL }) => {
+    test('Product image source for all size options', async ({ baseURL }) => {
       const products = homePage.productItem;
       await expect.soft(products).toHaveCount(Products.length);
       for (let i = 0; i < Products.length; i++) {
@@ -170,7 +172,7 @@ test.describe('Home page tests', () => {
       }
     });
 
-    test('Product image links for different color options', async ({ baseURL }) => {
+    test('Product image source for different color options', async ({ baseURL }) => {
       const products = homePage.productItem;
       await expect.soft(products).toHaveCount(Products.length);
       for (let i = 0; i < Products.length; i++) {
