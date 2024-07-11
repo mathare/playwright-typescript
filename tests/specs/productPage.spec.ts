@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import { ProductPage, ReviewDetails } from '../pages/productPage';
-import { Products, SimilarProducts } from '../data/productPage';
+import { ExpectedText, Products, SimilarProducts } from '../data/productPage';
 import { ProductItemElements } from '../pages/components/productItem';
+import { Colors, SwatchOutlineStyles } from '../data/products';
+import { rgbToHex } from '../helpers/colorUtils';
 
 function verifyImageSrcEquality(actualSrc: string, expectedSrc: string) {
   // The images can be in different folders in the media cache so can't compare the src attributes directly
@@ -36,6 +38,7 @@ for (const product of products) {
     test.describe('Appearance tests', () => {
       // This is an example of performing visual-style testing by asserting against various element properties rather than actually using image comparison
       // The tests could be combined but I have split them here to make them easier to read and maintain
+      const swatchSelectedClass = /selected/;
 
       test('Main page elements displayed', async () => {
         await expect.soft(productPage.globalMessage).toBeVisible();
@@ -154,6 +157,120 @@ for (const product of products) {
               await expect.soft(tabs[j]).not.toHaveClass(/active/);
             }
             await expect.soft(tabs[j]).toHaveAttribute('aria-expanded', (i === j).toString());
+          }
+        }
+      });
+
+      test('Selected size shown above swatches', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // Size not shown if none selected
+        // NB The DOM element is always visible but the text content updates based on the selected size
+        await expect.soft(productPage.selectedSize).toHaveText('');
+        await expect.soft(productPage.sizeSwatch).toHaveCount(Products[product].sizes!.length);
+        // Verify selected size text for each size option
+        for (let i = 0; i < Products[product].sizes!.length; i++) {
+          await productPage.sizeSwatch.nth(i).click();
+          await expect.soft(productPage.selectedSize).toHaveText(Products[product].sizes![i]);
+        }
+        // Selected size label cleared when size deselected
+        await productPage.sizeSwatch.last().click();
+        await expect.soft(productPage.selectedSize).toHaveText('');
+      });
+
+      test('Selected color shown above swatches', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // Color not shown if none selected
+        // NB The DOM element is always visible but the text content updates based on the selected color
+        await expect.soft(productPage.selectedColor).toHaveText('');
+        await expect.soft(productPage.colorSwatch).toHaveCount(Products[product].colors!.length);
+        // Verify selected color text for each color option
+        for (let i = 0; i < Products[product].colors!.length; i++) {
+          await productPage.colorSwatch.nth(i).click();
+          const expectedColor = Object.keys(Colors).find((key) => Colors[key] === Products[product].colors![i]);
+          await expect.soft(productPage.selectedColor).toHaveText(expectedColor!);
+        }
+        // Selected color label cleared when color deselected
+        await productPage.colorSwatch.last().click();
+        await expect.soft(productPage.selectedColor).toHaveText('');
+      });
+
+      // One could easily argue this test doesn't need to be run for all products since they all use the same DOM elements
+      test('Size swatch styling', async ({ browserName }, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // There is no need to every size swatch for a given product
+        const sizes = productPage.sizeSwatch;
+
+        // Select
+        await sizes.first().click();
+        await expect.soft(sizes.first()).toHaveClass(swatchSelectedClass);
+        await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered);
+        await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.White);
+        // For some reason a simple blur() isn't enough so hover over another element
+        await productPage.productName.hover();
+        await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Selected);
+
+        //Deselect
+        await sizes.first().click();
+        await expect.soft(sizes.first()).not.toHaveClass(swatchSelectedClass);
+        await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered);
+        await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.LightGrey);
+        await productPage.productName.hover();
+        const outlineStyle =
+          browserName === 'firefox'
+            ? // Firefox doesn't include "none" in the outline style but other browsers do
+              SwatchOutlineStyles.Sizes.NotSelected.replace('none ', '')
+            : SwatchOutlineStyles.Sizes.NotSelected;
+        await expect.soft(sizes.first()).toHaveCSS('outline', outlineStyle);
+      });
+
+      // One could easily argue this test doesn't need to be run for all products since they all use the same DOM elements
+      test('Color swatch styling', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // There is no need to every color swatch for a given product
+        const colors = productPage.colorSwatch;
+
+        // Select
+        await colors.first().click();
+        await expect.soft(colors.first()).toHaveClass(swatchSelectedClass);
+        await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered);
+        // For some reason a simple blur() isn't enough so hover over another element
+        await productPage.productName.hover();
+        await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Selected);
+
+        //Deselect
+        await colors.first().click();
+        await expect.soft(colors.first()).not.toHaveClass(swatchSelectedClass);
+        await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered);
+      });
+
+      test('Can only select single size option at a time', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
+        const sizes = productPage.sizeSwatch;
+        await expect.soft(sizes).toHaveCount(Products[product].sizes!.length);
+        for (let i = 0; i < Products[product].sizes!.length; i++) {
+          await sizes.nth(i).click();
+          await expect.soft(sizes.nth(i)).toHaveClass(swatchSelectedClass);
+          for (let j = 0; j < Products[product].sizes!.length; j++) {
+            if (j !== i) {
+              await expect.soft(sizes.nth(j)).not.toHaveClass(swatchSelectedClass);
+            }
+          }
+        }
+      });
+
+      test('Can only select single color option at a time', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
+        const colors = productPage.colorSwatch;
+        await expect.soft(colors).toHaveCount(Products[product].colors!.length);
+        for (let i = 0; i < Products[product].colors!.length; i++) {
+          await colors.nth(i).click();
+          await expect.soft(colors.nth(i)).toHaveClass(swatchSelectedClass);
+          for (let j = 0; j < Products[product].colors!.length; j++) {
+            if (j !== i) {
+              await expect.soft(colors.nth(j)).not.toHaveClass(swatchSelectedClass);
+            }
           }
         }
       });
@@ -349,6 +466,110 @@ for (const product of products) {
               .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.NameLink))
               .toHaveAttribute('href', `${baseURL}${SimilarProducts[product][i].link}`);
           }
+        }
+      });
+    });
+
+    test.describe('Data validation tests', () => {
+      test('Size is a required field', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // No validation error shown initially
+        await expect.soft(productPage.sizeValidationError).not.toBeVisible();
+
+        // Validation error displayed on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.sizeValidationError).toBeVisible();
+        await expect.soft(productPage.sizeValidationError).toHaveText(ExpectedText.RequiredField);
+
+        // Validation error not cleared on selecting size
+        await productPage.sizeSwatch.nth(0).click();
+        await expect.soft(productPage.sizeValidationError).toBeVisible();
+
+        // Validation error cleared on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.sizeValidationError).not.toBeVisible();
+      });
+
+      test('Color is a required field', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // No validation error shown initially
+        await expect.soft(productPage.colorValidationError).not.toBeVisible();
+
+        // Validation error displayed on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.colorValidationError).toBeVisible();
+        await expect.soft(productPage.colorValidationError).toHaveText(ExpectedText.RequiredField);
+
+        // Validation error not cleared on selecting color
+        await productPage.colorSwatch.nth(0).click();
+        await expect.soft(productPage.colorValidationError).toBeVisible();
+
+        // Validation error cleared on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.colorValidationError).not.toBeVisible();
+      });
+
+      test('Quantity validation', async () => {
+        const errorClass = /mage-error/;
+        // No validation error shown initially
+        await expect.soft(productPage.quantityInput).not.toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).not.toBeVisible();
+
+        // Quantity below min (1)
+        await productPage.quantityInput.fill('0');
+        // Validation error not triggered until "Add to cart" button clicked
+        await expect.soft(productPage.quantityInput).not.toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).not.toBeVisible();
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.quantityInput).toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).toBeVisible();
+        await expect.soft(productPage.quantityValidationError).toHaveText(ExpectedText.Quantity.BelowMin);
+
+        // Reset quantity to default
+        await productPage.quantityInput.fill('1');
+        // Validation error not cleared until "Add to cart" button clicked
+        await expect.soft(productPage.quantityInput).toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).toBeVisible();
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.quantityInput).not.toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).not.toBeVisible();
+
+        // Quantity above max (10000)
+        await productPage.quantityInput.fill('10001');
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.quantityInput).toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).toBeVisible();
+        await expect.soft(productPage.quantityValidationError).toHaveText(ExpectedText.Quantity.AboveMax);
+
+        // The quantity should be an integer value but there is no validation of that within the quantity
+        // input itself. Non-integer quantities cannot be added to the cart but this is a separate test
+      });
+    });
+
+    test.describe('Tooltip tests', () => {
+      const tooltipWidth = '110';
+      const tooltipHeight = '90';
+      test('Size option tooltips', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        const sizes = productPage.sizeSwatch;
+        await expect.soft(sizes).toHaveCount(Products[product].sizes!.length);
+        for (let i = 0; i < Products[product].sizes!.length; i++) {
+          await expect.soft(sizes.nth(i)).toHaveAttribute('option-tooltip-value', Products[product].sizes![i]);
+          await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
+          await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-height', tooltipHeight);
+        }
+      });
+
+      test('Color swatch tooltips', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        const colors = productPage.colorSwatch;
+        await expect.soft(colors).toHaveCount(Products[product].colors!.length);
+        for (let i = 0; i < Products[product].colors!.length; i++) {
+          await expect
+            .soft(colors.nth(i))
+            .toHaveAttribute('option-tooltip-value', rgbToHex(Products[product].colors![i]));
+          await expect.soft(colors.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
+          await expect.soft(colors.nth(i)).toHaveAttribute('thumb-height', tooltipHeight);
         }
       });
     });
