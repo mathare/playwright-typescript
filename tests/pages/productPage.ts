@@ -26,9 +26,11 @@ export class ProductPage extends BasePage {
   readonly sku: Locator;
   readonly sizeOptions: Locator;
   readonly sizeSwatch: Locator;
+  readonly selectedSize: Locator;
   readonly sizeValidationError: Locator;
   readonly colorOptions: Locator;
   readonly colorSwatch: Locator;
+  readonly selectedColor: Locator;
   readonly colorValidationError: Locator;
   readonly quantityInput: Locator;
   readonly quantityValidationError: Locator;
@@ -72,9 +74,11 @@ export class ProductPage extends BasePage {
     this.sku = this.productInfo.locator('.sku .value');
     this.sizeOptions = this.productInfo.locator('.swatch-attribute.size');
     this.sizeSwatch = this.sizeOptions.locator('.swatch-option');
+    this.selectedSize = this.sizeOptions.locator('.swatch-attribute-selected-option');
     this.sizeValidationError = this.sizeOptions.locator('div.mage-error');
     this.colorOptions = this.productInfo.locator('.swatch-attribute.color');
     this.colorSwatch = this.colorOptions.locator('.swatch-option');
+    this.selectedColor = this.colorOptions.locator('.swatch-attribute-selected-option');
     this.colorValidationError = this.colorOptions.locator('div.mage-error');
     this.quantityInput = this.productInfo.locator('#qty');
     this.quantityValidationError = this.productInfo.locator('#qty-error');

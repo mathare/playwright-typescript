@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import { ProductPage, ReviewDetails } from '../pages/productPage';
 import { ExpectedText, Products, SimilarProducts } from '../data/productPage';
 import { ProductItemElements } from '../pages/components/productItem';
+import { Colors } from '../data/products';
 
 function verifyImageSrcEquality(actualSrc: string, expectedSrc: string) {
   // The images can be in different folders in the media cache so can't compare the src attributes directly
@@ -156,6 +157,39 @@ for (const product of products) {
             await expect.soft(tabs[j]).toHaveAttribute('aria-expanded', (i === j).toString());
           }
         }
+      });
+
+      test('Selected size shown above swatches', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // Size not shown if none selected
+        // NB The DOM element is always visible but the text content updates based on the selected size
+        await expect.soft(productPage.selectedSize).toHaveText('');
+        await expect.soft(productPage.sizeSwatch).toHaveCount(Products[product].sizes!.length);
+        // Verify selected size text for each size option
+        for (let i = 0; i < Products[product].sizes!.length; i++) {
+          await productPage.sizeSwatch.nth(i).click();
+          await expect.soft(productPage.selectedSize).toHaveText(Products[product].sizes![i]);
+        }
+        // Selected size label cleared when size deselected
+        await productPage.sizeSwatch.last().click();
+        await expect.soft(productPage.selectedSize).toHaveText('');
+      });
+
+      test('Selected color shown above swatches', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // Color not shown if none selected
+        // NB The DOM element is always visible but the text content updates based on the selected color
+        await expect.soft(productPage.selectedColor).toHaveText('');
+        await expect.soft(productPage.colorSwatch).toHaveCount(Products[product].colors!.length);
+        // Verify selected color text for each color option
+        for (let i = 0; i < Products[product].colors!.length; i++) {
+          await productPage.colorSwatch.nth(i).click();
+          const expectedColor = Object.keys(Colors).find((key) => Colors[key] === Products[product].colors![i]);
+          await expect.soft(productPage.selectedColor).toHaveText(expectedColor!);
+        }
+        // Selected color label cleared when color deselected
+        await productPage.colorSwatch.last().click();
+        await expect.soft(productPage.selectedColor).toHaveText('');
       });
     });
 
@@ -427,6 +461,8 @@ for (const product of products) {
         // The quantity should be an integer value but there is no validation of that within the quantity
         // input itself. Non-integer quantities cannot be added to the cart but this is a separate test
       });
+
+      // Selected size/color shown next to field label
     });
   });
 }
