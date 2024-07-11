@@ -27,6 +27,7 @@ export class ProductPage extends BasePage {
   readonly sizeSwatch: Locator;
   readonly colorSwatch: Locator;
   readonly quantityInput: Locator;
+  readonly quantityValidationError: Locator;
   readonly addToCartButton: Locator;
   readonly addToWishlistButton: Locator;
   readonly addToCompareButton: Locator;
@@ -68,6 +69,7 @@ export class ProductPage extends BasePage {
     this.sizeSwatch = this.productInfo.locator('.swatch-attribute.size .swatch-option');
     this.colorSwatch = this.productInfo.locator('.swatch-attribute.color .swatch-option');
     this.quantityInput = this.productInfo.locator('#qty');
+    this.quantityValidationError = this.productInfo.locator('#qty-error');
     this.addToCartButton = this.productInfo.locator('#product-addtocart-button');
     this.addToWishlistButton = this.productInfo.locator('.action.towishlist');
     this.addToCompareButton = this.productInfo.locator('.action.tocompare');

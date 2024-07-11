@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import * as dotenv from 'dotenv';
 import { ProductPage, ReviewDetails } from '../pages/productPage';
-import { Products, SimilarProducts } from '../data/productPage';
+import { ExpectedText, Products, SimilarProducts } from '../data/productPage';
 import { ProductItemElements } from '../pages/components/productItem';
 
 function verifyImageSrcEquality(actualSrc: string, expectedSrc: string) {
@@ -350,6 +350,44 @@ for (const product of products) {
               .toHaveAttribute('href', `${baseURL}${SimilarProducts[product][i].link}`);
           }
         }
+      });
+    });
+
+    test.describe('Data validation tests', () => {
+      test('Quantity validation', async () => {
+        const errorClass = /mage-error/;
+        // No validation error shown initially
+        await expect.soft(productPage.quantityInput).not.toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).not.toBeVisible();
+
+        // Quantity below min (1)
+        await productPage.quantityInput.fill('0');
+        // Validation error not triggered until "Add to cart" button clicked
+        await expect.soft(productPage.quantityInput).not.toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).not.toBeVisible();
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.quantityInput).toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).toBeVisible();
+        await expect.soft(productPage.quantityValidationError).toHaveText(ExpectedText.Quantity.BelowMin);
+
+        // Reset quantity to default
+        await productPage.quantityInput.fill('1');
+        // Validation error not cleared until "Add to cart" button clicked
+        await expect.soft(productPage.quantityInput).toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).toBeVisible();
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.quantityInput).not.toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).not.toBeVisible();
+
+        // Quantity above max (10000)
+        await productPage.quantityInput.fill('10001');
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.quantityInput).toHaveClass(errorClass);
+        await expect.soft(productPage.quantityValidationError).toBeVisible();
+        await expect.soft(productPage.quantityValidationError).toHaveText(ExpectedText.Quantity.AboveMax);
+
+        // The quantity should be an integer value but there is no validation of that within the quantity
+        // input itself. Non-integer quantities cannot be added to the cart but this is a separate test
       });
     });
   });
