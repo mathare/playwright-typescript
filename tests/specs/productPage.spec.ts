@@ -241,6 +241,38 @@ for (const product of products) {
         await expect.soft(colors.first()).not.toHaveClass(swatchSelectedClass);
         await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered);
       });
+
+      test('Can only select single size option at a time', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
+        const sizes = productPage.sizeSwatch;
+        await expect.soft(sizes).toHaveCount(Products[product].sizes!.length);
+        for (let i = 0; i < Products[product].sizes!.length; i++) {
+          await sizes.nth(i).click();
+          await expect.soft(sizes.nth(i)).toHaveClass(swatchSelectedClass);
+          for (let j = 0; j < Products[product].sizes!.length; j++) {
+            if (j !== i) {
+              await expect.soft(sizes.nth(j)).not.toHaveClass(swatchSelectedClass);
+            }
+          }
+        }
+      });
+
+      test('Can only select single color option at a time', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
+        const colors = productPage.colorSwatch;
+        await expect.soft(colors).toHaveCount(Products[product].colors!.length);
+        for (let i = 0; i < Products[product].colors!.length; i++) {
+          await colors.nth(i).click();
+          await expect.soft(colors.nth(i)).toHaveClass(swatchSelectedClass);
+          for (let j = 0; j < Products[product].colors!.length; j++) {
+            if (j !== i) {
+              await expect.soft(colors.nth(j)).not.toHaveClass(swatchSelectedClass);
+            }
+          }
+        }
+      });
     });
 
     test.describe('Product image carousel tests', () => {
