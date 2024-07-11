@@ -372,6 +372,26 @@ for (const product of products) {
         await productPage.addToCartButton.click();
         await expect.soft(productPage.sizeValidationError).not.toBeVisible();
       });
+
+      test('Color is a required field', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // No validation error shown initially
+        await expect.soft(productPage.colorValidationError).not.toBeVisible();
+
+        // Validation error displayed on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.colorValidationError).toBeVisible();
+        await expect.soft(productPage.colorValidationError).toHaveText(ExpectedText.RequiredField);
+
+        // Validation error not cleared on selecting color
+        await productPage.colorSwatch.nth(0).click();
+        await expect.soft(productPage.colorValidationError).toBeVisible();
+
+        // Validation error cleared on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.colorValidationError).not.toBeVisible();
+      });
+
       test('Quantity validation', async () => {
         const errorClass = /mage-error/;
         // No validation error shown initially
