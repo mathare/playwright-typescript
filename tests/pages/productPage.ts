@@ -24,8 +24,12 @@ export class ProductPage extends BasePage {
   readonly price: Locator;
   readonly availability: Locator;
   readonly sku: Locator;
+  readonly sizeOptions: Locator;
   readonly sizeSwatch: Locator;
+  readonly sizeValidationError: Locator;
+  readonly colorOptions: Locator;
   readonly colorSwatch: Locator;
+  readonly colorValidationError: Locator;
   readonly quantityInput: Locator;
   readonly quantityValidationError: Locator;
   readonly addToCartButton: Locator;
@@ -66,8 +70,12 @@ export class ProductPage extends BasePage {
     this.price = this.productInfo.locator('.price-box');
     this.availability = this.productInfo.locator('.stock');
     this.sku = this.productInfo.locator('.sku .value');
-    this.sizeSwatch = this.productInfo.locator('.swatch-attribute.size .swatch-option');
-    this.colorSwatch = this.productInfo.locator('.swatch-attribute.color .swatch-option');
+    this.sizeOptions = this.productInfo.locator('.swatch-attribute.size');
+    this.sizeSwatch = this.sizeOptions.locator('.swatch-option');
+    this.sizeValidationError = this.sizeOptions.locator('div.mage-error');
+    this.colorOptions = this.productInfo.locator('.swatch-attribute.color');
+    this.colorSwatch = this.colorOptions.locator('.swatch-option');
+    this.colorValidationError = this.colorOptions.locator('div.mage-error');
     this.quantityInput = this.productInfo.locator('#qty');
     this.quantityValidationError = this.productInfo.locator('#qty-error');
     this.addToCartButton = this.productInfo.locator('#product-addtocart-button');

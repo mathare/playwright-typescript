@@ -6,6 +6,7 @@ export const ExpectedText = {
     BelowMin: 'Please enter a quantity greater than 0.',
     AboveMax: 'The maximum you may purchase is 10000.',
   },
+  RequiredField: 'This is a required field.',
 };
 
 export const Products: Record<string, Product> = {

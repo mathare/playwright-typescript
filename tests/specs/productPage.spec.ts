@@ -354,6 +354,24 @@ for (const product of products) {
     });
 
     test.describe('Data validation tests', () => {
+      test('Size is a required field', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // No validation error shown initially
+        await expect.soft(productPage.sizeValidationError).not.toBeVisible();
+
+        // Validation error displayed on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.sizeValidationError).toBeVisible();
+        await expect.soft(productPage.sizeValidationError).toHaveText(ExpectedText.RequiredField);
+
+        // Validation error not cleared on selecting size
+        await productPage.sizeSwatch.nth(0).click();
+        await expect.soft(productPage.sizeValidationError).toBeVisible();
+
+        // Validation error cleared on clicking "Add to cart" button
+        await productPage.addToCartButton.click();
+        await expect.soft(productPage.sizeValidationError).not.toBeVisible();
+      });
       test('Quantity validation', async () => {
         const errorClass = /mage-error/;
         // No validation error shown initially
