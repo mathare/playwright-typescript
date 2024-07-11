@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import { ProductPage, ReviewDetails } from '../pages/productPage';
 import { ExpectedText, Products, SimilarProducts } from '../data/productPage';
 import { ProductItemElements } from '../pages/components/productItem';
-import { Colors } from '../data/products';
+import { Colors, SwatchOutlineStyles } from '../data/products';
 
 function verifyImageSrcEquality(actualSrc: string, expectedSrc: string) {
   // The images can be in different folders in the media cache so can't compare the src attributes directly
@@ -37,6 +37,7 @@ for (const product of products) {
     test.describe('Appearance tests', () => {
       // This is an example of performing visual-style testing by asserting against various element properties rather than actually using image comparison
       // The tests could be combined but I have split them here to make them easier to read and maintain
+      const swatchSelectedClass = /selected/;
 
       test('Main page elements displayed', async () => {
         await expect.soft(productPage.globalMessage).toBeVisible();
@@ -190,6 +191,55 @@ for (const product of products) {
         // Selected color label cleared when color deselected
         await productPage.colorSwatch.last().click();
         await expect.soft(productPage.selectedColor).toHaveText('');
+      });
+
+      // One could easily argue this test doesn't need to be run for all products since they all use the same DOM elements
+      test('Size swatch styling', async ({ browserName }, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        // There is no need to every size swatch for a given product
+        const sizes = productPage.sizeSwatch;
+
+        // Select
+        await sizes.first().click();
+        await expect.soft(sizes.first()).toHaveClass(swatchSelectedClass);
+        await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered);
+        await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.White);
+        // For some reason a simple blur() isn't enough so hover over another element
+        await productPage.productName.hover();
+        await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Selected);
+
+        //Deselect
+        await sizes.first().click();
+        await expect.soft(sizes.first()).not.toHaveClass(swatchSelectedClass);
+        await expect.soft(sizes.first()).toHaveCSS('outline', SwatchOutlineStyles.Sizes.Hovered);
+        await expect.soft(sizes.first()).toHaveCSS('background-color', Colors.LightGrey);
+        await productPage.productName.hover();
+        const outlineStyle =
+          browserName === 'firefox'
+            ? // Firefox doesn't include "none" in the outline style but other browsers do
+              SwatchOutlineStyles.Sizes.NotSelected.replace('none ', '')
+            : SwatchOutlineStyles.Sizes.NotSelected;
+        await expect.soft(sizes.first()).toHaveCSS('outline', outlineStyle);
+      });
+
+      // One could easily argue this test doesn't need to be run for all products since they all use the same DOM elements
+      test('Color swatch styling', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        // There is no need to every color swatch for a given product
+        const colors = productPage.colorSwatch;
+
+        // Select
+        await colors.first().click();
+        await expect.soft(colors.first()).toHaveClass(swatchSelectedClass);
+        await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered);
+        // For some reason a simple blur() isn't enough so hover over another element
+        await productPage.productName.hover();
+        await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Selected);
+
+        //Deselect
+        await colors.first().click();
+        await expect.soft(colors.first()).not.toHaveClass(swatchSelectedClass);
+        await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered);
       });
     });
 
