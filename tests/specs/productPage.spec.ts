@@ -4,6 +4,7 @@ import { ProductPage, ReviewDetails } from '../pages/productPage';
 import { ExpectedText, Products, SimilarProducts } from '../data/productPage';
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, SwatchOutlineStyles } from '../data/products';
+import { rgbToHex } from '../helpers/colorUtils';
 
 function verifyImageSrcEquality(actualSrc: string, expectedSrc: string) {
   // The images can be in different folders in the media cache so can't compare the src attributes directly
@@ -543,8 +544,34 @@ for (const product of products) {
         // The quantity should be an integer value but there is no validation of that within the quantity
         // input itself. Non-integer quantities cannot be added to the cart but this is a separate test
       });
+    });
 
-      // Selected size/color shown next to field label
+    test.describe('Tooltip tests', () => {
+      const tooltipWidth = '110';
+      const tooltipHeight = '90';
+      test('Size option tooltips', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+        const sizes = productPage.sizeSwatch;
+        await expect.soft(sizes).toHaveCount(Products[product].sizes!.length);
+        for (let i = 0; i < Products[product].sizes!.length; i++) {
+          await expect.soft(sizes.nth(i)).toHaveAttribute('option-tooltip-value', Products[product].sizes![i]);
+          await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
+          await expect.soft(sizes.nth(i)).toHaveAttribute('thumb-height', tooltipHeight);
+        }
+      });
+
+      test('Color swatch tooltips', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+        const colors = productPage.colorSwatch;
+        await expect.soft(colors).toHaveCount(Products[product].colors!.length);
+        for (let i = 0; i < Products[product].colors!.length; i++) {
+          await expect
+            .soft(colors.nth(i))
+            .toHaveAttribute('option-tooltip-value', rgbToHex(Products[product].colors![i]));
+          await expect.soft(colors.nth(i)).toHaveAttribute('thumb-width', tooltipWidth);
+          await expect.soft(colors.nth(i)).toHaveAttribute('thumb-height', tooltipHeight);
+        }
+      });
     });
   });
 }
