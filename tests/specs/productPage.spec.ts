@@ -277,7 +277,8 @@ for (const product of products) {
     });
 
     test.describe('Product image carousel tests', () => {
-      test('First thumbnail selected by default', async () => {
+      test('First thumbnail selected by default', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
         const thumbnailSrc = await productPage.productThumbnail.first().getAttribute('src');
         const mainImageSrc = await productPage.productImage.getAttribute('src');
         verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
@@ -290,7 +291,8 @@ for (const product of products) {
           .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
       });
 
-      test('Product image changes when thumbnail selected', async () => {
+      test('Product image changes when thumbnail selected', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
         await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
         for (let i = 1; i < (await productPage.productThumbnail.count()); i++) {
           await productPage.selectThumbnail(i);
@@ -312,7 +314,8 @@ for (const product of products) {
           .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
       });
 
-      test('Previous/next image buttons cycle through product images', async () => {
+      test('Previous/next image buttons cycle through product images', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
         await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
         for (let i = 0; i < (await productPage.productThumbnail.count()) - 1; i++) {
           await productPage.selectNextImage();
@@ -409,11 +412,13 @@ for (const product of products) {
         await expect
           .soft(productPage.productImage)
           .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.default));
-        await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
-        for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
-          await expect
-            .soft(productPage.productThumbnail.nth(i))
-            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
+        if (Products[product].images!.thumbnails) {
+          await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
+          for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
+            await expect
+              .soft(productPage.productThumbnail.nth(i))
+              .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
+          }
         }
         if (Products[product].images!.sizes) {
           for (let i = 0; i < Products[product].sizes!.length; i++) {
