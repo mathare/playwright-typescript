@@ -173,9 +173,40 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Fusion Backpack',
     rating: '67%',
     reviews: '3 Reviews',
+    inStock: true,
+    sku: '24-MB02',
     price: '$59.00',
     link: '/fusion-backpack.html',
-    images: { default: '/m/b/mb02-gray-0.jpg' },
+    images: { default: '/m/b/mb02-gray-0.jpg', thumbnails: ['/m/b/mb02-gray-0.jpg', '/m/b/mb02-blue-0.jpg'] },
+    description: `With the Fusion Backpack strapped on, every trek is an adventure - even a bus ride to work. That's partly because two large zippered compartments store everything you need, while a front zippered pocket and side mesh pouches are perfect for stashing those little extras, in case you change your mind and take the day off.\n\nDurable nylon construction.\n2 main zippered compartments.\n1 exterior zippered pocket.\nMesh side pouches.\nPadded, adjustable straps.\nTop carry handle.\nDimensions: 18" x 10" x 6".`,
+    additionalInfo:
+      'Activity\tYoga, Hiking, School\nStyle\tBackpack, Laptop\nMaterial\tBurlap, Nylon, Polyester\nStrap/Handle\tAdjustable, Double, Padded\nFeatures\tHydration Pocket, Audio Pocket, Waterproof, Lightweight',
+    reviewDetails: [
+      {
+        title: "I've had this thing for really long",
+        rating: '100%',
+        reviewText:
+          "I've had this thing for a really long time and it barely shows any signs of wear and tear. It's really big, too! I've taken it on day trips as well as short vacations and usually have no trouble finding room for my stuff.",
+        reviewer: 'Herb',
+        date: '3/11/23',
+      },
+      {
+        title: 'Decent bag',
+        rating: '60%',
+        reviewText:
+          "Decent bag. I keep my stuff in it for work and the gym. It's nice and roomy. I wish it had a more sophisticated design, though. Kinda looks like it's for kids.",
+        reviewer: 'Craig',
+        date: '3/11/23',
+      },
+      {
+        title: 'Screwed up my back',
+        rating: '40%',
+        reviewText:
+          'I can\'t believe they\'re claiming these straps are "padded." Wearing this thing to class for a semester totally screwed up my back, and my shoulders would start to ache after a few minutes where the straps dug in.',
+        reviewer: 'Orville',
+        date: '3/11/23',
+      },
+    ],
   },
   Rival: {
     name: 'Rival Field Messenger',
