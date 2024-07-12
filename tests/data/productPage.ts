@@ -1,3 +1,6 @@
+import { ProductDetails as MenShorts } from './productCategories/menShorts';
+import { ProductDetails as MenTanks } from './productCategories/menTanks';
+import { ProductDetails as MenTees } from './productCategories/menTees';
 import { ProductDetails as WomenShorts } from './productCategories/womenShorts';
 import { ProductDetails as WomenTanks } from './productCategories/womenTanks';
 import { ProductDetails as WomenTees } from './productCategories/womenTees';
@@ -14,6 +17,7 @@ export const ExpectedText = {
 export const Products: Record<string, Product> = {
   RadiantTee: WomenTees.Radiant,
   BreatheEasyTank: WomenTanks.BreatheEasy,
+  ArgusTank: MenTanks.Argus,
 };
 
 export const SimilarProducts: Record<string, Product[]> = {
@@ -31,4 +35,5 @@ export const SimilarProducts: Record<string, Product[]> = {
     WomenTees.Diva,
   ],
   BreatheEasyTank: [WomenShorts.Mimi, WomenTees.Gabrielle, WomenShorts.Ana, WomenTees.Juliana],
+  ArgusTank: [MenShorts.Apollo, MenShorts.Pierce, MenTees.AtomicCrew, MenTees.Gobi],
 };
