@@ -150,14 +150,36 @@ export const ProductDetails: Record<string, Product> = {
     rating: '70%',
     reviews: '2 Reviews',
     price: 'As low as $34.00',
+    inStock: true,
+    sku: 'WT09',
     sizes: Sizes,
     colors: [Colors.Purple, Colors.White, Colors.Yellow],
     link: '/breathe-easy-tank.html',
     images: {
       default: '/w/t/wt09-white_main_1.jpg',
+      thumbnails: ['/w/t/wt09-white_main_1.jpg', '/w/t/wt09-white_back_1.jpg'],
       colors: ['/w/t/wt09-purple_main_1.jpg', '/w/t/wt09-white_main_1.jpg', '/w/t/wt09-yellow_main_1.jpg'],
       sizes: '/w/t/wt09-purple_main_1.jpg',
     },
+    description:
+      "The Breathe Easy Tank is so soft, lightweight, and comfortable, you won't even know it's there -- until its high-tech Cocona® fabric starts wicking sweat away from your body to help you stay dry and focused. Layer it over your favorite sports bra and get moving.\n\n• Machine wash/dry.\n• Cocona® fabric.",
+    additionalInfo: 'Style\tTank\nMaterial\tCocona® performance fabric, Cotton\nPattern\tSolid\nClimate\tIndoor, Warm',
+    reviewDetails: [
+      {
+        title: 'Great fit - love the v-neck design!',
+        rating: '80%',
+        reviewText: 'Great fit - love the v-neck design!',
+        reviewer: 'Thalia',
+        date: '3/11/23',
+      },
+      {
+        title: 'The seams bother me',
+        rating: '60%',
+        reviewText: 'Some of the seams bother me during certain workouts but otherwise very comfortable',
+        reviewer: 'Carma',
+        date: '3/11/23',
+      },
+    ],
   },
   Antonia: {
     name: 'Antonia Racer Tank',

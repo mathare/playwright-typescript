@@ -25,7 +25,7 @@ function verifyBoundingBoxEquality(actualBox: BoundingBox, expectedBox: Bounding
 }
 
 dotenv.config();
-const products = process.env.TEST_MODE === 'full' ? Object.keys(Products) : ['RadiantTee'];
+const products = process.env.TEST_MODE === 'full' ? Object.keys(Products) : ['BreatheEasyTank'];
 for (const product of products) {
   test.describe(`${product} page tests`, () => {
     let productPage: ProductPage;

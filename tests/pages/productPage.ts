@@ -92,7 +92,7 @@ export class ProductPage extends BasePage {
     this.description = this.secondaryInfo.locator('#description');
     this.additionalInfo = this.secondaryInfo.locator('#additional tbody');
     this.review = this.secondaryInfo.locator('#customer-reviews li.review-item');
-    this.similarProductsGrid = this.mainContent.locator('.block.upsell .products-grid');
+    this.similarProductsGrid = this.mainContent.locator('.block .products-grid');
     this.similarProductItem = new ProductItem(this.similarProductsGrid).product;
   }
 
