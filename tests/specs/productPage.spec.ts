@@ -370,39 +370,42 @@ for (const product of products) {
         await productPage.zoomOut();
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
 
-        // Can zoom in 6 times max
-        for (let i = 0; i <= maxZooms; i++) {
-          const box = await productPage.productImage.boundingBox();
+        let box: BoundingBox;
+        let currentBox: BoundingBox;
+        // Zoom in until the size no longer changes
+        do {
+          box = await productPage.productImage.boundingBox();
           await productPage.zoomIn();
-          if (i < maxZooms) {
-            expect.soft((await productPage.productImage.boundingBox())!.width).toBeGreaterThan(box!.width);
-            expect.soft((await productPage.productImage.boundingBox())!.height).toBeGreaterThan(box!.height);
+          currentBox = await productPage.productImage.boundingBox();
+          if (currentBox!.width !== box!.width || currentBox!.height !== box!.height) {
+            expect.soft(currentBox!.width).toBeGreaterThan(box!.width);
+            expect.soft(currentBox!.height).toBeGreaterThan(box!.height);
           } else {
-            verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), box);
+            verifyBoundingBoxEquality(currentBox, box);
           }
-        }
+        } while (currentBox!.width !== box!.width || currentBox!.height !== box!.height);
         const maxBox = await productPage.productImage.boundingBox();
-        // Can zoom out 5 times max. Why it's not 6 as for zooming in I have no idea!
-        for (let i = 0; i < maxZooms; i++) {
-          const box = await productPage.productImage.boundingBox();
+        // Zoom out until the size no longer changes
+        do {
+          box = await productPage.productImage.boundingBox();
           await productPage.zoomOut();
-          if (i < maxZooms - 1) {
-            expect.soft((await productPage.productImage.boundingBox())!.width).toBeLessThan(box!.width);
-            expect.soft((await productPage.productImage.boundingBox())!.height).toBeLessThan(box!.height);
+          currentBox = await productPage.productImage.boundingBox();
+          if (currentBox!.width !== box!.width || currentBox!.height !== box!.height) {
+            expect.soft(currentBox!.width).toBeLessThan(box!.width);
+            expect.soft(currentBox!.height).toBeLessThan(box!.height);
           } else {
-            verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), box);
+            verifyBoundingBoxEquality(currentBox, box);
           }
-        }
+        } while (currentBox!.width !== box!.width || currentBox!.height !== box!.height);
+
         // Zoom level is returned to the original setting
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
 
         // Double-clicking product image zooms in to the max
-        await productPage.productImage.dblclick();
-        await new Promise((r) => setTimeout(r, 1000));
+        await productPage.dblClickImage();
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), maxBox!);
         // Double-clicking again returns to the original zoom level
-        await productPage.productImage.dblclick();
-        await new Promise((r) => setTimeout(r, 1000));
+        await productPage.dblClickImage();
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
       });
 

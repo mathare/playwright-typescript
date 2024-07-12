@@ -133,6 +133,11 @@ export class ProductPage extends BasePage {
     await this.zoomOutButton.click();
     await sleep(500);
   }
+
+  async dblClickImage() {
+    await this.productImage.dblclick();
+    await sleep(1000);
+  }
 }
 
 async function sleep(ms: number) {
