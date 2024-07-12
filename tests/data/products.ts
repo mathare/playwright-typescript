@@ -6,7 +6,7 @@ export const Colors = {
   Brown: 'rgb(148, 84, 84)',
   DarkGrey: 'rgb(51, 51, 51)',
   Green: 'rgb(83, 168, 40)',
-  Grey: 'rgb(143, 143, 143)',
+  Gray: 'rgb(143, 143, 143)',
   Lavender: 'rgb(206, 100, 212)',
   LightGrey: 'rgb(240, 240, 240)',
   Orange: 'rgb(235, 103, 3)',

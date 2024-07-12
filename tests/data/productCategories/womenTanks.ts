@@ -289,7 +289,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '4 Reviews',
     price: 'As low as $39.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Purple],
+    colors: [Colors.Black, Colors.Gray, Colors.Purple],
     link: '/electra-bra-top.html',
   },
 };

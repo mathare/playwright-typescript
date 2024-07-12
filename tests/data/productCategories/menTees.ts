@@ -155,7 +155,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $28.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Grey],
+    colors: [Colors.Black, Colors.Blue, Colors.Gray],
     link: '/ryker-lumatech-trade-tee-v-neck.html',
   },
   Aero: {
@@ -182,7 +182,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Green, Colors.Orange],
+    colors: [Colors.Gray, Colors.Green, Colors.Orange],
     link: '/balboa-persistence-tee.html',
   },
   AtomicCrew: {

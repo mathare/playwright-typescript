@@ -160,7 +160,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Argus All-Weather Tank',
     price: 'As low as $22.00',
     sizes: Sizes,
-    colors: [Colors.Grey],
+    colors: [Colors.Gray],
     link: '/argus-all-weather-tank.html',
     images: {
       default: '/m/t/mt07-gray_main_1.jpg',
@@ -206,7 +206,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Red, Colors.White],
+    colors: [Colors.Gray, Colors.Red, Colors.White],
     link: '/tristan-endurance-tank.html',
   },
   Erikssen: {
@@ -215,7 +215,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '4 Reviews',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Orange, Colors.Red],
+    colors: [Colors.Gray, Colors.Orange, Colors.Red],
     link: '/erikssen-cooltech-trade-fitness-tank.html',
   },
 };

@@ -243,7 +243,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Elisa EverCool™ Tee',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Purple, Colors.Red],
+    colors: [Colors.Gray, Colors.Purple, Colors.Red],
     link: '/elisa-evercool-trade-tee.html',
   },
   Layla: {
