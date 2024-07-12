@@ -25,6 +25,7 @@ export const Products: Record<string, Product> = {
   ArgusTank: MenTanks.Argus,
   HeroHoodie: MenHoodies.Hero,
   FusionBag: GearBags.Fusion,
+  PushItBag: GearBags.PushIt,
 };
 
 export const SimilarProducts: Record<string, Product[]> = {
@@ -45,4 +46,5 @@ export const SimilarProducts: Record<string, Product[]> = {
   ArgusTank: [MenShorts.Apollo, MenShorts.Pierce, MenTees.AtomicCrew, MenTees.Gobi],
   HeroHoodie: [MenPants.Viktor, MenPants.Livingston, MenTees.Aero, MenTees.Strike],
   FusionBag: [GearBags.Impulse],
+  PushItBag: [GearBags.Fusion, GearBags.Impulse],
 };

@@ -116,9 +116,41 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Push It Messenger Bag',
     rating: '67%',
     reviews: '3 Reviews',
+    inStock: true,
+    sku: '24-WB04',
     price: '$45.00',
     link: '/push-it-messenger-bag.html',
     images: { default: '/w/b/wb04-blue-0.jpg' },
+    description:
+      "The name says so, but the Push It Messenger Bag is much more than a busy commuter's tote. It's a closet away from home when you're pedaling from class or work to gym and back or home again. It's the perfect size and shape for laptop, folded clothes, even extra shoes.\n\nAdjustable crossbody strap.\nTop handle.\nZippered interior pocket.\nSecure clip closures.\nDurable fabric construction.",
+    additionalInfo:
+      'Activity\tYoga, School, Urban\nStyle\tMessenger, Laptop\nMaterial\tNylon, Polyester\nStrap/Handle\tAdjustable, Cross Body, Detachable, Padded, Shoulder, Single\nFeatures\tWaterproof, Lightweight, Laptop Sleeve, Lockable',
+    reviewDetails: [
+      {
+        title: 'I bike four miles a day to work and back',
+        rating: '80%',
+        reviewText:
+          "I bike four miles a day to work and back and I love this thing. It's a good size and it's pretty comfortable to wear across my back while I ride. So far I have not noticed much wear and tear on the fabric and I've had it for 6 months.",
+        reviewer: 'Sadye',
+        date: '3/11/23',
+      },
+      {
+        title: 'I would love this bag EXCEPT . . .',
+        rating: '60%',
+        reviewText:
+          "I would love this bag EXCEPT with the case on my Iphone won't fit in the cell phone pocket! Why make a pocket for cell phones if it's not going to fit an Iphone.",
+        reviewer: 'Adena',
+        date: '3/11/23',
+      },
+      {
+        title: "it's really ugly,",
+        rating: '60%',
+        reviewText:
+          "Its fine I guess but it's really ugly, I picked out a really cute bag for college but my mom got me this one instead.",
+        reviewer: 'Tracee',
+        date: '3/11/23',
+      },
+    ],
   },
   Overnight: {
     name: 'Overnight Duffle',
