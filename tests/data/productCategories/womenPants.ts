@@ -181,7 +181,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Deirdre Relaxed-Fit Capri',
     price: 'As low as $50.40',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Grey, Colors.Green],
+    colors: [Colors.Blue, Colors.Gray, Colors.Green],
     link: '/deirdre-relaxed-fit-capri.html',
   },
   Sylvia: {
@@ -195,7 +195,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Daria Bikram Pant',
     price: 'As low as $40.80',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.White],
+    colors: [Colors.Black, Colors.Gray, Colors.White],
     link: '/daria-bikram-pant.html',
   },
   Carina: {
@@ -234,7 +234,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $60.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Grey, Colors.Red],
+    colors: [Colors.Blue, Colors.Gray, Colors.Red],
     link: '/sahara-leggings.html',
   },
   Cora: {
@@ -270,7 +270,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $31.20',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.White],
+    colors: [Colors.Black, Colors.Gray, Colors.White],
     link: '/karmen-yoga-pant.html',
   },
 };

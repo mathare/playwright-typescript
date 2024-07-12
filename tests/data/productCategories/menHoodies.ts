@@ -252,7 +252,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Hero Hoodie',
     price: 'As low as $54.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Green],
+    colors: [Colors.Black, Colors.Gray, Colors.Green],
     link: '/hero-hoodie.html',
     images: {
       default: '/m/h/mh07-gray_main_2.jpg',
@@ -306,7 +306,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Chaz Kangeroo Hoodie',
     price: 'As low as $52.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Orange],
+    colors: [Colors.Black, Colors.Gray, Colors.Orange],
     link: '/chaz-kangeroo-hoodie.html',
   },
 };
