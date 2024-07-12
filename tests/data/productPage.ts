@@ -9,6 +9,8 @@ import { ProductDetails as WomenTees } from './productCategories/womenTees';
 import { Product } from './products';
 
 export const ExpectedText = {
+  AddReview: 'Add Your Review',
+  NoReviews: 'Be the first to review this product',
   Quantity: {
     BelowMin: 'Please enter a quantity greater than 0.',
     AboveMax: 'The maximum you may purchase is 10000.',

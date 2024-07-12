@@ -25,7 +25,7 @@ function verifyBoundingBoxEquality(actualBox: BoundingBox, expectedBox: Bounding
 }
 
 dotenv.config();
-const products = process.env.TEST_MODE === 'full' ? Object.keys(Products) : ['BreatheEasyTank'];
+const products = process.env.TEST_MODE === 'full' ? Object.keys(Products) : ['RadiantTee'];
 for (const product of products) {
   test.describe(`${product} page tests`, () => {
     let productPage: ProductPage;
@@ -56,21 +56,21 @@ for (const product of products) {
         await expect.soft(productPage.pageFooter.copyrightFooter).toBeVisible();
       });
 
-      test('Product details', async ({ baseURL }) => {
+      test('Product details', async () => {
         // The breadcrumbs will vary depending on the route taken to the page but by navigating to the product page
         // directly the breadcrumbs will always be Home > {Product Name}
         const breadcrumbsExpectedText = `Home  ${Products[product].name}`;
         await expect.soft(productPage.breadcrumbsContainer).toHaveText(breadcrumbsExpectedText);
 
         await expect.soft(productPage.productName).toHaveText(Products[product].name);
-        if (Products[product].reviews) {
-          await expect.soft(productPage.reviews).toHaveText(Products[product].reviews!);
-        }
         if (Products[product].rating) {
           await expect.soft(productPage.rating).toHaveAttribute('title', Products[product].rating!);
         }
         if (Products[product].reviewDetails) {
           await expect.soft(productPage.reviews).toHaveText(`${Products[product].reviewDetails!.length} Reviews`);
+          await expect.soft(productPage.addReview).toHaveText(ExpectedText.AddReview);
+        } else {
+          await expect.soft(productPage.addReview).toHaveText(ExpectedText.NoReviews);
         }
         await expect.soft(productPage.price).toHaveText(Products[product].price);
         const availability = Products[product].inStock ? 'In stock' : 'Out of stock';
