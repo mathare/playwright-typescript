@@ -133,7 +133,7 @@ for (const product of products) {
               .toHaveText(SimilarProducts[product][i].name);
             await expect
               .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.Price).first())
-              .toHaveText(SimilarProducts[product][i].price);
+              .toHaveText(SimilarProducts[product][i].price, { useInnerText: true });
           }
         }
       });

@@ -1,3 +1,5 @@
+import { ProductDetails as MenHoodies } from './productCategories/menHoodies';
+import { ProductDetails as MenPants } from './productCategories/menPants';
 import { ProductDetails as MenShorts } from './productCategories/menShorts';
 import { ProductDetails as MenTanks } from './productCategories/menTanks';
 import { ProductDetails as MenTees } from './productCategories/menTees';
@@ -18,6 +20,7 @@ export const Products: Record<string, Product> = {
   RadiantTee: WomenTees.Radiant,
   BreatheEasyTank: WomenTanks.BreatheEasy,
   ArgusTank: MenTanks.Argus,
+  HeroHoodie: MenHoodies.Hero,
 };
 
 export const SimilarProducts: Record<string, Product[]> = {
@@ -36,4 +39,5 @@ export const SimilarProducts: Record<string, Product[]> = {
   ],
   BreatheEasyTank: [WomenShorts.Mimi, WomenTees.Gabrielle, WomenShorts.Ana, WomenTees.Juliana],
   ArgusTank: [MenShorts.Apollo, MenShorts.Pierce, MenTees.AtomicCrew, MenTees.Gobi],
+  HeroHoodie: [MenPants.Viktor, MenPants.Livingston, MenTees.Aero, MenTees.Strike],
 };
