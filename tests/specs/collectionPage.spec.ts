@@ -4,6 +4,7 @@ import { Collections, ExpectedText, Links, Filters, Products, ShoppingOptions } 
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, TopnavLvl0 } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
+import path from 'path';
 
 const Timeouts = {
   Visual: 20000,
@@ -242,23 +243,28 @@ for (const collection of pages) {
 
     test.describe('Visual tests', () => {
       test('Collection page appearance', async ({ browserName }) => {
+        const css = '../data/collections/screenshot.css';
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
-        // Mask products grid for What's New page since it keeps changing
-        const mask =
-          collection === 'WhatsNew'
-            ? [collectionPage.productsGrid]
-            : // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for
-              // the RGB value of each colour
-              browserName === 'firefox'
-              ? [collectionPage.productItem.locator(ProductItemElements.Colors)]
-              : [];
+        // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for
+        // the RGB value of each colour
+        const mask = browserName === 'firefox' ? [collectionPage.productItem.locator(ProductItemElements.Colors)] : [];
         // Allow a small diff on Firefox to reduce flake
         const maxDiffPixels = browserName === 'firefox' ? 100 : 0;
-        await expect(collectionPage.mainContent).toHaveScreenshot(imageName, {
+        const options = {
           timeout: Timeouts.Visual,
           mask: mask,
           maxDiffPixels: maxDiffPixels,
-        });
+        };
+        // The products displayed on the What's New page can change. Masking the products grid doesn't work reliably
+        // as the products grid can change size so hide the element via CSS before comparing the screenshot.
+        // In this case there is no need to mask the colour swatches
+        if (collection === 'WhatsNew') {
+          options['stylePath'] = path.join(__dirname, css);
+          options['mask'] = [];
+        }
+        await expect(collectionPage.mainContent).toHaveScreenshot(imageName, options);
+      });
+    });
       });
     });
   });
