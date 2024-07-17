@@ -265,7 +265,5 @@ for (const collection of pages) {
         await expect(collectionPage.mainContent).toHaveScreenshot(imageName, options);
       });
     });
-      });
-    });
   });
 }
