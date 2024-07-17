@@ -157,7 +157,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Pierce Gym Short',
     price: 'As low as $27.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Red],
+    colors: [Colors.Black, Colors.Gray, Colors.Red],
     link: '/pierce-gym-short.html',
   },
   Arcadio: {
@@ -207,7 +207,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $32.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Grey, Colors.Red],
+    colors: [Colors.Blue, Colors.Gray, Colors.Red],
     link: '/lono-yoga-short.html',
   },
   Hawkeye: {
@@ -216,7 +216,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Grey],
+    colors: [Colors.Black, Colors.Blue, Colors.Gray],
     link: '/hawkeye-yoga-short.html',
   },
   Torque: {
@@ -225,7 +225,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $32.50',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Purple, Colors.Yellow],
+    colors: [Colors.Gray, Colors.Purple, Colors.Yellow],
     link: '/torque-power-short.html',
   },
   Meteor: {

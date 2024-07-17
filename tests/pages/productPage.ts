@@ -92,7 +92,7 @@ export class ProductPage extends BasePage {
     this.description = this.secondaryInfo.locator('#description');
     this.additionalInfo = this.secondaryInfo.locator('#additional tbody');
     this.review = this.secondaryInfo.locator('#customer-reviews li.review-item');
-    this.similarProductsGrid = this.mainContent.locator('.block.upsell .products-grid');
+    this.similarProductsGrid = this.mainContent.locator('.block .products-grid');
     this.similarProductItem = new ProductItem(this.similarProductsGrid).product;
   }
 
@@ -111,28 +111,37 @@ export class ProductPage extends BasePage {
   async selectThumbnail(index: number) {
     await this.productThumbnail.nth(index).click();
     // Without this sleep the highlight border may not be in the right place
-    await new Promise((r) => setTimeout(r, 1000));
+    await sleep(1000);
   }
 
   async selectNextImage() {
     await this.nextImageButton.click();
-    await new Promise((r) => setTimeout(r, 1000));
+    await sleep(1000);
   }
 
   async selectPreviousImage() {
     await this.prevImageButton.click();
-    await new Promise((r) => setTimeout(r, 1000));
+    await sleep(1000);
   }
 
   async zoomIn() {
     await this.zoomInButton.click();
-    await new Promise((r) => setTimeout(r, 500));
+    await sleep(500);
   }
 
   async zoomOut() {
     await this.zoomOutButton.click();
-    await new Promise((r) => setTimeout(r, 500));
+    await sleep(500);
   }
+
+  async dblClickImage() {
+    await this.productImage.dblclick();
+    await sleep(1000);
+  }
+}
+
+async function sleep(ms: number) {
+  await new Promise((r) => setTimeout(r, ms));
 }
 
 export enum ReviewDetails {

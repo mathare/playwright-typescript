@@ -159,14 +159,21 @@ export const ProductDetails: Record<string, Product> = {
   Argus: {
     name: 'Argus All-Weather Tank',
     price: 'As low as $22.00',
+    inStock: true,
+    sku: 'MT07',
     sizes: Sizes,
-    colors: [Colors.Grey],
+    colors: [Colors.Gray],
     link: '/argus-all-weather-tank.html',
     images: {
       default: '/m/t/mt07-gray_main_1.jpg',
+      thumbnails: ['/m/t/mt07-gray_main_1.jpg', '/m/t/mt07-gray_back_1.jpg'],
       colors: ['/m/t/mt07-gray_main_1.jpg'],
       sizes: '/m/t/mt07-gray_main_1.jpg',
     },
+    description:
+      'The Argus All-Weather Tank is sure to become your favorite base layer or go-to cover for hot outdoor workouts. With its subtle reflective safely trim, you can even wear it jogging on urban evenings.\n\n• Dark gray polyester spandex tank.\n• Reflective details for nighttime visibility.\n• Stash pocket.\n• Anti-chafe flatlock seams.',
+    additionalInfo:
+      'Style\tTank\nMaterial\tPolyester, Organic Cotton\nPattern\tSolid\nClimate\tAll-Weather, Indoor, Warm',
   },
   Vulcan: {
     name: 'Vulcan Weightlifting Tank',
@@ -206,7 +213,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Red, Colors.White],
+    colors: [Colors.Gray, Colors.Red, Colors.White],
     link: '/tristan-endurance-tank.html',
   },
   Erikssen: {
@@ -215,7 +222,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '4 Reviews',
     price: 'As low as $29.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Orange, Colors.Red],
+    colors: [Colors.Gray, Colors.Orange, Colors.Red],
     link: '/erikssen-cooltech-trade-fitness-tank.html',
   },
 };

@@ -208,7 +208,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $99.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Grey, Colors.Green],
+    colors: [Colors.Blue, Colors.Gray, Colors.Green],
     link: '/lando-gym-jacket.html',
   },
   Orion: {

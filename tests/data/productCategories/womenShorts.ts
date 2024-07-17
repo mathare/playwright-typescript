@@ -201,7 +201,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $44.00',
     sizes: Sizes.Small,
-    colors: [Colors.Grey, Colors.Green, Colors.White],
+    colors: [Colors.Gray, Colors.Green, Colors.White],
     link: '/mimi-all-purpose-short.html',
   },
   Sybil: {
@@ -228,7 +228,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $42.00',
     sizes: Sizes.Small,
-    colors: [Colors.Grey, Colors.Orange, Colors.Purple],
+    colors: [Colors.Gray, Colors.Orange, Colors.Purple],
     link: '/angel-light-running-short.html',
   },
   Bess: {
@@ -255,7 +255,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $50.00',
     sizes: Sizes.All,
-    colors: [Colors.Blue, Colors.Grey, Colors.Orange],
+    colors: [Colors.Blue, Colors.Gray, Colors.Orange],
     link: '/gwen-drawstring-bike-short.html',
   },
   Maxima: {
@@ -264,7 +264,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $28.00',
     sizes: Sizes.All,
-    colors: [Colors.Grey, Colors.Orange, Colors.Yellow],
+    colors: [Colors.Gray, Colors.Orange, Colors.Yellow],
     link: '/maxima-drawstring-short.html',
   },
   Fiona: {

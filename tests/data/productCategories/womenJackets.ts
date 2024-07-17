@@ -238,7 +238,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $32.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Grey, Colors.Green],
+    colors: [Colors.Blue, Colors.Gray, Colors.Green],
     link: '/jade-yoga-jacket.html',
   },
   Adrienne: {
@@ -247,7 +247,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '2 Reviews',
     price: 'As low as $57.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Orange, Colors.Purple],
+    colors: [Colors.Gray, Colors.Orange, Colors.Purple],
     link: '/adrienne-trek-jacket.html',
   },
   Inez: {
@@ -292,7 +292,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '4 Reviews',
     price: 'As low as $56.25',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Blue, Colors.Grey],
+    colors: [Colors.Black, Colors.Blue, Colors.Gray],
     link: '/josie-yoga-jacket.html',
   },
   Stellar: {

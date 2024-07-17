@@ -116,9 +116,41 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Push It Messenger Bag',
     rating: '67%',
     reviews: '3 Reviews',
+    inStock: true,
+    sku: '24-WB04',
     price: '$45.00',
     link: '/push-it-messenger-bag.html',
     images: { default: '/w/b/wb04-blue-0.jpg' },
+    description:
+      "The name says so, but the Push It Messenger Bag is much more than a busy commuter's tote. It's a closet away from home when you're pedaling from class or work to gym and back or home again. It's the perfect size and shape for laptop, folded clothes, even extra shoes.\n\nAdjustable crossbody strap.\nTop handle.\nZippered interior pocket.\nSecure clip closures.\nDurable fabric construction.",
+    additionalInfo:
+      'Activity\tYoga, School, Urban\nStyle\tMessenger, Laptop\nMaterial\tNylon, Polyester\nStrap/Handle\tAdjustable, Cross Body, Detachable, Padded, Shoulder, Single\nFeatures\tWaterproof, Lightweight, Laptop Sleeve, Lockable',
+    reviewDetails: [
+      {
+        title: 'I bike four miles a day to work and back',
+        rating: '80%',
+        reviewText:
+          "I bike four miles a day to work and back and I love this thing. It's a good size and it's pretty comfortable to wear across my back while I ride. So far I have not noticed much wear and tear on the fabric and I've had it for 6 months.",
+        reviewer: 'Sadye',
+        date: '3/11/23',
+      },
+      {
+        title: 'I would love this bag EXCEPT . . .',
+        rating: '60%',
+        reviewText:
+          "I would love this bag EXCEPT with the case on my Iphone won't fit in the cell phone pocket! Why make a pocket for cell phones if it's not going to fit an Iphone.",
+        reviewer: 'Adena',
+        date: '3/11/23',
+      },
+      {
+        title: "it's really ugly,",
+        rating: '60%',
+        reviewText:
+          "Its fine I guess but it's really ugly, I picked out a really cute bag for college but my mom got me this one instead.",
+        reviewer: 'Tracee',
+        date: '3/11/23',
+      },
+    ],
   },
   Overnight: {
     name: 'Overnight Duffle',
@@ -173,9 +205,40 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Fusion Backpack',
     rating: '67%',
     reviews: '3 Reviews',
+    inStock: true,
+    sku: '24-MB02',
     price: '$59.00',
     link: '/fusion-backpack.html',
-    images: { default: '/m/b/mb02-gray-0.jpg' },
+    images: { default: '/m/b/mb02-gray-0.jpg', thumbnails: ['/m/b/mb02-gray-0.jpg', '/m/b/mb02-blue-0.jpg'] },
+    description: `With the Fusion Backpack strapped on, every trek is an adventure - even a bus ride to work. That's partly because two large zippered compartments store everything you need, while a front zippered pocket and side mesh pouches are perfect for stashing those little extras, in case you change your mind and take the day off.\n\nDurable nylon construction.\n2 main zippered compartments.\n1 exterior zippered pocket.\nMesh side pouches.\nPadded, adjustable straps.\nTop carry handle.\nDimensions: 18" x 10" x 6".`,
+    additionalInfo:
+      'Activity\tYoga, Hiking, School\nStyle\tBackpack, Laptop\nMaterial\tBurlap, Nylon, Polyester\nStrap/Handle\tAdjustable, Double, Padded\nFeatures\tHydration Pocket, Audio Pocket, Waterproof, Lightweight',
+    reviewDetails: [
+      {
+        title: "I've had this thing for really long",
+        rating: '100%',
+        reviewText:
+          "I've had this thing for a really long time and it barely shows any signs of wear and tear. It's really big, too! I've taken it on day trips as well as short vacations and usually have no trouble finding room for my stuff.",
+        reviewer: 'Herb',
+        date: '3/11/23',
+      },
+      {
+        title: 'Decent bag',
+        rating: '60%',
+        reviewText:
+          "Decent bag. I keep my stuff in it for work and the gym. It's nice and roomy. I wish it had a more sophisticated design, though. Kinda looks like it's for kids.",
+        reviewer: 'Craig',
+        date: '3/11/23',
+      },
+      {
+        title: 'Screwed up my back',
+        rating: '40%',
+        reviewText:
+          'I can\'t believe they\'re claiming these straps are "padded." Wearing this thing to class for a semester totally screwed up my back, and my shoulders would start to ache after a few minutes where the straps dug in.',
+        reviewer: 'Orville',
+        date: '3/11/23',
+      },
+    ],
   },
   Rival: {
     name: 'Rival Field Messenger',

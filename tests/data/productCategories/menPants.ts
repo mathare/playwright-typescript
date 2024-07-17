@@ -194,7 +194,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Mithra Warmup Pant',
     price: 'As low as $22.40',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Green, Colors.Orange],
+    colors: [Colors.Gray, Colors.Green, Colors.Orange],
     link: '/mithra-warmup-pant.html',
   },
   Kratos: {
@@ -212,7 +212,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $36.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Green],
+    colors: [Colors.Black, Colors.Gray, Colors.Green],
     link: '/supernova-sport-pant.html',
   },
   Geo: {
@@ -230,7 +230,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $36.80',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Grey, Colors.Red],
+    colors: [Colors.Blue, Colors.Gray, Colors.Red],
     link: '/viktor-lumatech-trade-pant.html',
   },
   Caesar: {
@@ -239,7 +239,7 @@ export const ProductDetails: Record<string, Product> = {
     reviews: '3 Reviews',
     price: 'As low as $28.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Purple],
+    colors: [Colors.Black, Colors.Gray, Colors.Purple],
     link: '/caesar-warm-up-pant.html',
   },
 };

@@ -56,21 +56,21 @@ for (const product of products) {
         await expect.soft(productPage.pageFooter.copyrightFooter).toBeVisible();
       });
 
-      test('Product details', async ({ baseURL }) => {
+      test('Product details', async () => {
         // The breadcrumbs will vary depending on the route taken to the page but by navigating to the product page
         // directly the breadcrumbs will always be Home > {Product Name}
         const breadcrumbsExpectedText = `Home  ${Products[product].name}`;
         await expect.soft(productPage.breadcrumbsContainer).toHaveText(breadcrumbsExpectedText);
 
         await expect.soft(productPage.productName).toHaveText(Products[product].name);
-        if (Products[product].reviews) {
-          await expect.soft(productPage.reviews).toHaveText(Products[product].reviews!);
-        }
         if (Products[product].rating) {
           await expect.soft(productPage.rating).toHaveAttribute('title', Products[product].rating!);
         }
         if (Products[product].reviewDetails) {
           await expect.soft(productPage.reviews).toHaveText(`${Products[product].reviewDetails!.length} Reviews`);
+          await expect.soft(productPage.addReview).toHaveText(ExpectedText.AddReview);
+        } else {
+          await expect.soft(productPage.addReview).toHaveText(ExpectedText.NoReviews);
         }
         await expect.soft(productPage.price).toHaveText(Products[product].price);
         const availability = Products[product].inStock ? 'In stock' : 'Out of stock';
@@ -133,7 +133,7 @@ for (const product of products) {
               .toHaveText(SimilarProducts[product][i].name);
             await expect
               .soft(productPage.getSimilarProductItemElement(i, ProductItemElements.Price).first())
-              .toHaveText(SimilarProducts[product][i].price);
+              .toHaveText(SimilarProducts[product][i].price, { useInnerText: true });
           }
         }
       });
@@ -277,7 +277,8 @@ for (const product of products) {
     });
 
     test.describe('Product image carousel tests', () => {
-      test('First thumbnail selected by default', async () => {
+      test('First thumbnail selected by default', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
         const thumbnailSrc = await productPage.productThumbnail.first().getAttribute('src');
         const mainImageSrc = await productPage.productImage.getAttribute('src');
         verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
@@ -290,7 +291,8 @@ for (const product of products) {
           .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
       });
 
-      test('Product image changes when thumbnail selected', async () => {
+      test('Product image changes when thumbnail selected', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
         await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
         for (let i = 1; i < (await productPage.productThumbnail.count()); i++) {
           await productPage.selectThumbnail(i);
@@ -312,7 +314,8 @@ for (const product of products) {
           .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
       });
 
-      test('Previous/next image buttons cycle through product images', async () => {
+      test('Previous/next image buttons cycle through product images', async ({}, testInfo) => {
+        testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
         await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
         for (let i = 0; i < (await productPage.productThumbnail.count()) - 1; i++) {
           await productPage.selectNextImage();
@@ -367,39 +370,42 @@ for (const product of products) {
         await productPage.zoomOut();
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
 
-        // Can zoom in 6 times max
-        for (let i = 0; i <= maxZooms; i++) {
-          const box = await productPage.productImage.boundingBox();
+        let box: BoundingBox;
+        let currentBox: BoundingBox;
+        // Zoom in until the size no longer changes
+        do {
+          box = await productPage.productImage.boundingBox();
           await productPage.zoomIn();
-          if (i < maxZooms) {
-            expect.soft((await productPage.productImage.boundingBox())!.width).toBeGreaterThan(box!.width);
-            expect.soft((await productPage.productImage.boundingBox())!.height).toBeGreaterThan(box!.height);
+          currentBox = await productPage.productImage.boundingBox();
+          if (currentBox!.width !== box!.width || currentBox!.height !== box!.height) {
+            expect.soft(currentBox!.width).toBeGreaterThan(box!.width);
+            expect.soft(currentBox!.height).toBeGreaterThan(box!.height);
           } else {
-            verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), box);
+            verifyBoundingBoxEquality(currentBox, box);
           }
-        }
+        } while (currentBox!.width !== box!.width || currentBox!.height !== box!.height);
         const maxBox = await productPage.productImage.boundingBox();
-        // Can zoom out 5 times max. Why it's not 6 as for zooming in I have no idea!
-        for (let i = 0; i < maxZooms; i++) {
-          const box = await productPage.productImage.boundingBox();
+        // Zoom out until the size no longer changes
+        do {
+          box = await productPage.productImage.boundingBox();
           await productPage.zoomOut();
-          if (i < maxZooms - 1) {
-            expect.soft((await productPage.productImage.boundingBox())!.width).toBeLessThan(box!.width);
-            expect.soft((await productPage.productImage.boundingBox())!.height).toBeLessThan(box!.height);
+          currentBox = await productPage.productImage.boundingBox();
+          if (currentBox!.width !== box!.width || currentBox!.height !== box!.height) {
+            expect.soft(currentBox!.width).toBeLessThan(box!.width);
+            expect.soft(currentBox!.height).toBeLessThan(box!.height);
           } else {
-            verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), box);
+            verifyBoundingBoxEquality(currentBox, box);
           }
-        }
+        } while (currentBox!.width !== box!.width || currentBox!.height !== box!.height);
+
         // Zoom level is returned to the original setting
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
 
         // Double-clicking product image zooms in to the max
-        await productPage.productImage.dblclick();
-        await new Promise((r) => setTimeout(r, 1000));
+        await productPage.dblClickImage();
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), maxBox!);
         // Double-clicking again returns to the original zoom level
-        await productPage.productImage.dblclick();
-        await new Promise((r) => setTimeout(r, 1000));
+        await productPage.dblClickImage();
         verifyBoundingBoxEquality(await productPage.productImage.boundingBox(), origBox);
       });
 
@@ -409,11 +415,13 @@ for (const product of products) {
         await expect
           .soft(productPage.productImage)
           .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.default));
-        await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
-        for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
-          await expect
-            .soft(productPage.productThumbnail.nth(i))
-            .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
+        if (Products[product].images!.thumbnails) {
+          await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
+          for (let i = 0; i < Products[product].images!.thumbnails.length; i++) {
+            await expect
+              .soft(productPage.productThumbnail.nth(i))
+              .toHaveAttribute('src', new RegExp(mediaDir + Products[product].images!.thumbnails[i]));
+          }
         }
         if (Products[product].images!.sizes) {
           for (let i = 0; i < Products[product].sizes!.length; i++) {

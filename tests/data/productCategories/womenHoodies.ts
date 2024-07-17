@@ -266,7 +266,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Circe Hooded Ice Fleece',
     price: 'As low as $68.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Green, Colors.Purple],
+    colors: [Colors.Gray, Colors.Green, Colors.Purple],
     link: '/circe-hooded-ice-fleece.html',
   },
   Eos: {
@@ -280,7 +280,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Helena Hooded Fleece',
     price: 'As low as $55.00',
     sizes: Sizes,
-    colors: [Colors.Blue, Colors.Grey, Colors.Yellow],
+    colors: [Colors.Blue, Colors.Gray, Colors.Yellow],
     link: '/helena-hooded-fleece.html',
   },
   Ariel: {
@@ -301,7 +301,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Phoebe Zipper Sweatshirt',
     price: 'As low as $59.00',
     sizes: Sizes,
-    colors: [Colors.Grey, Colors.Purple, Colors.White],
+    colors: [Colors.Gray, Colors.Purple, Colors.White],
     link: '/phoebe-zipper-sweatshirt.html',
   },
   Daphne: {

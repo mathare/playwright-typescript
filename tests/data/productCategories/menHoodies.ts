@@ -251,11 +251,14 @@ export const ProductDetails: Record<string, Product> = {
   Hero: {
     name: 'Hero Hoodie',
     price: 'As low as $54.00',
+    inStock: true,
+    sku: 'MH07',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Green],
+    colors: [Colors.Black, Colors.Gray, Colors.Green],
     link: '/hero-hoodie.html',
     images: {
       default: '/m/h/mh07-gray_main_2.jpg',
+      thumbnails: ['/m/h/mh07-gray_main_2.jpg', '/m/h/mh07-gray_alt1_2.jpg', '/m/h/mh07-gray_back_2.jpg'],
       colors: ['/m/h/mh07-black_main_1.jpg', '/m/h/mh07-gray_main_1.jpg', '/m/h/mh07-green_main_1.jpg'],
       // The hoodie has 2 different images for the size options
       sizes: [
@@ -266,6 +269,9 @@ export const ProductDetails: Record<string, Product> = {
         '/m/h/mh07-black_main_2.jpg',
       ],
     },
+    description:
+      'Gray and black color blocking sets you apart as the Hero Hoodie keeps you warm on the bus, campus or cold mean streets. Slanted outsize front pockets keep your style real . . . convenient.\n\n• Full-zip gray and black hoodie.\n• Ribbed hem.\n• Standard fit.\n• Drawcord hood cinch.\n• Water-resistant coating.',
+    additionalInfo: 'Material\tFleece, Hemp, Polyester\nPattern\tColor-Blocked\nClimate\tSpring',
   },
   Stark: {
     name: 'Stark Fundamental Hoodie',
@@ -306,7 +312,7 @@ export const ProductDetails: Record<string, Product> = {
     name: 'Chaz Kangeroo Hoodie',
     price: 'As low as $52.00',
     sizes: Sizes,
-    colors: [Colors.Black, Colors.Grey, Colors.Orange],
+    colors: [Colors.Black, Colors.Gray, Colors.Orange],
     link: '/chaz-kangeroo-hoodie.html',
   },
 };
