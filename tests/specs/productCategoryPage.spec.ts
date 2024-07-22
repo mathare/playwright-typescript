@@ -13,6 +13,15 @@ import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
 
+function getRandomProductCategory() {
+  const lvl0 = Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
+  const lvl1Categories = HeaderLinks.Topnav.hasOwnProperty(lvl0) ? Object.keys(ProductCategories[lvl0]) : [''];
+  const lvl1 = lvl1Categories[Math.floor(Math.random() * lvl1Categories.length)];
+  const lvl2Categories = lvl1.endsWith('SubMenu') ? Object.keys(ProductCategories[lvl0][lvl1]) : [''];
+  const lvl2 = lvl2Categories[Math.floor(Math.random() * lvl2Categories.length)];
+  return { lvl0, lvl1, lvl2 };
+}
+
 function getProductCategories(lvl: number, ...args: string[]): string[] {
   if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
   if (lvl === 1)
@@ -78,10 +87,11 @@ const Timeouts = {
 let productCategoryPage: ProductCategoryPage;
 let url: string;
 test.describe(`General product category page tests`, () => {
-  const category = 'WomenTops';
+  const randomCategory = getRandomProductCategory();
+  const category = getCategory(randomCategory.lvl0, randomCategory.lvl1, randomCategory.lvl2);
   test.beforeEach(async ({ page }) => {
     productCategoryPage = new ProductCategoryPage(page);
-    url = ProductCategories['Women']['Tops'];
+    url = getUrl(randomCategory.lvl0, randomCategory.lvl1, randomCategory.lvl2);
     await productCategoryPage.open(url);
   });
 
