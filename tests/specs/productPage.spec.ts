@@ -25,6 +25,11 @@ function verifyBoundingBoxEquality(actualBox: BoundingBox, expectedBox: Bounding
 }
 
 let productPage: ProductPage;
+// There are a number of tests that will work the same regardless of which product page is under test so do not
+// need to be repeated for each individual product page. Instead they can be run against a single product page
+// selected to be able to run all tests. The product could be randomised but doing so risks several tests not
+// being run due to the product not having reviews, thumbnails etc. Using a random product would increase the
+// coverage in some ways while reducing it in others so the trade off doesn't seem worth it
 test.describe(`General product page tests`, () => {
   const product = 'RadiantTee';
   test.beforeEach(async ({ page }) => {
