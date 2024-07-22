@@ -34,8 +34,7 @@ test.describe(`General product page tests`, () => {
 
   test.describe('Appearance tests', () => {
     const swatchSelectedClass = /selected/;
-    test('Selected size shown above swatches', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+    test('Selected size shown above swatches', async () => {
       // Size not shown if none selected
       // NB The DOM element is always visible but the text content updates based on the selected size
       await expect.soft(productPage.selectedSize).toHaveText('');
@@ -50,8 +49,7 @@ test.describe(`General product page tests`, () => {
       await expect.soft(productPage.selectedSize).toHaveText('');
     });
 
-    test('Selected color shown above swatches', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+    test('Selected color shown above swatches', async () => {
       // Color not shown if none selected
       // NB The DOM element is always visible but the text content updates based on the selected color
       await expect.soft(productPage.selectedColor).toHaveText('');
@@ -67,9 +65,8 @@ test.describe(`General product page tests`, () => {
       await expect.soft(productPage.selectedColor).toHaveText('');
     });
 
-    test('Size swatch styling', async ({ browserName }, testInfo) => {
-      testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
-      // There is no need to every size swatch for a given product
+    test('Size swatch styling', async ({ browserName }) => {
+      // There is no need to test every size swatch for a given product
       const sizes = productPage.sizeSwatch;
 
       // Select
@@ -95,8 +92,7 @@ test.describe(`General product page tests`, () => {
       await expect.soft(sizes.first()).toHaveCSS('outline', outlineStyle);
     });
 
-    test('Color swatch styling', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+    test('Color swatch styling', async () => {
       // There is no need to test every color swatch for a given product
       const colors = productPage.colorSwatch;
 
@@ -114,8 +110,7 @@ test.describe(`General product page tests`, () => {
       await expect.soft(colors.first()).toHaveCSS('outline', SwatchOutlineStyles.Colors.Hovered);
     });
 
-    test('Can only select single size option at a time', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+    test('Can only select single size option at a time', async () => {
       // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
       const sizes = productPage.sizeSwatch;
       await expect.soft(sizes).toHaveCount(Products[product].sizes!.length);
@@ -130,8 +125,7 @@ test.describe(`General product page tests`, () => {
       }
     });
 
-    test('Can only select single color option at a time', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+    test('Can only select single color option at a time', async () => {
       // The styling of the 'selected' class is tested above so just checking whether an element has the class is sufficient here
       const colors = productPage.colorSwatch;
       await expect.soft(colors).toHaveCount(Products[product].colors!.length);
@@ -171,8 +165,7 @@ test.describe(`General product page tests`, () => {
   });
 
   test.describe('Product image carousel tests', () => {
-    test('First thumbnail selected by default', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
+    test('First thumbnail selected by default', async () => {
       const thumbnailSrc = await productPage.productThumbnail.first().getAttribute('src');
       const mainImageSrc = await productPage.productImage.getAttribute('src');
       verifyImageSrcEquality(mainImageSrc!, thumbnailSrc!);
@@ -185,8 +178,7 @@ test.describe(`General product page tests`, () => {
         .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
     });
 
-    test('Product image changes when thumbnail selected', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
+    test('Product image changes when thumbnail selected', async () => {
       await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
       for (let i = 1; i < (await productPage.productThumbnail.count()); i++) {
         await productPage.selectThumbnail(i);
@@ -208,8 +200,7 @@ test.describe(`General product page tests`, () => {
         .toEqual(await productPage.productThumbnail.nth(0).boundingBox());
     });
 
-    test('Previous/next image buttons cycle through product images', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].images!.thumbnails, 'Product has no thumbnails so skip test');
+    test('Previous/next image buttons cycle through product images', async () => {
       await expect.soft(productPage.productThumbnail).toHaveCount(Products[product].images!.thumbnails.length);
       for (let i = 0; i < (await productPage.productThumbnail.count()) - 1; i++) {
         await productPage.selectNextImage();
@@ -304,8 +295,7 @@ test.describe(`General product page tests`, () => {
   });
 
   test.describe('Data validation tests', () => {
-    test('Size is a required field', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+    test('Size is a required field', async () => {
       // No validation error shown initially
       await expect.soft(productPage.sizeValidationError).not.toBeVisible();
 
@@ -323,8 +313,7 @@ test.describe(`General product page tests`, () => {
       await expect.soft(productPage.sizeValidationError).not.toBeVisible();
     });
 
-    test('Color is a required field', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+    test('Color is a required field', async () => {
       // No validation error shown initially
       await expect.soft(productPage.colorValidationError).not.toBeVisible();
 
@@ -382,8 +371,7 @@ test.describe(`General product page tests`, () => {
   test.describe('Tooltip tests', () => {
     const tooltipWidth = '110';
     const tooltipHeight = '90';
-    test('Size option tooltips', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].sizes, 'Product has no size options so skip test');
+    test('Size option tooltips', async () => {
       const sizes = productPage.sizeSwatch;
       await expect.soft(sizes).toHaveCount(Products[product].sizes!.length);
       for (let i = 0; i < Products[product].sizes!.length; i++) {
@@ -393,8 +381,7 @@ test.describe(`General product page tests`, () => {
       }
     });
 
-    test('Color swatch tooltips', async ({}, testInfo) => {
-      testInfo.skip(!Products[product].colors, 'Product has no color options so skip test');
+    test('Color swatch tooltips', async () => {
       const colors = productPage.colorSwatch;
       await expect.soft(colors).toHaveCount(Products[product].colors!.length);
       for (let i = 0; i < Products[product].colors!.length; i++) {
