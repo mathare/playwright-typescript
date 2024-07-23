@@ -14,24 +14,26 @@ import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data
 import * as dotenv from 'dotenv';
 
 function getRandomProductCategory() {
-  const lvl0 = Object.keys(ProductCategories)[Math.floor(Math.random() * Object.keys(ProductCategories).length)];
-  const lvl1Categories = HeaderLinks.Topnav.hasOwnProperty(lvl0) ? Object.keys(ProductCategories[lvl0]) : [''];
+  const mode = 'full';
+  const lvl0Categories = getProductCategories(mode, 0);
+  const lvl0 = lvl0Categories[Math.floor(Math.random() * lvl0Categories.length)];
+  const lvl1Categories = getProductCategories(mode, 1, lvl0);
   const lvl1 = lvl1Categories[Math.floor(Math.random() * lvl1Categories.length)];
-  const lvl2Categories = lvl1.endsWith('SubMenu') ? Object.keys(ProductCategories[lvl0][lvl1]) : [''];
+  const lvl2Categories = getProductCategories(mode, 2, lvl0, lvl1);
   const lvl2 = lvl2Categories[Math.floor(Math.random() * lvl2Categories.length)];
   return { lvl0, lvl1, lvl2 };
 }
 
-function getProductCategories(lvl: number, ...args: string[]): string[] {
-  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
+function getProductCategories(mode: string, lvl: number, ...args: string[]): string[] {
+  if (lvl === 0) return mode === 'full' ? Object.keys(ProductCategories) : ['Women'];
   if (lvl === 1)
-    return process.env.TEST_MODE === 'full'
+    return mode === 'full'
       ? HeaderLinks.Topnav.hasOwnProperty(args[0])
         ? Object.keys(ProductCategories[args[0]])
         : ['']
       : ['Tops'];
   if (lvl === 2)
-    return process.env.TEST_MODE === 'full'
+    return mode === 'full'
       ? args[1].endsWith('SubMenu')
         ? Object.keys(ProductCategories[args[0]][args[1]])
         : ['']
@@ -282,9 +284,10 @@ test.describe(`General product category page tests`, () => {
 });
 
 dotenv.config();
-for (const lvl0Category of getProductCategories(0)) {
-  for (const lvl1Category of getProductCategories(1, lvl0Category)) {
-    for (const lvl2Category of getProductCategories(2, lvl0Category, lvl1Category)) {
+const mode = process.env.TEST_MODE!;
+for (const lvl0Category of getProductCategories(mode, 0)) {
+  for (const lvl1Category of getProductCategories(mode, 1, lvl0Category)) {
+    for (const lvl2Category of getProductCategories(mode, 2, lvl0Category, lvl1Category)) {
       const category = getCategory(lvl0Category, lvl1Category, lvl2Category);
       const pageName = getPageName(lvl0Category, lvl1Category, lvl2Category);
 
