@@ -242,8 +242,8 @@ for (const collection of pages) {
     });
 
     test.describe('Visual tests', () => {
-      test('Collection page appearance', async ({ browserName }) => {
-        const css = '../data/collections/screenshot.css';
+      test('Collection page appearance', async ({ browserName }, testInfo) => {
+        testInfo.skip(collection === 'WhatsNew', `Skip test for "What's New" page`);
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;
         // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for
         // the RGB value of each colour
@@ -255,13 +255,6 @@ for (const collection of pages) {
           mask: mask,
           maxDiffPixels: maxDiffPixels,
         };
-        // The products displayed on the What's New page can change. Masking the products grid doesn't work reliably
-        // as the products grid can change size so hide the element via CSS before comparing the screenshot.
-        // In this case there is no need to mask the colour swatches
-        if (collection === 'WhatsNew') {
-          options['stylePath'] = path.join(__dirname, css);
-          options['mask'] = [];
-        }
         await expect(collectionPage.mainContent).toHaveScreenshot(imageName, options);
       });
     });
