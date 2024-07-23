@@ -13,16 +13,27 @@ import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, MenuItemText, SubMenuKeys } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
 
-function getProductCategories(lvl: number, ...args: string[]): string[] {
-  if (lvl === 0) return process.env.TEST_MODE === 'full' ? Object.keys(ProductCategories) : ['Women'];
+function getRandomProductCategory() {
+  const mode = 'full';
+  const lvl0Categories = getProductCategories(mode, 0);
+  const lvl0 = lvl0Categories[Math.floor(Math.random() * lvl0Categories.length)];
+  const lvl1Categories = getProductCategories(mode, 1, lvl0);
+  const lvl1 = lvl1Categories[Math.floor(Math.random() * lvl1Categories.length)];
+  const lvl2Categories = getProductCategories(mode, 2, lvl0, lvl1);
+  const lvl2 = lvl2Categories[Math.floor(Math.random() * lvl2Categories.length)];
+  return { lvl0, lvl1, lvl2 };
+}
+
+function getProductCategories(mode: string, lvl: number, ...args: string[]): string[] {
+  if (lvl === 0) return mode === 'full' ? Object.keys(ProductCategories) : ['Women'];
   if (lvl === 1)
-    return process.env.TEST_MODE === 'full'
+    return mode === 'full'
       ? HeaderLinks.Topnav.hasOwnProperty(args[0])
         ? Object.keys(ProductCategories[args[0]])
         : ['']
       : ['Tops'];
   if (lvl === 2)
-    return process.env.TEST_MODE === 'full'
+    return mode === 'full'
       ? args[1].endsWith('SubMenu')
         ? Object.keys(ProductCategories[args[0]][args[1]])
         : ['']
@@ -75,10 +86,208 @@ const Timeouts = {
   Visual: 20000,
 };
 
+let productCategoryPage: ProductCategoryPage;
+let url: string;
+test.describe(`General product category page tests`, () => {
+  const randomCategory = getRandomProductCategory();
+  const category = getCategory(randomCategory.lvl0, randomCategory.lvl1, randomCategory.lvl2);
+  test.beforeEach(async ({ page }) => {
+    productCategoryPage = new ProductCategoryPage(page);
+    url = getUrl(randomCategory.lvl0, randomCategory.lvl1, randomCategory.lvl2);
+    await productCategoryPage.open(url);
+  });
+
+  test.describe('Appearance tests', () => {
+    test('Only one filter can be expanded at a time', async ({}, testInfo) => {
+      test.setTimeout(testInfo.timeout + Timeouts.Test);
+      const filterCategories = productCategoryPage.filterCategory;
+      const numFilterCategories = Object.keys(Filters[category]).length;
+      await expect.soft(filterCategories).toHaveCount(numFilterCategories);
+      await expect
+        .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.first(), 'title'))
+        .toHaveAttribute('aria-expanded', 'false');
+      for (let i = 0; i < numFilterCategories; i++) {
+        await filterCategories.nth(i).click();
+        for (let j = 0; j < numFilterCategories; j++) {
+          const categoryTitle = await productCategoryPage.getFilterCategoryElement(filterCategories.nth(j), 'title');
+          const categoryContent = await productCategoryPage.getFilterCategoryElement(
+            filterCategories.nth(j),
+            'content',
+          );
+          await expect.soft(categoryTitle).toHaveAttribute('aria-selected', (i === j).toString());
+          await expect.soft(categoryTitle).toHaveAttribute('aria-expanded', (i === j).toString());
+          await expect.soft(categoryContent).toHaveAttribute('aria-hidden', (i !== j).toString());
+        }
+      }
+    });
+  });
+
+  test.describe('Display options tests', () => {
+    test('Sort options', async () => {
+      const sortOptions = ExpectedText.SortOptions.join('\n');
+      await expect.soft(productCategoryPage.sortByDropdown).toHaveText(sortOptions);
+    });
+
+    test('Page size options', async () => {
+      const gridPageSizes = ExpectedText.PageSizes.Grid.join('\n');
+      await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(gridPageSizes);
+
+      do {
+        await productCategoryPage.displayAsListButton.click();
+      } while (!productCategoryPage.page.url().endsWith(`?${QueryParams.DisplayMode.List}`));
+      await expect.soft(productCategoryPage.productsList).toBeVisible();
+      const listPageSizes = ExpectedText.PageSizes.List.join('\n');
+      await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(listPageSizes);
+    });
+
+    test('Display options tooltips', async () => {
+      // It seems the 'title' attribute is used to determine what to display in the tooltips
+      const tooltips = ExpectedText.Tooltips;
+      await expect.soft(productCategoryPage.displayAsGridButton).toHaveAttribute('title', tooltips.Grid);
+      await expect.soft(productCategoryPage.displayAsListButton).toHaveAttribute('title', tooltips.List);
+      await expect.soft(productCategoryPage.sortDirectionButton).toHaveAttribute('title', tooltips.SortDescending);
+      do {
+        await productCategoryPage.sortDirectionButton.click();
+      } while (productCategoryPage.page.url().endsWith('#'));
+      await expect.soft(productCategoryPage.sortDirectionButton).toHaveAttribute('title', tooltips.SortAscending);
+      if (Products[category].length > Defaults.PageSize.Grid) {
+        await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('title', tooltips.NextPage);
+      }
+    });
+
+    test('Display as list/grid', async ({ baseURL }) => {
+      do {
+        await productCategoryPage.displayAsListButton.click();
+      } while (!productCategoryPage.page.url().endsWith(`?${QueryParams.DisplayMode.List}`));
+      await expect.soft(productCategoryPage.productsGrid).not.toBeVisible();
+      await expect.soft(productCategoryPage.productsList).toBeVisible();
+      await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}?${QueryParams.DisplayMode.List}`);
+
+      // Verify the same products are displayed just as a list rather than a grid
+      let pageSize = Defaults.PageSize.List;
+      let productDetails = Products[category].slice(0, pageSize);
+      let productItems = productCategoryPage.productItem;
+      await expect.soft(productItems).toHaveCount(productDetails.length);
+      for (let i = 0; i < productDetails.length; i++) {
+        // Only check name as we check the full product details in another test
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+          .toHaveText(productDetails[i].name);
+      }
+
+      do {
+        await productCategoryPage.displayAsGridButton.click();
+      } while (productCategoryPage.page.url().endsWith(`?${QueryParams.DisplayMode.List}`));
+      await expect.soft(productCategoryPage.productsList).not.toBeVisible();
+      await expect.soft(productCategoryPage.productsGrid).toBeVisible();
+      await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}`);
+
+      // Verify the original products are displayed
+      pageSize = Defaults.PageSize.Grid;
+      productDetails = Products[category].slice(0, pageSize);
+      productItems = productCategoryPage.productItem;
+      await expect.soft(productItems).toHaveCount(productDetails.length);
+      for (let i = 0; i < productDetails.length; i++) {
+        await expect
+          .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+          .toHaveText(productDetails[i].name);
+      }
+    });
+
+    test('Sort by', async ({ baseURL, browserName }, testInfo) => {
+      // For some reason this test is flaky on Firefox & Webkit - changing the "sort by" select option can fail
+      // even though the element seems to be visible & enabled so skip the test on those browsers
+      testInfo.skip(browserName !== 'chromium', 'Skip test on Firefox & Webkit');
+      // Some product categories have complicated/incorrect price data that affects the sort order so skip the sort by price test for those categories
+      const incorrectPriceDataCategories = [
+        'WomenBottoms',
+        'MenBottoms',
+        'GearBags',
+        'GearFitnessEquipment',
+        'Yoga',
+        'ErinRecommends',
+      ];
+      const sortOptions = incorrectPriceDataCategories.includes(category)
+        ? ExpectedText.SortOptions.slice(0, -1)
+        : ExpectedText.SortOptions;
+      for (const sortOption of sortOptions) {
+        let productDetails = [...Products[category]];
+        let queryParams: string = '';
+        if (sortOption !== 'Position') {
+          const sortKey = sortOption === 'Product Name' ? 'name' : 'price';
+          productDetails.sort((a, b) => a[sortKey].localeCompare(b[sortKey]));
+          queryParams = `?${QueryParams.SortBy}=${sortKey}`;
+        }
+        productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
+        do {
+          await productCategoryPage.sortByDropdown.selectOption(sortOption);
+        } while (!productCategoryPage.page.url().endsWith(queryParams));
+        // This should be a standard "hard" assertion as there is no point continuing if the URL isn't correct
+        await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`);
+        const productItems = productCategoryPage.productItem;
+        await expect.soft(productItems).toHaveCount(productDetails.length);
+        for (let i = 0; i < productDetails.length; i++) {
+          await expect
+            .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+            .toHaveText(productDetails[i].name);
+        }
+      }
+    });
+
+    test('Sort direction', async ({ baseURL }) => {
+      // The sort effect is much easier to see and verify when sorted by product name
+      const sortByQueryParam = 'product_list_order=name';
+      // Navigate to the page sorted by product name directly to ensure the rest of the test waits until the page is fully loaded
+      await productCategoryPage.page.goto(`${url}?${sortByQueryParam}`);
+      for (const sortDirection of ['descending', 'ascending']) {
+        let productDetails = [...Products[category]];
+        productDetails.sort((a, b) => a['name'].localeCompare(b['name']));
+        if (sortDirection === 'descending') productDetails.reverse();
+        productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
+        const sortDirectionQueryParam =
+          sortDirection === 'descending' ? QueryParams.SortDir.Descending : QueryParams.SortDir.Ascending;
+        do {
+          await productCategoryPage.sortDirectionButton.click();
+        } while (productCategoryPage.page.url().endsWith('#'));
+        await expect(productCategoryPage.page).toHaveURL(
+          `${baseURL}${url}${buildQueryParams(sortByQueryParam, sortDirectionQueryParam)}`,
+        );
+        const productItems = productCategoryPage.productItem;
+        await expect.soft(productItems).toHaveCount(productDetails.length);
+        for (let i = 0; i < productDetails.length; i++) {
+          await expect
+            .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+            .toHaveText(productDetails[i].name);
+        }
+      }
+    });
+
+    test('Page size', async ({ baseURL, browserName }, testInfo) => {
+      // The test is flaky on Firefox, presumably due to the slow navigation, so skip it
+      testInfo.skip(browserName === 'firefox', 'Skip flaky test on Firefox');
+      for (const pageSize of ExpectedText.PageSizes.Grid) {
+        let productDetails = [...Products[category]];
+        const queryParams = pageSize === 12 ? '' : `?${QueryParams.PageSize}=${pageSize}`;
+        await productCategoryPage.pageSizeDropdown.selectOption(pageSize.toString());
+        productDetails = productDetails.slice(0, pageSize);
+        await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`);
+        const productItems = productCategoryPage.productItem;
+        await expect.soft(productItems).toHaveCount(productDetails.length);
+        for (let i = 0; i < productDetails.length; i++) {
+          await expect
+            .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
+            .toHaveText(productDetails[i].name);
+        }
+      }
+    });
+  });
+});
+
 dotenv.config();
-for (const lvl0Category of getProductCategories(0)) {
-  for (const lvl1Category of getProductCategories(1, lvl0Category)) {
-    for (const lvl2Category of getProductCategories(2, lvl0Category, lvl1Category)) {
+const mode = process.env.TEST_MODE!;
+for (const lvl0Category of getProductCategories(mode, 0)) {
+  for (const lvl1Category of getProductCategories(mode, 1, lvl0Category)) {
+    for (const lvl2Category of getProductCategories(mode, 2, lvl0Category, lvl1Category)) {
       const category = getCategory(lvl0Category, lvl1Category, lvl2Category);
       const pageName = getPageName(lvl0Category, lvl1Category, lvl2Category);
 
@@ -149,32 +358,6 @@ for (const lvl0Category of getProductCategories(0)) {
                     useInnerText: true,
                   });
                 }
-              }
-            }
-          });
-
-          test('Only one filter can be expanded at a time', async ({}, testInfo) => {
-            test.setTimeout(testInfo.timeout + Timeouts.Test);
-            const filterCategories = productCategoryPage.filterCategory;
-            const numFilterCategories = Object.keys(Filters[category]).length;
-            await expect.soft(filterCategories).toHaveCount(numFilterCategories);
-            await expect
-              .soft(await productCategoryPage.getFilterCategoryElement(filterCategories.first(), 'title'))
-              .toHaveAttribute('aria-expanded', 'false');
-            for (let i = 0; i < numFilterCategories; i++) {
-              await filterCategories.nth(i).click();
-              for (let j = 0; j < numFilterCategories; j++) {
-                const categoryTitle = await productCategoryPage.getFilterCategoryElement(
-                  filterCategories.nth(j),
-                  'title',
-                );
-                const categoryContent = await productCategoryPage.getFilterCategoryElement(
-                  filterCategories.nth(j),
-                  'content',
-                );
-                await expect.soft(categoryTitle).toHaveAttribute('aria-selected', (i === j).toString());
-                await expect.soft(categoryTitle).toHaveAttribute('aria-expanded', (i === j).toString());
-                await expect.soft(categoryContent).toHaveAttribute('aria-hidden', (i !== j).toString());
               }
             }
           });
@@ -411,168 +594,6 @@ for (const lvl0Category of getProductCategories(0)) {
               timeout: Timeouts.Visual,
               mask: mask,
             });
-          });
-        });
-
-        test.describe('Display options tests', () => {
-          test('Sort options', async () => {
-            const sortOptions = ExpectedText.SortOptions.join('\n');
-            await expect.soft(productCategoryPage.sortByDropdown).toHaveText(sortOptions);
-          });
-
-          test('Page size options', async () => {
-            const gridPageSizes = ExpectedText.PageSizes.Grid.join('\n');
-            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(gridPageSizes);
-
-            do {
-              await productCategoryPage.displayAsListButton.click();
-            } while (!productCategoryPage.page.url().endsWith(`?${QueryParams.DisplayMode.List}`));
-            await expect.soft(productCategoryPage.productsList).toBeVisible();
-            const listPageSizes = ExpectedText.PageSizes.List.join('\n');
-            await expect.soft(productCategoryPage.pageSizeDropdown).toHaveText(listPageSizes);
-          });
-
-          test('Display options tooltips', async () => {
-            // It seems the 'title' attribute is used to determine what to display in the tooltips
-            const tooltips = ExpectedText.Tooltips;
-            await expect.soft(productCategoryPage.displayAsGridButton).toHaveAttribute('title', tooltips.Grid);
-            await expect.soft(productCategoryPage.displayAsListButton).toHaveAttribute('title', tooltips.List);
-            await expect
-              .soft(productCategoryPage.sortDirectionButton)
-              .toHaveAttribute('title', tooltips.SortDescending);
-            do {
-              await productCategoryPage.sortDirectionButton.click();
-            } while (productCategoryPage.page.url().endsWith('#'));
-            await expect.soft(productCategoryPage.sortDirectionButton).toHaveAttribute('title', tooltips.SortAscending);
-            if (Products[category].length > Defaults.PageSize.Grid) {
-              await expect.soft(productCategoryPage.nextPageButton).toHaveAttribute('title', tooltips.NextPage);
-            }
-          });
-
-          test('Display as list/grid', async ({ baseURL }) => {
-            do {
-              await productCategoryPage.displayAsListButton.click();
-            } while (!productCategoryPage.page.url().endsWith(`?${QueryParams.DisplayMode.List}`));
-            await expect.soft(productCategoryPage.productsGrid).not.toBeVisible();
-            await expect.soft(productCategoryPage.productsList).toBeVisible();
-            await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}?${QueryParams.DisplayMode.List}`);
-
-            // Verify the same products are displayed just as a list rather than a grid
-            let pageSize = Defaults.PageSize.List;
-            let productDetails = Products[category].slice(0, pageSize);
-            let productItems = productCategoryPage.productItem;
-            await expect.soft(productItems).toHaveCount(productDetails.length);
-            for (let i = 0; i < productDetails.length; i++) {
-              // Only check name as we check the full product details in another test
-              await expect
-                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                .toHaveText(productDetails[i].name);
-            }
-
-            do {
-              await productCategoryPage.displayAsGridButton.click();
-            } while (productCategoryPage.page.url().endsWith(`?${QueryParams.DisplayMode.List}`));
-            await expect.soft(productCategoryPage.productsList).not.toBeVisible();
-            await expect.soft(productCategoryPage.productsGrid).toBeVisible();
-            await expect.soft(productCategoryPage.page).toHaveURL(`${baseURL}${url}`);
-
-            // Verify the original products are displayed
-            pageSize = Defaults.PageSize.Grid;
-            productDetails = Products[category].slice(0, pageSize);
-            productItems = productCategoryPage.productItem;
-            await expect.soft(productItems).toHaveCount(productDetails.length);
-            for (let i = 0; i < productDetails.length; i++) {
-              await expect
-                .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                .toHaveText(productDetails[i].name);
-            }
-          });
-
-          test('Sort by', async ({ baseURL, browserName }, testInfo) => {
-            // For some reason this test is flaky on Firefox & Webkit - changing the "sort by" select option can fail
-            // even though the element seems to be visible & enabled so skip the test on those browsers
-            testInfo.skip(browserName !== 'chromium', 'Skip test on Firefox & Webkit');
-            // Some product categories have complicated/incorrect price data that affects the sort order so skip the sort by price test for those categories
-            const incorrectPriceDataCategories = [
-              'WomenBottoms',
-              'MenBottoms',
-              'GearBags',
-              'GearFitnessEquipment',
-              'Yoga',
-              'ErinRecommends',
-            ];
-            const sortOptions = incorrectPriceDataCategories.includes(category)
-              ? ExpectedText.SortOptions.slice(0, -1)
-              : ExpectedText.SortOptions;
-            for (const sortOption of sortOptions) {
-              let productDetails = [...Products[category]];
-              let queryParams: string = '';
-              if (sortOption !== 'Position') {
-                const sortKey = sortOption === 'Product Name' ? 'name' : 'price';
-                productDetails.sort((a, b) => a[sortKey].localeCompare(b[sortKey]));
-                queryParams = `?${QueryParams.SortBy}=${sortKey}`;
-              }
-              productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
-              do {
-                await productCategoryPage.sortByDropdown.selectOption(sortOption);
-              } while (!productCategoryPage.page.url().endsWith(queryParams));
-              // This should be a standard "hard" assertion as there is no point continuing if the URL isn't correct
-              await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`);
-              const productItems = productCategoryPage.productItem;
-              await expect.soft(productItems).toHaveCount(productDetails.length);
-              for (let i = 0; i < productDetails.length; i++) {
-                await expect
-                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                  .toHaveText(productDetails[i].name);
-              }
-            }
-          });
-
-          test('Sort direction', async ({ baseURL }) => {
-            // The sort effect is much easier to see and verify when sorted by product name
-            const sortByQueryParam = 'product_list_order=name';
-            // Navigate to the page sorted by product name directly to ensure the rest of the test waits until the page is fully loaded
-            await productCategoryPage.page.goto(`${url}?${sortByQueryParam}`);
-            for (const sortDirection of ['descending', 'ascending']) {
-              let productDetails = [...Products[category]];
-              productDetails.sort((a, b) => a['name'].localeCompare(b['name']));
-              if (sortDirection === 'descending') productDetails.reverse();
-              productDetails = productDetails.slice(0, Defaults.PageSize.Grid);
-              const sortDirectionQueryParam =
-                sortDirection === 'descending' ? QueryParams.SortDir.Descending : QueryParams.SortDir.Ascending;
-              do {
-                await productCategoryPage.sortDirectionButton.click();
-              } while (productCategoryPage.page.url().endsWith('#'));
-              await expect(productCategoryPage.page).toHaveURL(
-                `${baseURL}${url}${buildQueryParams(sortByQueryParam, sortDirectionQueryParam)}`,
-              );
-              const productItems = productCategoryPage.productItem;
-              await expect.soft(productItems).toHaveCount(productDetails.length);
-              for (let i = 0; i < productDetails.length; i++) {
-                await expect
-                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                  .toHaveText(productDetails[i].name);
-              }
-            }
-          });
-
-          test('Page size', async ({ baseURL, browserName }, testInfo) => {
-            // The test is flaky on Firefox, presumably due to the slow navigation, so skip it
-            testInfo.skip(browserName === 'firefox', 'Skip flaky test on Firefox');
-            for (const pageSize of ExpectedText.PageSizes.Grid) {
-              let productDetails = [...Products[category]];
-              const queryParams = pageSize === 12 ? '' : `?${QueryParams.PageSize}=${pageSize}`;
-              await productCategoryPage.pageSizeDropdown.selectOption(pageSize.toString());
-              productDetails = productDetails.slice(0, pageSize);
-              await expect(productCategoryPage.page).toHaveURL(`${baseURL}${url}${queryParams}`);
-              const productItems = productCategoryPage.productItem;
-              await expect.soft(productItems).toHaveCount(productDetails.length);
-              for (let i = 0; i < productDetails.length; i++) {
-                await expect
-                  .soft(productCategoryPage.getProductItemElement(i, ProductItemElements.Name))
-                  .toHaveText(productDetails[i].name);
-              }
-            }
           });
         });
       });
