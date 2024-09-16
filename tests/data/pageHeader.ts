@@ -67,7 +67,7 @@ const TrainingSubMenu = {
 };
 
 export const Links = {
-  SupportThisProject: 'https://buymeacoffee.com/softwaretestingboard',
+  SupportThisProject: 'https://buymeacoffee.com/softwaretestingb',
   SignIn: '/customer/account/login/referer/*/',
   CreateAnAccount: '/customer/account/create/',
   Logo: '/',
