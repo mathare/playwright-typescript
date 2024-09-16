@@ -1,7 +1,7 @@
 import { Locator } from '@playwright/test';
 
 export const ExpectedText = {
-  Banner: 'Skip to Content\nSupport This Project Sign In  Create an Account',
+  Banner: 'Skip to Content\nSign In  Create an Account',
   Search: 'Search entire store here...',
   Topnav: ["What's New", 'Women', 'Men', 'Gear', 'Training', 'Sale'],
 };
