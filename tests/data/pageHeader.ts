@@ -1,7 +1,7 @@
 import { Locator } from '@playwright/test';
 
 export const ExpectedText = {
-  Banner: 'Skip to Content\nSupport This Project Sign In  Create an Account',
+  Banner: 'Skip to Content\nSign In  Create an Account',
   Search: 'Search entire store here...',
   Topnav: ["What's New", 'Women', 'Men', 'Gear', 'Training', 'Sale'],
 };
@@ -67,7 +67,7 @@ const TrainingSubMenu = {
 };
 
 export const Links = {
-  SupportThisProject: 'https://buymeacoffee.com/softwaretestingboard',
+  SupportThisProject: 'https://buymeacoffee.com/softwaretestingb',
   SignIn: '/customer/account/login/referer/*/',
   CreateAnAccount: '/customer/account/create/',
   Logo: '/',
