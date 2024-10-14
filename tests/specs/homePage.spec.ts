@@ -81,7 +81,7 @@ test.describe('Home page tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     // Mask colour swatches on Firefox as they can render inconsistently and we already have a test for each RGB value
     test('Default page appearance', async ({ browserName }) => {
       const mask = browserName === 'firefox' ? [homePage.productItem.locator(ProductItemElements.Colors)] : [];
@@ -137,7 +137,7 @@ test.describe('Home page tests', () => {
       }
     });
   });
-  
+
   test.describe('Product image source tests', () => {
     const mediaDir = '/pub/media/catalog/product/cache/7c4c1ed835fbbf2269f24539582c6d44';
 

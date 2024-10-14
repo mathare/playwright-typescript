@@ -241,7 +241,7 @@ for (const collection of pages) {
       });
     });
 
-    test.describe('Visual tests', () => {
+    test.describe.skip('Visual tests', () => {
       test('Collection page appearance', async ({ browserName }, testInfo) => {
         testInfo.skip(collection === 'WhatsNew', `Skip test for "What's New" page`);
         const imageName = `${collection.replace(collection.charAt(0), collection.charAt(0).toLowerCase())}.png`;

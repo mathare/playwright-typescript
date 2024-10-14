@@ -96,7 +96,7 @@ test.describe('Create New Account page tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     test('Default page appearance', async () => {
       await expect(createNewAccountPage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
     });

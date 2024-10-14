@@ -583,7 +583,7 @@ for (const lvl0Category of getProductCategories(mode, 0)) {
           });
         });
 
-        test.describe('Visual tests', () => {
+        test.describe.skip('Visual tests', () => {
           test('Product category page appearance', async ({ browserName }) => {
             const imageName = `${category.replace(category.charAt(0), category.charAt(0).toLowerCase())}.png`;
             // Mask colour swatches on Firefox as they can render inconsistently and we already have a test

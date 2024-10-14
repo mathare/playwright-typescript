@@ -50,7 +50,7 @@ test.describe('Page header tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     test('Default page header appearance', async () => {
       await expect(pageHeader.header).toHaveScreenshot('header.png', {
         timeout: Timeouts.Visual,

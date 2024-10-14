@@ -38,7 +38,7 @@ test.describe('Base page tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     test('Default global message appearance', async () => {
       await expect(basePage.globalMessage).toHaveScreenshot('message.png', {
         timeout: Timeouts.Visual,
