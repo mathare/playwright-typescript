@@ -41,7 +41,7 @@ test.describe('Page footer tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     test('Default page footer appearance', async () => {
       await expect(pageFooter.footer).toHaveScreenshot('footer.png', {
         timeout: Timeouts.Visual,

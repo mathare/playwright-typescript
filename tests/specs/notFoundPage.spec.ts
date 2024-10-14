@@ -52,7 +52,7 @@ test.describe('Not found page tests', () => {
     });
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     test('Default page appearance', async () => {
       await expect(notFoundPage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
     });

@@ -16,6 +16,7 @@ type Link = {
 };
 
 export const Links: Link[] = [
+  { text: 'Magento', url: '#' },
   { text: 'Go back', url: '#' },
   { text: 'Store Home', url: '/' },
   { text: 'My Account', url: '/customer/account/' },

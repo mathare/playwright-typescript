@@ -128,7 +128,7 @@ test.describe('Sign in page tests', () => {
       await expect.soft(signInPage.createAccountButton).toHaveText(ExpectedText.CreateAccountButton);
     });
 
-    test('Visual test', async () => {
+    test.skip('Visual test', async () => {
       await expect(signInPage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
     });
   });

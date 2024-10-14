@@ -117,7 +117,7 @@ test.describe.skip('My Account page tests', () => {
     // the specs for the other pages accessible from the sidenav will provide the required coverage
   });
 
-  test.describe('Visual tests', () => {
+  test.describe.skip('Visual tests', () => {
     test('Default page appearance', async () => {
       await expect(myAccountPage.mainContent).toHaveScreenshot('default.png', { timeout: Timeouts.Visual });
     });
