@@ -42,7 +42,8 @@ test.describe('Not found page tests', () => {
   });
 
   test.describe('Link tests', () => {
-    test('Main block links', async ({ baseURL }) => {
+    // Test skipped due to Google Adsense interfering
+    test.skip('Main block links', async ({ baseURL }) => {
       await expect.soft(notFoundPage.link).toHaveCount(Links.length);
       for (let i = 0; i < Links.length; i++) {
         const expectedUrl = Links[i].url.startsWith('/') ? baseURL + Links[i].url : Links[i].url;
