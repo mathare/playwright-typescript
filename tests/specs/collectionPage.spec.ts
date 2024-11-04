@@ -4,7 +4,6 @@ import { Collections, ExpectedText, Links, Filters, Products, ShoppingOptions } 
 import { ProductItemElements } from '../pages/components/productItem';
 import { Colors, Links as HeaderLinks, TopnavLvl0 } from '../data/pageHeader';
 import * as dotenv from 'dotenv';
-import path from 'path';
 
 const Timeouts = {
   Visual: 20000,
@@ -86,9 +85,13 @@ for (const collection of pages) {
         const promoBlocks = collectionPage.promoBlock;
         await expect.soft(promoBlocks).toHaveCount(collectionExpectedText.PromoBlocks.length);
         for (let i = 0; i < collectionExpectedText.PromoBlocks.length; i++) {
-          await expect
-            .soft(promoBlocks.nth(i))
-            .toHaveText(collectionExpectedText.PromoBlocks[i], { useInnerText: true });
+          // Handle Google AdSense by splitting actual & expected text into separate lines and
+          // verifying that all expected lines appear in actual text
+          const actualText = (await promoBlocks.nth(i).textContent())!.split('\n');
+          const expectedText = collectionExpectedText.PromoBlocks[i].split('\n');
+          for (let expectedLine of expectedText) {
+            expect.soft(actualText.includes(expectedLine));
+          }
         }
         if (
           collectionExpectedText.ProductsGrid.hasOwnProperty('Title') &&
