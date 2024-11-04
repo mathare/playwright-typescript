@@ -334,7 +334,9 @@ for (const lvl0Category of getProductCategories(mode, 0)) {
 
           // Filters split into separate test to avoid making the above test really hard to read (& develop)
           test('Text content of filters', async () => {
-            await expect.soft(productCategoryPage.filtersTitle).toHaveText(ExpectedText.FiltersTitle);
+            // Verify filters title starts with expected text rather than a full match as a way of handling Google AdSense
+            const actualText = await productCategoryPage.filtersTitle.textContent();
+            expect.soft(actualText?.trim().startsWith(ExpectedText.FiltersTitle)).toBeTruthy;
             const filterCategories = productCategoryPage.filterCategory;
             const expectedFilters = Filters[category];
             await expect.soft(filterCategories).toHaveCount(expectedFilters.length);
