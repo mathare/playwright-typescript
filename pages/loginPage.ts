@@ -6,7 +6,11 @@ export class LoginPage {
   readonly loginContainer: Locator;
   readonly title: Locator;
   readonly usernameInput: Locator;
+  readonly usernameErrorIcon: Locator;
   readonly passwordInput: Locator;
+  readonly passwordErrorIcon: Locator;
+  readonly errorContainer: Locator;
+  readonly errorMessage: Locator;
   readonly loginButton: Locator;
   readonly credentialsContainer: Locator;
   readonly usernames: Locator;
@@ -19,7 +23,11 @@ export class LoginPage {
     this.loginContainer = page.locator('div.login_container');
     this.title = page.locator('div.login_logo');
     this.usernameInput = page.getByTestId('username');
+    this.usernameErrorIcon = this.usernameInput.locator('.. >> svg');
     this.passwordInput = page.getByTestId('password');
+    this.passwordErrorIcon = this.passwordInput.locator('.. >> svg');
+    this.errorContainer = page.locator('div.error-message-container');
+    this.errorMessage = this.errorContainer.getByTestId('error');
     this.loginButton = page.getByTestId('login-button');
     this.credentialsContainer = page
       .getByTestId('login-credentials-container')

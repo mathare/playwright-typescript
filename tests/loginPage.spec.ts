@@ -59,11 +59,13 @@ test.describe('Login page tests', () => {
       await expect(loginPage.title).toHaveCSS('text-align', 'center');
       await expect(loginPage.usernameInput).toHaveAttribute('type', 'text');
       await expect(loginPage.usernameInput).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', 'rgb(237, 237, 237)');
       await expect(loginPage.usernameInput).toHaveCSS('color', 'rgb(72, 76, 85)');
       await expect(loginPage.usernameInput).toHaveCSS('font-size', '14px');
       await expect(loginPage.usernameInput).toHaveCSS('text-align', 'start');
       await expect(loginPage.passwordInput).toHaveAttribute('type', 'password');
       await expect(loginPage.passwordInput).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+      await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', 'rgb(237, 237, 237)');
       await expect(loginPage.passwordInput).toHaveCSS('color', 'rgb(72, 76, 85)');
       await expect(loginPage.passwordInput).toHaveCSS('font-size', '14px');
       await expect(loginPage.passwordInput).toHaveCSS('text-align', 'start');
@@ -83,6 +85,149 @@ test.describe('Login page tests', () => {
 
     test('Visual test', async ({ page }) => {
       await expect(page).toHaveScreenshot('loginPage.png');
+    });
+  });
+
+  test.describe('Behavioural tests', () => {
+    const USERNAME = 'standard_user';
+    const PASSWORD = 'secret_sauce';
+
+    test.describe('Successful logins', () => {
+      test('Submit form by clicking login button', async ({ page, baseURL }) => {
+        await loginPage.usernameInput.fill(USERNAME);
+        await loginPage.passwordInput.fill(PASSWORD);
+        await loginPage.loginButton.click();
+        await expect(page).toHaveURL(`${baseURL}/inventory.html`);
+      });
+
+      test('Submit form by pressing enter after typing password', async ({ page, baseURL }) => {
+        await loginPage.usernameInput.fill(USERNAME);
+        await loginPage.passwordInput.fill(PASSWORD);
+        await loginPage.passwordInput.press('Enter');
+        await expect(page).toHaveURL(`${baseURL}/inventory.html`);
+      });
+
+      ['standard_user', 'problem_user', 'performance_glitch_user', 'error_user', 'visual_user'].forEach((username) => {
+        test(`Log in as ${username}`, async ({ page, baseURL, context }) => {
+          await loginPage.usernameInput.fill(username);
+          await loginPage.passwordInput.fill(PASSWORD);
+          await loginPage.loginButton.click();
+          await expect(page).toHaveURL(`${baseURL}/inventory.html`);
+          const cookies = await context.cookies(baseURL);
+          expect(cookies).toHaveLength(1);
+          expect(cookies[0]).toHaveProperty('name', 'session-username');
+          expect(cookies[0]).toHaveProperty('value', username);
+        });
+      });
+    });
+
+    test.describe('Unsuccessful logins', () => {
+      const ERROR_BACKGROUND_COLOR = 'rgb(226, 35, 26)';
+      const ERROR_COLOR = 'rgb(255, 255, 255)';
+      const USERNAME_ERROR_MESSAGE = 'Epic sadface: Username is required';
+      const PASSWORD_ERROR_MESSAGE = 'Epic sadface: Password is required';
+      const INCORRECT_CREDENTIALS_ERROR_MESSAGE =
+        'Epic sadface: Username and password do not match any user in this service';
+
+      test('Missing credentials', async ({ page, baseURL }) => {
+        await loginPage.loginButton.click();
+        await expect(loginPage.usernameInput).toHaveClass(/input_error/);
+        await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.usernameErrorIcon).toBeVisible();
+        await expect(loginPage.passwordInput).toHaveClass(/input_error/);
+        await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.passwordErrorIcon).toBeVisible();
+        await expect(loginPage.errorContainer).toBeVisible();
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.errorMessage).toHaveCSS('color', ERROR_COLOR);
+        await expect(loginPage.errorContainer).toHaveText(USERNAME_ERROR_MESSAGE);
+        await expect(page).toHaveURL(`${baseURL}/`);
+      });
+
+      test('Missing username', async ({ page, baseURL }) => {
+        await loginPage.passwordInput.fill(PASSWORD);
+        await loginPage.loginButton.click();
+        await expect(loginPage.usernameInput).toHaveClass(/input_error/);
+        await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.usernameErrorIcon).toBeVisible();
+        await expect(loginPage.passwordInput).toHaveClass(/input_error/);
+        await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.passwordErrorIcon).toBeVisible();
+        await expect(loginPage.errorContainer).toBeVisible();
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.errorMessage).toHaveCSS('color', ERROR_COLOR);
+        await expect(loginPage.errorContainer).toHaveText(USERNAME_ERROR_MESSAGE);
+        await expect(page).toHaveURL(`${baseURL}/`);
+      });
+
+      test('Missing password', async ({ page, baseURL }) => {
+        await loginPage.usernameInput.fill(USERNAME);
+        await loginPage.loginButton.click();
+        await expect(loginPage.usernameInput).toHaveClass(/input_error/);
+        await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.usernameErrorIcon).toBeVisible();
+        await expect(loginPage.passwordInput).toHaveClass(/input_error/);
+        await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.passwordErrorIcon).toBeVisible();
+        await expect(loginPage.errorContainer).toBeVisible();
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.errorMessage).toHaveCSS('color', ERROR_COLOR);
+        await expect(loginPage.errorContainer).toHaveText(PASSWORD_ERROR_MESSAGE);
+        await expect(page).toHaveURL(`${baseURL}/`);
+      });
+
+      test('Invalid username', async ({ page, baseURL }) => {
+        await loginPage.usernameInput.fill('dummy_user');
+        await loginPage.passwordInput.fill(PASSWORD);
+        await loginPage.loginButton.click();
+        await expect(loginPage.usernameInput).toHaveClass(/input_error/);
+        await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.usernameErrorIcon).toBeVisible();
+        await expect(loginPage.passwordInput).toHaveClass(/input_error/);
+        await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.passwordErrorIcon).toBeVisible();
+        await expect(loginPage.errorContainer).toBeVisible();
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.errorMessage).toHaveCSS('color', ERROR_COLOR);
+        await expect(loginPage.errorContainer).toHaveText(INCORRECT_CREDENTIALS_ERROR_MESSAGE);
+        await expect(page).toHaveURL(`${baseURL}/`);
+      });
+
+      test('Invalid password', async ({ page, baseURL }) => {
+        await loginPage.usernameInput.fill(USERNAME);
+        await loginPage.passwordInput.fill('password');
+        await loginPage.loginButton.click();
+        await expect(loginPage.usernameInput).toHaveClass(/input_error/);
+        await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.usernameErrorIcon).toBeVisible();
+        await expect(loginPage.passwordInput).toHaveClass(/input_error/);
+        await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.passwordErrorIcon).toBeVisible();
+        await expect(loginPage.errorContainer).toBeVisible();
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.errorMessage).toHaveCSS('color', ERROR_COLOR);
+        await expect(loginPage.errorContainer).toHaveText(INCORRECT_CREDENTIALS_ERROR_MESSAGE);
+        await expect(page).toHaveURL(`${baseURL}/`);
+      });
+
+      test('User is locked out', async ({ page, baseURL }) => {
+        const ERROR_MESSAGE = 'Epic sadface: Sorry, this user has been locked out.';
+
+        await loginPage.usernameInput.fill('locked_out_user');
+        await loginPage.passwordInput.fill(PASSWORD);
+        await loginPage.loginButton.click();
+        await expect(loginPage.usernameInput).toHaveClass(/input_error/);
+        await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.usernameErrorIcon).toBeVisible();
+        await expect(loginPage.passwordInput).toHaveClass(/input_error/);
+        await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.passwordErrorIcon).toBeVisible();
+        await expect(loginPage.errorContainer).toBeVisible();
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', ERROR_BACKGROUND_COLOR);
+        await expect(loginPage.errorMessage).toHaveCSS('color', ERROR_COLOR);
+        await expect(loginPage.errorContainer).toHaveText(ERROR_MESSAGE);
+        await expect(page).toHaveURL(`${baseURL}/`);
+      });
     });
   });
 });
