@@ -1,4 +1,6 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
+
+type CredentialsInputs = 'username' | 'password';
 
 export class LoginPage {
   readonly url = '/';
@@ -6,9 +8,7 @@ export class LoginPage {
   readonly loginContainer: Locator;
   readonly title: Locator;
   readonly usernameInput: Locator;
-  readonly usernameErrorIcon: Locator;
   readonly passwordInput: Locator;
-  readonly passwordErrorIcon: Locator;
   readonly errorContainer: Locator;
   readonly errorCloseButton: Locator;
   readonly errorMessage: Locator;
@@ -24,9 +24,7 @@ export class LoginPage {
     this.loginContainer = page.locator('div.login_container');
     this.title = page.locator('div.login_logo');
     this.usernameInput = page.getByTestId('username');
-    this.usernameErrorIcon = this.usernameInput.locator('.. >> svg');
     this.passwordInput = page.getByTestId('password');
-    this.passwordErrorIcon = this.passwordInput.locator('.. >> svg');
     this.errorContainer = page.locator('div.error-message-container');
     this.errorCloseButton = this.errorContainer.getByTestId('error-button');
     this.errorMessage = this.errorContainer.getByTestId('error');
@@ -40,9 +38,44 @@ export class LoginPage {
     this.passwordHeader = this.password.locator('h4');
   }
 
+  // *** ACTIONS ***
   async login(username: string) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill('secret_sauce');
     await this.loginButton.click();
   }
+
+  // *** ASSERTIONS ***
+  #getInput(input: CredentialsInputs): Locator {
+    return input === 'username' ? this.usernameInput : this.passwordInput;
+  }
+
+  async inputHasValidationError(input: CredentialsInputs) {
+    const INPUT_LOCATOR = this.#getInput(input);
+    await expect(INPUT_LOCATOR).toContainClass('error');
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.INPUT_ERROR_BORDER_COLOR);
+    await expect(INPUT_LOCATOR.locator('.. >> svg')).toBeVisible();
+  }
+
+  async inputDoesNotHaveValidationError(input: CredentialsInputs) {
+    const INPUT_LOCATOR = this.#getInput(input);
+    await expect(INPUT_LOCATOR).not.toContainClass('error');
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.INPUT_BORDER_COLOR);
+    await expect(INPUT_LOCATOR.locator('.. >> svg')).not.toBeVisible();
+  }
+
+  async errorMessageDisplayed(message: string) {
+    await expect(this.errorContainer).toBeVisible();
+    await expect(this.errorContainer).toHaveCSS('background-color', COLORS.ERROR_BACKGROUND_COLOR);
+    await expect(this.errorMessage).toHaveCSS('color', COLORS.ERROR_TEXT_COLOR);
+    await expect(this.errorContainer).toHaveText(message);
+  }
 }
+
+export const COLORS = {
+  ERROR_BACKGROUND_COLOR: 'rgb(226, 35, 26)',
+  ERROR_TEXT_COLOR: 'rgb(255, 255, 255)',
+  INPUT_BORDER_COLOR: 'rgb(237, 237, 237)',
+  INPUT_ERROR_BORDER_COLOR: 'rgb(226, 35, 26)',
+  LOGIN_FORM_BACKGROUND_COLOR: 'rgb(255, 255, 255)',
+};
