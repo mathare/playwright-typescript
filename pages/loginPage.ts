@@ -87,6 +87,28 @@ export const COLORS = {
   TITLE_TEXT_COLOR: 'rgb(19, 35, 34)',
 };
 
+export const EXPECTED_TEXT = {
+  TITLE: 'Swag Labs',
+  USERNAME_PLACEHOLDER: 'Username',
+  PASSWORD_PLACEHOLDER: 'Password',
+  LOGIN_BUTTON: 'Login',
+  USERNAMES_HEADER: 'Accepted usernames are:',
+  ACCEPTED_USERNAMES: [
+    'standard_user',
+    'locked_out_user',
+    'problem_user',
+    'performance_glitch_user',
+    'error_user',
+    'visual_user',
+  ],
+  PASSWORD_HEADER: 'Password for all users:',
+  PASSWORD: 'secret_sauce',
+  USERNAME_ERROR_MESSAGE: 'Epic sadface: Username is required',
+  PASSWORD_ERROR_MESSAGE: 'Epic sadface: Password is required',
+  INCORRECT_CREDENTIALS_ERROR_MESSAGE: 'Epic sadface: Username and password do not match any user in this service',
+  LOCKED_OUT_USER_ERROR_MESSAGE: 'Epic sadface: Sorry, this user has been locked out.',
+};
+
 export const FONT_SIZES = {
   BUTTON: '16px',
   HEADER: '16px',
