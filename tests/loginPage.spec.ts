@@ -80,5 +80,9 @@ test.describe('Login page tests', () => {
       await expect(loginPage.passwordHeader).toHaveCSS('font-size', '16px');
       await expect(loginPage.passwordHeader).toHaveCSS('font-weight', '700');
     });
+
+    test('Visual test', async ({ page }) => {
+      await expect(page).toHaveScreenshot('loginPage.png');
+    });
   });
 });
