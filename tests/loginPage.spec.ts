@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage, COLORS } from '../pages/loginPage';
+import { LoginPage, COLORS, FONT_SIZES } from '../pages/loginPage';
 
 test.describe('Login page tests', () => {
   let loginPage: LoginPage;
@@ -53,33 +53,36 @@ test.describe('Login page tests', () => {
     });
 
     test('Element styling', async () => {
-      await expect(loginPage.loginContainer).toHaveCSS('background-color', 'rgb(238, 252, 246)');
-      await expect(loginPage.title).toHaveCSS('color', 'rgb(19, 35, 34)');
-      await expect(loginPage.title).toHaveCSS('font-size', '24px');
+      await expect(loginPage.loginContainer).toHaveCSS('background-color', COLORS.LOGIN_CONTAINER_BACKGROUND_COLOR);
+      await expect(loginPage.title).toHaveCSS('color', COLORS.TITLE_TEXT_COLOR);
+      await expect(loginPage.title).toHaveCSS('font-size', FONT_SIZES.TITLE);
       await expect(loginPage.title).toHaveCSS('text-align', 'center');
       await expect(loginPage.usernameInput).toHaveAttribute('type', 'text');
-      await expect(loginPage.usernameInput).toHaveCSS('background-color', 'rgb(255, 255, 255)');
-      await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', 'rgb(237, 237, 237)');
-      await expect(loginPage.usernameInput).toHaveCSS('color', 'rgb(72, 76, 85)');
-      await expect(loginPage.usernameInput).toHaveCSS('font-size', '14px');
+      await expect(loginPage.usernameInput).toHaveCSS('background-color', COLORS.LOGIN_FORM_BACKGROUND_COLOR);
+      await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', COLORS.INPUT_BORDER_COLOR);
+      await expect(loginPage.usernameInput).toHaveCSS('color', COLORS.INPUT_TEXT_COLOR);
+      await expect(loginPage.usernameInput).toHaveCSS('font-size', FONT_SIZES.STANDARD);
       await expect(loginPage.usernameInput).toHaveCSS('text-align', 'start');
       await expect(loginPage.passwordInput).toHaveAttribute('type', 'password');
-      await expect(loginPage.passwordInput).toHaveCSS('background-color', 'rgb(255, 255, 255)');
-      await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', 'rgb(237, 237, 237)');
-      await expect(loginPage.passwordInput).toHaveCSS('color', 'rgb(72, 76, 85)');
-      await expect(loginPage.passwordInput).toHaveCSS('font-size', '14px');
+      await expect(loginPage.passwordInput).toHaveCSS('background-color', COLORS.LOGIN_FORM_BACKGROUND_COLOR);
+      await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', COLORS.INPUT_BORDER_COLOR);
+      await expect(loginPage.passwordInput).toHaveCSS('color', COLORS.INPUT_TEXT_COLOR);
+      await expect(loginPage.passwordInput).toHaveCSS('font-size', FONT_SIZES.STANDARD);
       await expect(loginPage.passwordInput).toHaveCSS('text-align', 'start');
       await expect(loginPage.loginButton).toHaveClass(/submit-button/);
-      await expect(loginPage.loginButton).toHaveCSS('background-color', 'rgb(61, 220, 145)');
-      await expect(loginPage.loginButton).toHaveCSS('border', '4px solid rgb(61, 220, 145)');
-      await expect(loginPage.loginButton).toHaveCSS('color', 'rgb(19, 35, 34)');
-      await expect(loginPage.loginButton).toHaveCSS('font-size', '16px');
-      await expect(loginPage.credentialsContainer).toHaveCSS('background-color', 'rgb(19, 35, 34)');
-      await expect(loginPage.credentialsContainer).toHaveCSS('color', 'rgb(255, 255, 255)');
-      await expect(loginPage.credentialsContainer).toHaveCSS('font-size', '14px');
-      await expect(loginPage.usernamesHeader).toHaveCSS('font-size', '16px');
+      await expect(loginPage.loginButton).toHaveCSS('background-color', COLORS.LOGIN_BUTTON_BACKGROUND_COLOR);
+      await expect(loginPage.loginButton).toHaveCSS('border', `4px solid ${COLORS.LOGIN_BUTTON_BACKGROUND_COLOR}`);
+      await expect(loginPage.loginButton).toHaveCSS('color', COLORS.LOGIN_BUTTON_TEXT_COLOR);
+      await expect(loginPage.loginButton).toHaveCSS('font-size', FONT_SIZES.BUTTON);
+      await expect(loginPage.credentialsContainer).toHaveCSS(
+        'background-color',
+        COLORS.CREDENTIALS_CONTAINER_BACKGROUND_COLOR
+      );
+      await expect(loginPage.credentialsContainer).toHaveCSS('color', COLORS.CREDENTIALS_CONTAINER_TEXT_COLOR);
+      await expect(loginPage.credentialsContainer).toHaveCSS('font-size', FONT_SIZES.STANDARD);
+      await expect(loginPage.usernamesHeader).toHaveCSS('font-size', FONT_SIZES.HEADER);
       await expect(loginPage.usernamesHeader).toHaveCSS('font-weight', '700');
-      await expect(loginPage.passwordHeader).toHaveCSS('font-size', '16px');
+      await expect(loginPage.passwordHeader).toHaveCSS('font-size', FONT_SIZES.HEADER);
       await expect(loginPage.passwordHeader).toHaveCSS('font-weight', '700');
     });
 
