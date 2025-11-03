@@ -16,7 +16,7 @@ export class LoginPage {
   readonly credentialsContainer: Locator;
   readonly usernames: Locator;
   readonly password: Locator;
-  readonly usernameHeader: Locator;
+  readonly usernamesHeader: Locator;
   readonly passwordHeader: Locator;
 
   constructor(page: Page) {
@@ -36,7 +36,7 @@ export class LoginPage {
       .locator('.login_credentials_wrap-inner');
     this.usernames = this.credentialsContainer.getByTestId('login-credentials');
     this.password = this.credentialsContainer.getByTestId('login-password');
-    this.usernameHeader = this.usernames.locator('h4');
+    this.usernamesHeader = this.usernames.locator('h4');
     this.passwordHeader = this.password.locator('h4');
   }
 

@@ -44,7 +44,7 @@ test.describe('Login page tests', () => {
       await expect(loginPage.passwordInput).toBeEmpty();
       await expect(loginPage.passwordInput).toHaveAttribute('placeholder', 'Password');
       await expect(loginPage.loginButton).toHaveText('Login');
-      await expect(loginPage.usernameHeader).toHaveText(USERNAMES_HEADER);
+      await expect(loginPage.usernamesHeader).toHaveText(USERNAMES_HEADER);
       await expect(loginPage.passwordHeader).toHaveText(PASSWORD_HEADER);
       await expect(loginPage.usernames).toHaveText([USERNAMES_HEADER, ...ACCEPTED_USERNAMES].join('\n'), {
         useInnerText: true,
@@ -77,8 +77,8 @@ test.describe('Login page tests', () => {
       await expect(loginPage.credentialsContainer).toHaveCSS('background-color', 'rgb(19, 35, 34)');
       await expect(loginPage.credentialsContainer).toHaveCSS('color', 'rgb(255, 255, 255)');
       await expect(loginPage.credentialsContainer).toHaveCSS('font-size', '14px');
-      await expect(loginPage.usernameHeader).toHaveCSS('font-size', '16px');
-      await expect(loginPage.usernameHeader).toHaveCSS('font-weight', '700');
+      await expect(loginPage.usernamesHeader).toHaveCSS('font-size', '16px');
+      await expect(loginPage.usernamesHeader).toHaveCSS('font-weight', '700');
       await expect(loginPage.passwordHeader).toHaveCSS('font-size', '16px');
       await expect(loginPage.passwordHeader).toHaveCSS('font-weight', '700');
     });
