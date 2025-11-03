@@ -228,6 +228,20 @@ test.describe('Login page tests', () => {
         await expect(loginPage.errorContainer).toHaveText(ERROR_MESSAGE);
         await expect(page).toHaveURL(`${baseURL}/`);
       });
+
+      test('Validation errors cleared on closing error message', async () => {
+        await loginPage.loginButton.click();
+        await expect(loginPage.usernameErrorIcon).toBeVisible();
+        await expect(loginPage.passwordErrorIcon).toBeVisible();
+        await expect(loginPage.errorContainer).toBeVisible();
+
+        await loginPage.errorCloseButton.click();
+        await expect(loginPage.usernameErrorIcon).not.toBeVisible();
+        await expect(loginPage.passwordErrorIcon).not.toBeVisible();
+        // The error container is still visible on the page but is white and empty
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+        await expect(loginPage.errorContainer).toBeEmpty();
+      });
     });
   });
 });
