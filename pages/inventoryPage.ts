@@ -5,6 +5,9 @@ export class InventoryPage {
   readonly page: Page;
   readonly headerContainer: Locator;
   readonly menuButton: Locator;
+  readonly menu: Locator;
+  readonly menuItem: Locator;
+  readonly menuCloseButton: Locator;
   readonly title: Locator;
   readonly shoppingCartLink: Locator;
   readonly secondaryHeader: Locator;
@@ -21,6 +24,9 @@ export class InventoryPage {
     this.page = page;
     this.headerContainer = page.getByTestId('header-container');
     this.menuButton = this.headerContainer.locator('#react-burger-menu-btn');
+    this.menu = page.locator('div.bm-menu-wrap');
+    this.menuItem = this.menu.locator('a.menu-item');
+    this.menuCloseButton = this.menu.locator('#react-burger-cross-btn');
     this.title = this.headerContainer.locator('div.app_logo');
     this.shoppingCartLink = this.headerContainer.getByTestId('shopping-cart-link');
     this.secondaryHeader = page.getByTestId('secondary-header');
