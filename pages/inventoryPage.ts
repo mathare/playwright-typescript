@@ -40,3 +40,12 @@ export class InventoryPage {
     this.footerCopy = this.footer.getByTestId('footer-copy');
   }
 }
+
+export const EXPECTED_TEXT = {
+  TITLE: 'Swag Labs',
+  SUBTITLE: 'Products',
+  SORT_OPTIONS: ['Name (A to Z)', 'Name (Z to A)', 'Price (low to high)', 'Price (high to low)'],
+  SOCIAL_MEDIA: ['Twitter', 'Facebook', 'LinkedIn'],
+  FOOTER: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
+  MENU_ITEMS: ['All Items', 'About', 'Logout', 'Reset App State'],
+};
