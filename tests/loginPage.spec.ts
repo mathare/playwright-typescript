@@ -86,7 +86,7 @@ test.describe('Login page tests', () => {
 
   test.describe('Behavioural tests', () => {
     const USERNAME = 'standard_user';
-    const PASSWORD = 'secret_sauce';
+    const PASSWORD = process.env.PASSWORD!;
 
     test.describe('Successful logins', () => {
       test('Submit form by clicking login button', async ({ page, baseURL }) => {
