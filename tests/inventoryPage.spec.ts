@@ -55,5 +55,16 @@ test.describe('Inventory page tests', () => {
         await expect(inventoryPage.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.MENU_ITEMS[i]);
       }
     });
+
+    test.describe('Visual tests', () => {
+      test('Default state', async ({ page }) => {
+        await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+      });
+
+      test('Menu open', async ({ page }) => {
+        await inventoryPage.menuButton.click();
+        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+      });
+    });
   });
 });
