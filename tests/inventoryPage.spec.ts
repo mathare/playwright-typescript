@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { EXPECTED_TEXT, InventoryPage } from '../pages/inventoryPage';
+import { EXPECTED_TEXT, InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 
 test.describe('Inventory page tests', () => {
@@ -23,7 +23,7 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.activeSortOption).toBeVisible();
       await expect(inventoryPage.sortSelect).toBeVisible();
       await expect(inventoryPage.inventoryContainer).toBeVisible();
-      await expect(inventoryPage.inventoryItem).toHaveCount(6);
+      await expect(inventoryPage.inventoryItem).toHaveCount(PRODUCT_INFO.length);
       await expect(inventoryPage.footer).toBeVisible();
       await expect(inventoryPage.socialMediaLink).toHaveCount(EXPECTED_TEXT.SOCIAL_MEDIA.length);
       await expect(inventoryPage.footerCopy).toBeVisible();
@@ -53,6 +53,19 @@ test.describe('Inventory page tests', () => {
       await inventoryPage.menuButton.click();
       for (let i = 0; i < EXPECTED_TEXT.MENU_ITEMS.length; i++) {
         await expect(inventoryPage.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.MENU_ITEMS[i]);
+      }
+    });
+
+    test('Product details', async () => {
+      // Sort products by default sort option (name A-Z)
+      const PRODUCTS = PRODUCT_INFO.sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
+      for (let i = 0; i < PRODUCTS.length; i++) {
+        await expect
+          .soft(inventoryPage.getProductInfo(i, 'img.inventory_item_img'))
+          .toHaveAttribute('src', PRODUCTS[i].imgSrc);
+        await expect(inventoryPage.getProductInfo(i, 'div.inventory_item_name')).toHaveText(PRODUCTS[i].title);
+        await expect(inventoryPage.getProductInfo(i, 'div.inventory_item_desc')).toHaveText(PRODUCTS[i].description);
+        await expect(inventoryPage.getProductInfo(i, 'div.inventory_item_price')).toHaveText(PRODUCTS[i].price);
       }
     });
 
