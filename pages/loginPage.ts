@@ -40,6 +40,7 @@ export class LoginPage {
 
   // *** ACTIONS ***
   async login(username: string) {
+    await this.page.goto(this.url);
     await this.usernameInput.fill(username);
     await this.passwordInput.fill('secret_sauce');
     await this.loginButton.click();
