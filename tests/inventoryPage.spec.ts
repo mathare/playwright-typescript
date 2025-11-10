@@ -87,6 +87,19 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.footerCopy).toHaveCSS('color', COLORS.FOOTER_TEXT_COLOR);
     });
 
+    test.describe('Visual tests', () => {
+      test('Default state', async ({ page }) => {
+        await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+      });
+
+      test('Menu open', async ({ page }) => {
+        await inventoryPage.menuButton.click();
+        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+      });
+    });
+  });
+
+  test.describe('Product tests', () => {
     test('Product details', async () => {
       // Sort products by default sort option (name A-Z)
       const PRODUCTS = PRODUCT_INFO.sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
@@ -133,17 +146,6 @@ test.describe('Inventory page tests', () => {
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-size', '16px');
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-weight', '500');
       }
-    });
-
-    test.describe('Visual tests', () => {
-      test('Default state', async ({ page }) => {
-        await expect(page).toHaveScreenshot('default.png', { fullPage: true });
-      });
-
-      test('Menu open', async ({ page }) => {
-        await inventoryPage.menuButton.click();
-        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
-      });
     });
   });
 });
