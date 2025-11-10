@@ -113,6 +113,28 @@ test.describe('Inventory page tests', () => {
       }
     });
 
+    test('Product styling', async () => {
+      const numProducts = await inventoryPage.inventoryItem.count();
+      for (let i = 0; i < numProducts; i++) {
+        await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS(
+          'border',
+          `1px solid ${COLORS.PRODUCT_BORDER_COLOR}`
+        );
+        await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('border-radius', '8px');
+        await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('display', 'flex');
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS(
+          'color',
+          COLORS.PRODUCT_TITLE_COLOR
+        );
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS('font-size', '20px');
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS('font-weight', '500');
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveCSS('font-size', '20px');
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveCSS('font-weight', '500');
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-size', '16px');
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-weight', '500');
+      }
+    });
+
     test.describe('Visual tests', () => {
       test('Default state', async ({ page }) => {
         await expect(page).toHaveScreenshot('default.png', { fullPage: true });
