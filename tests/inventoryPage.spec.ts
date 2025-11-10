@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { EXPECTED_TEXT, InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
+import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS, PRODUCT_INFO } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 
 test.describe('Inventory page tests', () => {
@@ -25,7 +25,7 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.inventoryContainer).toBeVisible();
       await expect(inventoryPage.inventoryItem).toHaveCount(PRODUCT_INFO.length);
       await expect(inventoryPage.footer).toBeVisible();
-      await expect(inventoryPage.socialMediaLink).toHaveCount(EXPECTED_TEXT.SOCIAL_MEDIA.length);
+      await expect(inventoryPage.socialMediaItem).toHaveCount(EXPECTED_TEXT.SOCIAL_MEDIA.length);
       await expect(inventoryPage.footerCopy).toBeVisible();
     });
 
@@ -46,7 +46,7 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.activeSortOption).toHaveText(EXPECTED_TEXT.SORT_OPTIONS[0]);
       await expect(inventoryPage.sortSelect).toHaveText(EXPECTED_TEXT.SORT_OPTIONS.join(''));
       for (let i = 0; i < EXPECTED_TEXT.SOCIAL_MEDIA.length; i++) {
-        await expect(inventoryPage.socialMediaLink.nth(i)).toHaveText(EXPECTED_TEXT.SOCIAL_MEDIA[i]);
+        await expect(inventoryPage.socialMediaItem.nth(i)).toHaveText(EXPECTED_TEXT.SOCIAL_MEDIA[i]);
       }
       await expect(inventoryPage.footerCopy).toHaveText(EXPECTED_TEXT.FOOTER);
 
@@ -54,6 +54,37 @@ test.describe('Inventory page tests', () => {
       for (let i = 0; i < EXPECTED_TEXT.MENU_ITEMS.length; i++) {
         await expect(inventoryPage.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.MENU_ITEMS[i]);
       }
+    });
+
+    test('Element styling', async () => {
+      await expect(inventoryPage.body).toHaveCSS('background-color', COLORS.BACKGROUND_COLOR);
+      await expect(inventoryPage.body).toHaveCSS('color', COLORS.TEXT_COLOR);
+      await expect(inventoryPage.body).toHaveCSS('font-size', '14px');
+      // Menu button is in the top-left
+      await expect(inventoryPage.menuButton).toHaveCSS('position', 'absolute');
+      await expect(inventoryPage.menuButton).toHaveCSS('left', '0px');
+      await expect(inventoryPage.menuButton).toHaveCSS('top', '0px');
+      await expect(inventoryPage.title).toHaveCSS('font-size', '24px');
+      // Shopping cart link is in the top-right (within a container)
+      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('position', 'absolute');
+      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('right', '20px');
+      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('top', '10px');
+      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('width', '40px');
+      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('height', '40px');
+      await expect(inventoryPage.subtitle).toHaveCSS('font-size', '18px');
+      await expect(inventoryPage.subtitle).toHaveCSS('font-weight', '500');
+      await expect(inventoryPage.activeSortOption).toHaveCSS('text-align', 'center');
+
+      await expect(inventoryPage.footer).toHaveCSS('background-color', COLORS.FOOTER_BACKGROUND_COLOR);
+      const numSocialMediaItems = await inventoryPage.socialMediaItem.count();
+      const regex = '^url\\("data:image\\/png;base64,[A-Za-z0-9+\\/=\\"\\)]*$';
+      for (let i = 0; i < numSocialMediaItems; i++) {
+        // Social media items each have a different base64-encoded background image so verify against a regex
+        await expect(inventoryPage.socialMediaItem.nth(i)).toHaveCSS('background-image', new RegExp(regex));
+        await expect(inventoryPage.socialMediaLink.nth(i)).toHaveCSS('color', COLORS.SOCIAL_LINK_TEXT_COLOR);
+        await expect(inventoryPage.socialMediaLink.nth(i)).toHaveCSS('font-size', '0px');
+      }
+      await expect(inventoryPage.footerCopy).toHaveCSS('color', COLORS.FOOTER_TEXT_COLOR);
     });
 
     test('Product details', async () => {

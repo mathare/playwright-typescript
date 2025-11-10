@@ -3,12 +3,14 @@ import { Locator, Page } from '@playwright/test';
 export class InventoryPage {
   readonly url = '/inventoty.html';
   readonly page: Page;
+  readonly body: Locator;
   readonly headerContainer: Locator;
   readonly menuButton: Locator;
   readonly menu: Locator;
   readonly menuItem: Locator;
   readonly menuCloseButton: Locator;
   readonly title: Locator;
+  readonly shoppingCartContainer: Locator;
   readonly shoppingCartLink: Locator;
   readonly secondaryHeader: Locator;
   readonly subtitle: Locator;
@@ -17,18 +19,21 @@ export class InventoryPage {
   readonly inventoryContainer: Locator;
   readonly inventoryItem: Locator;
   readonly footer: Locator;
+  readonly socialMediaItem: Locator;
   readonly socialMediaLink: Locator;
   readonly footerCopy: Locator;
 
   constructor(page: Page) {
     this.page = page;
+    this.body = page.locator('body');
     this.headerContainer = page.getByTestId('header-container');
     this.menuButton = this.headerContainer.locator('#react-burger-menu-btn');
     this.menu = page.locator('div.bm-menu-wrap');
     this.menuItem = this.menu.locator('a.menu-item');
     this.menuCloseButton = this.menu.locator('#react-burger-cross-btn');
     this.title = this.headerContainer.locator('div.app_logo');
-    this.shoppingCartLink = this.headerContainer.getByTestId('shopping-cart-link');
+    this.shoppingCartContainer = this.headerContainer.locator('#shopping_cart_container');
+    this.shoppingCartLink = this.shoppingCartContainer.getByTestId('shopping-cart-link');
     this.secondaryHeader = page.getByTestId('secondary-header');
     this.subtitle = this.secondaryHeader.getByTestId('title');
     this.activeSortOption = this.secondaryHeader.getByTestId('active-option');
@@ -36,7 +41,8 @@ export class InventoryPage {
     this.inventoryContainer = page.getByTestId('inventory-container');
     this.inventoryItem = this.inventoryContainer.getByTestId('inventory-item');
     this.footer = page.getByTestId('footer');
-    this.socialMediaLink = this.footer.locator('ul.social li');
+    this.socialMediaItem = this.footer.locator('ul.social li');
+    this.socialMediaLink = this.socialMediaItem.locator('a');
     this.footerCopy = this.footer.getByTestId('footer-copy');
   }
 
@@ -53,6 +59,17 @@ export const EXPECTED_TEXT = {
   FOOTER: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
   MENU_ITEMS: ['All Items', 'About', 'Logout', 'Reset App State'],
   ADD_TO_CART_BUTTON: 'Add to cart',
+};
+
+export const COLORS = {
+  BACKGROUND_COLOR: 'rgb(255, 255, 255)',
+  TEXT_COLOR: 'rgb(19, 35, 34)',
+  PRODUCT_BORDER_COLOR: 'rgb(237, 237, 237)',
+  PRODUCT_TITLE_COLOR: 'rgb(24, 88, 58)',
+  FOOTER_BACKGROUND_COLOR: 'rgb(19, 35, 34)',
+  FOOTER_TEXT_COLOR: 'rgb(255, 255, 255)',
+  SOCIAL_LINK_BACKGROUND_COLOR: 'rgb()',
+  SOCIAL_LINK_TEXT_COLOR: 'rgb(0, 0, 238)',
 };
 
 export const PRODUCT_INFO = [
