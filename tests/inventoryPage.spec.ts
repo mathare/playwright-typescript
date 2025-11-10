@@ -59,13 +59,26 @@ test.describe('Inventory page tests', () => {
     test('Product details', async () => {
       // Sort products by default sort option (name A-Z)
       const PRODUCTS = PRODUCT_INFO.sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
+
       for (let i = 0; i < PRODUCTS.length; i++) {
-        await expect
-          .soft(inventoryPage.getProductInfo(i, 'img.inventory_item_img'))
-          .toHaveAttribute('src', PRODUCTS[i].imgSrc);
-        await expect(inventoryPage.getProductInfo(i, 'div.inventory_item_name')).toHaveText(PRODUCTS[i].title);
-        await expect(inventoryPage.getProductInfo(i, 'div.inventory_item_desc')).toHaveText(PRODUCTS[i].description);
-        await expect(inventoryPage.getProductInfo(i, 'div.inventory_item_price')).toHaveText(PRODUCTS[i].price);
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img)).toHaveAttribute(
+          'src',
+          PRODUCTS[i].imgSrc
+        );
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img)).toHaveAttribute(
+          'alt',
+          PRODUCTS[i].title
+        );
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCTS[i].title);
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
+          PRODUCTS[i].description
+        );
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(PRODUCTS[i].price);
+
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toBeVisible();
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(
+          EXPECTED_TEXT.ADD_TO_CART_BUTTON
+        );
       }
     });
 

@@ -40,8 +40,8 @@ export class InventoryPage {
     this.footerCopy = this.footer.getByTestId('footer-copy');
   }
 
-  getProductInfo(index: number, info: string): Locator {
-    return this.inventoryItem.nth(index).locator(info);
+  getProductElement(index: number, element: string): Locator {
+    return this.inventoryItem.nth(index).locator(element);
   }
 }
 
@@ -52,6 +52,7 @@ export const EXPECTED_TEXT = {
   SOCIAL_MEDIA: ['Twitter', 'Facebook', 'LinkedIn'],
   FOOTER: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
   MENU_ITEMS: ['All Items', 'About', 'Logout', 'Reset App State'],
+  ADD_TO_CART_BUTTON: 'Add to cart',
 };
 
 export const PRODUCT_INFO = [
@@ -98,3 +99,11 @@ export const PRODUCT_INFO = [
     price: '$15.99',
   },
 ];
+
+export enum PRODUCT_ELEMENTS {
+  img = 'img.inventory_item_img',
+  title = 'div.inventory_item_name',
+  description = 'div.inventory_item_desc',
+  price = 'div.inventory_item_price',
+  button = 'button',
+}
