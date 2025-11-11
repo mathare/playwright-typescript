@@ -18,7 +18,7 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.menu).not.toBeVisible();
       await expect(inventoryPage.title).toBeVisible();
       await expect(inventoryPage.shoppingCartLink).toBeVisible();
-      await expect(inventoryPage.shoppingCartBadge).not.toBeVisible();
+      await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
       await expect(inventoryPage.secondaryHeader).toBeVisible();
       await expect(inventoryPage.subtitle).toBeVisible();
       await expect(inventoryPage.activeSortOption).toBeVisible();
