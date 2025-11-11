@@ -134,3 +134,9 @@ export enum PRODUCT_ELEMENTS {
   price = 'div.inventory_item_price',
   button = 'button',
 }
+
+export const SOCIAL_LINKS = [
+  'https://twitter.com/saucelabs',
+  'https://www.facebook.com/saucelabs',
+  'https://www.linkedin.com/company/sauce-labs/',
+];

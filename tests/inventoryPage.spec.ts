@@ -1,5 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS, PRODUCT_INFO } from '../pages/inventoryPage';
+import {
+  COLORS,
+  EXPECTED_TEXT,
+  InventoryPage,
+  PRODUCT_ELEMENTS,
+  PRODUCT_INFO,
+  SOCIAL_LINKS,
+} from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 
 test.describe('Inventory page tests', () => {
@@ -276,5 +283,13 @@ test.describe('Inventory page tests', () => {
         await expect(LINK.nth(1)).toHaveAttribute('href', '#');
       }
     });
+  });
+
+  test('Social media links open relevant page in new tab', async () => {
+    for (let i = 0; i < SOCIAL_LINKS.length; i++) {
+      await expect(inventoryPage.socialMediaLink.nth(i)).toHaveAttribute('href', SOCIAL_LINKS[i]);
+      await expect(inventoryPage.socialMediaLink.nth(i)).toHaveAttribute('target', '_blank');
+      await expect(inventoryPage.socialMediaLink.nth(i)).toHaveAttribute('rel', 'noreferrer');
+    }
   });
 });
