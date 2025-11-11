@@ -262,5 +262,19 @@ test.describe('Inventory page tests', () => {
         }
       });
     });
+
+    test('Only title & img have link to product page', async () => {
+      for (let i = 0; i < NUM_PRODUCTS; i++) {
+        // I don't like using locators within tests but this is the easiest way of conducting this test
+        const LINK = inventoryPage.inventoryItem.nth(i).locator('a');
+        await expect(LINK).toHaveCount(2);
+        // Verifying this ID doesn't really show the link is on the image but it can be implied from the ID
+        // Verifying the link position in the DOM relative to other elements (e.g. the product image) is tricky and offers relatively low value
+        await expect(LINK.nth(0)).toHaveId(new RegExp('item_\\d_img_link'));
+        await expect(LINK.nth(0)).toHaveAttribute('href', '#');
+        await expect(LINK.nth(1)).toHaveId(new RegExp('item_\\d_title_link'));
+        await expect(LINK.nth(1)).toHaveAttribute('href', '#');
+      }
+    });
   });
 });
