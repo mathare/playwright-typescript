@@ -180,43 +180,87 @@ test.describe('Inventory page tests', () => {
       });
     });
 
-    test('Add product to cart', async () => {
+    test.describe('Add products to cart & remove', () => {
+      test('Add product to cart', async () => {
         const PRODUCT_INDEX = Math.floor(Math.random() * NUM_PRODUCTS);
-      await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
+        await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
 
-      // Verify cart
-      await expect(inventoryPage.shoppingCartBadge).toBeVisible();
-      await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+        // Verify cart
+        await expect(inventoryPage.shoppingCartBadge).toBeVisible();
+        await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
 
-      // Verify button on relevant product has changed correctly
-      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveText(
-        EXPECTED_TEXT.REMOVE_BUTTON
-      );
-      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).not.toContainClass(
-        'btn_primary'
-      );
-      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toContainClass(
-        'btn_secondary'
-      );
-      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveCSS(
-        'border',
-        `1px solid ${COLORS.REMOVE_BUTTON_COLOR}`
-      );
-      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveCSS(
-        'color',
-        COLORS.REMOVE_BUTTON_COLOR
-      );
+        // Verify button on relevant product has changed correctly
+        await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveText(
+          EXPECTED_TEXT.REMOVE_BUTTON
+        );
+        await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).not.toContainClass(
+          'btn_primary'
+        );
+        await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toContainClass(
+          'btn_secondary'
+        );
+        await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveCSS(
+          'border',
+          `1px solid ${COLORS.REMOVE_BUTTON_COLOR}`
+        );
+        await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveCSS(
+          'color',
+          COLORS.REMOVE_BUTTON_COLOR
+        );
 
-      // Verify other products unchanged
+        // Verify other products unchanged
         for (let i = 0; i < NUM_PRODUCTS; i++) {
-        if (i !== PRODUCT_INDEX) {
+          if (i !== PRODUCT_INDEX) {
+            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(
+              EXPECTED_TEXT.ADD_TO_CART_BUTTON
+            );
+            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toContainClass('btn_primary');
+            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).not.toContainClass(
+              'btn_secondary'
+            );
+          }
+        }
+      });
+
+      test('Add multiple products to cart', async () => {
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
+          await expect(inventoryPage.shoppingCartBadge).toHaveText(`${i + 1}`);
+          await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(
+            EXPECTED_TEXT.REMOVE_BUTTON
+          );
+        }
+      });
+
+      test('Remove only product from cart', async () => {
+        await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
+        await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+
+        await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
+        await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
+        await expect(inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button)).toHaveText(
+          EXPECTED_TEXT.ADD_TO_CART_BUTTON
+        );
+        await expect(inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button)).toContainClass('btn_primary');
+        await expect(inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button)).not.toContainClass('btn_secondary');
+      });
+
+      test('Remove multiple products from cart', async () => {
+        await inventoryPage.addAllProductsToCart();
+        await expect(inventoryPage.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS}`);
+
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
+          if (i === NUM_PRODUCTS - 1) {
+            await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
+          } else {
+            await expect(inventoryPage.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS - (i + 1)}`);
+          }
           await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(
             EXPECTED_TEXT.ADD_TO_CART_BUTTON
           );
-          await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toContainClass('btn_primary');
-          await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).not.toContainClass('btn_secondary');
         }
-      }
+      });
     });
   });
 });

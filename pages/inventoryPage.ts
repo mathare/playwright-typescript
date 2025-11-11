@@ -51,6 +51,12 @@ export class InventoryPage {
   getProductElement(index: number, element: string): Locator {
     return this.inventoryItem.nth(index).locator(element);
   }
+
+  async addAllProductsToCart(): Promise<void> {
+    for (let i = 0; i < PRODUCT_INFO.length; i++) {
+      await this.getProductElement(i, PRODUCT_ELEMENTS.button).click();
+    }
+  }
 }
 
 export const EXPECTED_TEXT = {
