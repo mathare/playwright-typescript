@@ -152,22 +152,23 @@ test.describe('Inventory page tests', () => {
             await inventoryPage.sortSelect.selectOption(testCase.sortOption);
           }
 
-          const PRODUCTS = testCase.products;
-          for (let i = 0; i < PRODUCTS.length; i++) {
+          for (let i = 0; i < testCase.products.length; i++) {
             await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img)).toHaveAttribute(
               'src',
-              PRODUCTS[i].imgSrc
+              testCase.products[i].imgSrc
             );
             await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img)).toHaveAttribute(
               'alt',
-              PRODUCTS[i].title
+              testCase.products[i].title
             );
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCTS[i].title);
+            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(
+              testCase.products[i].title
+            );
             await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-              PRODUCTS[i].description
+              testCase.products[i].description
             );
             await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-              `\$${PRODUCTS[i].price}`
+              `\$${testCase.products[i].price}`
             );
 
             await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toBeVisible();
