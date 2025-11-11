@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 
 export class InventoryPage {
-  readonly url = '/inventoty.html';
+  readonly url = '/inventory.html';
   readonly page: Page;
   readonly body: Locator;
   readonly headerContainer: Locator;
@@ -84,6 +84,7 @@ export const COLORS = {
 
 export const PRODUCT_INFO = [
   {
+    id: 4,
     title: 'Sauce Labs Backpack',
     imgSrc: '/static/media/sauce-backpack-1200x1500.0a0b85a385945026062b.jpg',
     description:
@@ -91,6 +92,7 @@ export const PRODUCT_INFO = [
     price: 29.99,
   },
   {
+    id: 0,
     title: 'Sauce Labs Bike Light',
     imgSrc: '/static/media/bike-light-1200x1500.37c843b09a7d77409d63.jpg',
     description:
@@ -98,6 +100,7 @@ export const PRODUCT_INFO = [
     price: 9.99,
   },
   {
+    id: 1,
     title: 'Sauce Labs Bolt T-Shirt',
     imgSrc: '/static/media/bolt-shirt-1200x1500.c2599ac5f0a35ed5931e.jpg',
     description:
@@ -105,6 +108,7 @@ export const PRODUCT_INFO = [
     price: 15.99,
   },
   {
+    id: 5,
     title: 'Sauce Labs Fleece Jacket',
     imgSrc: '/static/media/sauce-pullover-1200x1500.51d7ffaf301e698772c8.jpg',
     description:
@@ -112,6 +116,7 @@ export const PRODUCT_INFO = [
     price: 49.99,
   },
   {
+    id: 2,
     title: 'Sauce Labs Onesie',
     imgSrc: '/static/media/red-onesie-1200x1500.2ec615b271ef4c3bc430.jpg',
     description:
@@ -119,6 +124,7 @@ export const PRODUCT_INFO = [
     price: 7.99,
   },
   {
+    id: 3,
     title: 'Test.allTheThings() T-Shirt (Red)',
     imgSrc: '/static/media/red-tatt-1200x1500.30dadef477804e54fc7b.jpg',
     description:

@@ -283,6 +283,30 @@ test.describe('Inventory page tests', () => {
         await expect(LINK.nth(1)).toHaveAttribute('href', '#');
       }
     });
+
+    for (let i = 0; i < NUM_PRODUCTS; i++) {
+      test.describe(` ${PRODUCT_INFO[i].title} link tests`, () => {
+        test(`Clicking title opens product page`, async ({ page, baseURL }) => {
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
+          await expect(page).toHaveURL(`${baseURL}/inventory-item.html?id=${PRODUCT_INFO[i].id}`);
+        });
+
+        test(`Clicking image opens product page`, async ({ page, baseURL }) => {
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img).click();
+          await expect(page).toHaveURL(`${baseURL}/inventory-item.html?id=${PRODUCT_INFO[i].id}`);
+        });
+
+        test(`Clicking description does nothing`, async ({ page, baseURL }) => {
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description).click();
+          await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+        });
+
+        test(`Clicking price does nothing`, async ({ page, baseURL }) => {
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price).click();
+          await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+        });
+      });
+    }
   });
 
   test('Social media links open relevant page in new tab', async () => {
