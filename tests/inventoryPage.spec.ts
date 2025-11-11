@@ -18,6 +18,7 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.menu).not.toBeVisible();
       await expect(inventoryPage.title).toBeVisible();
       await expect(inventoryPage.shoppingCartLink).toBeVisible();
+      await expect(inventoryPage.shoppingCartBadge).not.toBeVisible();
       await expect(inventoryPage.secondaryHeader).toBeVisible();
       await expect(inventoryPage.subtitle).toBeVisible();
       await expect(inventoryPage.activeSortOption).toBeVisible();
@@ -175,6 +176,45 @@ test.describe('Inventory page tests', () => {
           }
         });
       });
+    });
+
+    test('Add product to cart', async () => {
+      const PRODUCT_INDEX = Math.floor(Math.random() * PRODUCT_INFO.length);
+      await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
+
+      // Verify cart
+      await expect(inventoryPage.shoppingCartBadge).toBeVisible();
+      await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+
+      // Verify button on relevant product has changed correctly
+      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveText(
+        EXPECTED_TEXT.REMOVE_BUTTON
+      );
+      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).not.toContainClass(
+        'btn_primary'
+      );
+      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toContainClass(
+        'btn_secondary'
+      );
+      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveCSS(
+        'border',
+        `1px solid ${COLORS.REMOVE_BUTTON_COLOR}`
+      );
+      await expect(inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button)).toHaveCSS(
+        'color',
+        COLORS.REMOVE_BUTTON_COLOR
+      );
+
+      // Verify other products unchanged
+      for (let i = 0; i < PRODUCT_INFO.length; i++) {
+        if (i !== PRODUCT_INDEX) {
+          await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(
+            EXPECTED_TEXT.ADD_TO_CART_BUTTON
+          );
+          await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toContainClass('btn_primary');
+          await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).not.toContainClass('btn_secondary');
+        }
+      }
     });
   });
 });

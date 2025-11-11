@@ -12,6 +12,7 @@ export class InventoryPage {
   readonly title: Locator;
   readonly shoppingCartContainer: Locator;
   readonly shoppingCartLink: Locator;
+  readonly shoppingCartBadge: Locator;
   readonly secondaryHeader: Locator;
   readonly subtitle: Locator;
   readonly activeSortOption: Locator;
@@ -34,6 +35,7 @@ export class InventoryPage {
     this.title = this.headerContainer.locator('div.app_logo');
     this.shoppingCartContainer = this.headerContainer.locator('#shopping_cart_container');
     this.shoppingCartLink = this.shoppingCartContainer.getByTestId('shopping-cart-link');
+    this.shoppingCartBadge = this.shoppingCartLink.getByTestId('shopping-cart-badge');
     this.secondaryHeader = page.getByTestId('secondary-header');
     this.subtitle = this.secondaryHeader.getByTestId('title');
     this.activeSortOption = this.secondaryHeader.getByTestId('active-option');
@@ -59,6 +61,7 @@ export const EXPECTED_TEXT = {
   FOOTER: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
   MENU_ITEMS: ['All Items', 'About', 'Logout', 'Reset App State'],
   ADD_TO_CART_BUTTON: 'Add to cart',
+  REMOVE_BUTTON: 'Remove',
 };
 
 export const COLORS = {
@@ -66,6 +69,7 @@ export const COLORS = {
   TEXT_COLOR: 'rgb(19, 35, 34)',
   PRODUCT_BORDER_COLOR: 'rgb(237, 237, 237)',
   PRODUCT_TITLE_COLOR: 'rgb(24, 88, 58)',
+  REMOVE_BUTTON_COLOR: 'rgb(226, 35, 26)',
   FOOTER_BACKGROUND_COLOR: 'rgb(19, 35, 34)',
   FOOTER_TEXT_COLOR: 'rgb(255, 255, 255)',
   SOCIAL_LINK_BACKGROUND_COLOR: 'rgb()',
