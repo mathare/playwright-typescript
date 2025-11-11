@@ -12,10 +12,11 @@ import { LoginPage } from '../pages/loginPage';
 test.describe('Inventory page tests', () => {
   let inventoryPage: InventoryPage;
 
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, baseURL }) => {
     let loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
+    await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
   });
 
   test.describe('Appearance tests', () => {
