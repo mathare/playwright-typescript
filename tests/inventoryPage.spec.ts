@@ -101,9 +101,10 @@ test.describe('Inventory page tests', () => {
   });
 
   test.describe('Product tests', () => {
+    const NUM_PRODUCTS = PRODUCT_INFO.length;
+
     test('Product styling', async () => {
-      const numProducts = await inventoryPage.inventoryItem.count();
-      for (let i = 0; i < numProducts; i++) {
+      for (let i = 0; i < NUM_PRODUCTS; i++) {
         await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS(
           'border',
           `1px solid ${COLORS.PRODUCT_BORDER_COLOR}`
@@ -179,7 +180,7 @@ test.describe('Inventory page tests', () => {
     });
 
     test('Add product to cart', async () => {
-      const PRODUCT_INDEX = Math.floor(Math.random() * PRODUCT_INFO.length);
+        const PRODUCT_INDEX = Math.floor(Math.random() * NUM_PRODUCTS);
       await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
 
       // Verify cart
@@ -206,7 +207,7 @@ test.describe('Inventory page tests', () => {
       );
 
       // Verify other products unchanged
-      for (let i = 0; i < PRODUCT_INFO.length; i++) {
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
         if (i !== PRODUCT_INDEX) {
           await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(
             EXPECTED_TEXT.ADD_TO_CART_BUTTON
