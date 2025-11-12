@@ -315,6 +315,13 @@ test.describe('Inventory page tests', () => {
     }
   });
 
+  test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
+    // The shopping cart link doesn't actually have an href attribute but still opens the cart page
+    await expect(inventoryPage.shoppingCartLink).not.toHaveAttribute('href');
+    await inventoryPage.shoppingCartLink.click();
+    await expect(page).toHaveURL(`${baseURL}/cart.html`);
+  });
+
   test('Social media links open relevant page in new tab', async () => {
     for (let i = 0; i < SOCIAL_LINKS.length; i++) {
       await expect(inventoryPage.socialMediaLink.nth(i)).toHaveAttribute('href', SOCIAL_LINKS[i]);
