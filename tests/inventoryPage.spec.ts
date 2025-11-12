@@ -105,6 +105,11 @@ test.describe('Inventory page tests', () => {
         await inventoryPage.menuButton.click();
         await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
       });
+
+      test('Products added to cart', async ({ page }) => {
+        await inventoryPage.addAllProductsToCart();
+        await expect(page).toHaveScreenshot('productsInCart.png', { fullPage: true });
+      });
     });
   });
 
