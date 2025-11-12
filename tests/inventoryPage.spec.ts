@@ -137,21 +137,25 @@ test.describe('Inventory page tests', () => {
         {
           description: 'Default sort (name A-Z)',
           products: [...PRODUCT_INFO].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0)),
+          sortBy: 'Name (A to Z)',
           sortOption: 'default',
         },
         {
           description: 'Sort by name (Z-A)',
           products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
+          sortBy: 'Name (Z to A)',
           sortOption: 'za',
         },
         {
           description: 'Sort by price (low-high)',
           products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
+          sortBy: 'Price (low to high)',
           sortOption: 'lohi',
         },
         {
           description: 'Sort by price (high-low)',
           products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
+          sortBy: 'Price (high to low)',
           sortOption: 'hilo',
         },
       ].forEach((testCase) => {
@@ -159,6 +163,7 @@ test.describe('Inventory page tests', () => {
           if (testCase.sortOption !== 'default') {
             await inventoryPage.sortSelect.selectOption(testCase.sortOption);
           }
+          await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
 
           for (let i = 0; i < testCase.products.length; i++) {
             await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img)).toHaveAttribute(
