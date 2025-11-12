@@ -60,26 +60,26 @@ export class InventoryPage {
 }
 
 export const EXPECTED_TEXT = {
-  TITLE: 'Swag Labs',
-  SUBTITLE: 'Products',
-  SORT_OPTIONS: ['Name (A to Z)', 'Name (Z to A)', 'Price (low to high)', 'Price (high to low)'],
-  SOCIAL_MEDIA: ['Twitter', 'Facebook', 'LinkedIn'],
-  FOOTER: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
-  MENU_ITEMS: ['All Items', 'About', 'Logout', 'Reset App State'],
-  ADD_TO_CART_BUTTON: 'Add to cart',
-  REMOVE_BUTTON: 'Remove',
+  title: 'Swag Labs',
+  subtitle: 'Products',
+  sortOptions: ['Name (A to Z)', 'Name (Z to A)', 'Price (low to high)', 'Price (high to low)'],
+  socialMedia: ['Twitter', 'Facebook', 'LinkedIn'],
+  footer: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
+  menuItems: ['All Items', 'About', 'Logout', 'Reset App State'],
+  addToCartButton: 'Add to cart',
+  removeButton: 'Remove',
 };
 
 export const COLORS = {
-  BACKGROUND_COLOR: 'rgb(255, 255, 255)',
-  TEXT_COLOR: 'rgb(19, 35, 34)',
-  PRODUCT_BORDER_COLOR: 'rgb(237, 237, 237)',
-  PRODUCT_TITLE_COLOR: 'rgb(24, 88, 58)',
-  REMOVE_BUTTON_COLOR: 'rgb(226, 35, 26)',
-  FOOTER_BACKGROUND_COLOR: 'rgb(19, 35, 34)',
-  FOOTER_TEXT_COLOR: 'rgb(255, 255, 255)',
-  SOCIAL_LINK_BACKGROUND_COLOR: 'rgb()',
-  SOCIAL_LINK_TEXT_COLOR: 'rgb(0, 0, 238)',
+  backgroundColor: 'rgb(255, 255, 255)',
+  textColor: 'rgb(19, 35, 34)',
+  productBorderColor: 'rgb(237, 237, 237)',
+  productTitleColor: 'rgb(24, 88, 58)',
+  removeButtonColor: 'rgb(226, 35, 26)',
+  footerBackgroundColor: 'rgb(19, 35, 34)',
+  footerTextColor: 'rgb(255, 255, 255)',
+  socialLinkBackgroundColor: 'rgb()',
+  socialLinkTextColor: 'rgb(0, 0, 238)',
 };
 
 export const PRODUCT_INFO = [
