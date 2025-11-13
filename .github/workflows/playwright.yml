@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    # Runs at 8am UTC Mon-Fri
+    - cron: '0 8 * * 1-5'
 env:
   PASSWORD: ${{ secrets.PASSWORD }}
 jobs:
