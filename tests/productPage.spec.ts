@@ -35,5 +35,15 @@ test.describe('Product page tests', () => {
       await expect(productPage.socialMediaItem).toHaveCount(EXPECTED_TEXT.socialMedia.length);
       await expect(productPage.footerCopy).toBeVisible();
     });
+
+    test('Element visibility with menu open', async () => {
+      await productPage.menuButton.click();
+      await expect(productPage.menu).toBeVisible();
+      await expect(productPage.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
+      await expect(productPage.menuCloseButton).toBeVisible();
+
+      // The menu obscures certain page elements but they still count as visible based on the Playwright definition
+      // Therefore, rather than asserting on the state of the covered elements it is easier to test visually (below)
+    });
   });
 });
