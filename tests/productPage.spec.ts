@@ -187,7 +187,9 @@ test.describe('Product page tests', () => {
           await expect(productPage.cartButton).toBeVisible();
         });
 
-        test('Text content of product elements', async () => {
+        test('Product details', async () => {
+          await expect(productPage.productImage).toHaveAttribute('alt', product.title);
+          await expect(productPage.productImage).toHaveAttribute('src', product.imgSrc);
           await expect(productPage.productName).toHaveText(product.title);
           await expect(productPage.productDescription).toHaveText(product.description);
           await expect(productPage.productPrice).toHaveText(`\$${product.price}`);
