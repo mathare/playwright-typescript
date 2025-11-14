@@ -80,7 +80,7 @@ test.describe('Login page tests', () => {
     });
 
     test('Visual test', async ({ page }) => {
-      await expect(page).toHaveScreenshot('loginPage.png');
+      await expect(page).toHaveScreenshot('default.png');
     });
   });
 
