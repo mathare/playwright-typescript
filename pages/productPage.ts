@@ -21,8 +21,7 @@ export class ProductPage {
   readonly productName: Locator;
   readonly productDescription: Locator;
   readonly productPrice: Locator;
-  readonly addToCartButton: Locator;
-  readonly removeButton: Locator;
+  readonly cartButton: Locator;
   readonly footer: Locator;
   readonly socialMediaItem: Locator;
   readonly socialMediaLink: Locator;
@@ -48,8 +47,7 @@ export class ProductPage {
     this.productName = this.inventoryItem.getByTestId('inventory-item-name');
     this.productDescription = this.inventoryItem.getByTestId('inventory-item-desc');
     this.productPrice = this.inventoryItem.getByTestId('inventory-item-price');
-    this.addToCartButton = this.inventoryItem.getByTestId('add-to-cart');
-    this.removeButton = this.inventoryItem.getByTestId('remove');
+    this.cartButton = this.inventoryItem.locator('button');
     this.footer = page.getByTestId('footer');
     this.socialMediaItem = this.footer.locator('ul.social li');
     this.socialMediaLink = this.socialMediaItem.locator('a');

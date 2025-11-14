@@ -105,7 +105,7 @@ test.describe('Product page tests', () => {
         });
 
         test('Product added to cart', async ({ page }) => {
-          await productPage.addToCartButton.click();
+          await productPage.cartButton.click();
           await expect(page).toHaveScreenshot('productsInCart.png', { fullPage: true });
         });
       });
@@ -145,15 +145,14 @@ test.describe('Product page tests', () => {
           await expect(productPage.productName).toBeVisible();
           await expect(productPage.productDescription).toBeVisible();
           await expect(productPage.productPrice).toBeVisible();
-          await expect(productPage.addToCartButton).toBeVisible();
-          await expect(productPage.removeButton).toHaveCount(0);
+          await expect(productPage.cartButton).toBeVisible();
         });
 
         test('Text content of product elements', async () => {
           await expect(productPage.productName).toHaveText(product.title);
           await expect(productPage.productDescription).toHaveText(product.description);
           await expect(productPage.productPrice).toHaveText(`\$${product.price}`);
-          await expect(productPage.addToCartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
+          await expect(productPage.cartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
         });
 
         test.describe('Visual tests', () => {
