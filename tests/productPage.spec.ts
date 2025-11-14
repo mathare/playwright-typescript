@@ -150,7 +150,7 @@ test.describe('Product page tests', () => {
 
         test('Product added to cart', async ({ page }) => {
           await productPage.cartButton.click();
-          await expect(page).toHaveScreenshot('productsInCart.png', { fullPage: true });
+          await expect(page).toHaveScreenshot('productInCart.png', { fullPage: true });
         });
       });
     });
