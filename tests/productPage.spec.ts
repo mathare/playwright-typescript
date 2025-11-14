@@ -1,7 +1,7 @@
 import test, { expect } from '@playwright/test';
 import { ProductPage } from '../pages/productPage';
 import { LoginPage } from '../pages/loginPage';
-import { EXPECTED_TEXT } from '../pages/inventoryPage';
+import { EXPECTED_TEXT, PRODUCT_INFO } from '../pages/inventoryPage';
 
 test.describe('Product page tests', () => {
   let productPage: ProductPage;
@@ -44,6 +44,26 @@ test.describe('Product page tests', () => {
 
       // The menu obscures certain page elements but they still count as visible based on the Playwright definition
       // Therefore, rather than asserting on the state of the covered elements it is easier to test visually (below)
+    });
+
+    test('Text content of elements', async () => {
+      await expect(productPage.title).toHaveText(EXPECTED_TEXT.title);
+      await expect(productPage.backButton).toHaveText('Back to products');
+
+      await expect(productPage.productName).toHaveText(PRODUCT_INFO[0].title);
+      await expect(productPage.productDescription).toHaveText(PRODUCT_INFO[0].description);
+      await expect(productPage.productPrice).toHaveText(`\$${PRODUCT_INFO[0].price}`);
+      await expect(productPage.addToCartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
+
+      for (let i = 0; i < EXPECTED_TEXT.socialMedia.length; i++) {
+        await expect(productPage.socialMediaItem.nth(i)).toHaveText(EXPECTED_TEXT.socialMedia[i]);
+      }
+      await expect(productPage.footerCopy).toHaveText(EXPECTED_TEXT.footer);
+
+      await productPage.menuButton.click();
+      for (let i = 0; i < EXPECTED_TEXT.menuItems.length; i++) {
+        await expect(productPage.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
+      }
     });
   });
 });
