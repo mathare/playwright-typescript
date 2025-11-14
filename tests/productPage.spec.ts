@@ -110,6 +110,29 @@ test.describe('Product page tests', () => {
         await expect(productPage.footerCopy).toHaveCSS('color', COLORS.footerTextColor);
       });
 
+      test('Add product to cart', async () => {
+        await productPage.cartButton.click();
+
+        // Verify cart appearance in header
+        await expect(productPage.shoppingCartBadge).toBeVisible();
+        await expect(productPage.shoppingCartBadge).toHaveText('1');
+
+        // Verify button has updated correctly
+        await productPage.verifyCartButtonStyle('remove');
+      });
+
+      test('Remove product from cart', async () => {
+        await productPage.cartButton.click();
+        await expect(productPage.shoppingCartBadge).toHaveText('1');
+        await productPage.cartButton.click();
+
+        // Verify cart appearance in header
+        await expect(productPage.shoppingCartBadge).toHaveCount(0);
+
+        // Verify button has updated correctly
+        await productPage.verifyCartButtonStyle('add');
+      });
+
       test.describe('Visual tests', () => {
         test('Default state', async ({ page }) => {
           await expect(page).toHaveScreenshot('default.png', { fullPage: true });
