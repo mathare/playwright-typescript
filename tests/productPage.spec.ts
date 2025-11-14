@@ -134,6 +134,11 @@ test.describe('Product page tests', () => {
       });
 
       test.describe('Visual tests', () => {
+        // These visual tests could mask the product details elements for greater resilience
+        // i.e. the baseline images would not need to change if the product details change.
+        // However, I want to be alerted to any changes in the product details elements so
+        // these tests rightly capture those elements. That way if they change size, position
+        // etc we have those changes tracked by a failing test
         test('Default state', async ({ page }) => {
           await expect(page).toHaveScreenshot('default.png', { fullPage: true });
         });
@@ -197,6 +202,8 @@ test.describe('Product page tests', () => {
         });
 
         test.describe('Visual tests', () => {
+          // The visual tests for the individual product pages capture the product elements only so they
+          // are resilient to any header/footer changes
           test('Product details', async () => {
             await expect(productPage.inventoryItem).toHaveScreenshot(generateProductSnapshotName(product.shortName));
           });
