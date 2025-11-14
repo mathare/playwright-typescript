@@ -155,7 +155,19 @@ test.describe('Product page tests', () => {
           await expect(productPage.productPrice).toHaveText(`\$${product.price}`);
           await expect(productPage.addToCartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
         });
+
+        test.describe('Visual tests', () => {
+          test('Product details', async () => {
+            await expect(productPage.inventoryItem).toHaveScreenshot(generateProductSnapshotName(product.shortName));
+          });
+        });
       });
     });
   });
 });
+
+const generateProductSnapshotName = (name: string): string => {
+  // Sanitise product name for use as snapshot name
+  // Remove spaces & dashes then convert first letter to lowercase
+  return name.charAt(0).toLowerCase() + name.slice(1).replace(' ', '').replace('-', '') + '.png';
+};
