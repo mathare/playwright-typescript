@@ -82,6 +82,22 @@ test.describe('Product page tests', () => {
         await expect(productPage.backButton).toHaveCSS('font-size', '16px');
         await expect(productPage.backButton).toHaveCSS('font-weight', '500');
 
+        await expect(productPage.inventoryItemContainer).toHaveCSS('background-color', COLORS.backgroundColor);
+        await expect(productPage.inventoryItem).toHaveCSS('border', `1px solid ${COLORS.productBorderColor}`);
+        await expect(productPage.inventoryItem).toHaveCSS('border-radius', '8px');
+        await expect(productPage.inventoryItem).toHaveCSS('color', COLORS.textColor);
+        await expect(productPage.inventoryItem).toHaveCSS('display', 'flex');
+        await expect(productPage.productName).toHaveCSS('font-size', '20px');
+        await expect(productPage.productName).toHaveCSS('font-weight', '500');
+        await expect(productPage.productDescription).toHaveCSS('font-size', '14px');
+        await expect(productPage.productPrice).toHaveCSS('font-size', '20px');
+        await expect(productPage.productPrice).toHaveCSS('font-weight', '500');
+        await expect(productPage.cartButton).toHaveCSS('border', `1px solid ${COLORS.textColor}`);
+        await expect(productPage.cartButton).toHaveCSS('border-radius', '4px');
+        await expect(productPage.cartButton).toHaveCSS('font-size', '16px');
+        await expect(productPage.cartButton).toHaveCSS('font-weight', '500');
+        await expect(productPage.cartButton).toHaveCSS('width', '160px');
+
         await expect(productPage.footer).toHaveCSS('background-color', COLORS.footerBackgroundColor);
         const numSocialMediaItems = await productPage.socialMediaItem.count();
         const regex = '^url\\("data:image\\/png;base64,[A-Za-z0-9+\\/=\\"\\)]*$';
