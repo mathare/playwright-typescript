@@ -79,8 +79,15 @@ test.describe('Login page tests', () => {
       await expect(loginPage.passwordHeader).toHaveCSS('font-weight', '700');
     });
 
-    test('Visual test', async ({ page }) => {
-      await expect(page).toHaveScreenshot('default.png');
+    test.describe('Visual tests', () => {
+      test('Default state', async ({ page }) => {
+        await expect(page).toHaveScreenshot('default.png');
+      });
+
+      test('Error state', async ({ page }) => {
+        await loginPage.loginButton.click();
+        await expect(page).toHaveScreenshot('error.png');
+      });
     });
   });
 
