@@ -1,7 +1,7 @@
 import test, { expect } from '@playwright/test';
 import { ProductPage } from '../pages/productPage';
 import { LoginPage } from '../pages/loginPage';
-import { COLORS, EXPECTED_TEXT, PRODUCT_INFO } from '../pages/inventoryPage';
+import { COLORS, EXPECTED_TEXT, PRODUCT_INFO, SOCIAL_LINKS } from '../pages/inventoryPage';
 
 test.describe('Product page tests', () => {
   let productPage: ProductPage;
@@ -111,5 +111,20 @@ test.describe('Product page tests', () => {
         await expect(productPage.headerContainer).toHaveScreenshot('productsInCart.png', { fullPage: true });
       });
     });
+  });
+
+  test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
+    // The shopping cart link doesn't actually have an href attribute but still opens the cart page
+    await expect(productPage.shoppingCartLink).not.toHaveAttribute('href');
+    await productPage.shoppingCartLink.click();
+    await expect(page).toHaveURL(`${baseURL}/cart.html`);
+  });
+
+  test('Social media links open relevant page in new tab', async () => {
+    for (let i = 0; i < SOCIAL_LINKS.length; i++) {
+      await expect(productPage.socialMediaLink.nth(i)).toHaveAttribute('href', SOCIAL_LINKS[i]);
+      await expect(productPage.socialMediaLink.nth(i)).toHaveAttribute('target', '_blank');
+      await expect(productPage.socialMediaLink.nth(i)).toHaveAttribute('rel', 'noreferrer');
+    }
   });
 });
