@@ -95,5 +95,21 @@ test.describe('Product page tests', () => {
       }
       await expect(productPage.footerCopy).toHaveCSS('color', COLORS.footerTextColor);
     });
+
+    test.describe('Visual tests', () => {
+      test('Default state', async ({ page }) => {
+        await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+      });
+
+      test('Menu open', async ({ page }) => {
+        await productPage.menuButton.click();
+        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+      });
+
+      test('Product added to cart', async () => {
+        await productPage.addToCartButton.click();
+        await expect(productPage.headerContainer).toHaveScreenshot('productsInCart.png', { fullPage: true });
+      });
+    });
   });
 });
