@@ -120,6 +120,12 @@ test.describe('Product page tests', () => {
     await expect(page).toHaveURL(`${baseURL}/cart.html`);
   });
 
+  test('Back to products button opens inventory page', async ({ page, baseURL }) => {
+    await productPage.backButton.click();
+    const inventoryPage = new InventoryPage(page);
+    await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+  });
+
   test('Social media links open relevant page in new tab', async () => {
     for (let i = 0; i < SOCIAL_LINKS.length; i++) {
       await expect(productPage.socialMediaLink.nth(i)).toHaveAttribute('href', SOCIAL_LINKS[i]);
