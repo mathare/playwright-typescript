@@ -104,9 +104,9 @@ test.describe('Product page tests', () => {
           await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
         });
 
-        test('Product added to cart', async () => {
+        test('Product added to cart', async ({ page }) => {
           await productPage.addToCartButton.click();
-          await expect(productPage.headerContainer).toHaveScreenshot('productsInCart.png');
+          await expect(page).toHaveScreenshot('productsInCart.png', { fullPage: true });
         });
       });
     });
