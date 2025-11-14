@@ -34,12 +34,6 @@ test.describe('Product page tests', () => {
         await expect(productPage.secondaryHeader).toBeVisible();
         await expect(productPage.backButton).toBeVisible();
         await expect(productPage.inventoryItem).toBeVisible();
-        //   await expect(productPage.productImage).toBeVisible();
-        //   await expect(productPage.productName).toBeVisible();
-        //   await expect(productPage.productDescription).toBeVisible();
-        //   await expect(productPage.productPrice).toBeVisible();
-        //   await expect(productPage.addToCartButton).toBeVisible();
-        //   await expect(productPage.removeButton).toHaveCount(0);
         await expect(productPage.footer).toBeVisible();
         await expect(productPage.socialMediaItem).toHaveCount(EXPECTED_TEXT.socialMedia.length);
         await expect(productPage.footerCopy).toBeVisible();
@@ -58,11 +52,6 @@ test.describe('Product page tests', () => {
       test('Text content of elements', async () => {
         await expect(productPage.title).toHaveText(EXPECTED_TEXT.title);
         await expect(productPage.backButton).toHaveText('Back to products');
-
-        //   await expect(productPage.productName).toHaveText(PRODUCT_INFO[0].title);
-        //   await expect(productPage.productDescription).toHaveText(PRODUCT_INFO[0].description);
-        //   await expect(productPage.productPrice).toHaveText(`\$${PRODUCT_INFO[0].price}`);
-        //   await expect(productPage.addToCartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
 
         for (let i = 0; i < EXPECTED_TEXT.socialMedia.length; i++) {
           await expect(productPage.socialMediaItem.nth(i)).toHaveText(EXPECTED_TEXT.socialMedia[i]);
@@ -141,6 +130,32 @@ test.describe('Product page tests', () => {
         await expect(productPage.socialMediaLink.nth(i)).toHaveAttribute('target', '_blank');
         await expect(productPage.socialMediaLink.nth(i)).toHaveAttribute('rel', 'noreferrer');
       }
+    });
+  });
+
+  PRODUCT_INFO.forEach((product) => {
+    test.describe(`${product.shortName} page tests`, () => {
+      test.beforeEach(async ({ page }) => {
+        await page.goto(`${productPage.url}${product.id}`);
+      });
+
+      test.describe('Appearance tests', () => {
+        test('Element visibility', async () => {
+          await expect(productPage.productImage).toBeVisible();
+          await expect(productPage.productName).toBeVisible();
+          await expect(productPage.productDescription).toBeVisible();
+          await expect(productPage.productPrice).toBeVisible();
+          await expect(productPage.addToCartButton).toBeVisible();
+          await expect(productPage.removeButton).toHaveCount(0);
+        });
+
+        test('Text content of product elements', async () => {
+          await expect(productPage.productName).toHaveText(product.title);
+          await expect(productPage.productDescription).toHaveText(product.description);
+          await expect(productPage.productPrice).toHaveText(`\$${product.price}`);
+          await expect(productPage.addToCartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
+        });
+      });
     });
   });
 });
