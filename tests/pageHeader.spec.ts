@@ -1,5 +1,5 @@
 import test, { expect } from '@playwright/test';
-import { EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
+import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
 import { InventoryPage } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 
@@ -37,11 +37,18 @@ test.describe('Page header tests', () => {
     });
 
     test('Element styling', async () => {
+      await expect(pageHeader.headerContainer).toHaveCSS('border-bottom', `1px solid ${COLORS.borderColor}`);
+      await expect(pageHeader.headerContainer).toHaveCSS('color', COLORS.textColor);
+      await expect(pageHeader.headerContainer).toHaveCSS('display', 'flex');
+
+      await expect(pageHeader.title).toHaveCSS('font-size', '24px');
+      await expect(pageHeader.title).toHaveCSS('text-align', 'center');
+
       // Menu button is in the top-left
       await expect(pageHeader.menuButton).toHaveCSS('position', 'absolute');
       await expect(pageHeader.menuButton).toHaveCSS('left', '0px');
       await expect(pageHeader.menuButton).toHaveCSS('top', '0px');
-      await expect(pageHeader.title).toHaveCSS('font-size', '24px');
+
       // Shopping cart link is in the top-right (within a container)
       await expect(pageHeader.shoppingCartContainer).toHaveCSS('position', 'absolute');
       await expect(pageHeader.shoppingCartContainer).toHaveCSS('right', '20px');

@@ -31,3 +31,8 @@ export class PageHeader {
 export const EXPECTED_TEXT = {
   title: 'Swag Labs',
 };
+
+export const COLORS = {
+  borderColor: 'rgb(237, 237, 237)',
+  textColor: 'rgb(19, 35, 34)',
+};
