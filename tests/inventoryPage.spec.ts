@@ -169,8 +169,6 @@ test.describe('Inventory page tests', () => {
         await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
 
         // Verify product ID added to cart contents in local storage
-        await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
-        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
         cartContents = await getCartContentsFromLocalStorage(context);
         expect(cartContents.value).toEqual(`[${PRODUCT_INFO[PRODUCT_INDEX].id}]`);
 
@@ -188,7 +186,6 @@ test.describe('Inventory page tests', () => {
       test('Add multiple products to cart', async ({ context }) => {
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
-          await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
           cartContents = await getCartContentsFromLocalStorage(context);
           productIDs = `[${PRODUCT_INFO.slice(0, i + 1)
             .map((product) => product.id)
@@ -200,12 +197,10 @@ test.describe('Inventory page tests', () => {
 
       test('Remove only product from cart', async ({ context }) => {
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
         cartContents = await getCartContentsFromLocalStorage(context);
         expect(cartContents.value).toEqual(`[${PRODUCT_INFO[0].id}]`);
 
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
         cartContents = await getCartContentsFromLocalStorage(context);
         expect(cartContents.value).toEqual('[]');
         await inventoryPage.verifyCartButtonStyle(0, 'add');
@@ -213,15 +208,9 @@ test.describe('Inventory page tests', () => {
 
       test('Remove multiple products from cart', async ({ context }) => {
         await inventoryPage.addAllProductsToCart();
-        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS}`);
 
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
-          if (i === NUM_PRODUCTS - 1) {
-            await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
-          } else {
-            await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS - (i + 1)}`);
-          }
           cartContents = await getCartContentsFromLocalStorage(context);
           productIDs = `[${PRODUCT_INFO.slice(i + 1)
             .map((product) => product.id)

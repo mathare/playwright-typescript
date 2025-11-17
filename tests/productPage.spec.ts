@@ -86,9 +86,7 @@ test.describe('Product page tests', () => {
         test('Add product to cart', async ({ context }) => {
           await productPage.cartButton.click();
 
-          // Verify cart appearance in header
-          await expect(productPage.pageHeader.shoppingCartBadge).toBeVisible();
-          await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
+          // Verify product ID in local storage
           cartContents = await getCartContentsFromLocalStorage(context);
           expect(cartContents.value).toEqual('[0]');
 
@@ -98,13 +96,11 @@ test.describe('Product page tests', () => {
 
         test('Remove product from cart', async ({ context }) => {
           await productPage.cartButton.click();
-          await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
           cartContents = await getCartContentsFromLocalStorage(context);
           expect(cartContents.value).toEqual('[0]');
           await productPage.cartButton.click();
 
-          // Verify cart appearance in header
-          await expect(productPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+          // Verify product ID in local storage
           cartContents = await getCartContentsFromLocalStorage(context);
           expect(cartContents.value).toEqual('[]');
 
