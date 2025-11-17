@@ -2,6 +2,7 @@ import test, { expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
 import { InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
+import { UAParser } from 'ua-parser-js';
 
 // This spec makes a not unreasonable assumption that the header displayed at the top of all pages
 // expect the login page is mostly the same across all pages. As such, the main assertions are performed
@@ -78,11 +79,19 @@ test.describe('Page header tests', () => {
     test.describe('Visual tests', () => {
       // These visual tests are limited to the primary header as this is the only element
       // shared by all pages - the secondary header varies between pages
+
+      let osName: string;
+      test.beforeEach(async ({ page }) => {
+        const userAgent = await page.evaluate(() => navigator.userAgent);
+        osName = UAParser(userAgent).os.name!;
+      });
+
       test('No products in cart', async () => {
         await expect(pageHeader.primaryHeader).toHaveScreenshot('emptyCart.png');
       });
 
-      test('Products in cart', async ({ page }) => {
+      test('Products in cart', async ({ page, browserName }) => {
+        test.fail(browserName === 'webkit' && osName === 'Linux', 'Page reload seems to fail for webkit on Linux');
         await page.evaluate(() => localStorage.setItem('cart-contents', '[0,1]'));
         await page.reload();
         await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
