@@ -1,6 +1,6 @@
 import test, { expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
-import { InventoryPage } from '../pages/inventoryPage';
+import { InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 
 // This spec makes a not unreasonable assumption that the header displayed at the top of all pages
@@ -55,6 +55,24 @@ test.describe('Page header tests', () => {
       await expect(pageHeader.shoppingCartContainer).toHaveCSS('top', '10px');
       await expect(pageHeader.shoppingCartContainer).toHaveCSS('width', '40px');
       await expect(pageHeader.shoppingCartContainer).toHaveCSS('height', '40px');
+    });
+
+    // The cart in the main header shows a badge indicating the number of products in the cart (if not 0)
+    // but updating the contents of the cart can only be done outside the header itself. Therefore, to be
+    // able to test the badge appearance in this spec we "force" products into the cart via local storage
+    // rather than using the standard UI interactions
+    test('Shopping cart badge appearance', async ({ page }) => {
+      let productIds: number[] = [];
+      for (let i = 0; i < PRODUCT_INFO.length; i++) {
+        productIds.push(i);
+        await page.evaluate(
+          (productIds) => localStorage.setItem('cart-contents', `[${productIds.join()}]`),
+          productIds
+        );
+        await page.reload();
+        await expect(pageHeader.shoppingCartBadge).toBeVisible();
+        await expect(pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
+      }
     });
   });
 
