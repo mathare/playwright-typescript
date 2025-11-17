@@ -74,6 +74,20 @@ test.describe('Page header tests', () => {
         await expect(pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
       }
     });
+
+    test.describe('Visual tests', () => {
+      // These visual tests are limited to the primary header as this is the only element
+      // shared by all pages - the secondary header varies between pages
+      test('No products in cart', async () => {
+        await expect(pageHeader.primaryHeader).toHaveScreenshot('emptyCart.png');
+      });
+
+      test('Products in cart', async ({ page }) => {
+        await page.evaluate(() => localStorage.setItem('cart-contents', '[0,1]'));
+        await page.reload();
+        await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
+      });
+    });
   });
 
   test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
