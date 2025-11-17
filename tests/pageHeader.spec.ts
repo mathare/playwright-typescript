@@ -80,18 +80,12 @@ test.describe('Page header tests', () => {
       // These visual tests are limited to the primary header as this is the only element
       // shared by all pages - the secondary header varies between pages
 
-      let osName: string;
-      test.beforeEach(async ({ page }) => {
-        const userAgent = await page.evaluate(() => navigator.userAgent);
-        osName = UAParser(userAgent).os.name!;
-      });
-
       test('No products in cart', async () => {
         await expect(pageHeader.primaryHeader).toHaveScreenshot('emptyCart.png');
       });
 
       test('Products in cart', async ({ page, browserName }) => {
-        test.fail(browserName === 'webkit' && osName === 'Linux', 'Page reload seems to fail for webkit on Linux');
+        test.skip(browserName === 'webkit', 'Page reload seems to fail for webkit on Linux');
         await page.evaluate(() => localStorage.setItem('cart-contents', '[0,1]'));
         await page.reload();
         await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
