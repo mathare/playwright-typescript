@@ -1,4 +1,4 @@
-import test, { expect } from '@playwright/test';
+import test, { BrowserContext, expect } from '@playwright/test';
 import { ProductPage } from '../pages/productPage';
 import { LoginPage } from '../pages/loginPage';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
@@ -75,27 +75,42 @@ test.describe('Product page tests', () => {
         await expect(productPage.cartButton).toHaveCSS('width', '160px');
       });
 
-      test('Add product to cart', async () => {
-        await productPage.cartButton.click();
+      test.describe('Add to cart & remove', () => {
+        // Which products are in the cart is tracked via a cart-contents array in local storage.
+        // As each product can only be added to the cart once it uses an array of product IDs.
+        // The length of this array is used to determine the badge to display over the cart in
+        // the header, as tested in the page header spec. So all we need to test here is that
+        // product IDs are added to the cart-contents array in local storage correctly
+        let cartContents: Record<string, string | string[]>;
 
-        // Verify cart appearance in header
-        await expect(productPage.pageHeader.shoppingCartBadge).toBeVisible();
-        await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
+        test('Add product to cart', async ({ context }) => {
+          await productPage.cartButton.click();
 
-        // Verify button has updated correctly
-        await productPage.verifyCartButtonStyle('remove');
-      });
+          // Verify cart appearance in header
+          await expect(productPage.pageHeader.shoppingCartBadge).toBeVisible();
+          await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[0]');
 
-      test('Remove product from cart', async () => {
-        await productPage.cartButton.click();
-        await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
-        await productPage.cartButton.click();
+          // Verify button has updated correctly
+          await productPage.verifyCartButtonStyle('remove');
+        });
 
-        // Verify cart appearance in header
-        await expect(productPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+        test('Remove product from cart', async ({ context }) => {
+          await productPage.cartButton.click();
+          await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[0]');
+          await productPage.cartButton.click();
 
-        // Verify button has updated correctly
-        await productPage.verifyCartButtonStyle('add');
+          // Verify cart appearance in header
+          await expect(productPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[]');
+
+          // Verify button has updated correctly
+          await productPage.verifyCartButtonStyle('add');
+        });
       });
 
       test.describe('Visual tests', () => {
@@ -167,4 +182,9 @@ const generateProductSnapshotName = (name: string): string => {
   // Sanitise product name for use as snapshot name
   // Remove spaces & dashes then convert first letter to lowercase
   return name.charAt(0).toLowerCase() + name.slice(1).replace(' ', '').replace('-', '') + '.png';
+};
+
+const getCartContentsFromLocalStorage = async (context: BrowserContext) => {
+  const storageState = await context.storageState();
+  return storageState.origins![0].localStorage.filter((item) => item.name === 'cart-contents')[0];
 };

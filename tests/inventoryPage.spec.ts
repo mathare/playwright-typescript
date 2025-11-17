@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, BrowserContext } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS, PRODUCT_INFO } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 
@@ -155,13 +155,24 @@ test.describe('Inventory page tests', () => {
     });
 
     test.describe('Add products to cart & remove', () => {
-      test('Add product to cart', async () => {
+      // Which products are in the cart is tracked via a cart-contents array in local storage.
+      // As each product can only be added to the cart once it uses an array of product IDs.
+      // The length of this array is used to determine the badge to display over the cart in
+      // the header, as tested in the page header spec. So all we need to test here is that
+      // product IDs are added to the cart-contents array in local storage correctly
+
+      let cartContents: Record<string, string | string[]>;
+      let productIDs: string;
+
+      test('Add product to cart', async ({ context }) => {
         const PRODUCT_INDEX = Math.floor(Math.random() * NUM_PRODUCTS);
         await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
 
-        // Verify cart
+        // Verify product ID added to cart contents in local storage
         await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
         await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+        cartContents = await getCartContentsFromLocalStorage(context);
+        expect(cartContents.value).toEqual(`[${PRODUCT_INFO[PRODUCT_INDEX].id}]`);
 
         // Verify button on relevant product has changed correctly
         await inventoryPage.verifyCartButtonStyle(PRODUCT_INDEX, 'remove');
@@ -174,24 +185,33 @@ test.describe('Inventory page tests', () => {
         }
       });
 
-      test('Add multiple products to cart', async () => {
+      test('Add multiple products to cart', async ({ context }) => {
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
           await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
+          cartContents = await getCartContentsFromLocalStorage(context);
+          productIDs = `[${PRODUCT_INFO.slice(0, i + 1)
+            .map((product) => product.id)
+            .join()}]`;
+          expect(cartContents.value).toEqual(productIDs);
           await inventoryPage.verifyCartButtonStyle(i, 'remove');
         }
       });
 
-      test('Remove only product from cart', async () => {
+      test('Remove only product from cart', async ({ context }) => {
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
         await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+        cartContents = await getCartContentsFromLocalStorage(context);
+        expect(cartContents.value).toEqual(`[${PRODUCT_INFO[0].id}]`);
 
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
         await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+        cartContents = await getCartContentsFromLocalStorage(context);
+        expect(cartContents.value).toEqual('[]');
         await inventoryPage.verifyCartButtonStyle(0, 'add');
       });
 
-      test('Remove multiple products from cart', async () => {
+      test('Remove multiple products from cart', async ({ context }) => {
         await inventoryPage.addAllProductsToCart();
         await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS}`);
 
@@ -202,6 +222,11 @@ test.describe('Inventory page tests', () => {
           } else {
             await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS - (i + 1)}`);
           }
+          cartContents = await getCartContentsFromLocalStorage(context);
+          productIDs = `[${PRODUCT_INFO.slice(i + 1)
+            .map((product) => product.id)
+            .join()}]`;
+          expect(cartContents.value).toEqual(productIDs);
           await inventoryPage.verifyCartButtonStyle(i, 'add');
         }
       });
@@ -246,3 +271,8 @@ test.describe('Inventory page tests', () => {
     }
   });
 });
+
+const getCartContentsFromLocalStorage = async (context: BrowserContext) => {
+  const storageState = await context.storageState();
+  return storageState.origins![0].localStorage.filter((item) => item.name === 'cart-contents')[0];
+};
