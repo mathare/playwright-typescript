@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { PageFooter } from './components/pageFooter';
 
 export class InventoryPage {
   readonly url = '/inventory.html';
@@ -19,10 +20,7 @@ export class InventoryPage {
   readonly sortSelect: Locator;
   readonly inventoryContainer: Locator;
   readonly inventoryItem: Locator;
-  readonly footer: Locator;
-  readonly socialMediaItem: Locator;
-  readonly socialMediaLink: Locator;
-  readonly footerCopy: Locator;
+  readonly pageFooter: PageFooter;
 
   constructor(page: Page) {
     this.page = page;
@@ -42,10 +40,7 @@ export class InventoryPage {
     this.sortSelect = this.secondaryHeader.getByTestId('product-sort-container');
     this.inventoryContainer = page.getByTestId('inventory-container');
     this.inventoryItem = this.inventoryContainer.getByTestId('inventory-item');
-    this.footer = page.getByTestId('footer');
-    this.socialMediaItem = this.footer.locator('ul.social li');
-    this.socialMediaLink = this.socialMediaItem.locator('a');
-    this.footerCopy = this.footer.getByTestId('footer-copy');
+    this.pageFooter = new PageFooter(page);
   }
 
   // *******
@@ -83,8 +78,6 @@ export const EXPECTED_TEXT = {
   title: 'Swag Labs',
   subtitle: 'Products',
   sortOptions: ['Name (A to Z)', 'Name (Z to A)', 'Price (low to high)', 'Price (high to low)'],
-  socialMedia: ['Twitter', 'Facebook', 'LinkedIn'],
-  footer: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
   menuItems: ['All Items', 'About', 'Logout', 'Reset App State'],
   addToCartButton: 'Add to cart',
   removeButton: 'Remove',
@@ -97,10 +90,6 @@ export const COLORS = {
   productTitleColor: 'rgb(24, 88, 58)',
   addButtonColor: 'rgb(19, 35, 34)',
   removeButtonColor: 'rgb(226, 35, 26)',
-  footerBackgroundColor: 'rgb(19, 35, 34)',
-  footerTextColor: 'rgb(255, 255, 255)',
-  socialLinkBackgroundColor: 'rgb()',
-  socialLinkTextColor: 'rgb(0, 0, 238)',
 };
 
 export const PRODUCT_INFO = [
@@ -167,9 +156,3 @@ export enum PRODUCT_ELEMENTS {
   price = 'div.inventory_item_price',
   button = 'button',
 }
-
-export const SOCIAL_LINKS = [
-  'https://twitter.com/saucelabs',
-  'https://www.facebook.com/saucelabs',
-  'https://www.linkedin.com/company/sauce-labs/',
-];

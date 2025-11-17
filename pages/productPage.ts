@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT } from './inventoryPage';
+import { PageFooter } from './components/pageFooter';
 
 export class ProductPage {
   readonly url = '/inventory-item.html?id=';
@@ -23,10 +24,7 @@ export class ProductPage {
   readonly productDescription: Locator;
   readonly productPrice: Locator;
   readonly cartButton: Locator;
-  readonly footer: Locator;
-  readonly socialMediaItem: Locator;
-  readonly socialMediaLink: Locator;
-  readonly footerCopy: Locator;
+  readonly pageFooter: PageFooter;
 
   constructor(page: Page) {
     this.page = page;
@@ -49,10 +47,7 @@ export class ProductPage {
     this.productDescription = this.inventoryItem.getByTestId('inventory-item-desc');
     this.productPrice = this.inventoryItem.getByTestId('inventory-item-price');
     this.cartButton = this.inventoryItem.locator('button');
-    this.footer = page.getByTestId('footer');
-    this.socialMediaItem = this.footer.locator('ul.social li');
-    this.socialMediaLink = this.socialMediaItem.locator('a');
-    this.footerCopy = this.footer.getByTestId('footer-copy');
+    this.pageFooter = new PageFooter(page);
   }
 
   // **********
