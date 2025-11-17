@@ -27,3 +27,7 @@ export class PageHeader {
     this.secondaryHeader = page.getByTestId('secondary-header');
   }
 }
+
+export const EXPECTED_TEXT = {
+  title: 'Swag Labs',
+};

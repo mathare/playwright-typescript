@@ -26,12 +26,6 @@ test.describe('Product page tests', () => {
     test.describe('Appearance tests', () => {
       test('Default element visibility', async () => {
         await expect(productPage.pageHeader.headerContainer).toBeVisible();
-        await expect(productPage.pageHeader.menuButton).toBeVisible();
-        await expect(productPage.pageHeader.menu).not.toBeVisible();
-        await expect(productPage.pageHeader.title).toBeVisible();
-        await expect(productPage.pageHeader.shoppingCartLink).toBeVisible();
-        await expect(productPage.pageHeader.shoppingCartBadge).toHaveCount(0);
-        await expect(productPage.pageHeader.secondaryHeader).toBeVisible();
         await expect(productPage.backButton).toBeVisible();
         await expect(productPage.inventoryItem).toBeVisible();
         await expect(productPage.pageFooter.footer).toBeVisible();
@@ -48,7 +42,6 @@ test.describe('Product page tests', () => {
       });
 
       test('Text content of elements', async () => {
-        await expect(productPage.pageHeader.title).toHaveText(EXPECTED_TEXT.title);
         await expect(productPage.backButton).toHaveText('Back to products');
 
         await productPage.pageHeader.menuButton.click();
@@ -61,17 +54,7 @@ test.describe('Product page tests', () => {
         await expect(productPage.body).toHaveCSS('background-color', COLORS.backgroundColor);
         await expect(productPage.body).toHaveCSS('color', COLORS.textColor);
         await expect(productPage.body).toHaveCSS('font-size', '14px');
-        // Menu button is in the top-left
-        await expect(productPage.pageHeader.menuButton).toHaveCSS('position', 'absolute');
-        await expect(productPage.pageHeader.menuButton).toHaveCSS('left', '0px');
-        await expect(productPage.pageHeader.menuButton).toHaveCSS('top', '0px');
-        await expect(productPage.pageHeader.title).toHaveCSS('font-size', '24px');
-        // Shopping cart link is in the top-right (within a container)
-        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('position', 'absolute');
-        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('right', '20px');
-        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('top', '10px');
-        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('width', '40px');
-        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('height', '40px');
+
         await expect(productPage.backButton).toHaveCSS('font-size', '16px');
         await expect(productPage.backButton).toHaveCSS('font-weight', '500');
 
@@ -135,13 +118,6 @@ test.describe('Product page tests', () => {
           await expect(page).toHaveScreenshot('productInCart.png', { fullPage: true });
         });
       });
-    });
-
-    test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
-      // The shopping cart link doesn't actually have an href attribute but still opens the cart page
-      await expect(productPage.pageHeader.shoppingCartLink).not.toHaveAttribute('href');
-      await productPage.pageHeader.shoppingCartLink.click();
-      await expect(page).toHaveURL(`${baseURL}/cart.html`);
     });
 
     test('Back to products button opens inventory page', async ({ page, baseURL }) => {

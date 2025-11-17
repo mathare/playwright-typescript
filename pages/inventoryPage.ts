@@ -58,7 +58,6 @@ export class InventoryPage {
 }
 
 export const EXPECTED_TEXT = {
-  title: 'Swag Labs',
   subtitle: 'Products',
   sortOptions: ['Name (A to Z)', 'Name (Z to A)', 'Price (low to high)', 'Price (high to low)'],
   menuItems: ['All Items', 'About', 'Logout', 'Reset App State'],

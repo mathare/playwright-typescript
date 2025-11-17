@@ -15,12 +15,6 @@ test.describe('Inventory page tests', () => {
   test.describe('Appearance tests', () => {
     test('Default element visibility', async () => {
       await expect(inventoryPage.pageHeader.headerContainer).toBeVisible();
-      await expect(inventoryPage.pageHeader.menuButton).toBeVisible();
-      await expect(inventoryPage.pageHeader.menu).not.toBeVisible();
-      await expect(inventoryPage.pageHeader.title).toBeVisible();
-      await expect(inventoryPage.pageHeader.shoppingCartLink).toBeVisible();
-      await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
-      await expect(inventoryPage.pageHeader.secondaryHeader).toBeVisible();
       await expect(inventoryPage.subtitle).toBeVisible();
       await expect(inventoryPage.activeSortOption).toBeVisible();
       await expect(inventoryPage.sortSelect).toBeVisible();
@@ -41,7 +35,6 @@ test.describe('Inventory page tests', () => {
 
     // Verifying the details of each displayed product is done via a separate test
     test('Text content of elements', async () => {
-      await expect(inventoryPage.pageHeader.title).toHaveText(EXPECTED_TEXT.title);
       await expect(inventoryPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
       await expect(inventoryPage.activeSortOption).toHaveText(EXPECTED_TEXT.sortOptions[0]);
       await expect(inventoryPage.sortSelect).toHaveText(EXPECTED_TEXT.sortOptions.join(''));
@@ -56,17 +49,7 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.body).toHaveCSS('background-color', COLORS.backgroundColor);
       await expect(inventoryPage.body).toHaveCSS('color', COLORS.textColor);
       await expect(inventoryPage.body).toHaveCSS('font-size', '14px');
-      // Menu button is in the top-left
-      await expect(inventoryPage.pageHeader.menuButton).toHaveCSS('position', 'absolute');
-      await expect(inventoryPage.pageHeader.menuButton).toHaveCSS('left', '0px');
-      await expect(inventoryPage.pageHeader.menuButton).toHaveCSS('top', '0px');
-      await expect(inventoryPage.pageHeader.title).toHaveCSS('font-size', '24px');
-      // Shopping cart link is in the top-right (within a container)
-      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('position', 'absolute');
-      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('right', '20px');
-      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('top', '10px');
-      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('width', '40px');
-      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('height', '40px');
+
       await expect(inventoryPage.subtitle).toHaveCSS('font-size', '18px');
       await expect(inventoryPage.subtitle).toHaveCSS('font-weight', '500');
       await expect(inventoryPage.activeSortOption).toHaveCSS('text-align', 'center');
@@ -261,12 +244,5 @@ test.describe('Inventory page tests', () => {
         });
       });
     }
-  });
-
-  test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
-    // The shopping cart link doesn't actually have an href attribute but still opens the cart page
-    await expect(inventoryPage.pageHeader.shoppingCartLink).not.toHaveAttribute('href');
-    await inventoryPage.pageHeader.shoppingCartLink.click();
-    await expect(page).toHaveURL(`${baseURL}/cart.html`);
   });
 });
