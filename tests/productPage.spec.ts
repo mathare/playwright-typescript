@@ -25,35 +25,35 @@ test.describe('Product page tests', () => {
 
     test.describe('Appearance tests', () => {
       test('Default element visibility', async () => {
-        await expect(productPage.headerContainer).toBeVisible();
-        await expect(productPage.menuButton).toBeVisible();
-        await expect(productPage.menu).not.toBeVisible();
-        await expect(productPage.title).toBeVisible();
-        await expect(productPage.shoppingCartLink).toBeVisible();
-        await expect(productPage.shoppingCartBadge).toHaveCount(0);
-        await expect(productPage.secondaryHeader).toBeVisible();
+        await expect(productPage.pageHeader.headerContainer).toBeVisible();
+        await expect(productPage.pageHeader.menuButton).toBeVisible();
+        await expect(productPage.pageHeader.menu).not.toBeVisible();
+        await expect(productPage.pageHeader.title).toBeVisible();
+        await expect(productPage.pageHeader.shoppingCartLink).toBeVisible();
+        await expect(productPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+        await expect(productPage.pageHeader.secondaryHeader).toBeVisible();
         await expect(productPage.backButton).toBeVisible();
         await expect(productPage.inventoryItem).toBeVisible();
         await expect(productPage.pageFooter.footer).toBeVisible();
       });
 
       test('Element visibility with menu open', async () => {
-        await productPage.menuButton.click();
-        await expect(productPage.menu).toBeVisible();
-        await expect(productPage.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
-        await expect(productPage.menuCloseButton).toBeVisible();
+        await productPage.pageHeader.menuButton.click();
+        await expect(productPage.pageHeader.menu).toBeVisible();
+        await expect(productPage.pageHeader.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
+        await expect(productPage.pageHeader.menuCloseButton).toBeVisible();
 
         // The menu obscures certain page elements but they still count as visible based on the Playwright definition
         // Therefore, rather than asserting on the state of the covered elements it is easier to test visually (below)
       });
 
       test('Text content of elements', async () => {
-        await expect(productPage.title).toHaveText(EXPECTED_TEXT.title);
+        await expect(productPage.pageHeader.title).toHaveText(EXPECTED_TEXT.title);
         await expect(productPage.backButton).toHaveText('Back to products');
 
-        await productPage.menuButton.click();
+        await productPage.pageHeader.menuButton.click();
         for (let i = 0; i < EXPECTED_TEXT.menuItems.length; i++) {
-          await expect(productPage.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
+          await expect(productPage.pageHeader.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
         }
       });
 
@@ -62,16 +62,16 @@ test.describe('Product page tests', () => {
         await expect(productPage.body).toHaveCSS('color', COLORS.textColor);
         await expect(productPage.body).toHaveCSS('font-size', '14px');
         // Menu button is in the top-left
-        await expect(productPage.menuButton).toHaveCSS('position', 'absolute');
-        await expect(productPage.menuButton).toHaveCSS('left', '0px');
-        await expect(productPage.menuButton).toHaveCSS('top', '0px');
-        await expect(productPage.title).toHaveCSS('font-size', '24px');
+        await expect(productPage.pageHeader.menuButton).toHaveCSS('position', 'absolute');
+        await expect(productPage.pageHeader.menuButton).toHaveCSS('left', '0px');
+        await expect(productPage.pageHeader.menuButton).toHaveCSS('top', '0px');
+        await expect(productPage.pageHeader.title).toHaveCSS('font-size', '24px');
         // Shopping cart link is in the top-right (within a container)
-        await expect(productPage.shoppingCartContainer).toHaveCSS('position', 'absolute');
-        await expect(productPage.shoppingCartContainer).toHaveCSS('right', '20px');
-        await expect(productPage.shoppingCartContainer).toHaveCSS('top', '10px');
-        await expect(productPage.shoppingCartContainer).toHaveCSS('width', '40px');
-        await expect(productPage.shoppingCartContainer).toHaveCSS('height', '40px');
+        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('position', 'absolute');
+        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('right', '20px');
+        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('top', '10px');
+        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('width', '40px');
+        await expect(productPage.pageHeader.shoppingCartContainer).toHaveCSS('height', '40px');
         await expect(productPage.backButton).toHaveCSS('font-size', '16px');
         await expect(productPage.backButton).toHaveCSS('font-weight', '500');
 
@@ -96,8 +96,8 @@ test.describe('Product page tests', () => {
         await productPage.cartButton.click();
 
         // Verify cart appearance in header
-        await expect(productPage.shoppingCartBadge).toBeVisible();
-        await expect(productPage.shoppingCartBadge).toHaveText('1');
+        await expect(productPage.pageHeader.shoppingCartBadge).toBeVisible();
+        await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
 
         // Verify button has updated correctly
         await productPage.verifyCartButtonStyle('remove');
@@ -105,11 +105,11 @@ test.describe('Product page tests', () => {
 
       test('Remove product from cart', async () => {
         await productPage.cartButton.click();
-        await expect(productPage.shoppingCartBadge).toHaveText('1');
+        await expect(productPage.pageHeader.shoppingCartBadge).toHaveText('1');
         await productPage.cartButton.click();
 
         // Verify cart appearance in header
-        await expect(productPage.shoppingCartBadge).toHaveCount(0);
+        await expect(productPage.pageHeader.shoppingCartBadge).toHaveCount(0);
 
         // Verify button has updated correctly
         await productPage.verifyCartButtonStyle('add');
@@ -126,7 +126,7 @@ test.describe('Product page tests', () => {
         });
 
         test('Menu open', async ({ page }) => {
-          await productPage.menuButton.click();
+          await productPage.pageHeader.menuButton.click();
           await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
         });
 
@@ -139,8 +139,8 @@ test.describe('Product page tests', () => {
 
     test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
       // The shopping cart link doesn't actually have an href attribute but still opens the cart page
-      await expect(productPage.shoppingCartLink).not.toHaveAttribute('href');
-      await productPage.shoppingCartLink.click();
+      await expect(productPage.pageHeader.shoppingCartLink).not.toHaveAttribute('href');
+      await productPage.pageHeader.shoppingCartLink.click();
       await expect(page).toHaveURL(`${baseURL}/cart.html`);
     });
 

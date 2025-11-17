@@ -14,13 +14,13 @@ test.describe('Inventory page tests', () => {
 
   test.describe('Appearance tests', () => {
     test('Default element visibility', async () => {
-      await expect(inventoryPage.headerContainer).toBeVisible();
-      await expect(inventoryPage.menuButton).toBeVisible();
-      await expect(inventoryPage.menu).not.toBeVisible();
-      await expect(inventoryPage.title).toBeVisible();
-      await expect(inventoryPage.shoppingCartLink).toBeVisible();
-      await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
-      await expect(inventoryPage.secondaryHeader).toBeVisible();
+      await expect(inventoryPage.pageHeader.headerContainer).toBeVisible();
+      await expect(inventoryPage.pageHeader.menuButton).toBeVisible();
+      await expect(inventoryPage.pageHeader.menu).not.toBeVisible();
+      await expect(inventoryPage.pageHeader.title).toBeVisible();
+      await expect(inventoryPage.pageHeader.shoppingCartLink).toBeVisible();
+      await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+      await expect(inventoryPage.pageHeader.secondaryHeader).toBeVisible();
       await expect(inventoryPage.subtitle).toBeVisible();
       await expect(inventoryPage.activeSortOption).toBeVisible();
       await expect(inventoryPage.sortSelect).toBeVisible();
@@ -30,10 +30,10 @@ test.describe('Inventory page tests', () => {
     });
 
     test('Element visibility with menu open', async () => {
-      await inventoryPage.menuButton.click();
-      await expect(inventoryPage.menu).toBeVisible();
-      await expect(inventoryPage.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
-      await expect(inventoryPage.menuCloseButton).toBeVisible();
+      await inventoryPage.pageHeader.menuButton.click();
+      await expect(inventoryPage.pageHeader.menu).toBeVisible();
+      await expect(inventoryPage.pageHeader.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
+      await expect(inventoryPage.pageHeader.menuCloseButton).toBeVisible();
 
       // The menu obscures certain page elements but they still count as visible based on the Playwright definition
       // Therefore, rather than asserting on the state of the covered elements it is easier to test visually (below)
@@ -41,14 +41,14 @@ test.describe('Inventory page tests', () => {
 
     // Verifying the details of each displayed product is done via a separate test
     test('Text content of elements', async () => {
-      await expect(inventoryPage.title).toHaveText(EXPECTED_TEXT.title);
+      await expect(inventoryPage.pageHeader.title).toHaveText(EXPECTED_TEXT.title);
       await expect(inventoryPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
       await expect(inventoryPage.activeSortOption).toHaveText(EXPECTED_TEXT.sortOptions[0]);
       await expect(inventoryPage.sortSelect).toHaveText(EXPECTED_TEXT.sortOptions.join(''));
 
-      await inventoryPage.menuButton.click();
+      await inventoryPage.pageHeader.menuButton.click();
       for (let i = 0; i < EXPECTED_TEXT.menuItems.length; i++) {
-        await expect(inventoryPage.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
+        await expect(inventoryPage.pageHeader.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
       }
     });
 
@@ -57,16 +57,16 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.body).toHaveCSS('color', COLORS.textColor);
       await expect(inventoryPage.body).toHaveCSS('font-size', '14px');
       // Menu button is in the top-left
-      await expect(inventoryPage.menuButton).toHaveCSS('position', 'absolute');
-      await expect(inventoryPage.menuButton).toHaveCSS('left', '0px');
-      await expect(inventoryPage.menuButton).toHaveCSS('top', '0px');
-      await expect(inventoryPage.title).toHaveCSS('font-size', '24px');
+      await expect(inventoryPage.pageHeader.menuButton).toHaveCSS('position', 'absolute');
+      await expect(inventoryPage.pageHeader.menuButton).toHaveCSS('left', '0px');
+      await expect(inventoryPage.pageHeader.menuButton).toHaveCSS('top', '0px');
+      await expect(inventoryPage.pageHeader.title).toHaveCSS('font-size', '24px');
       // Shopping cart link is in the top-right (within a container)
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('position', 'absolute');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('right', '20px');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('top', '10px');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('width', '40px');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('height', '40px');
+      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('position', 'absolute');
+      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('right', '20px');
+      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('top', '10px');
+      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('width', '40px');
+      await expect(inventoryPage.pageHeader.shoppingCartContainer).toHaveCSS('height', '40px');
       await expect(inventoryPage.subtitle).toHaveCSS('font-size', '18px');
       await expect(inventoryPage.subtitle).toHaveCSS('font-weight', '500');
       await expect(inventoryPage.activeSortOption).toHaveCSS('text-align', 'center');
@@ -78,7 +78,7 @@ test.describe('Inventory page tests', () => {
       });
 
       test('Menu open', async ({ page }) => {
-        await inventoryPage.menuButton.click();
+        await inventoryPage.pageHeader.menuButton.click();
         await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
       });
 
@@ -177,8 +177,8 @@ test.describe('Inventory page tests', () => {
         await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
 
         // Verify cart
-        await expect(inventoryPage.shoppingCartBadge).toBeVisible();
-        await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
 
         // Verify button on relevant product has changed correctly
         await inventoryPage.verifyCartButtonStyle(PRODUCT_INDEX, 'remove');
@@ -194,30 +194,30 @@ test.describe('Inventory page tests', () => {
       test('Add multiple products to cart', async () => {
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
-          await expect(inventoryPage.shoppingCartBadge).toHaveText(`${i + 1}`);
+          await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
           await inventoryPage.verifyCartButtonStyle(i, 'remove');
         }
       });
 
       test('Remove only product from cart', async () => {
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-        await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
 
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-        await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
         await inventoryPage.verifyCartButtonStyle(0, 'add');
       });
 
       test('Remove multiple products from cart', async () => {
         await inventoryPage.addAllProductsToCart();
-        await expect(inventoryPage.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS}`);
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS}`);
 
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
           if (i === NUM_PRODUCTS - 1) {
-            await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
+            await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
           } else {
-            await expect(inventoryPage.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS - (i + 1)}`);
+            await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS - (i + 1)}`);
           }
           await inventoryPage.verifyCartButtonStyle(i, 'add');
         }
@@ -265,8 +265,8 @@ test.describe('Inventory page tests', () => {
 
   test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
     // The shopping cart link doesn't actually have an href attribute but still opens the cart page
-    await expect(inventoryPage.shoppingCartLink).not.toHaveAttribute('href');
-    await inventoryPage.shoppingCartLink.click();
+    await expect(inventoryPage.pageHeader.shoppingCartLink).not.toHaveAttribute('href');
+    await inventoryPage.pageHeader.shoppingCartLink.click();
     await expect(page).toHaveURL(`${baseURL}/cart.html`);
   });
 });

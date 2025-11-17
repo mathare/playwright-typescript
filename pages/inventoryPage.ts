@@ -1,20 +1,12 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { PageFooter } from './components/pageFooter';
+import { PageHeader } from './components/pageHeader';
 
 export class InventoryPage {
   readonly url = '/inventory.html';
   readonly page: Page;
   readonly body: Locator;
-  readonly headerContainer: Locator;
-  readonly menuButton: Locator;
-  readonly menu: Locator;
-  readonly menuItem: Locator;
-  readonly menuCloseButton: Locator;
-  readonly title: Locator;
-  readonly shoppingCartContainer: Locator;
-  readonly shoppingCartLink: Locator;
-  readonly shoppingCartBadge: Locator;
-  readonly secondaryHeader: Locator;
+  readonly pageHeader: PageHeader;
   readonly subtitle: Locator;
   readonly activeSortOption: Locator;
   readonly sortSelect: Locator;
@@ -25,19 +17,10 @@ export class InventoryPage {
   constructor(page: Page) {
     this.page = page;
     this.body = page.locator('body');
-    this.headerContainer = page.getByTestId('header-container');
-    this.menuButton = this.headerContainer.locator('#react-burger-menu-btn');
-    this.menu = page.locator('div.bm-menu-wrap');
-    this.menuItem = this.menu.locator('a.menu-item');
-    this.menuCloseButton = this.menu.locator('#react-burger-cross-btn');
-    this.title = this.headerContainer.locator('div.app_logo');
-    this.shoppingCartContainer = this.headerContainer.locator('#shopping_cart_container');
-    this.shoppingCartLink = this.shoppingCartContainer.getByTestId('shopping-cart-link');
-    this.shoppingCartBadge = this.shoppingCartLink.getByTestId('shopping-cart-badge');
-    this.secondaryHeader = page.getByTestId('secondary-header');
-    this.subtitle = this.secondaryHeader.getByTestId('title');
-    this.activeSortOption = this.secondaryHeader.getByTestId('active-option');
-    this.sortSelect = this.secondaryHeader.getByTestId('product-sort-container');
+    this.pageHeader = new PageHeader(page);
+    this.subtitle = this.pageHeader.secondaryHeader.getByTestId('title');
+    this.activeSortOption = this.pageHeader.secondaryHeader.getByTestId('active-option');
+    this.sortSelect = this.pageHeader.secondaryHeader.getByTestId('product-sort-container');
     this.inventoryContainer = page.getByTestId('inventory-container');
     this.inventoryItem = this.inventoryContainer.getByTestId('inventory-item');
     this.pageFooter = new PageFooter(page);
