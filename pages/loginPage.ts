@@ -54,47 +54,47 @@ export class LoginPage {
   async inputHasValidationError(input: CredentialsInputs) {
     const INPUT_LOCATOR = this.#getInput(input);
     await expect(INPUT_LOCATOR).toContainClass('error');
-    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.INPUT_ERROR_BORDER_COLOR);
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.inputErrorBorderColor);
     await expect(INPUT_LOCATOR.locator('.. >> svg')).toBeVisible();
   }
 
   async inputDoesNotHaveValidationError(input: CredentialsInputs) {
     const INPUT_LOCATOR = this.#getInput(input);
     await expect(INPUT_LOCATOR).not.toContainClass('error');
-    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.INPUT_BORDER_COLOR);
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.inputBorderColor);
     await expect(INPUT_LOCATOR.locator('.. >> svg')).not.toBeVisible();
   }
 
   async errorMessageDisplayed(message: string) {
     await expect(this.errorContainer).toBeVisible();
-    await expect(this.errorContainer).toHaveCSS('background-color', COLORS.ERROR_BACKGROUND_COLOR);
-    await expect(this.errorMessage).toHaveCSS('color', COLORS.ERROR_TEXT_COLOR);
+    await expect(this.errorContainer).toHaveCSS('background-color', COLORS.errorBackgroundColor);
+    await expect(this.errorMessage).toHaveCSS('color', COLORS.errorTextColor);
     await expect(this.errorContainer).toHaveText(message);
   }
 }
 
 export const COLORS = {
-  CREDENTIALS_CONTAINER_BACKGROUND_COLOR: 'rgb(19, 35, 34)',
-  CREDENTIALS_CONTAINER_TEXT_COLOR: 'rgb(255, 255, 255)',
-  ERROR_BACKGROUND_COLOR: 'rgb(226, 35, 26)',
-  ERROR_TEXT_COLOR: 'rgb(255, 255, 255)',
-  INPUT_BORDER_COLOR: 'rgb(237, 237, 237)',
-  INPUT_ERROR_BORDER_COLOR: 'rgb(226, 35, 26)',
-  INPUT_TEXT_COLOR: 'rgb(72, 76, 85)',
-  LOGIN_BUTTON_BACKGROUND_COLOR: 'rgb(61, 220, 145)',
-  LOGIN_BUTTON_TEXT_COLOR: 'rgb(19, 35, 34)',
-  LOGIN_CONTAINER_BACKGROUND_COLOR: 'rgb(238, 252, 246)',
-  LOGIN_FORM_BACKGROUND_COLOR: 'rgb(255, 255, 255)',
-  TITLE_TEXT_COLOR: 'rgb(19, 35, 34)',
+  credentialsContainerBackgroundColor: 'rgb(19, 35, 34)',
+  credentialsContainerTextColor: 'rgb(255, 255, 255)',
+  errorBackgroundColor: 'rgb(226, 35, 26)',
+  errorTextColor: 'rgb(255, 255, 255)',
+  inputBorderColor: 'rgb(237, 237, 237)',
+  inputErrorBorderColor: 'rgb(226, 35, 26)',
+  inputTextColor: 'rgb(72, 76, 85)',
+  loginButtonBackgroundColor: 'rgb(61, 220, 145)',
+  loginButtonTextColor: 'rgb(19, 35, 34)',
+  loginContainerBackgroundColor: 'rgb(238, 252, 246)',
+  loginFormBackgroundColor: 'rgb(255, 255, 255)',
+  titleTextColor: 'rgb(19, 35, 34)',
 };
 
 export const EXPECTED_TEXT = {
-  TITLE: 'Swag Labs',
-  USERNAME_PLACEHOLDER: 'Username',
-  PASSWORD_PLACEHOLDER: 'Password',
-  LOGIN_BUTTON: 'Login',
-  USERNAMES_HEADER: 'Accepted usernames are:',
-  ACCEPTED_USERNAMES: [
+  title: 'Swag Labs',
+  usernamePlaceholder: 'Username',
+  passwordPlaceholder: 'Password',
+  loginButton: 'Login',
+  usernamesHeader: 'Accepted usernames are:',
+  acceptedUsernames: [
     'standard_user',
     'locked_out_user',
     'problem_user',
@@ -102,17 +102,17 @@ export const EXPECTED_TEXT = {
     'error_user',
     'visual_user',
   ],
-  PASSWORD_HEADER: 'Password for all users:',
-  PASSWORD: 'secret_sauce',
-  USERNAME_ERROR_MESSAGE: 'Epic sadface: Username is required',
-  PASSWORD_ERROR_MESSAGE: 'Epic sadface: Password is required',
-  INCORRECT_CREDENTIALS_ERROR_MESSAGE: 'Epic sadface: Username and password do not match any user in this service',
-  LOCKED_OUT_USER_ERROR_MESSAGE: 'Epic sadface: Sorry, this user has been locked out.',
+  passwordHeader: 'Password for all users:',
+  password: 'secret_sauce',
+  usernameErrorMessage: 'Epic sadface: Username is required',
+  passwordErrorMessage: 'Epic sadface: Password is required',
+  incorrectCredentialsErrorMessage: 'Epic sadface: Username and password do not match any user in this service',
+  lockedOutUserErrorMessage: 'Epic sadface: Sorry, this user has been locked out.',
 };
 
 export const FONT_SIZES = {
-  BUTTON: '16px',
-  HEADER: '16px',
-  STANDARD: '14px',
-  TITLE: '24px',
+  button: '16px',
+  header: '16px',
+  standard: '14px',
+  title: '24px',
 };

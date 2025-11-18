@@ -26,56 +26,56 @@ test.describe('Login page tests', () => {
     });
 
     test('Text content of elements', async () => {
-      await expect(loginPage.title).toHaveText(EXPECTED_TEXT.TITLE);
+      await expect(loginPage.title).toHaveText(EXPECTED_TEXT.title);
       await expect(loginPage.usernameInput).toBeEmpty();
-      await expect(loginPage.usernameInput).toHaveAttribute('placeholder', EXPECTED_TEXT.USERNAME_PLACEHOLDER);
+      await expect(loginPage.usernameInput).toHaveAttribute('placeholder', EXPECTED_TEXT.usernamePlaceholder);
       await expect(loginPage.passwordInput).toBeEmpty();
-      await expect(loginPage.passwordInput).toHaveAttribute('placeholder', EXPECTED_TEXT.PASSWORD_PLACEHOLDER);
-      await expect(loginPage.loginButton).toHaveText(EXPECTED_TEXT.LOGIN_BUTTON);
-      await expect(loginPage.usernamesHeader).toHaveText(EXPECTED_TEXT.USERNAMES_HEADER);
-      await expect(loginPage.passwordHeader).toHaveText(EXPECTED_TEXT.PASSWORD_HEADER);
+      await expect(loginPage.passwordInput).toHaveAttribute('placeholder', EXPECTED_TEXT.passwordPlaceholder);
+      await expect(loginPage.loginButton).toHaveText(EXPECTED_TEXT.loginButton);
+      await expect(loginPage.usernamesHeader).toHaveText(EXPECTED_TEXT.usernamesHeader);
+      await expect(loginPage.passwordHeader).toHaveText(EXPECTED_TEXT.passwordHeader);
       await expect(loginPage.usernames).toHaveText(
-        [EXPECTED_TEXT.USERNAMES_HEADER, ...EXPECTED_TEXT.ACCEPTED_USERNAMES].join('\n'),
+        [EXPECTED_TEXT.usernamesHeader, ...EXPECTED_TEXT.acceptedUsernames].join('\n'),
         {
           useInnerText: true,
         }
       );
-      await expect(loginPage.password).toHaveText(`${EXPECTED_TEXT.PASSWORD_HEADER}\n${EXPECTED_TEXT.PASSWORD}`, {
+      await expect(loginPage.password).toHaveText(`${EXPECTED_TEXT.passwordHeader}\n${EXPECTED_TEXT.password}`, {
         useInnerText: true,
       });
     });
 
     test('Element styling', async () => {
-      await expect(loginPage.loginContainer).toHaveCSS('background-color', COLORS.LOGIN_CONTAINER_BACKGROUND_COLOR);
-      await expect(loginPage.title).toHaveCSS('color', COLORS.TITLE_TEXT_COLOR);
-      await expect(loginPage.title).toHaveCSS('font-size', FONT_SIZES.TITLE);
+      await expect(loginPage.loginContainer).toHaveCSS('background-color', COLORS.loginContainerBackgroundColor);
+      await expect(loginPage.title).toHaveCSS('color', COLORS.titleTextColor);
+      await expect(loginPage.title).toHaveCSS('font-size', FONT_SIZES.title);
       await expect(loginPage.title).toHaveCSS('text-align', 'center');
       await expect(loginPage.usernameInput).toHaveAttribute('type', 'text');
-      await expect(loginPage.usernameInput).toHaveCSS('background-color', COLORS.LOGIN_FORM_BACKGROUND_COLOR);
-      await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', COLORS.INPUT_BORDER_COLOR);
-      await expect(loginPage.usernameInput).toHaveCSS('color', COLORS.INPUT_TEXT_COLOR);
-      await expect(loginPage.usernameInput).toHaveCSS('font-size', FONT_SIZES.STANDARD);
+      await expect(loginPage.usernameInput).toHaveCSS('background-color', COLORS.loginFormBackgroundColor);
+      await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', COLORS.inputBorderColor);
+      await expect(loginPage.usernameInput).toHaveCSS('color', COLORS.inputTextColor);
+      await expect(loginPage.usernameInput).toHaveCSS('font-size', FONT_SIZES.standard);
       await expect(loginPage.usernameInput).toHaveCSS('text-align', 'start');
       await expect(loginPage.passwordInput).toHaveAttribute('type', 'password');
-      await expect(loginPage.passwordInput).toHaveCSS('background-color', COLORS.LOGIN_FORM_BACKGROUND_COLOR);
-      await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', COLORS.INPUT_BORDER_COLOR);
-      await expect(loginPage.passwordInput).toHaveCSS('color', COLORS.INPUT_TEXT_COLOR);
-      await expect(loginPage.passwordInput).toHaveCSS('font-size', FONT_SIZES.STANDARD);
+      await expect(loginPage.passwordInput).toHaveCSS('background-color', COLORS.loginFormBackgroundColor);
+      await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', COLORS.inputBorderColor);
+      await expect(loginPage.passwordInput).toHaveCSS('color', COLORS.inputTextColor);
+      await expect(loginPage.passwordInput).toHaveCSS('font-size', FONT_SIZES.standard);
       await expect(loginPage.passwordInput).toHaveCSS('text-align', 'start');
       await expect(loginPage.loginButton).toContainClass('submit-button');
-      await expect(loginPage.loginButton).toHaveCSS('background-color', COLORS.LOGIN_BUTTON_BACKGROUND_COLOR);
-      await expect(loginPage.loginButton).toHaveCSS('border', `4px solid ${COLORS.LOGIN_BUTTON_BACKGROUND_COLOR}`);
-      await expect(loginPage.loginButton).toHaveCSS('color', COLORS.LOGIN_BUTTON_TEXT_COLOR);
-      await expect(loginPage.loginButton).toHaveCSS('font-size', FONT_SIZES.BUTTON);
+      await expect(loginPage.loginButton).toHaveCSS('background-color', COLORS.loginButtonBackgroundColor);
+      await expect(loginPage.loginButton).toHaveCSS('border', `4px solid ${COLORS.loginButtonBackgroundColor}`);
+      await expect(loginPage.loginButton).toHaveCSS('color', COLORS.loginButtonTextColor);
+      await expect(loginPage.loginButton).toHaveCSS('font-size', FONT_SIZES.button);
       await expect(loginPage.credentialsContainer).toHaveCSS(
         'background-color',
-        COLORS.CREDENTIALS_CONTAINER_BACKGROUND_COLOR
+        COLORS.credentialsContainerBackgroundColor
       );
-      await expect(loginPage.credentialsContainer).toHaveCSS('color', COLORS.CREDENTIALS_CONTAINER_TEXT_COLOR);
-      await expect(loginPage.credentialsContainer).toHaveCSS('font-size', FONT_SIZES.STANDARD);
-      await expect(loginPage.usernamesHeader).toHaveCSS('font-size', FONT_SIZES.HEADER);
+      await expect(loginPage.credentialsContainer).toHaveCSS('color', COLORS.credentialsContainerTextColor);
+      await expect(loginPage.credentialsContainer).toHaveCSS('font-size', FONT_SIZES.standard);
+      await expect(loginPage.usernamesHeader).toHaveCSS('font-size', FONT_SIZES.header);
       await expect(loginPage.usernamesHeader).toHaveCSS('font-weight', '700');
-      await expect(loginPage.passwordHeader).toHaveCSS('font-size', FONT_SIZES.HEADER);
+      await expect(loginPage.passwordHeader).toHaveCSS('font-size', FONT_SIZES.header);
       await expect(loginPage.passwordHeader).toHaveCSS('font-weight', '700');
     });
 
@@ -129,7 +129,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.USERNAME_ERROR_MESSAGE);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.usernameErrorMessage);
         await expect(page).toHaveURL(`${baseURL}/`);
       });
 
@@ -138,7 +138,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.USERNAME_ERROR_MESSAGE);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.usernameErrorMessage);
         await expect(page).toHaveURL(`${baseURL}/`);
       });
 
@@ -147,7 +147,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.PASSWORD_ERROR_MESSAGE);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.passwordErrorMessage);
         await expect(page).toHaveURL(`${baseURL}/`);
       });
 
@@ -157,7 +157,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.INCORRECT_CREDENTIALS_ERROR_MESSAGE);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.incorrectCredentialsErrorMessage);
         await expect(page).toHaveURL(`${baseURL}/`);
       });
 
@@ -167,7 +167,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.INCORRECT_CREDENTIALS_ERROR_MESSAGE);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.incorrectCredentialsErrorMessage);
         await expect(page).toHaveURL(`${baseURL}/`);
       });
 
@@ -175,8 +175,8 @@ test.describe('Login page tests', () => {
         await loginPage.usernameInput.fill('locked_out_user');
         await loginPage.passwordInput.fill(PASSWORD);
         await loginPage.loginButton.click();
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.LOCKED_OUT_USER_ERROR_MESSAGE);
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.LOCKED_OUT_USER_ERROR_MESSAGE);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.lockedOutUserErrorMessage);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.lockedOutUserErrorMessage);
         await expect(page).toHaveURL(`${baseURL}/`);
       });
 
@@ -190,7 +190,7 @@ test.describe('Login page tests', () => {
         await loginPage.inputDoesNotHaveValidationError('username');
         await loginPage.inputDoesNotHaveValidationError('password');
         // The error container is still visible on the page but is white and empty
-        await expect(loginPage.errorContainer).toHaveCSS('background-color', COLORS.LOGIN_FORM_BACKGROUND_COLOR);
+        await expect(loginPage.errorContainer).toHaveCSS('background-color', COLORS.loginFormBackgroundColor);
         await expect(loginPage.errorContainer).toBeEmpty();
       });
     });
