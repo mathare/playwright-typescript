@@ -2,7 +2,6 @@ import test, { expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
 import { InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
-import { UAParser } from 'ua-parser-js';
 
 // This spec makes a not unreasonable assumption that the header displayed at the top of all pages
 // expect the login page is mostly the same across all pages. As such, the main assertions are performed
@@ -70,7 +69,9 @@ test.describe('Page header tests', () => {
           (productIds) => localStorage.setItem('cart-contents', `[${productIds.join()}]`),
           productIds
         );
-        await page.reload();
+        // Reopen the page to pick up the local storage change
+        // NB page.reload() doesn't seem to work on webkit browsers on Linux so use .goto()
+        await page.goto(inventoryPage.url);
         await expect(pageHeader.shoppingCartBadge).toBeVisible();
         await expect(pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
       }
@@ -86,6 +87,8 @@ test.describe('Page header tests', () => {
 
       test('Products in cart', async ({ page }) => {
         await page.evaluate(() => localStorage.setItem('cart-contents', '[0,1]'));
+        // Reopen the page to pick up the local storage change
+        // NB page.reload() doesn't seem to work on webkit browsers on Linux so use .goto()
         await page.goto(inventoryPage.url);
         await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
       });
