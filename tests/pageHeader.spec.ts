@@ -87,7 +87,7 @@ test.describe('Page header tests', () => {
       test('Products in cart', async ({ page, browserName }) => {
         test.skip(browserName === 'webkit', 'Page reload seems to fail for webkit on Linux');
         await page.evaluate(() => localStorage.setItem('cart-contents', '[0,1]'));
-        await page.reload();
+        await page.goto(inventoryPage.url);
         await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
       });
     });
