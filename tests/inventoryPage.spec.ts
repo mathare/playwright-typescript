@@ -1,12 +1,5 @@
-import { test, expect } from '@playwright/test';
-import {
-  COLORS,
-  EXPECTED_TEXT,
-  InventoryPage,
-  PRODUCT_ELEMENTS,
-  PRODUCT_INFO,
-  SOCIAL_LINKS,
-} from '../pages/inventoryPage';
+import { test, expect, BrowserContext } from '@playwright/test';
+import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS, PRODUCT_INFO } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 
 test.describe('Inventory page tests', () => {
@@ -21,28 +14,20 @@ test.describe('Inventory page tests', () => {
 
   test.describe('Appearance tests', () => {
     test('Default element visibility', async () => {
-      await expect(inventoryPage.headerContainer).toBeVisible();
-      await expect(inventoryPage.menuButton).toBeVisible();
-      await expect(inventoryPage.menu).not.toBeVisible();
-      await expect(inventoryPage.title).toBeVisible();
-      await expect(inventoryPage.shoppingCartLink).toBeVisible();
-      await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
-      await expect(inventoryPage.secondaryHeader).toBeVisible();
+      await expect(inventoryPage.pageHeader.headerContainer).toBeVisible();
       await expect(inventoryPage.subtitle).toBeVisible();
       await expect(inventoryPage.activeSortOption).toBeVisible();
       await expect(inventoryPage.sortSelect).toBeVisible();
       await expect(inventoryPage.inventoryContainer).toBeVisible();
       await expect(inventoryPage.inventoryItem).toHaveCount(PRODUCT_INFO.length);
-      await expect(inventoryPage.footer).toBeVisible();
-      await expect(inventoryPage.socialMediaItem).toHaveCount(EXPECTED_TEXT.socialMedia.length);
-      await expect(inventoryPage.footerCopy).toBeVisible();
+      await expect(inventoryPage.pageFooter.footer).toBeVisible();
     });
 
     test('Element visibility with menu open', async () => {
-      await inventoryPage.menuButton.click();
-      await expect(inventoryPage.menu).toBeVisible();
-      await expect(inventoryPage.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
-      await expect(inventoryPage.menuCloseButton).toBeVisible();
+      await inventoryPage.pageHeader.menuButton.click();
+      await expect(inventoryPage.pageHeader.menu).toBeVisible();
+      await expect(inventoryPage.pageHeader.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
+      await expect(inventoryPage.pageHeader.menuCloseButton).toBeVisible();
 
       // The menu obscures certain page elements but they still count as visible based on the Playwright definition
       // Therefore, rather than asserting on the state of the covered elements it is easier to test visually (below)
@@ -50,18 +35,13 @@ test.describe('Inventory page tests', () => {
 
     // Verifying the details of each displayed product is done via a separate test
     test('Text content of elements', async () => {
-      await expect(inventoryPage.title).toHaveText(EXPECTED_TEXT.title);
       await expect(inventoryPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
       await expect(inventoryPage.activeSortOption).toHaveText(EXPECTED_TEXT.sortOptions[0]);
       await expect(inventoryPage.sortSelect).toHaveText(EXPECTED_TEXT.sortOptions.join(''));
-      for (let i = 0; i < EXPECTED_TEXT.socialMedia.length; i++) {
-        await expect(inventoryPage.socialMediaItem.nth(i)).toHaveText(EXPECTED_TEXT.socialMedia[i]);
-      }
-      await expect(inventoryPage.footerCopy).toHaveText(EXPECTED_TEXT.footer);
 
-      await inventoryPage.menuButton.click();
+      await inventoryPage.pageHeader.menuButton.click();
       for (let i = 0; i < EXPECTED_TEXT.menuItems.length; i++) {
-        await expect(inventoryPage.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
+        await expect(inventoryPage.pageHeader.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
       }
     });
 
@@ -69,31 +49,10 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.body).toHaveCSS('background-color', COLORS.backgroundColor);
       await expect(inventoryPage.body).toHaveCSS('color', COLORS.textColor);
       await expect(inventoryPage.body).toHaveCSS('font-size', '14px');
-      // Menu button is in the top-left
-      await expect(inventoryPage.menuButton).toHaveCSS('position', 'absolute');
-      await expect(inventoryPage.menuButton).toHaveCSS('left', '0px');
-      await expect(inventoryPage.menuButton).toHaveCSS('top', '0px');
-      await expect(inventoryPage.title).toHaveCSS('font-size', '24px');
-      // Shopping cart link is in the top-right (within a container)
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('position', 'absolute');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('right', '20px');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('top', '10px');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('width', '40px');
-      await expect(inventoryPage.shoppingCartContainer).toHaveCSS('height', '40px');
+
       await expect(inventoryPage.subtitle).toHaveCSS('font-size', '18px');
       await expect(inventoryPage.subtitle).toHaveCSS('font-weight', '500');
       await expect(inventoryPage.activeSortOption).toHaveCSS('text-align', 'center');
-
-      await expect(inventoryPage.footer).toHaveCSS('background-color', COLORS.footerBackgroundColor);
-      const numSocialMediaItems = await inventoryPage.socialMediaItem.count();
-      const regex = '^url\\("data:image\\/png;base64,[A-Za-z0-9+\\/=\\"\\)]*$';
-      for (let i = 0; i < numSocialMediaItems; i++) {
-        // Social media items each have a different base64-encoded background image so verify against a regex
-        await expect(inventoryPage.socialMediaItem.nth(i)).toHaveCSS('background-image', new RegExp(regex));
-        await expect(inventoryPage.socialMediaLink.nth(i)).toHaveCSS('color', COLORS.socialLinkTextColor);
-        await expect(inventoryPage.socialMediaLink.nth(i)).toHaveCSS('font-size', '0px');
-      }
-      await expect(inventoryPage.footerCopy).toHaveCSS('color', COLORS.footerTextColor);
     });
 
     test.describe('Visual tests', () => {
@@ -102,7 +61,7 @@ test.describe('Inventory page tests', () => {
       });
 
       test('Menu open', async ({ page }) => {
-        await inventoryPage.menuButton.click();
+        await inventoryPage.pageHeader.menuButton.click();
         await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
       });
 
@@ -196,13 +155,22 @@ test.describe('Inventory page tests', () => {
     });
 
     test.describe('Add products to cart & remove', () => {
-      test('Add product to cart', async () => {
+      // Which products are in the cart is tracked via a cart-contents array in local storage.
+      // As each product can only be added to the cart once it uses an array of product IDs.
+      // The length of this array is used to determine the badge to display over the cart in
+      // the header, as tested in the page header spec. So all we need to test here is that
+      // product IDs are added to the cart-contents array in local storage correctly
+
+      let cartContents: Record<string, string | string[]>;
+      let productIDs: string;
+
+      test('Add product to cart', async ({ context }) => {
         const PRODUCT_INDEX = Math.floor(Math.random() * NUM_PRODUCTS);
         await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.button).click();
 
-        // Verify cart
-        await expect(inventoryPage.shoppingCartBadge).toBeVisible();
-        await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+        // Verify product ID added to cart contents in local storage
+        cartContents = await getCartContentsFromLocalStorage(context);
+        expect(cartContents.value).toEqual(`[${PRODUCT_INFO[PRODUCT_INDEX].id}]`);
 
         // Verify button on relevant product has changed correctly
         await inventoryPage.verifyCartButtonStyle(PRODUCT_INDEX, 'remove');
@@ -215,34 +183,39 @@ test.describe('Inventory page tests', () => {
         }
       });
 
-      test('Add multiple products to cart', async () => {
+      test('Add multiple products to cart', async ({ context }) => {
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
-          await expect(inventoryPage.shoppingCartBadge).toHaveText(`${i + 1}`);
+          cartContents = await getCartContentsFromLocalStorage(context);
+          productIDs = `[${PRODUCT_INFO.slice(0, i + 1)
+            .map((product) => product.id)
+            .join()}]`;
+          expect(cartContents.value).toEqual(productIDs);
           await inventoryPage.verifyCartButtonStyle(i, 'remove');
         }
       });
 
-      test('Remove only product from cart', async () => {
+      test('Remove only product from cart', async ({ context }) => {
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-        await expect(inventoryPage.shoppingCartBadge).toHaveText('1');
+        cartContents = await getCartContentsFromLocalStorage(context);
+        expect(cartContents.value).toEqual(`[${PRODUCT_INFO[0].id}]`);
 
         await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-        await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
+        cartContents = await getCartContentsFromLocalStorage(context);
+        expect(cartContents.value).toEqual('[]');
         await inventoryPage.verifyCartButtonStyle(0, 'add');
       });
 
-      test('Remove multiple products from cart', async () => {
+      test('Remove multiple products from cart', async ({ context }) => {
         await inventoryPage.addAllProductsToCart();
-        await expect(inventoryPage.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS}`);
 
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
-          if (i === NUM_PRODUCTS - 1) {
-            await expect(inventoryPage.shoppingCartBadge).toHaveCount(0);
-          } else {
-            await expect(inventoryPage.shoppingCartBadge).toHaveText(`${NUM_PRODUCTS - (i + 1)}`);
-          }
+          cartContents = await getCartContentsFromLocalStorage(context);
+          productIDs = `[${PRODUCT_INFO.slice(i + 1)
+            .map((product) => product.id)
+            .join()}]`;
+          expect(cartContents.value).toEqual(productIDs);
           await inventoryPage.verifyCartButtonStyle(i, 'add');
         }
       });
@@ -286,19 +259,9 @@ test.describe('Inventory page tests', () => {
       });
     }
   });
-
-  test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
-    // The shopping cart link doesn't actually have an href attribute but still opens the cart page
-    await expect(inventoryPage.shoppingCartLink).not.toHaveAttribute('href');
-    await inventoryPage.shoppingCartLink.click();
-    await expect(page).toHaveURL(`${baseURL}/cart.html`);
-  });
-
-  test('Social media links open relevant page in new tab', async () => {
-    for (let i = 0; i < SOCIAL_LINKS.length; i++) {
-      await expect(inventoryPage.socialMediaLink.nth(i)).toHaveAttribute('href', SOCIAL_LINKS[i]);
-      await expect(inventoryPage.socialMediaLink.nth(i)).toHaveAttribute('target', '_blank');
-      await expect(inventoryPage.socialMediaLink.nth(i)).toHaveAttribute('rel', 'noreferrer');
-    }
-  });
 });
+
+const getCartContentsFromLocalStorage = async (context: BrowserContext) => {
+  const storageState = await context.storageState();
+  return storageState.origins![0].localStorage.filter((item) => item.name === 'cart-contents')[0];
+};

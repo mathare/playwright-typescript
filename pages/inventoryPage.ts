@@ -1,51 +1,29 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { PageFooter } from './components/pageFooter';
+import { PageHeader } from './components/pageHeader';
 
 export class InventoryPage {
   readonly url = '/inventory.html';
   readonly page: Page;
   readonly body: Locator;
-  readonly headerContainer: Locator;
-  readonly menuButton: Locator;
-  readonly menu: Locator;
-  readonly menuItem: Locator;
-  readonly menuCloseButton: Locator;
-  readonly title: Locator;
-  readonly shoppingCartContainer: Locator;
-  readonly shoppingCartLink: Locator;
-  readonly shoppingCartBadge: Locator;
-  readonly secondaryHeader: Locator;
+  readonly pageHeader: PageHeader;
   readonly subtitle: Locator;
   readonly activeSortOption: Locator;
   readonly sortSelect: Locator;
   readonly inventoryContainer: Locator;
   readonly inventoryItem: Locator;
-  readonly footer: Locator;
-  readonly socialMediaItem: Locator;
-  readonly socialMediaLink: Locator;
-  readonly footerCopy: Locator;
+  readonly pageFooter: PageFooter;
 
   constructor(page: Page) {
     this.page = page;
     this.body = page.locator('body');
-    this.headerContainer = page.getByTestId('header-container');
-    this.menuButton = this.headerContainer.locator('#react-burger-menu-btn');
-    this.menu = page.locator('div.bm-menu-wrap');
-    this.menuItem = this.menu.locator('a.menu-item');
-    this.menuCloseButton = this.menu.locator('#react-burger-cross-btn');
-    this.title = this.headerContainer.locator('div.app_logo');
-    this.shoppingCartContainer = this.headerContainer.locator('#shopping_cart_container');
-    this.shoppingCartLink = this.shoppingCartContainer.getByTestId('shopping-cart-link');
-    this.shoppingCartBadge = this.shoppingCartLink.getByTestId('shopping-cart-badge');
-    this.secondaryHeader = page.getByTestId('secondary-header');
-    this.subtitle = this.secondaryHeader.getByTestId('title');
-    this.activeSortOption = this.secondaryHeader.getByTestId('active-option');
-    this.sortSelect = this.secondaryHeader.getByTestId('product-sort-container');
+    this.pageHeader = new PageHeader(page);
+    this.subtitle = this.pageHeader.secondaryHeader.getByTestId('title');
+    this.activeSortOption = this.pageHeader.secondaryHeader.getByTestId('active-option');
+    this.sortSelect = this.pageHeader.secondaryHeader.getByTestId('product-sort-container');
     this.inventoryContainer = page.getByTestId('inventory-container');
     this.inventoryItem = this.inventoryContainer.getByTestId('inventory-item');
-    this.footer = page.getByTestId('footer');
-    this.socialMediaItem = this.footer.locator('ul.social li');
-    this.socialMediaLink = this.socialMediaItem.locator('a');
-    this.footerCopy = this.footer.getByTestId('footer-copy');
+    this.pageFooter = new PageFooter(page);
   }
 
   // *******
@@ -80,11 +58,8 @@ export class InventoryPage {
 }
 
 export const EXPECTED_TEXT = {
-  title: 'Swag Labs',
   subtitle: 'Products',
   sortOptions: ['Name (A to Z)', 'Name (Z to A)', 'Price (low to high)', 'Price (high to low)'],
-  socialMedia: ['Twitter', 'Facebook', 'LinkedIn'],
-  footer: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
   menuItems: ['All Items', 'About', 'Logout', 'Reset App State'],
   addToCartButton: 'Add to cart',
   removeButton: 'Remove',
@@ -97,10 +72,6 @@ export const COLORS = {
   productTitleColor: 'rgb(24, 88, 58)',
   addButtonColor: 'rgb(19, 35, 34)',
   removeButtonColor: 'rgb(226, 35, 26)',
-  footerBackgroundColor: 'rgb(19, 35, 34)',
-  footerTextColor: 'rgb(255, 255, 255)',
-  socialLinkBackgroundColor: 'rgb()',
-  socialLinkTextColor: 'rgb(0, 0, 238)',
 };
 
 export const PRODUCT_INFO = [
@@ -167,9 +138,3 @@ export enum PRODUCT_ELEMENTS {
   price = 'div.inventory_item_price',
   button = 'button',
 }
-
-export const SOCIAL_LINKS = [
-  'https://twitter.com/saucelabs',
-  'https://www.facebook.com/saucelabs',
-  'https://www.linkedin.com/company/sauce-labs/',
-];
