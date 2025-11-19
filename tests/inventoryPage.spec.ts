@@ -62,7 +62,7 @@ test.describe('Inventory page tests', () => {
   test.describe('Product tests', () => {
     const NUM_PRODUCTS = PRODUCT_INFO.length;
 
-    test('Product styling', async () => {
+    test('Default product styling', async () => {
       for (let i = 0; i < NUM_PRODUCTS; i++) {
         await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('border', `1px solid ${COLORS.productBorderColor}`);
         await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('border-radius', '8px');
@@ -77,6 +77,16 @@ test.describe('Inventory page tests', () => {
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveCSS('font-weight', '500');
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-size', '16px');
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-weight', '500');
+      }
+    });
+
+    test('Product title changes style on hover', async () => {
+      for (let i = 0; i < NUM_PRODUCTS; i++) {
+        await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).hover();
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS(
+          'color',
+          COLORS.productHoverColor
+        );
       }
     });
 
