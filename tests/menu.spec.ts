@@ -1,9 +1,10 @@
 import test, { expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
-import { InventoryPage, PRODUCT_ELEMENTS, PRODUCT_INFO } from '../pages/inventoryPage';
+import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { COLORS, EXPECTED_TEXT, LINKS, Menu } from '../pages/components/menu';
 import { PageHeader } from '../pages/components/pageHeader';
 import { ProductPage } from '../pages/productPage';
+import { PRODUCT_INFO } from '../data/products';
 
 // This spec makes a not unreasonable assumption that the menu is the same across all pages.
 // As such, the main assertions are performed against a single page (the inventory page).
