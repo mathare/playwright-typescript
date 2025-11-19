@@ -1,5 +1,4 @@
 import { expect, Locator, Page } from '@playwright/test';
-import { COLORS, EXPECTED_TEXT } from './inventoryPage';
 import { PageFooter } from './components/pageFooter';
 import { PageHeader } from './components/pageHeader';
 
@@ -46,3 +45,18 @@ export class ProductPage {
     await expect(this.cartButton).toHaveCSS('color', BUTTON_COLOR);
   }
 }
+
+export const EXPECTED_TEXT = {
+  addToCartButton: 'Add to cart',
+  removeButton: 'Remove',
+};
+
+export const COLORS = {
+  backgroundColor: 'rgb(255, 255, 255)',
+  textColor: 'rgb(19, 35, 34)',
+  backButtonHoverColor: 'rgb(61, 220, 145)',
+  productBorderColor: 'rgb(237, 237, 237)',
+  productTitleColor: 'rgb(24, 88, 58)',
+  addButtonColor: 'rgb(19, 35, 34)',
+  removeButtonColor: 'rgb(226, 35, 26)',
+};
