@@ -25,7 +25,7 @@ test.describe('Page header tests', () => {
     test('Default element visibility', async () => {
       await expect(pageHeader.headerContainer).toBeVisible();
       await expect(pageHeader.menuButton).toBeVisible();
-      await expect(pageHeader.menu).not.toBeVisible();
+      await expect(pageHeader.menu.menu).not.toBeVisible();
       await expect(pageHeader.title).toBeVisible();
       await expect(pageHeader.shoppingCartLink).toBeVisible();
       await expect(pageHeader.shoppingCartBadge).toHaveCount(0);

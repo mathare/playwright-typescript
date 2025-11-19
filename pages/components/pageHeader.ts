@@ -1,13 +1,12 @@
 import { Locator, Page } from '@playwright/test';
+import { Menu } from './menu';
 
 export class PageHeader {
   readonly page: Page;
   readonly headerContainer: Locator;
   readonly primaryHeader: Locator;
   readonly menuButton: Locator;
-  readonly menu: Locator;
-  readonly menuItem: Locator;
-  readonly menuCloseButton: Locator;
+  readonly menu: Menu;
   readonly title: Locator;
   readonly shoppingCartContainer: Locator;
   readonly shoppingCartLink: Locator;
@@ -19,9 +18,7 @@ export class PageHeader {
     this.headerContainer = page.getByTestId('header-container');
     this.primaryHeader = this.headerContainer.getByTestId('primary-header');
     this.menuButton = this.primaryHeader.locator('#react-burger-menu-btn');
-    this.menu = page.locator('div.bm-menu-wrap');
-    this.menuItem = this.menu.locator('a.menu-item');
-    this.menuCloseButton = this.menu.locator('#react-burger-cross-btn');
+    this.menu = new Menu(page);
     this.title = this.primaryHeader.locator('div.app_logo');
     this.shoppingCartContainer = this.primaryHeader.locator('#shopping_cart_container');
     this.shoppingCartLink = this.shoppingCartContainer.getByTestId('shopping-cart-link');

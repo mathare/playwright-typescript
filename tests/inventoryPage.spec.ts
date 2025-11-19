@@ -23,26 +23,11 @@ test.describe('Inventory page tests', () => {
       await expect(inventoryPage.pageFooter.footer).toBeVisible();
     });
 
-    test('Element visibility with menu open', async () => {
-      await inventoryPage.pageHeader.menuButton.click();
-      await expect(inventoryPage.pageHeader.menu).toBeVisible();
-      await expect(inventoryPage.pageHeader.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
-      await expect(inventoryPage.pageHeader.menuCloseButton).toBeVisible();
-
-      // The menu obscures certain page elements but they still count as visible based on the Playwright definition
-      // Therefore, rather than asserting on the state of the covered elements it is easier to test visually (below)
-    });
-
     // Verifying the details of each displayed product is done via a separate test
     test('Text content of elements', async () => {
       await expect(inventoryPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
       await expect(inventoryPage.activeSortOption).toHaveText(EXPECTED_TEXT.sortOptions[0]);
       await expect(inventoryPage.sortSelect).toHaveText(EXPECTED_TEXT.sortOptions.join(''));
-
-      await inventoryPage.pageHeader.menuButton.click();
-      for (let i = 0; i < EXPECTED_TEXT.menuItems.length; i++) {
-        await expect(inventoryPage.pageHeader.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
-      }
     });
 
     test('Element styling', async () => {
