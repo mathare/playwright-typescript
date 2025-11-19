@@ -249,7 +249,7 @@ test.describe('Inventory page tests', () => {
     });
 
     for (let i = 0; i < NUM_PRODUCTS; i++) {
-      test.describe(` ${PRODUCT_INFO[i].title} link tests`, () => {
+      test.describe(` ${PRODUCT_INFO[i].shortName} link tests`, () => {
         test(`Clicking title opens product page`, async ({ page, baseURL }) => {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
           await expect(page).toHaveURL(`${baseURL}/inventory-item.html?id=${PRODUCT_INFO[i].id}`);
