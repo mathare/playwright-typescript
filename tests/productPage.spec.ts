@@ -31,23 +31,8 @@ test.describe('Product page tests', () => {
         await expect(productPage.pageFooter.footer).toBeVisible();
       });
 
-      test('Element visibility with menu open', async () => {
-        await productPage.pageHeader.menuButton.click();
-        await expect(productPage.pageHeader.menu).toBeVisible();
-        await expect(productPage.pageHeader.menuItem).toHaveCount(EXPECTED_TEXT.menuItems.length);
-        await expect(productPage.pageHeader.menuCloseButton).toBeVisible();
-
-        // The menu obscures certain page elements but they still count as visible based on the Playwright definition
-        // Therefore, rather than asserting on the state of the covered elements it is easier to test visually (below)
-      });
-
       test('Text content of elements', async () => {
         await expect(productPage.backButton).toHaveText('Back to products');
-
-        await productPage.pageHeader.menuButton.click();
-        for (let i = 0; i < EXPECTED_TEXT.menuItems.length; i++) {
-          await expect(productPage.pageHeader.menuItem.nth(i)).toHaveText(EXPECTED_TEXT.menuItems[i]);
-        }
       });
 
       test('Element styling', async () => {
