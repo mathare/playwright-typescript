@@ -50,9 +50,11 @@ test.describe('Inventory page tests', () => {
         await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
       });
 
-      test('Products added to cart', async ({ page }) => {
+      test('Products added to cart', async () => {
         await inventoryPage.addAllProductsToCart();
-        await expect(page).toHaveScreenshot('productsInCart.png', { fullPage: true });
+        // Limit this image comparison to only the elements that have changed to reduce
+        // dependencies on other elements that might change e.g. page header and footer
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot('productsInCart.png');
       });
     });
   });
@@ -60,7 +62,7 @@ test.describe('Inventory page tests', () => {
   test.describe('Product tests', () => {
     const NUM_PRODUCTS = PRODUCT_INFO.length;
 
-    test('Product styling', async () => {
+    test('Default product styling', async () => {
       for (let i = 0; i < NUM_PRODUCTS; i++) {
         await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('border', `1px solid ${COLORS.productBorderColor}`);
         await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('border-radius', '8px');
@@ -75,6 +77,16 @@ test.describe('Inventory page tests', () => {
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveCSS('font-weight', '500');
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-size', '16px');
         await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-weight', '500');
+      }
+    });
+
+    test('Product title changes style on hover', async () => {
+      for (let i = 0; i < NUM_PRODUCTS; i++) {
+        await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).hover();
+        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS(
+          'color',
+          COLORS.productHoverColor
+        );
       }
     });
 
@@ -220,8 +232,24 @@ test.describe('Inventory page tests', () => {
       }
     });
 
+    test('Cursor changes when over title, img and cart button', async () => {
+      const pointerElements = ['title', 'img', 'button'];
+      const productElements = Object.keys(PRODUCT_ELEMENTS);
+      for (let i = 0; i < NUM_PRODUCTS; i++) {
+        for (let j = 0; j < productElements.length; j++) {
+          const productElement = inventoryPage.getProductElement(
+            i,
+            PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
+          );
+          await productElement.hover();
+          const cursorStyle = pointerElements.includes(productElements[j]) ? 'pointer' : 'auto';
+          await expect(productElement).toHaveCSS('cursor', cursorStyle);
+        }
+      }
+    });
+
     for (let i = 0; i < NUM_PRODUCTS; i++) {
-      test.describe(` ${PRODUCT_INFO[i].title} link tests`, () => {
+      test.describe(` ${PRODUCT_INFO[i].shortName} link tests`, () => {
         test(`Clicking title opens product page`, async ({ page, baseURL }) => {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
           await expect(page).toHaveURL(`${baseURL}/inventory-item.html?id=${PRODUCT_INFO[i].id}`);

@@ -37,6 +37,8 @@ export class InventoryPage {
     for (let i = 0; i < PRODUCT_INFO.length; i++) {
       await this.getProductElement(i, PRODUCT_ELEMENTS.button).click();
     }
+    // Ensure none of the product items have focus
+    await this.body.click();
   }
 
   // **********
@@ -69,6 +71,7 @@ export const COLORS = {
   textColor: 'rgb(19, 35, 34)',
   productBorderColor: 'rgb(237, 237, 237)',
   productTitleColor: 'rgb(24, 88, 58)',
+  productHoverColor: 'rgb(61, 220, 145)',
   addButtonColor: 'rgb(19, 35, 34)',
   removeButtonColor: 'rgb(226, 35, 26)',
 };
