@@ -1,7 +1,7 @@
 import test, { BrowserContext, expect } from '@playwright/test';
-import { ProductPage } from '../pages/productPage';
+import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
 import { LoginPage } from '../pages/loginPage';
-import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
+import { InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
 
 test.describe('Product page tests', () => {
   let productPage: ProductPage;
@@ -58,6 +58,11 @@ test.describe('Product page tests', () => {
         await expect(productPage.cartButton).toHaveCSS('font-size', '16px');
         await expect(productPage.cartButton).toHaveCSS('font-weight', '500');
         await expect(productPage.cartButton).toHaveCSS('width', '160px');
+      });
+
+      test('Back button style updates on hover', async () => {
+        await productPage.backButton.hover();
+        await expect(productPage.backButton).toHaveCSS('color', COLORS.backButtonHoverColor);
       });
 
       test.describe('Add to cart & remove', () => {
