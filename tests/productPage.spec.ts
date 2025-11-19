@@ -1,7 +1,8 @@
 import test, { BrowserContext, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
 import { LoginPage } from '../pages/loginPage';
-import { InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
+import { InventoryPage } from '../pages/inventoryPage';
+import { PRODUCT_INFO } from '../data/products';
 
 test.describe('Product page tests', () => {
   let productPage: ProductPage;

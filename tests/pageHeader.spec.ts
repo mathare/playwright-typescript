@@ -1,7 +1,8 @@
 import test, { expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
-import { InventoryPage, PRODUCT_INFO } from '../pages/inventoryPage';
+import { InventoryPage } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
+import { PRODUCT_INFO } from '../data/products';
 
 // This spec makes a not unreasonable assumption that the header displayed at the top of all pages
 // expect the login page is mostly the same across all pages. As such, the main assertions are performed
