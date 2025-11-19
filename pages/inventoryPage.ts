@@ -37,6 +37,8 @@ export class InventoryPage {
     for (let i = 0; i < PRODUCT_INFO.length; i++) {
       await this.getProductElement(i, PRODUCT_ELEMENTS.button).click();
     }
+    // Ensure none of the product items have focus
+    await this.body.click();
   }
 
   // **********

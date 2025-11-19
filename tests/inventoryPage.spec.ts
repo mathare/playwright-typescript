@@ -50,9 +50,11 @@ test.describe('Inventory page tests', () => {
         await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
       });
 
-      test('Products added to cart', async ({ page }) => {
+      test('Products added to cart', async () => {
         await inventoryPage.addAllProductsToCart();
-        await expect(page).toHaveScreenshot('productsInCart.png', { fullPage: true });
+        // Limit this image comparison to only the elements that have changed to reduce
+        // dependencies on other elements that might change e.g. page header and footer
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot('productsInCart.png');
       });
     });
   });
