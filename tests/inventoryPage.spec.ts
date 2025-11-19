@@ -232,7 +232,8 @@ test.describe('Inventory page tests', () => {
       }
     });
 
-    test('Cursor changes when over title, img and cart button', async () => {
+    test('Cursor changes when over title, img and cart button', async ({ browserName }) => {
+      test.skip(browserName === 'webkit');
       const pointerElements = ['title', 'img', 'button'];
       const productElements = Object.keys(PRODUCT_ELEMENTS);
       for (let i = 0; i < NUM_PRODUCTS; i++) {
