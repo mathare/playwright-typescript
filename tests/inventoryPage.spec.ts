@@ -232,6 +232,22 @@ test.describe('Inventory page tests', () => {
       }
     });
 
+    test('Cursor changes when over title, img and cart button', async () => {
+      const pointerElements = ['title', 'img', 'button'];
+      const productElements = Object.keys(PRODUCT_ELEMENTS);
+      for (let i = 0; i < NUM_PRODUCTS; i++) {
+        for (let j = 0; j < productElements.length; j++) {
+          const productElement = inventoryPage.getProductElement(
+            i,
+            PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
+          );
+          await productElement.hover();
+          const cursorStyle = pointerElements.includes(productElements[j]) ? 'pointer' : 'auto';
+          await expect(productElement).toHaveCSS('cursor', cursorStyle);
+        }
+      }
+    });
+
     for (let i = 0; i < NUM_PRODUCTS; i++) {
       test.describe(` ${PRODUCT_INFO[i].title} link tests`, () => {
         test(`Clicking title opens product page`, async ({ page, baseURL }) => {
