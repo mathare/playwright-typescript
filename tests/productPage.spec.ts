@@ -60,6 +60,11 @@ test.describe('Product page tests', () => {
         await expect(productPage.cartButton).toHaveCSS('width', '160px');
       });
 
+      test('Back button style updates on hover', async () => {
+        await productPage.backButton.hover();
+        await expect(productPage.backButton).toHaveCSS('color', COLORS.backButtonHoverColor);
+      });
+
       test.describe('Add to cart & remove', () => {
         // Which products are in the cart is tracked via a cart-contents array in local storage.
         // As each product can only be added to the cart once it uses an array of product IDs.
