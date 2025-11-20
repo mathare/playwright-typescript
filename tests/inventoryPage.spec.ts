@@ -1,7 +1,8 @@
-import { test, expect, BrowserContext } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 import { PRODUCT_INFO } from '../data/products';
+import { getCartContentsFromLocalStorage } from '../helpers/utils';
 
 test.describe('Inventory page tests', () => {
   let inventoryPage: InventoryPage;
@@ -159,7 +160,7 @@ test.describe('Inventory page tests', () => {
       // the header, as tested in the page header spec. So all we need to test here is that
       // product IDs are added to the cart-contents array in local storage correctly
 
-      let cartContents: Record<string, string | string[]>;
+      let cartContents: Record<string, string>;
       let productIDs: string;
 
       test('Add product to cart', async ({ context }) => {
@@ -275,8 +276,3 @@ test.describe('Inventory page tests', () => {
     }
   });
 });
-
-const getCartContentsFromLocalStorage = async (context: BrowserContext) => {
-  const storageState = await context.storageState();
-  return storageState.origins![0].localStorage.filter((item) => item.name === 'cart-contents')[0];
-};
