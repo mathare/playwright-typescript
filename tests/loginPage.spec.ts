@@ -101,14 +101,14 @@ test.describe('Login page tests', () => {
         await loginPage.usernameInput.fill(USERNAME);
         await loginPage.passwordInput.fill(PASSWORD);
         await loginPage.loginButton.click();
-        await expect(page).toHaveURL(`${baseURL}${URLS.productPage}`);
+        await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
       });
 
       test('Submit form by pressing enter after typing password', async ({ page, baseURL }) => {
         await loginPage.usernameInput.fill(USERNAME);
         await loginPage.passwordInput.fill(PASSWORD);
         await loginPage.passwordInput.press('Enter');
-        await expect(page).toHaveURL(`${baseURL}${URLS.productPage}`);
+        await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
       });
 
       ['standard_user', 'problem_user', 'performance_glitch_user', 'error_user', 'visual_user'].forEach((username) => {
@@ -116,7 +116,7 @@ test.describe('Login page tests', () => {
           await loginPage.usernameInput.fill(username);
           await loginPage.passwordInput.fill(PASSWORD);
           await loginPage.loginButton.click();
-          await expect(page).toHaveURL(`${baseURL}${URLS.productPage}`);
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
           const cookies = await context.cookies(baseURL);
           expect(cookies).toHaveLength(1);
           expect(cookies[0]).toHaveProperty('name', 'session-username');
