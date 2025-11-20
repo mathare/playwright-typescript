@@ -34,7 +34,7 @@ test.describe('Product page tests', () => {
       });
 
       test('Text content of elements', async () => {
-        await expect(productPage.backButton).toHaveText('Back to products');
+        await expect(productPage.backButton).toHaveText(EXPECTED_TEXT.backButton);
       });
 
       test('Element styling', async () => {

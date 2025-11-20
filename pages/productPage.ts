@@ -45,6 +45,7 @@ export class ProductPage {
 }
 
 export const EXPECTED_TEXT = {
+  backButton: 'Back to products',
   addToCartButton: 'Add to cart',
   removeButton: 'Remove',
 };
