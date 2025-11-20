@@ -38,7 +38,9 @@ export class LoginPage {
     this.passwordHeader = this.password.locator('h4');
   }
 
-  // *** ACTIONS ***
+  // *******
+  // ACTIONS
+  // *******
   async login(username: string) {
     await this.page.goto(this.url);
     await this.usernameInput.fill(username);
@@ -46,7 +48,9 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
-  // *** ASSERTIONS ***
+  // **********
+  // ASSERTIONS
+  // **********
   #getInput(input: CredentialsInputs): Locator {
     return input === 'username' ? this.usernameInput : this.passwordInput;
   }
