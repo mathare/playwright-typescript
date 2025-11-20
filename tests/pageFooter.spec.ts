@@ -11,11 +11,9 @@ import { URLS } from '../data/pages';
 
 test.describe('Page footer tests', () => {
   let pageFooter: PageFooter;
-  let inventoryPage: InventoryPage;
 
   test.beforeEach(async ({ page, baseURL }) => {
     const loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
     await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     pageFooter = new PageFooter(page);
@@ -53,11 +51,12 @@ test.describe('Page footer tests', () => {
         await expect(pageFooter.footer).toHaveScreenshot('default.png');
       });
 
-      test('Product page', async () => {
+      test('Product page', async ({ page }) => {
         // Open random product page
         const PRODUCT_INDEX = Math.floor(Math.random() * PRODUCT_INFO.length);
+        const inventoryPage = new InventoryPage(page);
         await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.title).click();
-        await expect(inventoryPage.pageFooter.footer).toHaveScreenshot('default.png');
+        await expect(pageFooter.footer).toHaveScreenshot('default.png');
       });
     });
   });

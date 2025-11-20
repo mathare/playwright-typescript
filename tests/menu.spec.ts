@@ -3,7 +3,6 @@ import { LoginPage } from '../pages/loginPage';
 import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { COLORS, EXPECTED_TEXT, LINKS, Menu } from '../pages/components/menu';
 import { PageHeader } from '../pages/components/pageHeader';
-import { ProductPage } from '../pages/productPage';
 import { PRODUCT_INFO } from '../data/products';
 import { setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
@@ -13,14 +12,12 @@ import { URLS } from '../data/pages';
 
 test.describe('Menu tests', () => {
   let loginPage: LoginPage;
-  let inventoryPage: InventoryPage;
   let pageHeader: PageHeader;
   let menu: Menu;
   const numMenuItems = EXPECTED_TEXT.menuItems.length;
 
   test.beforeEach(async ({ page, baseURL }) => {
     loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
     await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     pageHeader = new PageHeader(page);
@@ -90,8 +87,11 @@ test.describe('Menu tests', () => {
   });
 
   test.describe('Behavioural tests', () => {
-    test.beforeEach(async () => {
+    let inventoryPage: InventoryPage;
+
+    test.beforeEach(async ({ page }) => {
       await pageHeader.menuButton.click();
+      inventoryPage = new InventoryPage(page);
     });
 
     test('Close button closes menu', async () => {
