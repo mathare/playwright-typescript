@@ -62,7 +62,7 @@ test.describe('Product page tests', () => {
         await expect(productPage.cartButton).toHaveCSS('width', '160px');
       });
 
-      test('Back button style updates on hover', async () => {
+      test('"Back to products" button style updates on hover', async () => {
         await productPage.backButton.hover();
         await expect(productPage.backButton).toHaveCSS('color', COLORS.backButtonHoverColor);
       });
@@ -123,7 +123,7 @@ test.describe('Product page tests', () => {
       });
     });
 
-    test('Back to products button opens inventory page', async ({ page, baseURL }) => {
+    test('"Back to products" button opens inventory page', async ({ page, baseURL }) => {
       await productPage.backButton.click();
       const inventoryPage = new InventoryPage(page);
       await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
