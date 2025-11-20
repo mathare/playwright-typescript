@@ -1,8 +1,9 @@
-import test, { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageFooter, SOCIAL_LINKS } from '../pages/components/pageFooter';
 import { LoginPage } from '../pages/loginPage';
 import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
+import { URLS } from '../data/pages';
 
 // This spec makes a not unreasonable assumption that the footer displayed at the bottom of all pages
 // expect the login page is always the same. As such, the main assertions are performed against a single
@@ -10,13 +11,11 @@ import { PRODUCT_INFO } from '../data/products';
 
 test.describe('Page footer tests', () => {
   let pageFooter: PageFooter;
-  let inventoryPage: InventoryPage;
 
   test.beforeEach(async ({ page, baseURL }) => {
     const loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     pageFooter = new PageFooter(page);
   });
 
@@ -52,11 +51,12 @@ test.describe('Page footer tests', () => {
         await expect(pageFooter.footer).toHaveScreenshot('default.png');
       });
 
-      test('Product page', async () => {
+      test('Product page', async ({ page }) => {
         // Open random product page
         const PRODUCT_INDEX = Math.floor(Math.random() * PRODUCT_INFO.length);
+        const inventoryPage = new InventoryPage(page);
         await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.title).click();
-        await expect(inventoryPage.pageFooter.footer).toHaveScreenshot('default.png');
+        await expect(pageFooter.footer).toHaveScreenshot('default.png');
       });
     });
   });

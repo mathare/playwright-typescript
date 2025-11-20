@@ -1,9 +1,9 @@
-import test, { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
-import { InventoryPage } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 import { PRODUCT_INFO } from '../data/products';
 import { setCartContentsInLocalStorage } from '../helpers/utils';
+import { URLS } from '../data/pages';
 
 // This spec makes a not unreasonable assumption that the header displayed at the top of all pages
 // expect the login page is mostly the same across all pages. As such, the main assertions are performed
@@ -13,13 +13,11 @@ import { setCartContentsInLocalStorage } from '../helpers/utils';
 
 test.describe('Page header tests', () => {
   let pageHeader: PageHeader;
-  let inventoryPage: InventoryPage;
 
   test.beforeEach(async ({ page, baseURL }) => {
     const loginPage = new LoginPage(page);
-    inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     pageHeader = new PageHeader(page);
   });
 
@@ -67,7 +65,7 @@ test.describe('Page header tests', () => {
       let productIds: number[] = [];
       for (let i = 0; i < PRODUCT_INFO.length; i++) {
         productIds.push(i);
-        await setCartContentsInLocalStorage(page, productIds, inventoryPage.url);
+        await setCartContentsInLocalStorage(page, productIds, URLS.inventoryPage);
         await expect(pageHeader.shoppingCartBadge).toBeVisible();
         await expect(pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
       }
@@ -82,7 +80,7 @@ test.describe('Page header tests', () => {
       });
 
       test('Products in cart', async ({ page }) => {
-        await setCartContentsInLocalStorage(page, [0, 1], inventoryPage.url);
+        await setCartContentsInLocalStorage(page, [0, 1], URLS.inventoryPage);
         await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
       });
     });
@@ -92,6 +90,6 @@ test.describe('Page header tests', () => {
     // The shopping cart link doesn't actually have an href attribute but still opens the cart page
     await expect(pageHeader.shoppingCartLink).not.toHaveAttribute('href');
     await pageHeader.shoppingCartLink.click();
-    await expect(page).toHaveURL(`${baseURL}/cart.html`);
+    await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
   });
 });

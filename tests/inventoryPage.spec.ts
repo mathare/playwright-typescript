@@ -3,6 +3,7 @@ import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages
 import { LoginPage } from '../pages/loginPage';
 import { PRODUCT_INFO } from '../data/products';
 import { getCartContentsFromLocalStorage } from '../helpers/utils';
+import { URLS } from '../data/pages';
 
 test.describe('Inventory page tests', () => {
   let inventoryPage: InventoryPage;
@@ -11,7 +12,7 @@ test.describe('Inventory page tests', () => {
     let loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
   });
 
   test.describe('Appearance tests', () => {
@@ -255,22 +256,22 @@ test.describe('Inventory page tests', () => {
       test.describe(` ${PRODUCT_INFO[i].shortName} link tests`, () => {
         test(`Clicking title opens product page`, async ({ page, baseURL }) => {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
-          await expect(page).toHaveURL(`${baseURL}/inventory-item.html?id=${PRODUCT_INFO[i].id}`);
+          await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
         });
 
         test(`Clicking image opens product page`, async ({ page, baseURL }) => {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img).click();
-          await expect(page).toHaveURL(`${baseURL}/inventory-item.html?id=${PRODUCT_INFO[i].id}`);
+          await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
         });
 
         test(`Clicking description does nothing`, async ({ page, baseURL }) => {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description).click();
-          await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
         });
 
         test(`Clicking price does nothing`, async ({ page, baseURL }) => {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price).click();
-          await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
         });
       });
     }

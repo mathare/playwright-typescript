@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
 import { LoginPage } from '../pages/loginPage';
-import { InventoryPage } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
 import { getCartContentsFromLocalStorage } from '../helpers/utils';
+import { URLS } from '../data/pages';
 
 test.describe('Product page tests', () => {
   let productPage: ProductPage;
@@ -22,7 +22,7 @@ test.describe('Product page tests', () => {
 
     test.beforeEach(async ({ page }) => {
       // Open bike light product page
-      await page.goto(`${productPage.url}0`);
+      await page.goto(`${URLS.productPage}0`);
     });
 
     test.describe('Appearance tests', () => {
@@ -34,7 +34,7 @@ test.describe('Product page tests', () => {
       });
 
       test('Text content of elements', async () => {
-        await expect(productPage.backButton).toHaveText('Back to products');
+        await expect(productPage.backButton).toHaveText(EXPECTED_TEXT.backButton);
       });
 
       test('Element styling', async () => {
@@ -62,7 +62,7 @@ test.describe('Product page tests', () => {
         await expect(productPage.cartButton).toHaveCSS('width', '160px');
       });
 
-      test('Back button style updates on hover', async () => {
+      test('"Back to products" button style updates on hover', async () => {
         await productPage.backButton.hover();
         await expect(productPage.backButton).toHaveCSS('color', COLORS.backButtonHoverColor);
       });
@@ -123,17 +123,16 @@ test.describe('Product page tests', () => {
       });
     });
 
-    test('Back to products button opens inventory page', async ({ page, baseURL }) => {
+    test('"Back to products" button opens inventory page', async ({ page, baseURL }) => {
       await productPage.backButton.click();
-      const inventoryPage = new InventoryPage(page);
-      await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     });
   });
 
   PRODUCT_INFO.forEach((product) => {
     test.describe(`${product.shortName} page tests`, () => {
       test.beforeEach(async ({ page }) => {
-        await page.goto(`${productPage.url}${product.id}`);
+        await page.goto(`${URLS.productPage}${product.id}`);
       });
 
       test.describe('Appearance tests', () => {

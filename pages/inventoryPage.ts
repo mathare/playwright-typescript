@@ -5,7 +5,6 @@ import { PRODUCT_INFO } from '../data/products';
 import { verifyCartButtonStyle } from '../helpers/utils';
 
 export class InventoryPage {
-  readonly url = '/inventory.html';
   readonly page: Page;
   readonly body: Locator;
   readonly pageHeader: PageHeader;

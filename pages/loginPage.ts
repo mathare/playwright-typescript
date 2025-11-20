@@ -1,9 +1,9 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { URLS } from '../data/pages';
 
 type CredentialsInputs = 'username' | 'password';
 
 export class LoginPage {
-  readonly url = '/';
   readonly page: Page;
   readonly loginContainer: Locator;
   readonly title: Locator;
@@ -38,15 +38,19 @@ export class LoginPage {
     this.passwordHeader = this.password.locator('h4');
   }
 
-  // *** ACTIONS ***
+  // *******
+  // ACTIONS
+  // *******
   async login(username: string) {
-    await this.page.goto(this.url);
+    await this.page.goto(URLS.loginPage);
     await this.usernameInput.fill(username);
     await this.passwordInput.fill('secret_sauce');
     await this.loginButton.click();
   }
 
-  // *** ASSERTIONS ***
+  // **********
+  // ASSERTIONS
+  // **********
   #getInput(input: CredentialsInputs): Locator {
     return input === 'username' ? this.usernameInput : this.passwordInput;
   }
