@@ -1,4 +1,4 @@
-import test, { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
 import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { COLORS, EXPECTED_TEXT, LINKS, Menu } from '../pages/components/menu';
