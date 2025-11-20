@@ -5,6 +5,7 @@ import { COLORS, EXPECTED_TEXT, LINKS, Menu } from '../pages/components/menu';
 import { PageHeader } from '../pages/components/pageHeader';
 import { ProductPage } from '../pages/productPage';
 import { PRODUCT_INFO } from '../data/products';
+import { setCartContentsInLocalStorage } from '../helpers/utils';
 
 // This spec makes a not unreasonable assumption that the menu is the same across all pages.
 // As such, the main assertions are performed against a single page (the inventory page).
@@ -143,12 +144,7 @@ test.describe('Menu tests', () => {
     }) => {
       // "Force" products into cart via local storage
       const productsInCart = [0, 1];
-      await page.evaluate(
-        (productsInCart) => localStorage.setItem('cart-contents', `[${productsInCart.join()}]`),
-        productsInCart
-      );
-      // Reopen the page to pick up the local storage change
-      await page.goto(inventoryPage.url);
+      await setCartContentsInLocalStorage(page, productsInCart, inventoryPage.url);
       await expect(pageHeader.shoppingCartBadge).toBeVisible();
       await expect(pageHeader.shoppingCartBadge).toHaveText(`${productsInCart.length}`);
       for (let i = 0; i < PRODUCT_INFO.length; i++) {

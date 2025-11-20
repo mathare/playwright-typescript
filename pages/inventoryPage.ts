@@ -1,7 +1,8 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { PageFooter } from './components/pageFooter';
 import { PageHeader } from './components/pageHeader';
 import { PRODUCT_INFO } from '../data/products';
+import { verifyCartButtonStyle } from '../helpers/utils';
 
 export class InventoryPage {
   readonly url = '/inventory.html';
@@ -49,14 +50,12 @@ export class InventoryPage {
     const BUTTON_TEXT = style === 'add' ? EXPECTED_TEXT.addToCartButton : EXPECTED_TEXT.removeButton;
     const BUTTON_COLOR = style === 'add' ? COLORS.addButtonColor : COLORS.removeButtonColor;
     const BUTTON_CLASS = style === 'add' ? 'btn_primary' : 'btn_secondary';
-    await expect(this.getProductElement(productIndex, PRODUCT_ELEMENTS.button)).toHaveText(BUTTON_TEXT);
-    // await expect(this.getProductElement(productIndex, PRODUCT_ELEMENTS.button)).not.toContainClass('btn_primary');
-    await expect(this.getProductElement(productIndex, PRODUCT_ELEMENTS.button)).toContainClass(BUTTON_CLASS);
-    await expect(this.getProductElement(productIndex, PRODUCT_ELEMENTS.button)).toHaveCSS(
-      'border',
-      `1px solid ${BUTTON_COLOR}`
+    await verifyCartButtonStyle(
+      this.getProductElement(productIndex, PRODUCT_ELEMENTS.button),
+      BUTTON_TEXT,
+      BUTTON_COLOR,
+      BUTTON_CLASS
     );
-    await expect(this.getProductElement(productIndex, PRODUCT_ELEMENTS.button)).toHaveCSS('color', BUTTON_COLOR);
   }
 }
 

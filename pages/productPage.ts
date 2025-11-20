@@ -1,6 +1,7 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { PageFooter } from './components/pageFooter';
 import { PageHeader } from './components/pageHeader';
+import { verifyCartButtonStyle } from '../helpers/utils';
 
 export class ProductPage {
   readonly url = '/inventory-item.html?id=';
@@ -39,10 +40,7 @@ export class ProductPage {
     const BUTTON_TEXT = style === 'add' ? EXPECTED_TEXT.addToCartButton : EXPECTED_TEXT.removeButton;
     const BUTTON_COLOR = style === 'add' ? COLORS.addButtonColor : COLORS.removeButtonColor;
     const BUTTON_CLASS = style === 'add' ? 'btn_primary' : 'btn_secondary';
-    await expect(this.cartButton).toHaveText(BUTTON_TEXT);
-    await expect(this.cartButton).toContainClass(BUTTON_CLASS);
-    await expect(this.cartButton).toHaveCSS('border', `1px solid ${BUTTON_COLOR}`);
-    await expect(this.cartButton).toHaveCSS('color', BUTTON_COLOR);
+    await verifyCartButtonStyle(this.cartButton, BUTTON_TEXT, BUTTON_COLOR, BUTTON_CLASS);
   }
 }
 

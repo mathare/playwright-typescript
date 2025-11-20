@@ -1,8 +1,9 @@
-import test, { BrowserContext, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
 import { LoginPage } from '../pages/loginPage';
 import { InventoryPage } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
+import { getCartContentsFromLocalStorage } from '../helpers/utils';
 
 test.describe('Product page tests', () => {
   let productPage: ProductPage;
@@ -72,7 +73,7 @@ test.describe('Product page tests', () => {
         // The length of this array is used to determine the badge to display over the cart in
         // the header, as tested in the page header spec. So all we need to test here is that
         // product IDs are added to the cart-contents array in local storage correctly
-        let cartContents: Record<string, string | string[]>;
+        let cartContents: Record<string, string>;
 
         test('Add product to cart', async ({ context }) => {
           await productPage.cartButton.click();
@@ -169,9 +170,4 @@ const generateProductSnapshotName = (name: string): string => {
   // Sanitise product name for use as snapshot name
   // Remove spaces & dashes then convert first letter to lowercase
   return name.charAt(0).toLowerCase() + name.slice(1).replace(' ', '').replace('-', '') + '.png';
-};
-
-const getCartContentsFromLocalStorage = async (context: BrowserContext) => {
-  const storageState = await context.storageState();
-  return storageState.origins![0].localStorage.filter((item) => item.name === 'cart-contents')[0];
 };

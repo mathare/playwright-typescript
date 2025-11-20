@@ -3,6 +3,7 @@ import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeade
 import { InventoryPage } from '../pages/inventoryPage';
 import { LoginPage } from '../pages/loginPage';
 import { PRODUCT_INFO } from '../data/products';
+import { setCartContentsInLocalStorage } from '../helpers/utils';
 
 // This spec makes a not unreasonable assumption that the header displayed at the top of all pages
 // expect the login page is mostly the same across all pages. As such, the main assertions are performed
@@ -66,13 +67,7 @@ test.describe('Page header tests', () => {
       let productIds: number[] = [];
       for (let i = 0; i < PRODUCT_INFO.length; i++) {
         productIds.push(i);
-        await page.evaluate(
-          (productIds) => localStorage.setItem('cart-contents', `[${productIds.join()}]`),
-          productIds
-        );
-        // Reopen the page to pick up the local storage change
-        // NB page.reload() doesn't seem to work on webkit browsers on Linux so use .goto()
-        await page.goto(inventoryPage.url);
+        await setCartContentsInLocalStorage(page, productIds, inventoryPage.url);
         await expect(pageHeader.shoppingCartBadge).toBeVisible();
         await expect(pageHeader.shoppingCartBadge).toHaveText(`${i + 1}`);
       }
@@ -87,10 +82,7 @@ test.describe('Page header tests', () => {
       });
 
       test('Products in cart', async ({ page }) => {
-        await page.evaluate(() => localStorage.setItem('cart-contents', '[0,1]'));
-        // Reopen the page to pick up the local storage change
-        // NB page.reload() doesn't seem to work on webkit browsers on Linux so use .goto()
-        await page.goto(inventoryPage.url);
+        await setCartContentsInLocalStorage(page, [0, 1], inventoryPage.url);
         await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
       });
     });
