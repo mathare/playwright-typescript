@@ -1,4 +1,4 @@
-import test, { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageFooter, SOCIAL_LINKS } from '../pages/components/pageFooter';
 import { LoginPage } from '../pages/loginPage';
 import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
