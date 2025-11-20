@@ -4,7 +4,6 @@ import { PageHeader } from './components/pageHeader';
 import { verifyCartButtonStyle } from '../helpers/utils';
 
 export class ProductPage {
-  readonly url = '/inventory-item.html?id=';
   readonly page: Page;
   readonly body: Locator;
   readonly pageHeader: PageHeader;

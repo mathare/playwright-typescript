@@ -6,6 +6,7 @@ import { PageHeader } from '../pages/components/pageHeader';
 import { ProductPage } from '../pages/productPage';
 import { PRODUCT_INFO } from '../data/products';
 import { setCartContentsInLocalStorage } from '../helpers/utils';
+import { URLS } from '../data/pages';
 
 // This spec makes a not unreasonable assumption that the menu is the same across all pages.
 // As such, the main assertions are performed against a single page (the inventory page).
@@ -21,7 +22,7 @@ test.describe('Menu tests', () => {
     loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     pageHeader = new PageHeader(page);
     menu = new Menu(page);
   });
@@ -102,18 +103,17 @@ test.describe('Menu tests', () => {
     // when the link is clicked so we should test what each link does explicitly
     test('"All Items" menu link opens inventory page', async ({ page, baseURL }) => {
       await menu.menuItem.filter({ hasText: EXPECTED_TEXT.menuItems[0] }).click();
-      await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
       // The menu remains open
       await expect(menu.menu).toBeVisible();
 
       // Navigate to another page to prove the link opens the inventory page if not already open
-      const productPage = new ProductPage(page);
       await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.title).click();
-      await expect(page).toHaveURL(`${baseURL}${productPage.url}${PRODUCT_INFO[0].id}`);
+      await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[0].id}`);
 
       await pageHeader.menuButton.click();
       await menu.menuItem.filter({ hasText: EXPECTED_TEXT.menuItems[0] }).click();
-      await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
       // The menu is closed
       await expect(menu.menu).not.toBeVisible();
     });
@@ -125,7 +125,7 @@ test.describe('Menu tests', () => {
 
     test('"Logout" menu item logs the user out', async ({ page, baseURL, context }) => {
       await menu.menuItem.filter({ hasText: EXPECTED_TEXT.menuItems[2] }).click();
-      await expect(page).toHaveURL(`${baseURL}${loginPage.url}`);
+      await expect(page).toHaveURL(`${baseURL}${URLS.loginPage}`);
       // Login cookie is deleted
       const cookies = await context.cookies(baseURL);
       expect(cookies).toHaveLength(0);
@@ -133,7 +133,7 @@ test.describe('Menu tests', () => {
 
     test('"Reset App State" menu link does nothing when no products in cart', async ({ page, baseURL }) => {
       await menu.menuItem.filter({ hasText: EXPECTED_TEXT.menuItems[3] }).click();
-      await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
       // The menu remains open
       await expect(menu.menu).toBeVisible();
       await expect(pageHeader.shoppingCartBadge).toHaveCount(0);
@@ -144,7 +144,7 @@ test.describe('Menu tests', () => {
     }) => {
       // "Force" products into cart via local storage
       const productsInCart = [0, 1];
-      await setCartContentsInLocalStorage(page, productsInCart, inventoryPage.url);
+      await setCartContentsInLocalStorage(page, productsInCart, URLS.inventoryPage);
       await expect(pageHeader.shoppingCartBadge).toBeVisible();
       await expect(pageHeader.shoppingCartBadge).toHaveText(`${productsInCart.length}`);
       for (let i = 0; i < PRODUCT_INFO.length; i++) {

@@ -3,6 +3,7 @@ import { COLORS, EXPECTED_TEXT, PageFooter, SOCIAL_LINKS } from '../pages/compon
 import { LoginPage } from '../pages/loginPage';
 import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
+import { URLS } from '../data/pages';
 
 // This spec makes a not unreasonable assumption that the footer displayed at the bottom of all pages
 // expect the login page is always the same. As such, the main assertions are performed against a single
@@ -16,7 +17,7 @@ test.describe('Page footer tests', () => {
     const loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
     await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${inventoryPage.url}`);
+    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     pageFooter = new PageFooter(page);
   });
 
