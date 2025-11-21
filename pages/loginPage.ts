@@ -103,10 +103,15 @@ export const COLORS = {
 
 export const EXPECTED_TEXT = {
   title: 'Swag Labs',
-  usernamePlaceholder: 'Username',
-  passwordPlaceholder: 'Password',
+  placeholders: {
+    username: 'Username',
+    password: 'Password',
+  },
   loginButton: 'Login',
-  usernamesHeader: 'Accepted usernames are:',
+  headers: {
+    usernames: 'Accepted usernames are:',
+    password: 'Password for all users:',
+  },
   acceptedUsernames: [
     'standard_user',
     'locked_out_user',
@@ -115,12 +120,13 @@ export const EXPECTED_TEXT = {
     'error_user',
     'visual_user',
   ],
-  passwordHeader: 'Password for all users:',
   password: 'secret_sauce',
-  usernameErrorMessage: 'Epic sadface: Username is required',
-  passwordErrorMessage: 'Epic sadface: Password is required',
-  incorrectCredentialsErrorMessage: 'Epic sadface: Username and password do not match any user in this service',
-  lockedOutUserErrorMessage: 'Epic sadface: Sorry, this user has been locked out.',
+  errorMessages: {
+    missingUsername: 'Epic sadface: Username is required',
+    missingPassword: 'Epic sadface: Password is required',
+    incorrectCredentials: 'Epic sadface: Username and password do not match any user in this service',
+    lockedOutUser: 'Epic sadface: Sorry, this user has been locked out.',
+  },
 };
 
 export const FONT_SIZES = {

@@ -29,19 +29,19 @@ test.describe('Login page tests', () => {
     test('Text content of elements', async () => {
       await expect(loginPage.title).toHaveText(EXPECTED_TEXT.title);
       await expect(loginPage.usernameInput).toBeEmpty();
-      await expect(loginPage.usernameInput).toHaveAttribute('placeholder', EXPECTED_TEXT.usernamePlaceholder);
+      await expect(loginPage.usernameInput).toHaveAttribute('placeholder', EXPECTED_TEXT.placeholders.username);
       await expect(loginPage.passwordInput).toBeEmpty();
-      await expect(loginPage.passwordInput).toHaveAttribute('placeholder', EXPECTED_TEXT.passwordPlaceholder);
+      await expect(loginPage.passwordInput).toHaveAttribute('placeholder', EXPECTED_TEXT.placeholders.password);
       await expect(loginPage.loginButton).toHaveText(EXPECTED_TEXT.loginButton);
-      await expect(loginPage.usernamesHeader).toHaveText(EXPECTED_TEXT.usernamesHeader);
-      await expect(loginPage.passwordHeader).toHaveText(EXPECTED_TEXT.passwordHeader);
+      await expect(loginPage.usernamesHeader).toHaveText(EXPECTED_TEXT.headers.usernames);
+      await expect(loginPage.passwordHeader).toHaveText(EXPECTED_TEXT.headers.password);
       await expect(loginPage.usernames).toHaveText(
-        [EXPECTED_TEXT.usernamesHeader, ...EXPECTED_TEXT.acceptedUsernames].join('\n'),
+        [EXPECTED_TEXT.headers.usernames, ...EXPECTED_TEXT.acceptedUsernames].join('\n'),
         {
           useInnerText: true,
         }
       );
-      await expect(loginPage.password).toHaveText(`${EXPECTED_TEXT.passwordHeader}\n${EXPECTED_TEXT.password}`, {
+      await expect(loginPage.password).toHaveText(`${EXPECTED_TEXT.headers.password}\n${EXPECTED_TEXT.password}`, {
         useInnerText: true,
       });
     });
@@ -130,7 +130,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.usernameErrorMessage);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingUsername);
         await expect(page).toHaveURL(`${baseURL}${URLS.loginPage}`);
       });
 
@@ -139,7 +139,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.usernameErrorMessage);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingUsername);
         await expect(page).toHaveURL(`${baseURL}${URLS.loginPage}`);
       });
 
@@ -148,7 +148,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.passwordErrorMessage);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingPassword);
         await expect(page).toHaveURL(`${baseURL}${URLS.loginPage}`);
       });
 
@@ -158,7 +158,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.incorrectCredentialsErrorMessage);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.incorrectCredentials);
         await expect(page).toHaveURL(`${baseURL}${URLS.loginPage}`);
       });
 
@@ -168,7 +168,7 @@ test.describe('Login page tests', () => {
         await loginPage.loginButton.click();
         await loginPage.inputHasValidationError('username');
         await loginPage.inputHasValidationError('password');
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.incorrectCredentialsErrorMessage);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.incorrectCredentials);
         await expect(page).toHaveURL(`${baseURL}${URLS.loginPage}`);
       });
 
@@ -176,8 +176,7 @@ test.describe('Login page tests', () => {
         await loginPage.usernameInput.fill('locked_out_user');
         await loginPage.passwordInput.fill(PASSWORD);
         await loginPage.loginButton.click();
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.lockedOutUserErrorMessage);
-        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.lockedOutUserErrorMessage);
+        await loginPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.lockedOutUser);
         await expect(page).toHaveURL(`${baseURL}${URLS.loginPage}`);
       });
 
