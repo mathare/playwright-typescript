@@ -1,6 +1,6 @@
 import test, { expect } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
-import { CartPage } from '../pages/cartPage';
+import { CartPage, EXPECTED_TEXT } from '../pages/cartPage';
 import { URLS } from '../data/pages';
 
 test.describe('Product page tests', () => {
@@ -16,6 +16,7 @@ test.describe('Product page tests', () => {
       await page.goto(URLS.cartPage);
     });
 
+    // Common cart elements can be tested with an empty cart
     test.describe('Appearance tests', () => {
       test('Default element visibility', async () => {
         await expect(cartPage.pageHeader.primaryHeader).toBeVisible();
@@ -29,6 +30,14 @@ test.describe('Product page tests', () => {
         await expect(cartPage.continueShoppingBtn).toBeVisible();
         await expect(cartPage.checkoutBtn).toBeVisible();
         await expect(cartPage.pageFooter.footer).toBeVisible();
+      });
+
+      test('Text content of elements', async () => {
+        await expect(cartPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
+        await expect(cartPage.qtyHeader).toHaveText(EXPECTED_TEXT.qtyHeader);
+        await expect(cartPage.descHeader).toHaveText(EXPECTED_TEXT.descHeader);
+        await expect(cartPage.continueShoppingBtn).toHaveText(EXPECTED_TEXT.buttons.continueShopping);
+        await expect(cartPage.checkoutBtn).toHaveText(EXPECTED_TEXT.buttons.checkout);
       });
     });
   });

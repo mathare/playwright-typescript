@@ -31,3 +31,10 @@ export class CartPage {
     this.pageFooter = new PageFooter(page);
   }
 }
+
+export const EXPECTED_TEXT = {
+  subtitle: 'Your Cart',
+  qtyHeader: 'QTY',
+  descHeader: 'Description',
+  buttons: { continueShopping: 'Continue Shopping', checkout: 'Checkout' },
+};
