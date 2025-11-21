@@ -11,12 +11,12 @@ export const login = async (page: Page, baseURL: string, username: string): Prom
   await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
 };
 
-export const getCartContentsFromLocalStorage = async (context: BrowserContext) => {
+export const getCartContentsFromLocalStorage = async (context: BrowserContext): Promise<Record<string, string>> => {
   const storageState = await context.storageState();
   return storageState.origins![0].localStorage.filter((item) => item.name === 'cart-contents')[0];
 };
 
-export const setCartContentsInLocalStorage = async (page: Page, productIds: number[], url: string) => {
+export const setCartContentsInLocalStorage = async (page: Page, productIds: number[], url: string): Promise<void> => {
   await page.evaluate((productIds) => localStorage.setItem('cart-contents', `[${productIds.join()}]`), productIds);
   // Reopen the page to pick up the local storage change
   // NB page.reload() doesn't seem to work on webkit browsers on Linux so use .goto()
