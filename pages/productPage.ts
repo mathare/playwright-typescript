@@ -37,7 +37,7 @@ export class ProductPage {
   // **********
   async verifyCartButtonStyle(style: 'add' | 'remove'): Promise<void> {
     const BUTTON_TEXT = style === 'add' ? EXPECTED_TEXT.addToCartButton : EXPECTED_TEXT.removeButton;
-    const BUTTON_COLOR = style === 'add' ? COLORS.addButtonColor : COLORS.removeButtonColor;
+    const BUTTON_COLOR = style === 'add' ? COLORS.button.addButtonColor : COLORS.button.removeButtonColor;
     const BUTTON_CLASS = style === 'add' ? 'btn_primary' : 'btn_secondary';
     await verifyCartButtonStyle(this.cartButton, BUTTON_TEXT, BUTTON_COLOR, BUTTON_CLASS);
   }
@@ -52,9 +52,10 @@ export const EXPECTED_TEXT = {
 export const COLORS = {
   backgroundColor: 'rgb(255, 255, 255)',
   textColor: 'rgb(19, 35, 34)',
-  backButtonHoverColor: 'rgb(61, 220, 145)',
-  productBorderColor: 'rgb(237, 237, 237)',
-  productTitleColor: 'rgb(24, 88, 58)',
-  addButtonColor: 'rgb(19, 35, 34)',
-  removeButtonColor: 'rgb(226, 35, 26)',
+  backButton: { hoverColor: 'rgb(61, 220, 145)' },
+  product: { borderColor: 'rgb(237, 237, 237)', titleColor: 'rgb(24, 88, 58)' },
+  button: {
+    addButtonColor: 'rgb(19, 35, 34)',
+    removeButtonColor: 'rgb(226, 35, 26)',
+  },
 };

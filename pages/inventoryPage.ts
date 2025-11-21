@@ -47,7 +47,7 @@ export class InventoryPage {
   // **********
   async verifyCartButtonStyle(productIndex: number, style: 'add' | 'remove'): Promise<void> {
     const BUTTON_TEXT = style === 'add' ? EXPECTED_TEXT.addToCartButton : EXPECTED_TEXT.removeButton;
-    const BUTTON_COLOR = style === 'add' ? COLORS.addButtonColor : COLORS.removeButtonColor;
+    const BUTTON_COLOR = style === 'add' ? COLORS.button.addButtonColor : COLORS.button.removeButtonColor;
     const BUTTON_CLASS = style === 'add' ? 'btn_primary' : 'btn_secondary';
     await verifyCartButtonStyle(
       this.getProductElement(productIndex, PRODUCT_ELEMENTS.button),
@@ -68,11 +68,15 @@ export const EXPECTED_TEXT = {
 export const COLORS = {
   backgroundColor: 'rgb(255, 255, 255)',
   textColor: 'rgb(19, 35, 34)',
-  productBorderColor: 'rgb(237, 237, 237)',
-  productTitleColor: 'rgb(24, 88, 58)',
-  productHoverColor: 'rgb(61, 220, 145)',
-  addButtonColor: 'rgb(19, 35, 34)',
-  removeButtonColor: 'rgb(226, 35, 26)',
+  product: {
+    borderColor: 'rgb(237, 237, 237)',
+    titleColor: 'rgb(24, 88, 58)',
+    hoverColor: 'rgb(61, 220, 145)',
+  },
+  button: {
+    addButtonColor: 'rgb(19, 35, 34)',
+    removeButtonColor: 'rgb(226, 35, 26)',
+  },
 };
 
 export enum PRODUCT_ELEMENTS {

@@ -58,37 +58,46 @@ export class LoginPage {
   async inputHasValidationError(input: CredentialsInputs) {
     const INPUT_LOCATOR = this.#getInput(input);
     await expect(INPUT_LOCATOR).toContainClass('error');
-    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.inputErrorBorderColor);
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.input.errorBorderColor);
     await expect(INPUT_LOCATOR.locator('.. >> svg')).toBeVisible();
   }
 
   async inputDoesNotHaveValidationError(input: CredentialsInputs) {
     const INPUT_LOCATOR = this.#getInput(input);
     await expect(INPUT_LOCATOR).not.toContainClass('error');
-    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.inputBorderColor);
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.input.borderColor);
     await expect(INPUT_LOCATOR.locator('.. >> svg')).not.toBeVisible();
   }
 
   async errorMessageDisplayed(message: string) {
     await expect(this.errorContainer).toBeVisible();
-    await expect(this.errorContainer).toHaveCSS('background-color', COLORS.errorBackgroundColor);
-    await expect(this.errorMessage).toHaveCSS('color', COLORS.errorTextColor);
+    await expect(this.errorContainer).toHaveCSS('background-color', COLORS.error.backgroundColor);
+    await expect(this.errorMessage).toHaveCSS('color', COLORS.error.textColor);
     await expect(this.errorContainer).toHaveText(message);
   }
 }
 
 export const COLORS = {
-  credentialsContainerBackgroundColor: 'rgb(19, 35, 34)',
-  credentialsContainerTextColor: 'rgb(255, 255, 255)',
-  errorBackgroundColor: 'rgb(226, 35, 26)',
-  errorTextColor: 'rgb(255, 255, 255)',
-  inputBorderColor: 'rgb(237, 237, 237)',
-  inputErrorBorderColor: 'rgb(226, 35, 26)',
-  inputTextColor: 'rgb(72, 76, 85)',
-  loginButtonBackgroundColor: 'rgb(61, 220, 145)',
-  loginButtonTextColor: 'rgb(19, 35, 34)',
-  loginContainerBackgroundColor: 'rgb(238, 252, 246)',
-  loginFormBackgroundColor: 'rgb(255, 255, 255)',
+  credentialsContainer: {
+    backgroundColor: 'rgb(19, 35, 34)',
+    textColor: 'rgb(255, 255, 255)',
+  },
+  error: {
+    backgroundColor: 'rgb(226, 35, 26)',
+    textColor: 'rgb(255, 255, 255)',
+  },
+  input: {
+    borderColor: 'rgb(237, 237, 237)',
+    errorBorderColor: 'rgb(226, 35, 26)',
+    textColor: 'rgb(72, 76, 85)',
+  },
+  loginButton: {
+    backgroundColor: 'rgb(61, 220, 145)',
+    borderColor: 'rgb(61, 220, 145)',
+    textColor: 'rgb(19, 35, 34)',
+  },
+  loginContainer: { backgroundColor: 'rgb(238, 252, 246)' },
+  loginForm: { backgroundColor: 'rgb(255, 255, 255)' },
   titleTextColor: 'rgb(19, 35, 34)',
 };
 
