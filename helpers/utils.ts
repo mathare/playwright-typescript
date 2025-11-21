@@ -1,4 +1,15 @@
 import { BrowserContext, expect, Locator, Page } from '@playwright/test';
+import { LoginPage } from '../pages/loginPage';
+import { URLS } from '../data/pages';
+
+export const login = async (page: Page, baseURL: string, username: string): Promise<void> => {
+  const loginPage = new LoginPage(page);
+  await page.goto(URLS.loginPage);
+  await loginPage.usernameInput.fill(username);
+  await loginPage.passwordInput.fill('secret_sauce');
+  await loginPage.loginButton.click();
+  await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+};
 
 export const getCartContentsFromLocalStorage = async (context: BrowserContext) => {
   const storageState = await context.storageState();

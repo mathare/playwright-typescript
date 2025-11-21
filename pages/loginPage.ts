@@ -1,5 +1,4 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { URLS } from '../data/pages';
 
 type CredentialsInputs = 'username' | 'password';
 
@@ -36,16 +35,6 @@ export class LoginPage {
     this.password = this.credentialsContainer.getByTestId('login-password');
     this.usernamesHeader = this.usernames.locator('h4');
     this.passwordHeader = this.password.locator('h4');
-  }
-
-  // *******
-  // ACTIONS
-  // *******
-  async login(username: string) {
-    await this.page.goto(URLS.loginPage);
-    await this.usernameInput.fill(username);
-    await this.passwordInput.fill('secret_sauce');
-    await this.loginButton.click();
   }
 
   // **********
