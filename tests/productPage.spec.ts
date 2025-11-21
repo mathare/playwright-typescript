@@ -46,7 +46,7 @@ test.describe('Product page tests', () => {
         await expect(productPage.backButton).toHaveCSS('font-weight', '500');
 
         await expect(productPage.inventoryItemContainer).toHaveCSS('background-color', COLORS.backgroundColor);
-        await expect(productPage.inventoryItem).toHaveCSS('border', `1px solid ${COLORS.productBorderColor}`);
+        await expect(productPage.inventoryItem).toHaveCSS('border', `1px solid ${COLORS.product.borderColor}`);
         await expect(productPage.inventoryItem).toHaveCSS('border-radius', '8px');
         await expect(productPage.inventoryItem).toHaveCSS('color', COLORS.textColor);
         await expect(productPage.inventoryItem).toHaveCSS('display', 'flex');
@@ -64,7 +64,7 @@ test.describe('Product page tests', () => {
 
       test('"Back to products" button style updates on hover', async () => {
         await productPage.backButton.hover();
-        await expect(productPage.backButton).toHaveCSS('color', COLORS.backButtonHoverColor);
+        await expect(productPage.backButton).toHaveCSS('color', COLORS.backButton.hoverColor);
       });
 
       test.describe('Add to cart & remove', () => {
