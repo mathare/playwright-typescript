@@ -1,4 +1,4 @@
-import { BrowserContext, expect, Locator, Page } from '@playwright/test';
+import { BrowserContext, Cookie, expect, Locator, Page } from '@playwright/test';
 import { LoginPage } from '../pages/loginPage';
 import { URLS } from '../data/pages';
 
@@ -21,6 +21,10 @@ export const setCartContentsInLocalStorage = async (page: Page, productIds: numb
   // Reopen the page to pick up the local storage change
   // NB page.reload() doesn't seem to work on webkit browsers on Linux so use .goto()
   await page.goto(url);
+};
+
+export const getCookies = async (context: BrowserContext, url: string): Promise<Cookie[]> => {
+  return await context.cookies(url);
 };
 
 export const verifyCartButtonStyle = async (
