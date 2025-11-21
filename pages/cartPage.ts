@@ -12,6 +12,7 @@ export class CartPage {
   readonly descHeader: Locator;
   readonly cartItem: Locator;
   readonly cartFooter: Locator;
+  readonly actionButton: Locator;
   readonly continueShoppingBtn: Locator;
   readonly checkoutBtn: Locator;
   readonly pageFooter: PageFooter;
@@ -26,6 +27,7 @@ export class CartPage {
     this.descHeader = this.cartList.getByTestId('cart-desc-label');
     this.cartItem = this.cartList.getByTestId('inventory-item');
     this.cartFooter = this.cartContentsContainer.locator('div.cart_footer');
+    this.actionButton = this.cartFooter.locator('button');
     this.continueShoppingBtn = this.cartFooter.getByTestId('continue-shopping');
     this.checkoutBtn = this.cartFooter.getByTestId('checkout');
     this.pageFooter = new PageFooter(page);
@@ -37,4 +39,14 @@ export const EXPECTED_TEXT = {
   qtyHeader: 'QTY',
   descHeader: 'Description',
   buttons: { continueShopping: 'Continue Shopping', checkout: 'Checkout' },
+};
+
+export const COLORS = {
+  backgroundColor: 'rgb(255, 255, 255)',
+  textColor: 'rgb(19, 35, 34)',
+  itemList: { textColor: 'rgb(72, 76, 85)' },
+  buttons: [
+    { backgroundColor: 'rgb(255, 255, 255)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },
+    { backgroundColor: 'rgb(61, 220, 145)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },
+  ],
 };

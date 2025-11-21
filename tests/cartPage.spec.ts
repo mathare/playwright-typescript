@@ -1,6 +1,6 @@
-import test, { expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
-import { CartPage, EXPECTED_TEXT } from '../pages/cartPage';
+import { CartPage, COLORS, EXPECTED_TEXT } from '../pages/cartPage';
 import { URLS } from '../data/pages';
 
 test.describe('Product page tests', () => {
@@ -38,6 +38,38 @@ test.describe('Product page tests', () => {
         await expect(cartPage.descHeader).toHaveText(EXPECTED_TEXT.descHeader);
         await expect(cartPage.continueShoppingBtn).toHaveText(EXPECTED_TEXT.buttons.continueShopping);
         await expect(cartPage.checkoutBtn).toHaveText(EXPECTED_TEXT.buttons.checkout);
+      });
+
+      test('Element styling', async () => {
+        await expect(cartPage.subtitle).toHaveCSS('color', COLORS.textColor);
+        await expect(cartPage.subtitle).toHaveCSS('font-size', '18px');
+        await expect(cartPage.subtitle).toHaveCSS('font-weight', '500');
+        await expect(cartPage.cartContentsContainer).toHaveCSS('background-color', COLORS.backgroundColor);
+
+        await expect(cartPage.cartList).toHaveCSS('display', 'block');
+        const headers = [cartPage.qtyHeader, cartPage.descHeader];
+        for (let i = 0; i < headers.length; i++) {
+          await expect(headers[i]).toHaveCSS('color', COLORS.itemList.textColor);
+          await expect(headers[i]).toHaveCSS('display', 'inline-block');
+          await expect(headers[i]).toHaveCSS('font-size', '16px');
+          await expect(headers[i]).toHaveCSS('font-weight', '500');
+        }
+
+        await expect(cartPage.cartFooter).toHaveCSS('display', 'flex');
+        for (let i = 0; i < (await cartPage.actionButton.count()); i++) {
+          const expectedClass = i == 1 ? 'btn_action' : 'btn_secondary';
+          await expect(cartPage.actionButton.nth(i)).toContainClass(expectedClass);
+          await expect(cartPage.actionButton.nth(i)).toHaveCSS('background-color', COLORS.buttons[i].backgroundColor);
+          await expect(cartPage.actionButton.nth(i)).toHaveCSS('color', COLORS.buttons[i].textColor);
+          const expectedBorderStyle = i === 1 ? '0px none' : '1px solid';
+          await expect(cartPage.actionButton.nth(i)).toHaveCSS(
+            'border',
+            `${expectedBorderStyle} ${COLORS.buttons[i].borderColor}`
+          );
+          await expect(cartPage.actionButton.nth(i)).toHaveCSS('border-radius', '4px');
+          await expect(cartPage.actionButton.nth(i)).toHaveCSS('font-size', '16px');
+          await expect(cartPage.actionButton.nth(i)).toHaveCSS('font-weight', '500');
+        }
       });
     });
   });
