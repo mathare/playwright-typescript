@@ -83,5 +83,17 @@ test.describe('Product page tests', () => {
         });
       });
     });
+
+    test.describe('Behavioural tests', () => {
+      test('"Continue Shopping" button opens inventory page', async ({ page, baseURL }) => {
+        await cartPage.actionButton.nth(0).click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+      });
+
+      test('"Checkout" button opens checkout page', async ({ page, baseURL }) => {
+        await cartPage.actionButton.nth(1).click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+      });
+    });
   });
 });
