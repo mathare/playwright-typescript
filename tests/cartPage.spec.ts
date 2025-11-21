@@ -71,6 +71,17 @@ test.describe('Product page tests', () => {
           await expect(cartPage.actionButton.nth(i)).toHaveCSS('font-weight', '500');
         }
       });
+
+      test.describe('Visual tests', () => {
+        test('Default state', async ({ page }) => {
+          await expect(page).toHaveScreenshot('emptyCart.png', { fullPage: true });
+        });
+
+        test('Menu open', async ({ page }) => {
+          await cartPage.pageHeader.menuButton.click();
+          await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+        });
+      });
     });
   });
 });
