@@ -165,6 +165,6 @@ test.describe('Product page tests', () => {
 
 const generateProductSnapshotName = (name: string): string => {
   // Sanitise product name for use as snapshot name
-  // Remove spaces & dashes then convert first letter to lowercase
+  // Convert first letter to lowercase then remove spaces & dashes
   return name.charAt(0).toLowerCase() + name.slice(1).replace(' ', '').replace('-', '') + '.png';
 };
