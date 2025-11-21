@@ -1,25 +1,21 @@
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
 import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { COLORS, EXPECTED_TEXT, LINKS, Menu } from '../pages/components/menu';
 import { PageHeader } from '../pages/components/pageHeader';
 import { PRODUCT_INFO } from '../data/products';
-import { setCartContentsInLocalStorage } from '../helpers/utils';
+import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
 // This spec makes a not unreasonable assumption that the menu is the same across all pages.
 // As such, the main assertions are performed against a single page (the inventory page).
 
 test.describe('Menu tests', () => {
-  let loginPage: LoginPage;
   let pageHeader: PageHeader;
   let menu: Menu;
   const numMenuItems = EXPECTED_TEXT.menuItems.length;
 
   test.beforeEach(async ({ page, baseURL }) => {
-    loginPage = new LoginPage(page);
-    await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+    await login(page, baseURL!, 'standard_user');
     pageHeader = new PageHeader(page);
     menu = new Menu(page);
   });

@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage, COLORS, FONT_SIZES, EXPECTED_TEXT } from '../pages/loginPage';
 import { URLS } from '../data/pages';
+import { getCookies } from '../helpers/utils';
 
 test.describe('Login page tests', () => {
   let loginPage: LoginPage;
@@ -119,7 +120,7 @@ test.describe('Login page tests', () => {
             await loginPage.passwordInput.fill(PASSWORD);
             await loginPage.loginButton.click();
             await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
-            const cookies = await context.cookies(baseURL);
+            const cookies = await getCookies(context, baseURL!);
             expect(cookies).toHaveLength(1);
             expect(cookies[0]).toHaveProperty('name', 'session-username');
             expect(cookies[0]).toHaveProperty('value', username);

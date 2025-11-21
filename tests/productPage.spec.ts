@@ -1,17 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
-import { LoginPage } from '../pages/loginPage';
 import { PRODUCT_INFO } from '../data/products';
-import { getCartContentsFromLocalStorage } from '../helpers/utils';
+import { getCartContentsFromLocalStorage, login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
 test.describe('Product page tests', () => {
   let productPage: ProductPage;
 
-  test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
+  test.beforeEach(async ({ page, baseURL }) => {
     productPage = new ProductPage(page);
-    await loginPage.login('standard_user');
+    await login(page, baseURL!, 'standard_user');
   });
 
   test.describe('Common page elements', async () => {

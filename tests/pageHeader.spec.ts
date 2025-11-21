@@ -1,8 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
-import { LoginPage } from '../pages/loginPage';
 import { PRODUCT_INFO } from '../data/products';
-import { setCartContentsInLocalStorage } from '../helpers/utils';
+import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
 // This spec makes a not unreasonable assumption that the header displayed at the top of all pages
@@ -15,9 +14,7 @@ test.describe('Page header tests', () => {
   let pageHeader: PageHeader;
 
   test.beforeEach(async ({ page, baseURL }) => {
-    const loginPage = new LoginPage(page);
-    await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+    await login(page, baseURL!, 'standard_user');
     pageHeader = new PageHeader(page);
   });
 

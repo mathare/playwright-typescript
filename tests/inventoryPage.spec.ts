@@ -1,18 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
-import { LoginPage } from '../pages/loginPage';
 import { PRODUCT_INFO } from '../data/products';
-import { getCartContentsFromLocalStorage } from '../helpers/utils';
+import { getCartContentsFromLocalStorage, login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
 test.describe('Inventory page tests', () => {
   let inventoryPage: InventoryPage;
 
   test.beforeEach(async ({ page, baseURL }) => {
-    let loginPage = new LoginPage(page);
     inventoryPage = new InventoryPage(page);
-    await loginPage.login('standard_user');
-    await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+    await login(page, baseURL!, 'standard_user');
   });
 
   test.describe('Appearance tests', () => {
