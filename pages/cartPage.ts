@@ -13,8 +13,6 @@ export class CartPage {
   readonly cartItem: Locator;
   readonly cartFooter: Locator;
   readonly actionButton: Locator;
-  readonly continueShoppingBtn: Locator;
-  readonly checkoutBtn: Locator;
   readonly pageFooter: PageFooter;
 
   constructor(page: Page) {
@@ -28,8 +26,6 @@ export class CartPage {
     this.cartItem = this.cartList.getByTestId('inventory-item');
     this.cartFooter = this.cartContentsContainer.locator('div.cart_footer');
     this.actionButton = this.cartFooter.locator('button');
-    this.continueShoppingBtn = this.cartFooter.getByTestId('continue-shopping');
-    this.checkoutBtn = this.cartFooter.getByTestId('checkout');
     this.pageFooter = new PageFooter(page);
   }
 }
@@ -38,7 +34,7 @@ export const EXPECTED_TEXT = {
   subtitle: 'Your Cart',
   qtyHeader: 'QTY',
   descHeader: 'Description',
-  buttons: { continueShopping: 'Continue Shopping', checkout: 'Checkout' },
+  buttons: ['Continue Shopping', 'Checkout'],
 };
 
 export const COLORS = {

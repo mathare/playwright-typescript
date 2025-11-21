@@ -27,8 +27,7 @@ test.describe('Product page tests', () => {
         await expect(cartPage.descHeader).toBeVisible();
         await expect(cartPage.cartItem).toHaveCount(0);
         await expect(cartPage.cartFooter).toBeVisible();
-        await expect(cartPage.continueShoppingBtn).toBeVisible();
-        await expect(cartPage.checkoutBtn).toBeVisible();
+        await expect(cartPage.actionButton).toHaveCount(2);
         await expect(cartPage.pageFooter.footer).toBeVisible();
       });
 
@@ -36,8 +35,9 @@ test.describe('Product page tests', () => {
         await expect(cartPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
         await expect(cartPage.qtyHeader).toHaveText(EXPECTED_TEXT.qtyHeader);
         await expect(cartPage.descHeader).toHaveText(EXPECTED_TEXT.descHeader);
-        await expect(cartPage.continueShoppingBtn).toHaveText(EXPECTED_TEXT.buttons.continueShopping);
-        await expect(cartPage.checkoutBtn).toHaveText(EXPECTED_TEXT.buttons.checkout);
+        for (let i = 0; i < (await cartPage.actionButton.count()); i++) {
+          await expect(cartPage.actionButton.nth(i)).toHaveText(EXPECTED_TEXT.buttons[i]);
+        }
       });
 
       test('Element styling', async () => {
