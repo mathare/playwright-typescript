@@ -261,6 +261,13 @@ test.describe('Cart page tests', () => {
     });
 
     test.describe('Behavioural tests', () => {
+      test('Clicking item name opens corresponding product page', async ({ page }) => {
+        await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+        const productIndex = Math.floor(Math.random() * productIds.length);
+        await cartPage.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
+        await expect(page).toHaveURL(`${URLS.productPage}${productIds[productIndex]}`);
+      });
+
       test('Cart is empty after removing only item', async ({ page }) => {
         await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
         await cartPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
