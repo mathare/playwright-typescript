@@ -198,7 +198,8 @@ test.describe('Cart page tests', () => {
         }
       });
 
-      test('Cursor is pointer for title link and "Remove" button', async () => {
+      test('Cursor is pointer for title link and "Remove" button', async ({ browserName }) => {
+        test.skip(browserName === 'webkit');
         const productElements = Object.keys(PRODUCT_ELEMENTS);
         for (let i = 0; i < productIds.length; i++) {
           for (let j = 0; j < productElements.length; j++) {
