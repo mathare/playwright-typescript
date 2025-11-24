@@ -107,39 +107,41 @@ test.describe('Product page tests', () => {
   test.describe('Products in cart', () => {
     const productIds = PRODUCT_INFO.map((product) => product.id);
 
-    test.beforeEach(async ({ page }) => {
-      setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
-    });
+    test.describe('Appearance tests', () => {
+      test.beforeEach(async ({ page }) => {
+        setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+      });
 
-    test('Item list element visibility', async () => {
-      await expect(cartPage.cartList).toBeVisible();
-      await expect(cartPage.qtyHeader).toBeVisible();
-      await expect(cartPage.descHeader).toBeVisible();
-      await expect(cartPage.cartItem).toHaveCount(productIds.length);
+      test('Item list element visibility', async () => {
+        await expect(cartPage.cartList).toBeVisible();
+        await expect(cartPage.qtyHeader).toBeVisible();
+        await expect(cartPage.descHeader).toBeVisible();
+        await expect(cartPage.cartItem).toHaveCount(productIds.length);
 
-      // Verify each item in the cart displays all expected elements
-      const productElements = Object.keys(PRODUCT_ELEMENTS);
-      for (let i = 0; i < productIds.length; i++) {
-        for (let j = 0; j < productElements.length; j++) {
-          const productElement = cartPage.getProductElement(
-            i,
-            PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
-          );
-          await expect(productElement).toBeVisible();
+        // Verify each item in the cart displays all expected elements
+        const productElements = Object.keys(PRODUCT_ELEMENTS);
+        for (let i = 0; i < productIds.length; i++) {
+          for (let j = 0; j < productElements.length; j++) {
+            const productElement = cartPage.getProductElement(
+              i,
+              PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
+            );
+            await expect(productElement).toBeVisible();
+          }
         }
-      }
-    });
+      });
 
-    test('Text content of items in cart', async () => {
-      for (let i = 0; i < productIds.length; i++) {
-        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i].title);
-        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-          PRODUCT_INFO[i].description
-        );
-        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${PRODUCT_INFO[i].price}`);
-        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(EXPECTED_TEXT.removeButton);
-      }
+      test('Text content of items in cart', async () => {
+        for (let i = 0; i < productIds.length; i++) {
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i].title);
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
+            PRODUCT_INFO[i].description
+          );
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${PRODUCT_INFO[i].price}`);
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(EXPECTED_TEXT.removeButton);
+        }
+      });
     });
   });
 });
