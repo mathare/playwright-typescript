@@ -109,7 +109,7 @@ test.describe('Product page tests', () => {
 
     test.describe('Appearance tests', () => {
       test.beforeEach(async ({ page }) => {
-        setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+        await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
       });
 
       test('Item list element visibility', async () => {
@@ -205,6 +205,19 @@ test.describe('Product page tests', () => {
             const cursorStyle = productElements[j] === 'title' || productElements[j] === 'button' ? 'pointer' : 'auto';
             await expect(productElement).toHaveCSS('cursor', cursorStyle);
           }
+        }
+      });
+
+      test('Items in cart match order in which products were added', async ({ page }) => {
+        const shuffledProductIds = [...productIds].sort(() => Math.random() - 0.5);
+        await setCartContentsInLocalStorage(page, shuffledProductIds, URLS.cartPage);
+
+        for (let i = 0; i < shuffledProductIds.length; i++) {
+          const product = PRODUCT_INFO.filter((a) => a.id === shuffledProductIds[i])[0];
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(product.title);
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(product.description);
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${product.price}`);
         }
       });
     });
