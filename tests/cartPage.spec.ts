@@ -129,5 +129,17 @@ test.describe('Product page tests', () => {
         }
       }
     });
+
+    test('Text content of items in cart', async () => {
+      for (let i = 0; i < productIds.length; i++) {
+        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i].title);
+        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
+          PRODUCT_INFO[i].description
+        );
+        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${PRODUCT_INFO[i].price}`);
+        await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(EXPECTED_TEXT.removeButton);
+      }
+    });
   });
 });

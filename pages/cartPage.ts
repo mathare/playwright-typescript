@@ -41,6 +41,8 @@ export const EXPECTED_TEXT = {
   subtitle: 'Your Cart',
   qtyHeader: 'QTY',
   descHeader: 'Description',
+  addToCartButton: 'Add to cart',
+  removeButton: 'Remove',
   buttons: ['Continue Shopping', 'Checkout'],
 };
 
