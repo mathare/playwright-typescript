@@ -72,6 +72,12 @@ test.describe('Product page tests', () => {
         }
       });
 
+      test('Cursor is pointer for "Continue Shopping" and "Checkout" buttons', async () => {
+        for (let i = 0; i < (await cartPage.actionButton.count()); i++) {
+          await expect(cartPage.actionButton.nth(i)).toHaveCSS('cursor', 'pointer');
+        }
+      });
+
       test.describe('Visual tests', () => {
         test('Default state', async ({ page }) => {
           await expect(page).toHaveScreenshot('emptyCart.png', { fullPage: true });
