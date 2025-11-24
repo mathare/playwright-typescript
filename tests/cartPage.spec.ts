@@ -4,7 +4,7 @@ import { CartPage, COLORS, EXPECTED_TEXT, PRODUCT_ELEMENTS } from '../pages/cart
 import { URLS } from '../data/pages';
 import { PRODUCT_INFO } from '../data/products';
 
-test.describe('Product page tests', () => {
+test.describe('Cart page tests', () => {
   let cartPage: CartPage;
 
   test.beforeEach(async ({ page, baseURL }) => {
