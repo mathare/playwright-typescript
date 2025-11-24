@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Locator } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { CartPage, COLORS, EXPECTED_TEXT, PRODUCT_ELEMENTS } from '../pages/cartPage';
 import { URLS } from '../data/pages';
@@ -50,7 +50,7 @@ test.describe('Product page tests', () => {
         await expect(cartPage.cartList).toHaveCSS('display', 'block');
         const headers = [cartPage.qtyHeader, cartPage.descHeader];
         for (let i = 0; i < headers.length; i++) {
-          await expect(headers[i]).toHaveCSS('color', COLORS.itemList.textColor);
+          await expect(headers[i]).toHaveCSS('color', COLORS.itemList.headerColor);
           await expect(headers[i]).toHaveCSS('display', 'inline-block');
           await expect(headers[i]).toHaveCSS('font-size', '16px');
           await expect(headers[i]).toHaveCSS('font-weight', '500');
@@ -140,6 +140,49 @@ test.describe('Product page tests', () => {
           );
           await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${PRODUCT_INFO[i].price}`);
           await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(EXPECTED_TEXT.removeButton);
+        }
+      });
+
+      test('Cart item element styling', async () => {
+        let element: Locator;
+        for (let i = 0; i < productIds.length; i++) {
+          element = cartPage.cartItem.nth(i);
+          await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+          await expect(element).toHaveCSS('border', `1px solid ${COLORS.itemList.borderColor}`);
+          await expect(element).toHaveCSS('border-radius', '8px');
+          await expect(element).toHaveCSS('display', 'flex');
+
+          element = cartPage.getProductElement(i, PRODUCT_ELEMENTS.qty);
+          await expect(element).toHaveCSS('border', `1px solid ${COLORS.itemList.borderColor}`);
+          await expect(element).toHaveCSS('box-sizing', 'border-box');
+          await expect(element).toHaveCSS('font-size', '14px');
+          await expect(element).toHaveCSS('font-weight', '400');
+          await expect(element).toHaveCSS('text-align', 'center');
+
+          element = cartPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          await expect(element).toHaveCSS('color', COLORS.itemList.titleColor);
+          await expect(element).toHaveCSS('font-size', '20px');
+          await expect(element).toHaveCSS('font-weight', '500');
+
+          element = cartPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+          await expect(element).toHaveCSS('color', COLORS.itemList.textColor);
+          await expect(element).toHaveCSS('font-size', '14px');
+
+          element = cartPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+          await expect(element).toHaveCSS('border-top', `1px solid ${COLORS.itemList.borderColor}`);
+          await expect(element).toHaveCSS('color', COLORS.itemList.textColor);
+          await expect(element).toHaveCSS('font-size', '20px');
+          await expect(element).toHaveCSS('font-weight', '500');
+
+          element = cartPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+          await expect(element).toContainClass('btn_secondary');
+          await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+          await expect(element).toHaveCSS('border', `1px solid ${COLORS.itemList.button.removeButtonColor}`);
+          await expect(element).toHaveCSS('border-radius', '4px');
+          await expect(element).toHaveCSS('box-sizing', 'border-box');
+          await expect(element).toHaveCSS('color', COLORS.itemList.button.removeButtonColor);
+          await expect(element).toHaveCSS('font-size', '16px');
+          await expect(element).toHaveCSS('font-weight', '500');
         }
       });
     });
