@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
-import { CartPage, COLORS, EXPECTED_TEXT } from '../pages/cartPage';
+import { CartPage, COLORS, EXPECTED_TEXT, PRODUCT_ELEMENTS } from '../pages/cartPage';
 import { URLS } from '../data/pages';
+import { PRODUCT_INFO } from '../data/products';
 
 test.describe('Product page tests', () => {
   let cartPage: CartPage;
@@ -100,6 +101,33 @@ test.describe('Product page tests', () => {
         await cartPage.actionButton.nth(1).click();
         await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
       });
+    });
+  });
+
+  test.describe('Products in cart', () => {
+    const productIds = PRODUCT_INFO.map((product) => product.id);
+
+    test.beforeEach(async ({ page }) => {
+      setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+    });
+
+    test('Item list element visibility', async () => {
+      await expect(cartPage.cartList).toBeVisible();
+      await expect(cartPage.qtyHeader).toBeVisible();
+      await expect(cartPage.descHeader).toBeVisible();
+      await expect(cartPage.cartItem).toHaveCount(productIds.length);
+
+      // Verify each item in the cart displays all expected elements
+      const productElements = Object.keys(PRODUCT_ELEMENTS);
+      for (let i = 0; i < productIds.length; i++) {
+        for (let j = 0; j < productElements.length; j++) {
+          const productElement = cartPage.getProductElement(
+            i,
+            PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
+          );
+          await expect(productElement).toBeVisible();
+        }
+      }
     });
   });
 });
