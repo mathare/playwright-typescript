@@ -79,6 +79,10 @@ test.describe('Product page tests', () => {
         }
       });
 
+      test('"Checkout" button is enabled even when cart is empty', async () => {
+        await expect(cartPage.actionButton.nth(1)).toBeEnabled();
+      });
+
       test.describe('Visual tests', () => {
         test('Default state', async ({ page }) => {
           await expect(page).toHaveScreenshot('emptyCart.png', { fullPage: true });
