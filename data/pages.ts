@@ -3,4 +3,5 @@ export const URLS = {
   inventoryPage: '/inventory.html',
   productPage: '/inventory-item.html?id=',
   cartPage: '/cart.html',
+  checkoutInfoPage: '/checkout-step-one.html',
 };
