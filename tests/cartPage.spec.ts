@@ -193,6 +193,20 @@ test.describe('Product page tests', () => {
           await expect(element).toHaveCSS('color', COLORS.itemList.hoverColor);
         }
       });
+
+      test('Cursor is pointer for title link and "Remove" button', async () => {
+        const productElements = Object.keys(PRODUCT_ELEMENTS);
+        for (let i = 0; i < productIds.length; i++) {
+          for (let j = 0; j < productElements.length; j++) {
+            const productElement = cartPage.getProductElement(
+              i,
+              PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
+            );
+            const cursorStyle = productElements[j] === 'title' || productElements[j] === 'button' ? 'pointer' : 'auto';
+            await expect(productElement).toHaveCSS('cursor', cursorStyle);
+          }
+        }
+      });
     });
   });
 });
