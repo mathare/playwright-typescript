@@ -221,6 +221,19 @@ test.describe('Product page tests', () => {
         }
       });
 
+      test('Item quantities cannot be edited', async () => {
+        // Proving the item quantity isn't editable is a bit tricky as the element isn't an input or textbox so we
+        // can't use the .not.toBeEditable() assertion. Instead verify the tag is a div (not an input) and the
+        // isContentEditable property is false
+        for (let i = 0; i < productIds.length; i++) {
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveJSProperty('tagName', 'DIV');
+          await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveJSProperty(
+            'isContentEditable',
+            false
+          );
+        }
+      });
+
       test.describe('Visual tests', () => {
         test('Single product in cart', async ({ page }) => {
           await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
