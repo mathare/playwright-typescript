@@ -234,6 +234,16 @@ test.describe('Product page tests', () => {
         }
       });
 
+      test('Item title link does not explicitly reference product page', async () => {
+        for (let i = 0; i < productIds.length; i++) {
+          // I don't like using locators within tests but this is the easiest way of conducting this test
+          const LINK = cartPage.cartItem.nth(i).locator('a');
+          await expect(LINK).toHaveCount(1);
+          await expect(LINK).toHaveId(new RegExp('item_\\d_title_link'));
+          await expect(LINK).toHaveAttribute('href', '#');
+        }
+      });
+
       test.describe('Visual tests', () => {
         test('Single product in cart', async ({ page }) => {
           await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
