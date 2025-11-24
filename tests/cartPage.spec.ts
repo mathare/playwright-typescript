@@ -185,6 +185,14 @@ test.describe('Product page tests', () => {
           await expect(element).toHaveCSS('font-weight', '500');
         }
       });
+
+      test('Cart item title changes style on hover', async () => {
+        for (let i = 0; i < productIds.length; i++) {
+          const element = cartPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          await element.hover();
+          await expect(element).toHaveCSS('color', COLORS.itemList.hoverColor);
+        }
+      });
     });
   });
 });
