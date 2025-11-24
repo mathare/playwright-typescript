@@ -41,7 +41,7 @@ test.describe('Cart page tests', () => {
         }
       });
 
-      test('Element styling', async () => {
+      test('Element styling', async ({ browserName }) => {
         await expect(cartPage.subtitle).toHaveCSS('color', COLORS.textColor);
         await expect(cartPage.subtitle).toHaveCSS('font-size', '18px');
         await expect(cartPage.subtitle).toHaveCSS('font-weight', '500');
@@ -62,7 +62,7 @@ test.describe('Cart page tests', () => {
           await expect(cartPage.actionButton.nth(i)).toContainClass(expectedClass);
           await expect(cartPage.actionButton.nth(i)).toHaveCSS('background-color', COLORS.buttons[i].backgroundColor);
           await expect(cartPage.actionButton.nth(i)).toHaveCSS('color', COLORS.buttons[i].textColor);
-          const expectedBorderStyle = i === 1 ? '0px none' : '1px solid';
+          const expectedBorderStyle = i === 1 ? (browserName === 'firefox' ? '0px' : '0px none') : '1px solid';
           await expect(cartPage.actionButton.nth(i)).toHaveCSS(
             'border',
             `${expectedBorderStyle} ${COLORS.buttons[i].borderColor}`
