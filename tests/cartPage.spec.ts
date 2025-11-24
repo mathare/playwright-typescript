@@ -220,6 +220,17 @@ test.describe('Product page tests', () => {
           await expect(cartPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${product.price}`);
         }
       });
+
+      test.describe('Visual tests', () => {
+        test('Single product in cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
+          await expect(cartPage.cartList).toHaveScreenshot('singleProductInCart.png');
+        });
+
+        test('All products in cart', async () => {
+          await expect(cartPage.cartList).toHaveScreenshot('allProductsInCart.png');
+        });
+      });
     });
   });
 });
