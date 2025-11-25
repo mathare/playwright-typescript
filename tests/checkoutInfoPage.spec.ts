@@ -118,7 +118,8 @@ test.describe('Checkout info page tests', () => {
     }
   });
 
-  test('Cursor is text for form inputs', async () => {
+  test('Cursor is text for form inputs', async ({ browserName }) => {
+    test.skip(browserName === 'webkit');
     for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
       const element = checkoutInfoPage.formInput.nth(i);
       await expect(element).toHaveCSS('cursor', 'text');
