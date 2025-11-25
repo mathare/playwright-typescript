@@ -107,48 +107,48 @@ test.describe('Checkout info page tests', () => {
         await expect(checkoutInfoPage.actionButton.nth(i)).toHaveCSS('font-weight', '500');
       }
     });
-  });
 
-  test('Form inputs validation attributes', async () => {
-    for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
-      const element = checkoutInfoPage.formInput.nth(i);
-      await expect(element).toHaveAttribute('type', 'text');
-      await expect(element).toHaveAttribute('autocorrect', 'off');
-      await expect(element).toHaveAttribute('autocapitalize', 'none');
-    }
-  });
-
-  test('Cursor is text for form inputs', async ({ browserName }) => {
-    test.skip(browserName === 'webkit');
-    for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
-      const element = checkoutInfoPage.formInput.nth(i);
-      await expect(element).toHaveCSS('cursor', 'text');
-    }
-  });
-
-  test('Cursor is pointer for "Cancel" and "Continue" buttons', async () => {
-    for (let i = 0; i < (await checkoutInfoPage.actionButton.count()); i++) {
-      await expect(checkoutInfoPage.actionButton.nth(i)).toHaveCSS('cursor', 'pointer');
-    }
-  });
-
-  test('"Continue" button is enabled even when form inputs are empty', async () => {
-    await expect(checkoutInfoPage.continueButton).toBeEnabled();
-  });
-
-  test.describe('Visual tests', () => {
-    test('Default state', async ({ page }) => {
-      await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+    test('Form inputs validation attributes', async () => {
+      for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
+        const element = checkoutInfoPage.formInput.nth(i);
+        await expect(element).toHaveAttribute('type', 'text');
+        await expect(element).toHaveAttribute('autocorrect', 'off');
+        await expect(element).toHaveAttribute('autocapitalize', 'none');
+      }
     });
 
-    test('Menu open', async ({ page }) => {
-      await checkoutInfoPage.pageHeader.menuButton.click();
-      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+    test('Cursor is text for form inputs', async ({ browserName }) => {
+      test.skip(browserName === 'webkit');
+      for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
+        const element = checkoutInfoPage.formInput.nth(i);
+        await expect(element).toHaveCSS('cursor', 'text');
+      }
     });
 
-    test('Error state', async () => {
-      await checkoutInfoPage.continueButton.click();
-      await expect(checkoutInfoPage.checkoutInfoContainer).toHaveScreenshot('error.png');
+    test('Cursor is pointer for "Cancel" and "Continue" buttons', async () => {
+      for (let i = 0; i < (await checkoutInfoPage.actionButton.count()); i++) {
+        await expect(checkoutInfoPage.actionButton.nth(i)).toHaveCSS('cursor', 'pointer');
+      }
+    });
+
+    test('"Continue" button is enabled even when form inputs are empty', async () => {
+      await expect(checkoutInfoPage.continueButton).toBeEnabled();
+    });
+
+    test.describe('Visual tests', () => {
+      test('Default state', async ({ page }) => {
+        await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+      });
+
+      test('Menu open', async ({ page }) => {
+        await checkoutInfoPage.pageHeader.menuButton.click();
+        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+      });
+
+      test('Error state', async () => {
+        await checkoutInfoPage.continueButton.click();
+        await expect(checkoutInfoPage.checkoutInfoContainer).toHaveScreenshot('error.png');
+      });
     });
   });
 });
