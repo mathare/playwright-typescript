@@ -43,6 +43,7 @@ test.describe('Checkout info page tests', () => {
         'placeholder',
         EXPECTED_TEXT.placeholders.postalCode
       );
+      await expect(checkoutInfoPage.errorMessageContainer).toBeEmpty();
       for (let i = 0; i < (await checkoutInfoPage.actionButton.count()); i++) {
         await expect(checkoutInfoPage.actionButton.nth(i)).toHaveText(EXPECTED_TEXT.buttons[i]);
       }
