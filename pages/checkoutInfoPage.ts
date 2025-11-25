@@ -31,3 +31,13 @@ export class CheckoutInfoPage {
     this.pageFooter = new PageFooter(page);
   }
 }
+
+export const EXPECTED_TEXT = {
+  subtitle: 'Checkout: Your Information',
+  placeholders: {
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    postalCode: 'Zip/Postal Code',
+  },
+  buttons: ['Cancel', 'Continue'],
+};

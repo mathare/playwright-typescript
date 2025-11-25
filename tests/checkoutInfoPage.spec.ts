@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { CheckoutInfoPage } from '../pages/checkoutInfoPage';
+import { CheckoutInfoPage, EXPECTED_TEXT } from '../pages/checkoutInfoPage';
 import { login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
@@ -27,6 +27,25 @@ test.describe('Checkout info page tests', () => {
       await expect(checkoutInfoPage.checkoutButtonsContainer).toBeVisible();
       await expect(checkoutInfoPage.actionButton).toHaveCount(2);
       await expect(checkoutInfoPage.pageFooter.footer).toBeVisible();
+    });
+
+    test('Text content of elements', async () => {
+      await expect(checkoutInfoPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
+      await expect(checkoutInfoPage.firstNameInput).toBeEmpty();
+      await expect(checkoutInfoPage.firstNameInput).toHaveAttribute(
+        'placeholder',
+        EXPECTED_TEXT.placeholders.firstName
+      );
+      await expect(checkoutInfoPage.lastNameInput).toBeEmpty();
+      await expect(checkoutInfoPage.lastNameInput).toHaveAttribute('placeholder', EXPECTED_TEXT.placeholders.lastName);
+      await expect(checkoutInfoPage.postalCodeInput).toBeEmpty();
+      await expect(checkoutInfoPage.postalCodeInput).toHaveAttribute(
+        'placeholder',
+        EXPECTED_TEXT.placeholders.postalCode
+      );
+      for (let i = 0; i < (await checkoutInfoPage.actionButton.count()); i++) {
+        await expect(checkoutInfoPage.actionButton.nth(i)).toHaveText(EXPECTED_TEXT.buttons[i]);
+      }
     });
   });
 });
