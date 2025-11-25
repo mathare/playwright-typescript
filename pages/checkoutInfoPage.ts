@@ -13,8 +13,12 @@ export class CheckoutInfoPage {
   readonly lastNameInput: Locator;
   readonly postalCodeInput: Locator;
   readonly errorMessageContainer: Locator;
+  readonly errorMessage: Locator;
+  readonly errorCloseButton: Locator;
   readonly checkoutButtonsContainer: Locator;
   readonly actionButton: Locator;
+  readonly cancelButton: Locator;
+  readonly continueButton: Locator;
   readonly pageFooter: PageFooter;
 
   constructor(page: Page) {
@@ -28,8 +32,12 @@ export class CheckoutInfoPage {
     this.lastNameInput = this.checkoutInfoForm.getByTestId('lastName');
     this.postalCodeInput = this.checkoutInfoForm.getByTestId('postalCode');
     this.errorMessageContainer = this.checkoutInfoContainer.locator('div.error-message-container');
+    this.errorMessage = this.errorMessageContainer.getByTestId('error');
+    this.errorCloseButton = this.errorMessage.getByTestId('error-button');
     this.checkoutButtonsContainer = this.checkoutInfoContainer.locator('div.checkout_buttons');
     this.actionButton = this.checkoutButtonsContainer.locator('.btn');
+    this.cancelButton = this.checkoutButtonsContainer.getByTestId('cancel');
+    this.continueButton = this.checkoutButtonsContainer.getByTestId('continue');
     this.pageFooter = new PageFooter(page);
   }
 }

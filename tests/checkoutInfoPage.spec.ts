@@ -24,8 +24,12 @@ test.describe('Checkout info page tests', () => {
       await expect(checkoutInfoPage.lastNameInput).toBeVisible();
       await expect(checkoutInfoPage.postalCodeInput).toBeVisible();
       await expect(checkoutInfoPage.errorMessageContainer).toBeVisible();
+      await expect(checkoutInfoPage.errorMessage).toHaveCount(0);
+      await expect(checkoutInfoPage.errorCloseButton).toHaveCount(0);
       await expect(checkoutInfoPage.checkoutButtonsContainer).toBeVisible();
       await expect(checkoutInfoPage.actionButton).toHaveCount(2);
+      await expect(checkoutInfoPage.cancelButton).toBeVisible();
+      await expect(checkoutInfoPage.continueButton).toBeVisible();
       await expect(checkoutInfoPage.pageFooter.footer).toBeVisible();
     });
 
