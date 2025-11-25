@@ -104,4 +104,13 @@ test.describe('Checkout info page tests', () => {
       }
     });
   });
+
+  test('Form inputs validation attributes', async () => {
+    for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
+      const element = checkoutInfoPage.formInput.nth(i);
+      await expect(element).toHaveAttribute('type', 'text');
+      await expect(element).toHaveAttribute('autocorrect', 'off');
+      await expect(element).toHaveAttribute('autocapitalize', 'none');
+    }
+  });
 });
