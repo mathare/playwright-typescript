@@ -57,13 +57,9 @@ test.describe('Checkout info page tests', () => {
       await expect(checkoutInfoPage.checkoutInfoForm).toHaveCSS('border', `1px solid ${COLORS.borderColor}`);
       await expect(checkoutInfoPage.checkoutInfoForm).toHaveCSS('border-radius', '8px');
       await expect(checkoutInfoPage.checkoutInfoForm).toHaveCSS('padding', '40px 40px 0px');
-      const INPUTS = [
-        checkoutInfoPage.firstNameInput,
-        checkoutInfoPage.lastNameInput,
-        checkoutInfoPage.postalCodeInput,
-      ];
-      for (let i = 0; i < INPUTS.length; i++) {
-        const element = INPUTS[i];
+
+      for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
+        const element = checkoutInfoPage.formInput.nth(i);
         await expect(element).not.toContainClass('error');
         await expect(element).toHaveCSS('border', '');
         await expect(element).toHaveCSS('border-bottom', `1px solid ${COLORS.borderColor}`);

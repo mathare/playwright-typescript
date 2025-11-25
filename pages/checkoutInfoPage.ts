@@ -8,6 +8,7 @@ export class CheckoutInfoPage {
   readonly subtitle: Locator;
   readonly checkoutInfoContainer: Locator;
   readonly checkoutInfoForm: Locator;
+  readonly formInput: Locator;
   readonly firstNameInput: Locator;
   readonly lastNameInput: Locator;
   readonly postalCodeInput: Locator;
@@ -22,6 +23,7 @@ export class CheckoutInfoPage {
     this.subtitle = page.getByTestId('title');
     this.checkoutInfoContainer = page.getByTestId('checkout-info-container');
     this.checkoutInfoForm = this.checkoutInfoContainer.locator('div.checkout_info');
+    this.formInput = this.checkoutInfoForm.locator('input.form_input');
     this.firstNameInput = this.checkoutInfoForm.getByTestId('firstName');
     this.lastNameInput = this.checkoutInfoForm.getByTestId('lastName');
     this.postalCodeInput = this.checkoutInfoForm.getByTestId('postalCode');
