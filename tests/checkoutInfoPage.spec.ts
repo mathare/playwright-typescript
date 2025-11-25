@@ -130,4 +130,8 @@ test.describe('Checkout info page tests', () => {
       await expect(checkoutInfoPage.actionButton.nth(i)).toHaveCSS('cursor', 'pointer');
     }
   });
+
+  test('"Continue" button is enabled even when form inputs are empty', async () => {
+    await expect(checkoutInfoPage.continueButton).toBeEnabled();
+  });
 });
