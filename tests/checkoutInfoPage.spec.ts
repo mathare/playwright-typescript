@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { CheckoutInfoPage, EXPECTED_TEXT } from '../pages/checkoutInfoPage';
+import { CheckoutInfoPage, COLORS, EXPECTED_TEXT } from '../pages/checkoutInfoPage';
 import { login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
