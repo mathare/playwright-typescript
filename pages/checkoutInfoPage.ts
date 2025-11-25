@@ -41,3 +41,14 @@ export const EXPECTED_TEXT = {
   },
   buttons: ['Cancel', 'Continue'],
 };
+
+export const COLORS = {
+  backgroundColor: 'rgb(255, 255, 255)',
+  subtitleColor: 'rgb(19, 35, 34)',
+  borderColor: 'rgb(237, 237, 237)',
+  inputTextColor: 'rgb(72, 76, 85)',
+  buttons: [
+    { backgroundColor: 'rgb(255, 255, 255)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },
+    { backgroundColor: 'rgb(61, 220, 145)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },
+  ],
+};
