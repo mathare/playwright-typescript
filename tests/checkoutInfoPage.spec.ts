@@ -117,4 +117,17 @@ test.describe('Checkout info page tests', () => {
       await expect(element).toHaveAttribute('autocapitalize', 'none');
     }
   });
+
+  test('Cursor is text for form inputs', async () => {
+    for (let i = 0; i < (await checkoutInfoPage.formInput.count()); i++) {
+      const element = checkoutInfoPage.formInput.nth(i);
+      await expect(element).toHaveCSS('cursor', 'text');
+    }
+  });
+
+  test('Cursor is pointer for "Cancel" and "Continue" buttons', async () => {
+    for (let i = 0; i < (await checkoutInfoPage.actionButton.count()); i++) {
+      await expect(checkoutInfoPage.actionButton.nth(i)).toHaveCSS('cursor', 'pointer');
+    }
+  });
 });
