@@ -134,4 +134,20 @@ test.describe('Checkout info page tests', () => {
   test('"Continue" button is enabled even when form inputs are empty', async () => {
     await expect(checkoutInfoPage.continueButton).toBeEnabled();
   });
+
+  test.describe('Visual tests', () => {
+    test('Default state', async ({ page }) => {
+      await expect(page).toHaveScreenshot('emptyCart.png', { fullPage: true });
+    });
+
+    test('Menu open', async ({ page }) => {
+      await checkoutInfoPage.pageHeader.menuButton.click();
+      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+    });
+
+    test('Error state', async () => {
+      await checkoutInfoPage.continueButton.click();
+      await expect(checkoutInfoPage.checkoutInfoContainer).toHaveScreenshot('error.png');
+    });
+  });
 });
