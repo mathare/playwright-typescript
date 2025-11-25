@@ -138,7 +138,7 @@ test.describe('Checkout info page tests', () => {
 
   test.describe('Visual tests', () => {
     test('Default state', async ({ page }) => {
-      await expect(page).toHaveScreenshot('emptyCart.png', { fullPage: true });
+      await expect(page).toHaveScreenshot('default.png', { fullPage: true });
     });
 
     test('Menu open', async ({ page }) => {
