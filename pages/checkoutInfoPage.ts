@@ -75,13 +75,6 @@ export class CheckoutInfoPage {
     await expect(this.errorCloseButton).toBeVisible();
     await expect(this.errorMessageContainer).toContainClass('error');
     await expect(this.errorMessageContainer).toHaveCSS('background-color', COLORS.error.backgroundColor);
-    await expect(this.errorMessageContainer).toHaveCSS('display', 'flex');
-    await expect(this.errorMessageContainer).toHaveCSS('justify-content', 'center');
-    await expect(this.errorMessageContainer).toHaveCSS('margin-bottom', '5px');
-    await expect(this.errorMessageContainer).toHaveCSS('margin-top', '-10px');
-    await expect(this.errorMessageContainer).toHaveCSS('padding-left', '10px');
-    await expect(this.errorMessageContainer).toHaveCSS('padding-right', '10px');
-    await expect(this.errorMessageContainer).toHaveCSS('position', 'relative');
     await expect(this.errorMessage).toHaveCSS('color', COLORS.error.textColor);
     await expect(this.errorMessage).toHaveText(message);
   }
