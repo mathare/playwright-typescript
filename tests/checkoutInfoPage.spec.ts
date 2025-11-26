@@ -266,5 +266,30 @@ test.describe('Checkout info page tests', () => {
         await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
       });
     });
+
+    test('"Cancel" button opens cart page', async ({ page, baseURL }) => {
+      await checkoutInfoPage.cancelButton.click();
+      await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
+    });
+
+    test('"Continue" button opens checkout overview page', async ({ page, baseURL }) => {
+      await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+      await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+      await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+      await checkoutInfoPage.continueButton.click();
+      await expect(page).toHaveURL(`${baseURL}${URLS.checkoutOverviewPage}`);
+    });
+
+    // This is not the behaviour I expected - I assumed the behaviour would be the same as clicking
+    // the "Continue" button especially since that is the primary button but for some reason it
+    // doesn't work that way. That may be intentional, I don't know as there is no documentation for
+    // the 3rd-party application under test
+    test('Submitting form by pressing enter key opens cart page', async ({ page, baseURL }) => {
+      await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+      await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+      await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+      await checkoutInfoPage.postalCodeInput.press('Enter');
+      await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
+    });
   });
 });
