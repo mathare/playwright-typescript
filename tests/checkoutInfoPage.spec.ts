@@ -66,9 +66,9 @@ test.describe('Checkout info page tests', () => {
         const element = checkoutInfoPage.formInput.nth(i);
         await expect(element).not.toContainClass('error');
         await expect(element).toHaveCSS('border', '');
-        await expect(element).toHaveCSS('border-bottom', `1px solid ${COLORS.borderColor}`);
+        await expect(element).toHaveCSS('border-bottom', `1px solid ${COLORS.input.borderColor}`);
         await expect(element).toHaveCSS('border-radius', '0px');
-        await expect(element).toHaveCSS('color', COLORS.inputTextColor);
+        await expect(element).toHaveCSS('color', COLORS.input.textColor);
         await expect(element).toHaveCSS('font-size', '14px');
         await expect(element).toHaveCSS('padding', '10px 0px');
       }

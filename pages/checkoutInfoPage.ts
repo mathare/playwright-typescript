@@ -56,7 +56,15 @@ export const COLORS = {
   backgroundColor: 'rgb(255, 255, 255)',
   subtitleColor: 'rgb(19, 35, 34)',
   borderColor: 'rgb(237, 237, 237)',
-  inputTextColor: 'rgb(72, 76, 85)',
+  input: {
+    textColor: 'rgb(72, 76, 85)',
+    borderColor: 'rgb(237, 237, 237)',
+    errorBorderColor: 'rgb(226, 35, 26)',
+  },
+  error: {
+    backgroundColor: 'rgb(226, 35, 26)',
+    textColor: 'rgb(255, 255, 255)',
+  },
   buttons: [
     { backgroundColor: 'rgb(255, 255, 255)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },
     { backgroundColor: 'rgb(61, 220, 145)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },
