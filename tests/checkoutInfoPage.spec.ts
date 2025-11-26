@@ -232,6 +232,39 @@ test.describe('Checkout info page tests', () => {
         await checkoutInfoPage.continueButton.click();
         await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingPostalCode);
       });
+
+      test('Form validation errors cleared on closing error message', async () => {
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+        await checkoutInfoPage.errorCloseButton.click();
+
+        await checkoutInfoPage.inputDoesNotHaveValidationError('firstName');
+        await checkoutInfoPage.inputDoesNotHaveValidationError('lastName');
+        await checkoutInfoPage.inputDoesNotHaveValidationError('postalCode');
+        // The error message container is still present and visible but is white and empty
+        await expect(checkoutInfoPage.errorMessageContainer).toBeVisible();
+        await expect(checkoutInfoPage.errorMessageContainer).toBeEmpty();
+        await expect(checkoutInfoPage.errorMessageContainer).not.toContainClass('error');
+        await expect(checkoutInfoPage.errorMessageContainer).toHaveCSS('background-color', COLORS.backgroundColor);
+        await expect(checkoutInfoPage.errorMessage).toHaveCount(0);
+        await expect(checkoutInfoPage.errorCloseButton).toHaveCount(0);
+      });
+
+      test('Form validation errors remain if form made valid but not submitted', async () => {
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.inputHasValidationError('firstName');
+        await checkoutInfoPage.inputHasValidationError('lastName');
+        await checkoutInfoPage.inputHasValidationError('postalCode');
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.inputHasValidationError('firstName');
+        await checkoutInfoPage.inputHasValidationError('lastName');
+        await checkoutInfoPage.inputHasValidationError('postalCode');
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+      });
     });
   });
 });
