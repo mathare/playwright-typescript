@@ -1,6 +1,8 @@
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import { PageHeader } from './components/pageHeader';
 import { PageFooter } from './components/pageFooter';
+
+type CheckoutInfoFormInputs = 'firstName' | 'lastName' | 'postalCode';
 
 export class CheckoutInfoPage {
   readonly page: Page;
@@ -40,6 +42,49 @@ export class CheckoutInfoPage {
     this.continueButton = this.checkoutButtonsContainer.getByTestId('continue');
     this.pageFooter = new PageFooter(page);
   }
+
+  // *******
+  // ACTIONS
+  // *******
+  async resetCheckoutInfoForm() {
+    for (let i = 0; i < (await this.formInput.count()); i++) {
+      await this.formInput.nth(i).clear();
+    }
+  }
+
+  // **********
+  // ASSERTIONS
+  // **********
+  async inputHasValidationError(input: CheckoutInfoFormInputs) {
+    const INPUT_LOCATOR = this.checkoutInfoForm.getByTestId(input);
+    await expect(INPUT_LOCATOR).toContainClass('error');
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.input.errorBorderColor);
+    await expect(INPUT_LOCATOR.locator('.. >> svg')).toBeVisible();
+  }
+
+  async inputDoesNotHaveValidationError(input: CheckoutInfoFormInputs) {
+    const INPUT_LOCATOR = this.checkoutInfoForm.getByTestId(input);
+    await expect(INPUT_LOCATOR).not.toContainClass('error');
+    await expect(INPUT_LOCATOR).toHaveCSS('border-bottom-color', COLORS.input.borderColor);
+    await expect(INPUT_LOCATOR.locator('.. >> svg')).not.toBeVisible();
+  }
+
+  async errorMessageDisplayed(message: string) {
+    await expect(this.errorMessageContainer).toBeVisible();
+    await expect(this.errorMessage).toBeVisible();
+    await expect(this.errorCloseButton).toBeVisible();
+    await expect(this.errorMessageContainer).toContainClass('error');
+    await expect(this.errorMessageContainer).toHaveCSS('background-color', COLORS.error.backgroundColor);
+    await expect(this.errorMessageContainer).toHaveCSS('display', 'flex');
+    await expect(this.errorMessageContainer).toHaveCSS('justify-content', 'center');
+    await expect(this.errorMessageContainer).toHaveCSS('margin-bottom', '5px');
+    await expect(this.errorMessageContainer).toHaveCSS('margin-top', '-10px');
+    await expect(this.errorMessageContainer).toHaveCSS('padding-left', '10px');
+    await expect(this.errorMessageContainer).toHaveCSS('padding-right', '10px');
+    await expect(this.errorMessageContainer).toHaveCSS('position', 'relative');
+    await expect(this.errorMessage).toHaveCSS('color', COLORS.error.textColor);
+    await expect(this.errorMessage).toHaveText(message);
+  }
 }
 
 export const EXPECTED_TEXT = {
@@ -50,6 +95,11 @@ export const EXPECTED_TEXT = {
     postalCode: 'Zip/Postal Code',
   },
   buttons: ['Cancel', 'Continue'],
+  errorMessages: {
+    missingFirstName: 'Error: First Name is required',
+    missingLastName: 'Error: Last Name is required',
+    missingPostalCode: 'Error: Postal Code is required',
+  },
 };
 
 export const COLORS = {

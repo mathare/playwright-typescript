@@ -151,4 +151,87 @@ test.describe('Checkout info page tests', () => {
       });
     });
   });
+
+  test.describe('Behavioural tests', () => {
+    const FIRST_NAME = 'John';
+    const LAST_NAME = 'Smith';
+    const POSTAL_CODE = 'AB12 3CD';
+
+    test.describe('Form validation errors', () => {
+      test('Missing first name error shown on submitting blank form', async ({ page, baseURL }) => {
+        await checkoutInfoPage.continueButton.click();
+
+        await checkoutInfoPage.inputHasValidationError('firstName');
+        await checkoutInfoPage.inputHasValidationError('lastName');
+        await checkoutInfoPage.inputHasValidationError('postalCode');
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+      });
+
+      test('All inputs show validation error if form is invalid', async () => {
+        const INPUTS = [
+          { element: checkoutInfoPage.firstNameInput, value: FIRST_NAME },
+          { element: checkoutInfoPage.lastNameInput, value: LAST_NAME },
+          { element: checkoutInfoPage.postalCodeInput, value: POSTAL_CODE },
+        ];
+        for (let i = 0; i < INPUTS.length; i++) {
+          await INPUTS[i].element.fill(INPUTS[i].value);
+          await checkoutInfoPage.continueButton.click();
+
+          // All inputs show a validation error even if the value is valid
+          await checkoutInfoPage.inputHasValidationError('firstName');
+          await checkoutInfoPage.inputHasValidationError('lastName');
+          await checkoutInfoPage.inputHasValidationError('postalCode');
+
+          await checkoutInfoPage.resetCheckoutInfoForm();
+        }
+      });
+
+      // We've effectively already tested this when submitting the blank form
+      // but this is a more explicit test of the form validation behaviour
+      test('Only first validation error shown on submitting partially complete form', async ({ page, baseURL }) => {
+        // Last name only
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+        await checkoutInfoPage.resetCheckoutInfoForm();
+
+        // Postal code only
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+        await checkoutInfoPage.resetCheckoutInfoForm();
+
+        // First name only
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingLastName);
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+        await checkoutInfoPage.resetCheckoutInfoForm();
+      });
+
+      test('Missing first name error displayed if form submitted with other fields complete', async () => {
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+      });
+
+      test('Missing last name error displayed if form submitted with other fields complete', async () => {
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingLastName);
+      });
+
+      test('Missing postal code error displayed if form submitted with other fields complete', async () => {
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.continueButton.click();
+        await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingPostalCode);
+      });
+    });
+  });
 });
