@@ -34,24 +34,28 @@ test.describe('Page header tests', () => {
     });
 
     test('Element styling', async () => {
-      await expect(pageHeader.headerContainer).toHaveCSS('border-bottom', `1px solid ${COLORS.borderColor}`);
-      await expect(pageHeader.headerContainer).toHaveCSS('color', COLORS.textColor);
-      await expect(pageHeader.headerContainer).toHaveCSS('display', 'flex');
+      let element = pageHeader.headerContainer;
+      await expect(element).toHaveCSS('border-bottom', `1px solid ${COLORS.borderColor}`);
+      await expect(element).toHaveCSS('color', COLORS.textColor);
+      await expect(element).toHaveCSS('display', 'flex');
 
-      await expect(pageHeader.title).toHaveCSS('font-size', '24px');
-      await expect(pageHeader.title).toHaveCSS('text-align', 'center');
+      element = pageHeader.title;
+      await expect(element).toHaveCSS('font-size', '24px');
+      await expect(element).toHaveCSS('text-align', 'center');
 
+      element = pageHeader.menuButton;
       // Menu button is in the top-left
-      await expect(pageHeader.menuButton).toHaveCSS('position', 'absolute');
-      await expect(pageHeader.menuButton).toHaveCSS('left', '0px');
-      await expect(pageHeader.menuButton).toHaveCSS('top', '0px');
+      await expect(element).toHaveCSS('position', 'absolute');
+      await expect(element).toHaveCSS('left', '0px');
+      await expect(element).toHaveCSS('top', '0px');
 
+      element = pageHeader.shoppingCartContainer;
       // Shopping cart link is in the top-right (within a container)
-      await expect(pageHeader.shoppingCartContainer).toHaveCSS('position', 'absolute');
-      await expect(pageHeader.shoppingCartContainer).toHaveCSS('right', '20px');
-      await expect(pageHeader.shoppingCartContainer).toHaveCSS('top', '10px');
-      await expect(pageHeader.shoppingCartContainer).toHaveCSS('width', '40px');
-      await expect(pageHeader.shoppingCartContainer).toHaveCSS('height', '40px');
+      await expect(element).toHaveCSS('position', 'absolute');
+      await expect(element).toHaveCSS('right', '20px');
+      await expect(element).toHaveCSS('top', '10px');
+      await expect(element).toHaveCSS('width', '40px');
+      await expect(element).toHaveCSS('height', '40px');
     });
 
     // The cart in the main header shows a badge indicating the number of products in the cart (if not 0)
