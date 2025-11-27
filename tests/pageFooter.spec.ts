@@ -35,10 +35,11 @@ test.describe('Page footer tests', () => {
       const numSocialMediaItems = await pageFooter.socialMediaItem.count();
       const regex = '^url\\("data:image\\/png;base64,[A-Za-z0-9+\\/=\\"\\)]*$';
       for (let i = 0; i < numSocialMediaItems; i++) {
+        let element = pageFooter.socialMediaLink.nth(i);
         // Social media items each have a different base64-encoded background image so verify against a regex
-        await expect(pageFooter.socialMediaItem.nth(i)).toHaveCSS('background-image', new RegExp(regex));
-        await expect(pageFooter.socialMediaLink.nth(i)).toHaveCSS('color', COLORS.socialLinkTextColor);
-        await expect(pageFooter.socialMediaLink.nth(i)).toHaveCSS('font-size', '0px');
+        await expect(element).toHaveCSS('background-image', new RegExp(regex));
+        await expect(element).toHaveCSS('color', COLORS.socialLinkTextColor);
+        await expect(element).toHaveCSS('font-size', '0px');
       }
       await expect(pageFooter.footerCopy).toHaveCSS('color', COLORS.textColor);
     });
@@ -60,9 +61,10 @@ test.describe('Page footer tests', () => {
 
   test('Social media links open relevant page in new tab', async () => {
     for (let i = 0; i < SOCIAL_LINKS.length; i++) {
-      await expect(pageFooter.socialMediaLink.nth(i)).toHaveAttribute('href', SOCIAL_LINKS[i]);
-      await expect(pageFooter.socialMediaLink.nth(i)).toHaveAttribute('target', '_blank');
-      await expect(pageFooter.socialMediaLink.nth(i)).toHaveAttribute('rel', 'noreferrer');
+      let element = pageFooter.socialMediaLink.nth(i);
+      await expect(element).toHaveAttribute('href', SOCIAL_LINKS[i]);
+      await expect(element).toHaveAttribute('target', '_blank');
+      await expect(element).toHaveAttribute('rel', 'noreferrer');
     }
   });
 });
