@@ -117,10 +117,3 @@ export const EXPECTED_TEXT = {
     lockedOutUser: 'Epic sadface: Sorry, this user has been locked out.',
   },
 };
-
-export const FONT_SIZES = {
-  button: '16px',
-  header: '16px',
-  standard: '14px',
-  title: '24px',
-};
