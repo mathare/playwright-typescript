@@ -13,6 +13,8 @@ export class CartPage {
   readonly cartItem: Locator;
   readonly cartFooter: Locator;
   readonly actionButton: Locator;
+  readonly continueShoppingButton: Locator;
+  readonly checkoutButton: Locator;
   readonly pageFooter: PageFooter;
 
   constructor(page: Page) {
@@ -26,6 +28,8 @@ export class CartPage {
     this.cartItem = this.cartList.getByTestId('inventory-item');
     this.cartFooter = this.cartContentsContainer.locator('div.cart_footer');
     this.actionButton = this.cartFooter.locator('button');
+    this.continueShoppingButton = this.cartFooter.getByTestId('continue-shopping');
+    this.checkoutButton = this.cartFooter.getByTestId('checkout');
     this.pageFooter = new PageFooter(page);
   }
 

@@ -29,6 +29,8 @@ test.describe('Cart page tests', () => {
         await expect(cartPage.cartItem).toHaveCount(0);
         await expect(cartPage.cartFooter).toBeVisible();
         await expect(cartPage.actionButton).toHaveCount(2);
+        await expect(cartPage.continueShoppingButton).toBeVisible();
+        await expect(cartPage.checkoutButton).toBeVisible();
         await expect(cartPage.pageFooter.footer).toBeVisible();
       });
 
@@ -74,13 +76,12 @@ test.describe('Cart page tests', () => {
       });
 
       test('Cursor is pointer for "Continue Shopping" and "Checkout" buttons', async () => {
-        for (let i = 0; i < (await cartPage.actionButton.count()); i++) {
-          await expect(cartPage.actionButton.nth(i)).toHaveCSS('cursor', 'pointer');
-        }
+        await expect(cartPage.continueShoppingButton).toHaveCSS('cursor', 'pointer');
+        await expect(cartPage.checkoutButton).toHaveCSS('cursor', 'pointer');
       });
 
       test('"Checkout" button is enabled even when cart is empty', async () => {
-        await expect(cartPage.actionButton.nth(1)).toBeEnabled();
+        await expect(cartPage.checkoutButton).toBeEnabled();
       });
 
       test.describe('Visual tests', () => {
@@ -97,12 +98,12 @@ test.describe('Cart page tests', () => {
 
     test.describe('Behavioural tests', () => {
       test('"Continue Shopping" button opens inventory page', async ({ page, baseURL }) => {
-        await cartPage.actionButton.nth(0).click();
+        await cartPage.continueShoppingButton.click();
         await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
       });
 
       test('"Checkout" button opens checkout page', async ({ page, baseURL }) => {
-        await cartPage.actionButton.nth(1).click();
+        await cartPage.checkoutButton.click();
         await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
       });
     });
