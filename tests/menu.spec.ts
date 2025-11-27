@@ -54,12 +54,13 @@ test.describe('Menu tests', () => {
       await pageHeader.menuButton.click();
       await expect(menu.menu).toHaveCSS('position', 'fixed');
       for (let i = 0; i < EXPECTED_TEXT.menuItems.length; i++) {
-        await expect(menu.menuItem.nth(i)).toHaveCSS('color', COLORS.textColor);
-        await expect(menu.menuItem.nth(i)).toHaveCSS('border-bottom', `1px solid ${COLORS.borderColor}`);
-        await expect(menu.menuItem.nth(i)).toHaveCSS('font-size', '16px');
+        let element = menu.menuItem.nth(i);
+        await expect(element).toHaveCSS('color', COLORS.textColor);
+        await expect(element).toHaveCSS('border-bottom', `1px solid ${COLORS.borderColor}`);
+        await expect(element).toHaveCSS('font-size', '16px');
 
-        await menu.menuItem.nth(i).hover();
-        await expect(menu.menuItem.nth(i)).toHaveCSS('color', COLORS.hoverColor);
+        await element.hover();
+        await expect(element).toHaveCSS('color', COLORS.hoverColor);
       }
     });
 
