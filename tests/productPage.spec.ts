@@ -36,28 +36,41 @@ test.describe('Product page tests', () => {
       });
 
       test('Element styling', async () => {
-        await expect(productPage.body).toHaveCSS('background-color', COLORS.backgroundColor);
-        await expect(productPage.body).toHaveCSS('color', COLORS.textColor);
-        await expect(productPage.body).toHaveCSS('font-size', '14px');
+        let element = productPage.body;
+        await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+        await expect(element).toHaveCSS('color', COLORS.textColor);
+        await expect(element).toHaveCSS('font-size', '14px');
 
-        await expect(productPage.backButton).toHaveCSS('font-size', '16px');
-        await expect(productPage.backButton).toHaveCSS('font-weight', '500');
+        element = productPage.backButton;
+        await expect(element).toHaveCSS('font-size', '16px');
+        await expect(element).toHaveCSS('font-weight', '500');
 
-        await expect(productPage.inventoryItemContainer).toHaveCSS('background-color', COLORS.backgroundColor);
-        await expect(productPage.inventoryItem).toHaveCSS('border', `1px solid ${COLORS.product.borderColor}`);
-        await expect(productPage.inventoryItem).toHaveCSS('border-radius', '8px');
-        await expect(productPage.inventoryItem).toHaveCSS('color', COLORS.textColor);
-        await expect(productPage.inventoryItem).toHaveCSS('display', 'flex');
-        await expect(productPage.productName).toHaveCSS('font-size', '20px');
-        await expect(productPage.productName).toHaveCSS('font-weight', '500');
-        await expect(productPage.productDescription).toHaveCSS('font-size', '14px');
-        await expect(productPage.productPrice).toHaveCSS('font-size', '20px');
-        await expect(productPage.productPrice).toHaveCSS('font-weight', '500');
-        await expect(productPage.cartButton).toHaveCSS('border', `1px solid ${COLORS.textColor}`);
-        await expect(productPage.cartButton).toHaveCSS('border-radius', '4px');
-        await expect(productPage.cartButton).toHaveCSS('font-size', '16px');
-        await expect(productPage.cartButton).toHaveCSS('font-weight', '500');
-        await expect(productPage.cartButton).toHaveCSS('width', '160px');
+        element = productPage.inventoryItemContainer;
+        await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+
+        element = productPage.inventoryItem;
+        await expect(element).toHaveCSS('border', `1px solid ${COLORS.product.borderColor}`);
+        await expect(element).toHaveCSS('border-radius', '8px');
+        await expect(element).toHaveCSS('color', COLORS.textColor);
+        await expect(element).toHaveCSS('display', 'flex');
+
+        element = productPage.productName;
+        await expect(element).toHaveCSS('font-size', '20px');
+        await expect(element).toHaveCSS('font-weight', '500');
+
+        element = productPage.productDescription;
+        await expect(element).toHaveCSS('font-size', '14px');
+
+        element = productPage.productPrice;
+        await expect(element).toHaveCSS('font-size', '20px');
+        await expect(element).toHaveCSS('font-weight', '500');
+
+        element = productPage.cartButton;
+        await expect(element).toHaveCSS('border', `1px solid ${COLORS.textColor}`);
+        await expect(element).toHaveCSS('border-radius', '4px');
+        await expect(element).toHaveCSS('font-size', '16px');
+        await expect(element).toHaveCSS('font-weight', '500');
+        await expect(element).toHaveCSS('width', '160px');
       });
 
       test('"Back to products" button style updates on hover', async () => {

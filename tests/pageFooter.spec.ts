@@ -60,9 +60,10 @@ test.describe('Page footer tests', () => {
 
   test('Social media links open relevant page in new tab', async () => {
     for (let i = 0; i < SOCIAL_LINKS.length; i++) {
-      await expect(pageFooter.socialMediaLink.nth(i)).toHaveAttribute('href', SOCIAL_LINKS[i]);
-      await expect(pageFooter.socialMediaLink.nth(i)).toHaveAttribute('target', '_blank');
-      await expect(pageFooter.socialMediaLink.nth(i)).toHaveAttribute('rel', 'noreferrer');
+      let element = pageFooter.socialMediaLink.nth(i);
+      await expect(element).toHaveAttribute('href', SOCIAL_LINKS[i]);
+      await expect(element).toHaveAttribute('target', '_blank');
+      await expect(element).toHaveAttribute('rel', 'noreferrer');
     }
   });
 });

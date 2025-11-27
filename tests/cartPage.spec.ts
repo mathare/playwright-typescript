@@ -44,34 +44,36 @@ test.describe('Cart page tests', () => {
       });
 
       test('Element styling', async ({ browserName }) => {
-        await expect(cartPage.subtitle).toHaveCSS('color', COLORS.textColor);
-        await expect(cartPage.subtitle).toHaveCSS('font-size', '18px');
-        await expect(cartPage.subtitle).toHaveCSS('font-weight', '500');
+        let element = cartPage.subtitle;
+        await expect(element).toHaveCSS('color', COLORS.textColor);
+        await expect(element).toHaveCSS('font-size', '18px');
+        await expect(element).toHaveCSS('font-weight', '500');
+
         await expect(cartPage.cartContentsContainer).toHaveCSS('background-color', COLORS.backgroundColor);
 
         await expect(cartPage.cartList).toHaveCSS('display', 'block');
+
         const headers = [cartPage.qtyHeader, cartPage.descHeader];
         for (let i = 0; i < headers.length; i++) {
-          await expect(headers[i]).toHaveCSS('color', COLORS.itemList.headerColor);
-          await expect(headers[i]).toHaveCSS('display', 'inline-block');
-          await expect(headers[i]).toHaveCSS('font-size', '16px');
-          await expect(headers[i]).toHaveCSS('font-weight', '500');
+          element = headers[i];
+          await expect(element).toHaveCSS('color', COLORS.itemList.headerColor);
+          await expect(element).toHaveCSS('display', 'inline-block');
+          await expect(element).toHaveCSS('font-size', '16px');
+          await expect(element).toHaveCSS('font-weight', '500');
         }
 
         await expect(cartPage.cartFooter).toHaveCSS('display', 'flex');
         for (let i = 0; i < (await cartPage.actionButton.count()); i++) {
+          element = cartPage.actionButton.nth(i);
           const expectedClass = i == 1 ? 'btn_action' : 'btn_secondary';
-          await expect(cartPage.actionButton.nth(i)).toContainClass(expectedClass);
-          await expect(cartPage.actionButton.nth(i)).toHaveCSS('background-color', COLORS.buttons[i].backgroundColor);
-          await expect(cartPage.actionButton.nth(i)).toHaveCSS('color', COLORS.buttons[i].textColor);
+          await expect(element).toContainClass(expectedClass);
+          await expect(element).toHaveCSS('background-color', COLORS.buttons[i].backgroundColor);
+          await expect(element).toHaveCSS('color', COLORS.buttons[i].textColor);
           const expectedBorderStyle = i === 1 ? (browserName === 'firefox' ? '0px' : '0px none') : '1px solid';
-          await expect(cartPage.actionButton.nth(i)).toHaveCSS(
-            'border',
-            `${expectedBorderStyle} ${COLORS.buttons[i].borderColor}`
-          );
-          await expect(cartPage.actionButton.nth(i)).toHaveCSS('border-radius', '4px');
-          await expect(cartPage.actionButton.nth(i)).toHaveCSS('font-size', '16px');
-          await expect(cartPage.actionButton.nth(i)).toHaveCSS('font-weight', '500');
+          await expect(element).toHaveCSS('border', `${expectedBorderStyle} ${COLORS.buttons[i].borderColor}`);
+          await expect(element).toHaveCSS('border-radius', '4px');
+          await expect(element).toHaveCSS('font-size', '16px');
+          await expect(element).toHaveCSS('font-weight', '500');
         }
       });
 

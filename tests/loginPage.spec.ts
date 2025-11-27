@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage, COLORS, EXPECTED_TEXT } from '../pages/loginPage';
 import { URLS } from '../data/pages';
-import { getCookies } from '../helpers/utils';
+import { getCookies, login } from '../helpers/utils';
 
 test.describe('Login page tests', () => {
   let loginPage: LoginPage;
@@ -48,37 +48,49 @@ test.describe('Login page tests', () => {
     });
 
     test('Element styling', async () => {
-      await expect(loginPage.loginContainer).toHaveCSS('background-color', COLORS.loginContainer.backgroundColor);
-      await expect(loginPage.title).toHaveCSS('color', COLORS.titleTextColor);
-      await expect(loginPage.title).toHaveCSS('font-size', '24px');
-      await expect(loginPage.title).toHaveCSS('text-align', 'center');
-      await expect(loginPage.usernameInput).toHaveAttribute('type', 'text');
-      await expect(loginPage.usernameInput).toHaveCSS('background-color', COLORS.loginForm.backgroundColor);
-      await expect(loginPage.usernameInput).toHaveCSS('border-bottom-color', COLORS.input.borderColor);
-      await expect(loginPage.usernameInput).toHaveCSS('color', COLORS.input.textColor);
-      await expect(loginPage.usernameInput).toHaveCSS('font-size', '14px');
-      await expect(loginPage.usernameInput).toHaveCSS('text-align', 'start');
-      await expect(loginPage.passwordInput).toHaveAttribute('type', 'password');
-      await expect(loginPage.passwordInput).toHaveCSS('background-color', COLORS.loginForm.backgroundColor);
-      await expect(loginPage.passwordInput).toHaveCSS('border-bottom-color', COLORS.input.borderColor);
-      await expect(loginPage.passwordInput).toHaveCSS('color', COLORS.input.textColor);
-      await expect(loginPage.passwordInput).toHaveCSS('font-size', '14px');
-      await expect(loginPage.passwordInput).toHaveCSS('text-align', 'start');
-      await expect(loginPage.loginButton).toContainClass('submit-button');
-      await expect(loginPage.loginButton).toHaveCSS('background-color', COLORS.loginButton.backgroundColor);
-      await expect(loginPage.loginButton).toHaveCSS('border', `4px solid ${COLORS.loginButton.borderColor}`);
-      await expect(loginPage.loginButton).toHaveCSS('color', COLORS.loginButton.textColor);
-      await expect(loginPage.loginButton).toHaveCSS('font-size', '16px');
-      await expect(loginPage.credentialsContainer).toHaveCSS(
-        'background-color',
-        COLORS.credentialsContainer.backgroundColor
-      );
-      await expect(loginPage.credentialsContainer).toHaveCSS('color', COLORS.credentialsContainer.textColor);
-      await expect(loginPage.credentialsContainer).toHaveCSS('font-size', '14px');
-      await expect(loginPage.usernamesHeader).toHaveCSS('font-size', '16px');
-      await expect(loginPage.usernamesHeader).toHaveCSS('font-weight', '700');
-      await expect(loginPage.passwordHeader).toHaveCSS('font-size', '16px');
-      await expect(loginPage.passwordHeader).toHaveCSS('font-weight', '700');
+      let element = loginPage.loginContainer;
+      await expect(element).toHaveCSS('background-color', COLORS.loginContainer.backgroundColor);
+
+      element = loginPage.title;
+      await expect(element).toHaveCSS('color', COLORS.titleTextColor);
+      await expect(element).toHaveCSS('font-size', '24px');
+      await expect(element).toHaveCSS('text-align', 'center');
+
+      element = loginPage.usernameInput;
+      await expect(element).toHaveAttribute('type', 'text');
+      await expect(element).toHaveCSS('background-color', COLORS.loginForm.backgroundColor);
+      await expect(element).toHaveCSS('border-bottom-color', COLORS.input.borderColor);
+      await expect(element).toHaveCSS('color', COLORS.input.textColor);
+      await expect(element).toHaveCSS('font-size', '14px');
+      await expect(element).toHaveCSS('text-align', 'start');
+
+      element = loginPage.passwordInput;
+      await expect(element).toHaveAttribute('type', 'password');
+      await expect(element).toHaveCSS('background-color', COLORS.loginForm.backgroundColor);
+      await expect(element).toHaveCSS('border-bottom-color', COLORS.input.borderColor);
+      await expect(element).toHaveCSS('color', COLORS.input.textColor);
+      await expect(element).toHaveCSS('font-size', '14px');
+      await expect(element).toHaveCSS('text-align', 'start');
+
+      element = loginPage.loginButton;
+      await expect(element).toContainClass('submit-button');
+      await expect(element).toHaveCSS('background-color', COLORS.loginButton.backgroundColor);
+      await expect(element).toHaveCSS('border', `4px solid ${COLORS.loginButton.borderColor}`);
+      await expect(element).toHaveCSS('color', COLORS.loginButton.textColor);
+      await expect(element).toHaveCSS('font-size', '16px');
+
+      element = loginPage.credentialsContainer;
+      await expect(element).toHaveCSS('background-color', COLORS.credentialsContainer.backgroundColor);
+      await expect(element).toHaveCSS('color', COLORS.credentialsContainer.textColor);
+      await expect(element).toHaveCSS('font-size', '14px');
+
+      element = loginPage.usernamesHeader;
+      await expect(element).toHaveCSS('font-size', '16px');
+      await expect(element).toHaveCSS('font-weight', '700');
+
+      element = loginPage.passwordHeader;
+      await expect(element).toHaveCSS('font-size', '16px');
+      await expect(element).toHaveCSS('font-weight', '700');
     });
 
     test.describe('Visual tests', () => {
