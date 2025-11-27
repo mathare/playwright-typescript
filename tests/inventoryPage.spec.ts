@@ -31,12 +31,15 @@ test.describe('Inventory page tests', () => {
     });
 
     test('Element styling', async () => {
-      await expect(inventoryPage.body).toHaveCSS('background-color', COLORS.backgroundColor);
-      await expect(inventoryPage.body).toHaveCSS('color', COLORS.textColor);
-      await expect(inventoryPage.body).toHaveCSS('font-size', '14px');
+      let element = inventoryPage.body;
+      await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+      await expect(element).toHaveCSS('color', COLORS.textColor);
+      await expect(element).toHaveCSS('font-size', '14px');
 
-      await expect(inventoryPage.subtitle).toHaveCSS('font-size', '18px');
-      await expect(inventoryPage.subtitle).toHaveCSS('font-weight', '500');
+      element = inventoryPage.subtitle;
+      await expect(element).toHaveCSS('font-size', '18px');
+      await expect(element).toHaveCSS('font-weight', '500');
+
       await expect(inventoryPage.activeSortOption).toHaveCSS('text-align', 'center');
     });
 
@@ -64,19 +67,23 @@ test.describe('Inventory page tests', () => {
 
     test('Default product styling', async () => {
       for (let i = 0; i < NUM_PRODUCTS; i++) {
-        await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('border', `1px solid ${COLORS.product.borderColor}`);
-        await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('border-radius', '8px');
-        await expect(inventoryPage.inventoryItem.nth(i)).toHaveCSS('display', 'flex');
-        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS(
-          'color',
-          COLORS.product.titleColor
-        );
-        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS('font-size', '20px');
-        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveCSS('font-weight', '500');
-        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveCSS('font-size', '20px');
-        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveCSS('font-weight', '500');
-        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-size', '16px');
-        await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveCSS('font-weight', '500');
+        let element = inventoryPage.inventoryItem.nth(i);
+        await expect(element).toHaveCSS('border', `1px solid ${COLORS.product.borderColor}`);
+        await expect(element).toHaveCSS('border-radius', '8px');
+        await expect(element).toHaveCSS('display', 'flex');
+
+        element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+        await expect(element).toHaveCSS('color', COLORS.product.titleColor);
+        await expect(element).toHaveCSS('font-size', '20px');
+        await expect(element).toHaveCSS('font-weight', '500');
+
+        element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+        await expect(element).toHaveCSS('font-size', '20px');
+        await expect(element).toHaveCSS('font-weight', '500');
+
+        element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+        await expect(element).toHaveCSS('font-size', '16px');
+        await expect(element).toHaveCSS('font-weight', '500');
       }
     });
 
@@ -124,28 +131,22 @@ test.describe('Inventory page tests', () => {
           await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
 
           for (let i = 0; i < testCase.products.length; i++) {
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img)).toHaveAttribute(
-              'src',
-              testCase.products[i].imgSrc
-            );
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img)).toHaveAttribute(
-              'alt',
-              testCase.products[i].title
-            );
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(
-              testCase.products[i].title
-            );
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-              testCase.products[i].description
-            );
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-              `\$${testCase.products[i].price}`
-            );
+            let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+            await expect(element).toHaveAttribute('src', testCase.products[i].imgSrc);
+            await expect(element).toHaveAttribute('alt', testCase.products[i].title);
 
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toBeVisible();
-            await expect(inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(
-              EXPECTED_TEXT.addToCartButton
-            );
+            element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+            await expect(element).toHaveText(testCase.products[i].title);
+
+            element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+            await expect(element).toHaveText(testCase.products[i].description);
+
+            element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+            await expect(element).toHaveText(`\$${testCase.products[i].price}`);
+
+            element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+            await expect(element).toBeVisible();
+            await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
           }
         });
       });
