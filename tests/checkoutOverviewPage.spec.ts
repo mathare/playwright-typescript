@@ -149,5 +149,17 @@ test.describe('Checkout overview page tests', () => {
         });
       });
     });
+
+    test.describe('Behavioural tests', () => {
+      test('"Cancel" button opens inventory page', async ({ page, baseURL }) => {
+        await checkoutOverviewPage.cancelButton.click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+      });
+
+      test('"Finish" button opens checkout complete page', async ({ page, baseURL }) => {
+        await checkoutOverviewPage.finishButton.click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutCompletePage}`);
+      });
+    });
   });
 });
