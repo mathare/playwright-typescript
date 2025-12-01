@@ -1,15 +1,19 @@
 import { expect, test } from '@playwright/test';
-import { login } from '../helpers/utils';
-import { CheckoutOverviewPage, COLORS, EXPECTED_TEXT } from '../pages/checkoutOverviewPage';
+import { login, setCartContentsInLocalStorage } from '../helpers/utils';
+import { CheckoutOverviewPage, COLORS, EXPECTED_TEXT, PRODUCT_ELEMENTS } from '../pages/checkoutOverviewPage';
 import { URLS } from '../data/pages';
+import { PRODUCT_INFO } from '../data/products';
 
 test.describe('Checkout overview page tests', () => {
   let checkoutOverviewPage: CheckoutOverviewPage;
 
+  test.beforeEach(async ({ page, baseURL }) => {
+    checkoutOverviewPage = new CheckoutOverviewPage(page);
+    await login(page, baseURL!, 'standard_user');
+  });
+
   test.describe('No items purchased', () => {
     test.beforeEach(async ({ page, baseURL }) => {
-      checkoutOverviewPage = new CheckoutOverviewPage(page);
-      await login(page, baseURL!, 'standard_user');
       await page.goto(URLS.checkoutOverviewPage);
     });
 
@@ -159,6 +163,55 @@ test.describe('Checkout overview page tests', () => {
       test('"Finish" button opens checkout complete page', async ({ page, baseURL }) => {
         await checkoutOverviewPage.finishButton.click();
         await expect(page).toHaveURL(`${baseURL}${URLS.checkoutCompletePage}`);
+      });
+    });
+  });
+
+  test.describe('Items purchased', () => {
+    const productIds = PRODUCT_INFO.map((product) => product.id);
+
+    test.describe('Appearance tests', () => {
+      test.beforeEach(async ({ page }) => {
+        await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
+      });
+
+      test('Item list element visibility', async () => {
+        await expect(checkoutOverviewPage.cartList).toBeVisible();
+        await expect(checkoutOverviewPage.qtyHeader).toBeVisible();
+        await expect(checkoutOverviewPage.descHeader).toBeVisible();
+        await expect(checkoutOverviewPage.cartItem).toHaveCount(productIds.length);
+
+        // Verify each item purchased displays all expected elements
+        const productElements = Object.keys(PRODUCT_ELEMENTS);
+        for (let i = 0; i < productIds.length; i++) {
+          for (let j = 0; j < productElements.length; j++) {
+            const productElement = checkoutOverviewPage.getProductElement(
+              i,
+              PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
+            );
+            // There is no button to remove the product from the cart as we have already purchased it
+            if (productElements[j] === 'button') {
+              await expect(productElement).toHaveCount(0);
+            } else {
+              await expect(productElement).toBeVisible();
+            }
+          }
+        }
+      });
+
+      test('Text content of items purchased', async () => {
+        for (let i = 0; i < productIds.length; i++) {
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(
+            PRODUCT_INFO[i].title
+          );
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
+            PRODUCT_INFO[i].description
+          );
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
+            `\$${PRODUCT_INFO[i].price}`
+          );
+        }
       });
     });
   });

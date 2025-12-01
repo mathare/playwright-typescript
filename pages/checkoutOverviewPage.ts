@@ -50,6 +50,13 @@ export class CheckoutOverviewPage {
     this.finishButton = this.cartFooter.getByTestId('finish');
     this.pageFooter = new PageFooter(page);
   }
+
+  // *******
+  // ACTIONS
+  // *******
+  getProductElement(index: number, element: string): Locator {
+    return this.cartItem.nth(index).locator(element);
+  }
 }
 
 export const EXPECTED_TEXT = {
@@ -87,3 +94,11 @@ export const COLORS = {
     { backgroundColor: 'rgb(61, 220, 145)', borderColor: 'rgb(19, 35, 34)' },
   ],
 };
+
+export enum PRODUCT_ELEMENTS {
+  qty = 'div.cart_quantity',
+  title = 'div.inventory_item_name',
+  description = 'div.inventory_item_desc',
+  price = 'div.inventory_item_price',
+  button = 'button.cart_button',
+}
