@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, Locator, test } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { CheckoutOverviewPage, COLORS, EXPECTED_TEXT, PRODUCT_ELEMENTS } from '../pages/checkoutOverviewPage';
 import { URLS } from '../data/pages';
@@ -13,7 +13,7 @@ test.describe('Checkout overview page tests', () => {
   });
 
   test.describe('No items purchased', () => {
-    test.beforeEach(async ({ page, baseURL }) => {
+    test.beforeEach(async ({ page }) => {
       await page.goto(URLS.checkoutOverviewPage);
     });
 
@@ -211,6 +211,105 @@ test.describe('Checkout overview page tests', () => {
           await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
             `\$${PRODUCT_INFO[i].price}`
           );
+        }
+      });
+
+      test('Purchased item element styling', async () => {
+        let element: Locator;
+        for (let i = 0; i < productIds.length; i++) {
+          element = checkoutOverviewPage.cartItem.nth(i);
+          await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+          await expect(element).toHaveCSS('border', `1px solid ${COLORS.itemList.borderColor}`);
+          await expect(element).toHaveCSS('border-radius', '8px');
+          await expect(element).toHaveCSS('display', 'flex');
+
+          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty);
+          await expect(element).toHaveCSS('border', `1px solid ${COLORS.itemList.borderColor}`);
+          await expect(element).toHaveCSS('box-sizing', 'border-box');
+          await expect(element).toHaveCSS('font-size', '14px');
+          await expect(element).toHaveCSS('font-weight', '400');
+          await expect(element).toHaveCSS('text-align', 'center');
+
+          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          await expect(element).toHaveCSS('color', COLORS.itemList.titleColor);
+          await expect(element).toHaveCSS('font-size', '20px');
+          await expect(element).toHaveCSS('font-weight', '500');
+
+          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+          await expect(element).toHaveCSS('color', COLORS.textColor);
+          await expect(element).toHaveCSS('font-size', '14px');
+
+          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+          await expect(element).toHaveCSS('border-top', `1px solid ${COLORS.itemList.borderColor}`);
+          await expect(element).toHaveCSS('color', COLORS.textColor);
+          await expect(element).toHaveCSS('font-size', '20px');
+          await expect(element).toHaveCSS('font-weight', '500');
+        }
+      });
+
+      test('Purchased item title changes style on hover', async () => {
+        for (let i = 0; i < productIds.length; i++) {
+          const element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          await element.hover();
+          await expect(element).toHaveCSS('color', COLORS.itemList.hoverColor);
+        }
+      });
+
+      test('Cursor is pointer for title link', async ({ browserName }) => {
+        test.skip(browserName === 'webkit');
+        const productElements = Object.keys(PRODUCT_ELEMENTS).filter((el) => el !== 'button');
+        for (let i = 0; i < productIds.length; i++) {
+          for (let j = 0; j < productElements.length; j++) {
+            const productElement = checkoutOverviewPage.getProductElement(
+              i,
+              PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
+            );
+            const cursorStyle = productElements[j] === 'title' ? 'pointer' : 'auto';
+            await expect(productElement).toHaveCSS('cursor', cursorStyle);
+          }
+        }
+      });
+
+      test('Items purchased match order in which products were added', async ({ page }) => {
+        const shuffledProductIds = [...productIds].sort(() => Math.random() - 0.5);
+        await setCartContentsInLocalStorage(page, shuffledProductIds, URLS.checkoutOverviewPage);
+
+        for (let i = 0; i < shuffledProductIds.length; i++) {
+          const product = PRODUCT_INFO.filter((a) => a.id === shuffledProductIds[i])[0];
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(product.title);
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
+            product.description
+          );
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
+            `\$${product.price}`
+          );
+        }
+      });
+
+      test('Item quantities cannot be edited', async () => {
+        // Proving the item quantity isn't editable is a bit tricky as the element isn't an input or textbox so we
+        // can't use the .not.toBeEditable() assertion. Instead verify the tag is a div (not an input) and the
+        // isContentEditable property is false
+        for (let i = 0; i < productIds.length; i++) {
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveJSProperty(
+            'tagName',
+            'DIV'
+          );
+          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveJSProperty(
+            'isContentEditable',
+            false
+          );
+        }
+      });
+
+      test('Item title link does not explicitly reference product page', async () => {
+        for (let i = 0; i < productIds.length; i++) {
+          // I don't like using locators within tests but this is the easiest way of conducting this test
+          const LINK = checkoutOverviewPage.cartItem.nth(i).locator('a');
+          await expect(LINK).toHaveCount(1);
+          await expect(LINK).toHaveId(new RegExp('item_\\d_title_link'));
+          await expect(LINK).toHaveAttribute('href', '#');
         }
       });
     });
