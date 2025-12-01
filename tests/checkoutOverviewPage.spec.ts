@@ -342,6 +342,15 @@ test.describe('Checkout overview page tests', () => {
         );
       });
 
+      test('Order of products purchased does not affect price total', async ({ page }) => {
+        const shuffledProductIds = [...productIds].sort(() => Math.random() - 0.5);
+        await setCartContentsInLocalStorage(page, shuffledProductIds, URLS.checkoutOverviewPage);
+
+        await expect(checkoutOverviewPage.subtotalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.subtotalPrefix}129.94`);
+        await expect(checkoutOverviewPage.taxLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.taxPrefix}10.40`);
+        await expect(checkoutOverviewPage.totalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.totalPrefix}140.34`);
+      });
+
       test.describe('Visual tests', () => {
         test('Single product purchased', async ({ page }) => {
           await setCartContentsInLocalStorage(page, [0], URLS.checkoutOverviewPage);
