@@ -128,6 +128,15 @@ test.describe('Checkout overview page tests', () => {
           await expect(element).toHaveCSS('font-weight', '500');
         }
       });
+
+      test('Cursor is pointer for "Cancel" and "Finish" buttons', async () => {
+        await expect(checkoutOverviewPage.cancelButton).toHaveCSS('cursor', 'pointer');
+        await expect(checkoutOverviewPage.finishButton).toHaveCSS('cursor', 'pointer');
+      });
+
+      test('"Finish" button is enabled even when no items purchased', async () => {
+        await expect(checkoutOverviewPage.finishButton).toBeEnabled();
+      });
     });
   });
 });
