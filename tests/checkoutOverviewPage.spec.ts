@@ -6,14 +6,14 @@ import { URLS } from '../data/pages';
 test.describe('Checkout overview page tests', () => {
   let checkoutOverviewPage: CheckoutOverviewPage;
 
-  test.describe('Empty cart', () => {
+  test.describe('No items purchased', () => {
     test.beforeEach(async ({ page, baseURL }) => {
       checkoutOverviewPage = new CheckoutOverviewPage(page);
       await login(page, baseURL!, 'standard_user');
       await page.goto(URLS.checkoutOverviewPage);
     });
 
-    // Common cart elements can be tested with an empty cart
+    // Common cart elements can be tested without purchasing anything
     test.describe('Appearance tests', () => {
       test('Default element visibility', async () => {
         await expect(checkoutOverviewPage.pageHeader.primaryHeader).toBeVisible();
