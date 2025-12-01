@@ -51,3 +51,24 @@ export class CheckoutOverviewPage {
     this.pageFooter = new PageFooter(page);
   }
 }
+
+export const EXPECTED_TEXT = {
+  subtitle: 'Checkout: Overview',
+  qtyHeader: 'QTY',
+  descHeader: 'Description',
+  paymentInfo: {
+    label: 'Payment Information:',
+    value: 'SauceCard #31337',
+  },
+  shippingInfo: {
+    label: 'Shipping Information:',
+    value: 'Free Pony Express Delivery!',
+  },
+  priceInfo: {
+    label: 'Price Total',
+    subtotalPrefix: 'Item total: $',
+    taxPrefix: 'Tax: $',
+    totalPrefix: 'Total: $',
+  },
+  buttons: ['Cancel', 'Finish'],
+};

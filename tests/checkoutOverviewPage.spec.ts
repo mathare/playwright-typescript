@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { login } from '../helpers/utils';
-import { CheckoutOverviewPage } from '../pages/checkoutOverviewPage';
+import { CheckoutOverviewPage, EXPECTED_TEXT } from '../pages/checkoutOverviewPage';
 import { URLS } from '../data/pages';
 
 test.describe('Checkout overview page tests', () => {
@@ -37,6 +37,24 @@ test.describe('Checkout overview page tests', () => {
         await expect(checkoutOverviewPage.cancelButton).toBeVisible();
         await expect(checkoutOverviewPage.finishButton).toBeVisible();
         await expect(checkoutOverviewPage.pageFooter.footer).toBeVisible();
+      });
+
+      test('Text content of elements', async () => {
+        await expect(checkoutOverviewPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
+        await expect(checkoutOverviewPage.qtyHeader).toHaveText(EXPECTED_TEXT.qtyHeader);
+        await expect(checkoutOverviewPage.descHeader).toHaveText(EXPECTED_TEXT.descHeader);
+        await expect(checkoutOverviewPage.paymentInfoLabel).toHaveText(EXPECTED_TEXT.paymentInfo.label);
+        await expect(checkoutOverviewPage.paymentInfoValue).toHaveText(EXPECTED_TEXT.paymentInfo.value);
+        await expect(checkoutOverviewPage.shippingInfoLabel).toHaveText(EXPECTED_TEXT.shippingInfo.label);
+        await expect(checkoutOverviewPage.shippingInfoValue).toHaveText(EXPECTED_TEXT.shippingInfo.value);
+        await expect(checkoutOverviewPage.priceTotalLabel).toHaveText(EXPECTED_TEXT.priceInfo.label);
+        // As the cart is empty the item total and tax are both zero
+        await expect(checkoutOverviewPage.subtotalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.subtotalPrefix}0`);
+        await expect(checkoutOverviewPage.taxLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.taxPrefix}0.00`);
+        await expect(checkoutOverviewPage.totalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.totalPrefix}0.00`);
+        for (let i = 0; i < (await checkoutOverviewPage.actionButton.count()); i++) {
+          await expect(checkoutOverviewPage.actionButton.nth(i)).toHaveText(EXPECTED_TEXT.buttons[i]);
+        }
       });
     });
   });
