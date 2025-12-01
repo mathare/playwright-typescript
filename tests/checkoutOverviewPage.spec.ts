@@ -137,6 +137,17 @@ test.describe('Checkout overview page tests', () => {
       test('"Finish" button is enabled even when no items purchased', async () => {
         await expect(checkoutOverviewPage.finishButton).toBeEnabled();
       });
+
+      test.describe('Visual tests', () => {
+        test('Default state', async ({ page }) => {
+          await expect(page).toHaveScreenshot('noItems.png', { fullPage: true });
+        });
+
+        test('Menu open', async ({ page }) => {
+          await checkoutOverviewPage.pageHeader.menuButton.click();
+          await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+        });
+      });
     });
   });
 });
