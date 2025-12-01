@@ -312,6 +312,17 @@ test.describe('Checkout overview page tests', () => {
           await expect(LINK).toHaveAttribute('href', '#');
         }
       });
+
+      test.describe('Visual tests', () => {
+        test('Single product purchased', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, [0], URLS.checkoutOverviewPage);
+          await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('singleProductPurchased.png');
+        });
+
+        test('All products purchased', async () => {
+          await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('allProductsPurchased.png');
+        });
+      });
     });
   });
 });
