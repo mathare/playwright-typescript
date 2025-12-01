@@ -362,5 +362,14 @@ test.describe('Checkout overview page tests', () => {
         });
       });
     });
+
+    test.describe('Behavioural tests', () => {
+      test('Clicking item name opens corresponding product page', async ({ page }) => {
+        await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
+        const productIndex = Math.floor(Math.random() * productIds.length);
+        await checkoutOverviewPage.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
+        await expect(page).toHaveURL(`${URLS.productPage}${productIds[productIndex]}`);
+      });
+    });
   });
 });
