@@ -23,6 +23,23 @@ export class CartList {
   }
 }
 
+export const EXPECTED_TEXT = {
+  qtyHeader: 'QTY',
+  descHeader: 'Description',
+};
+
+export const COLORS = {
+  headerColor: 'rgb(72, 76, 85)',
+  titleColor: 'rgb(24, 88, 58)',
+  hoverColor: 'rgb(61, 220, 145)',
+  borderColor: 'rgb(237, 237, 237)',
+  textColor: 'rgb(19, 35, 34)',
+  button: {
+    addButtonColor: 'rgb(19, 35, 34)',
+    removeButtonColor: 'rgb(226, 35, 26)',
+  },
+};
+
 export enum PRODUCT_ELEMENTS {
   qty = 'div.cart_quantity',
   title = 'div.inventory_item_name',
