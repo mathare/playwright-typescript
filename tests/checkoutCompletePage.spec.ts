@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { login } from '../helpers/utils';
 import { URLS } from '../data/pages';
-import { CheckoutCompletePage, EXPECTED_TEXT } from '../pages/checkoutCompletePage';
+import { CheckoutCompletePage, COLORS, EXPECTED_TEXT } from '../pages/checkoutCompletePage';
 
 test.describe('Checkout complete page tests', () => {
   let checkoutCompletePage: CheckoutCompletePage;
@@ -31,6 +31,47 @@ test.describe('Checkout complete page tests', () => {
       await expect(checkoutCompletePage.checkoutCompleteHeader).toHaveText(EXPECTED_TEXT.header);
       await expect(checkoutCompletePage.checkoutCompleteText).toHaveText(EXPECTED_TEXT.body);
       await expect(checkoutCompletePage.backButton).toHaveText(EXPECTED_TEXT.button);
+    });
+
+    test('Default element styling', async ({ browserName }) => {
+      let element = checkoutCompletePage.subtitle;
+      await expect(element).toHaveCSS('color', COLORS.textColor);
+      await expect(element).toHaveCSS('font-size', '18px');
+      await expect(element).toHaveCSS('font-weight', '500');
+
+      element = checkoutCompletePage.checkoutCompleteContainer;
+      await expect(element).toHaveCSS('align-items', 'center');
+      await expect(element).toHaveCSS('display', 'flex');
+      await expect(element).toHaveCSS('flex-direction', 'column');
+      await expect(element).toHaveCSS('padding', '30px 15px 100px');
+      await expect(element).toHaveCSS('text-align', 'center');
+
+      element = checkoutCompletePage.checkoutCompleteImg;
+      await expect(element).toHaveAttribute('alt', 'Pony Express');
+      await expect(element).toHaveClass('pony_express');
+      const regex = '^data:image\\/png;base64,[A-Za-z0-9+\\/]*=$';
+      await expect(element).toHaveAttribute('src', new RegExp(regex));
+
+      element = checkoutCompletePage.checkoutCompleteHeader;
+      await expect(element).toHaveCSS('color', COLORS.textColor);
+      await expect(element).toHaveCSS('font-size', '24px');
+      await expect(element).toHaveCSS('font-weight', '500');
+
+      element = checkoutCompletePage.checkoutCompleteText;
+      await expect(element).toHaveCSS('color', COLORS.textColor);
+      await expect(element).toHaveCSS('font-size', '14px');
+      await expect(element).toHaveCSS('font-weight', '400');
+
+      element = checkoutCompletePage.backButton;
+      await expect(element).toContainClass('btn_primary');
+      await expect(element).toHaveCSS('background-color', COLORS.backButton.backgroundColor);
+      const expectedBorderStyle = browserName === 'firefox' ? '0px' : '0px none';
+      await expect(element).toHaveCSS('border', `${expectedBorderStyle} ${COLORS.backButton.borderColor}`);
+      await expect(element).toHaveCSS('border-radius', '4px');
+      await expect(element).toHaveCSS('color', COLORS.textColor);
+      await expect(element).toHaveCSS('cursor', 'pointer');
+      await expect(element).toHaveCSS('font-size', '16px');
+      await expect(element).toHaveCSS('font-weight', '500');
     });
   });
 });

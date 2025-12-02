@@ -32,3 +32,11 @@ export const EXPECTED_TEXT = {
   body: 'Your order has been dispatched, and will arrive just as fast as the pony can get there!',
   button: 'Back Home',
 };
+
+export const COLORS = {
+  textColor: 'rgb(19, 35, 34)',
+  backButton: {
+    backgroundColor: 'rgb(61, 220, 145)',
+    borderColor: 'rgb(19, 35, 34)',
+  },
+};
