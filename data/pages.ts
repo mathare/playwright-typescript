@@ -5,4 +5,5 @@ export const URLS = {
   cartPage: '/cart.html',
   checkoutInfoPage: '/checkout-step-one.html',
   checkoutOverviewPage: '/checkout-step-two.html',
+  checkoutCompletePage: '/checkout-complete.html',
 };
