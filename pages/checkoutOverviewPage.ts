@@ -1,16 +1,14 @@
 import { Locator, Page } from '@playwright/test';
 import { PageHeader } from './components/pageHeader';
 import { PageFooter } from './components/pageFooter';
+import { CartList } from './components/cartList';
 
 export class CheckoutOverviewPage {
   readonly page: Page;
   readonly pageHeader: PageHeader;
   readonly subtitle: Locator;
   readonly checkoutSummaryContainer: Locator;
-  readonly cartList: Locator;
-  readonly qtyHeader: Locator;
-  readonly descHeader: Locator;
-  readonly cartItem: Locator;
+  readonly cartList: CartList;
   readonly summaryInfo: Locator;
   readonly paymentInfoLabel: Locator;
   readonly paymentInfoValue: Locator;
@@ -31,10 +29,7 @@ export class CheckoutOverviewPage {
     this.pageHeader = new PageHeader(page);
     this.subtitle = page.getByTestId('title');
     this.checkoutSummaryContainer = page.getByTestId('checkout-summary-container');
-    this.cartList = this.checkoutSummaryContainer.getByTestId('cart-list');
-    this.qtyHeader = this.cartList.getByTestId('cart-quantity-label');
-    this.descHeader = this.cartList.getByTestId('cart-desc-label');
-    this.cartItem = this.cartList.getByTestId('inventory-item');
+    this.cartList = new CartList(page);
     this.summaryInfo = this.checkoutSummaryContainer.locator('div.summary_info');
     this.paymentInfoLabel = this.summaryInfo.getByTestId('payment-info-label');
     this.paymentInfoValue = this.summaryInfo.getByTestId('payment-info-value');
@@ -49,13 +44,6 @@ export class CheckoutOverviewPage {
     this.cancelButton = this.cartFooter.getByTestId('cancel');
     this.finishButton = this.cartFooter.getByTestId('finish');
     this.pageFooter = new PageFooter(page);
-  }
-
-  // *******
-  // ACTIONS
-  // *******
-  getProductElement(index: number, element: string): Locator {
-    return this.cartItem.nth(index).locator(element);
   }
 }
 
@@ -94,11 +82,3 @@ export const COLORS = {
     { backgroundColor: 'rgb(61, 220, 145)', borderColor: 'rgb(19, 35, 34)' },
   ],
 };
-
-export enum PRODUCT_ELEMENTS {
-  qty = 'div.cart_quantity',
-  title = 'div.inventory_item_name',
-  description = 'div.inventory_item_desc',
-  price = 'div.inventory_item_price',
-  button = 'button.cart_button',
-}
