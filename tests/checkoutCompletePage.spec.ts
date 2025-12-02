@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { login } from '../helpers/utils';
 import { URLS } from '../data/pages';
-import { CheckoutCompletePage } from '../pages/checkoutCompletePage';
+import { CheckoutCompletePage, EXPECTED_TEXT } from '../pages/checkoutCompletePage';
 
 test.describe('Checkout complete page tests', () => {
   let checkoutCompletePage: CheckoutCompletePage;
@@ -24,6 +24,13 @@ test.describe('Checkout complete page tests', () => {
       await expect(checkoutCompletePage.checkoutCompleteText).toBeVisible();
       await expect(checkoutCompletePage.backButton).toBeVisible();
       await expect(checkoutCompletePage.pageFooter.footer).toBeVisible();
+    });
+
+    test('Text content of elements', async () => {
+      await expect(checkoutCompletePage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
+      await expect(checkoutCompletePage.checkoutCompleteHeader).toHaveText(EXPECTED_TEXT.header);
+      await expect(checkoutCompletePage.checkoutCompleteText).toHaveText(EXPECTED_TEXT.body);
+      await expect(checkoutCompletePage.backButton).toHaveText(EXPECTED_TEXT.button);
     });
   });
 });

@@ -25,3 +25,10 @@ export class CheckoutCompletePage {
     this.pageFooter = new PageFooter(page);
   }
 }
+
+export const EXPECTED_TEXT = {
+  subtitle: 'Checkout: Complete!',
+  header: 'Thank you for your order!',
+  body: 'Your order has been dispatched, and will arrive just as fast as the pony can get there!',
+  button: 'Back Home',
+};
