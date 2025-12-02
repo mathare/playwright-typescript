@@ -85,4 +85,11 @@ test.describe('Checkout complete page tests', () => {
       });
     });
   });
+
+  test.describe('Behavioural tests', () => {
+    test('"Back Home" button opens inventory page', async ({ page, baseURL }) => {
+      await checkoutCompletePage.backButton.click();
+      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+    });
+  });
 });
