@@ -1,8 +1,9 @@
-import { expect, Locator, test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
-import { CheckoutOverviewPage, COLORS, EXPECTED_TEXT, PRODUCT_ELEMENTS } from '../pages/checkoutOverviewPage';
+import { CheckoutOverviewPage, COLORS, EXPECTED_TEXT } from '../pages/checkoutOverviewPage';
 import { URLS } from '../data/pages';
 import { PRODUCT_INFO } from '../data/products';
+import { PRODUCT_ELEMENTS } from '../pages/components/cartList';
 
 test.describe('Checkout overview page tests', () => {
   let checkoutOverviewPage: CheckoutOverviewPage;
@@ -23,10 +24,8 @@ test.describe('Checkout overview page tests', () => {
         await expect(checkoutOverviewPage.pageHeader.primaryHeader).toBeVisible();
         await expect(checkoutOverviewPage.subtitle).toBeVisible();
         await expect(checkoutOverviewPage.checkoutSummaryContainer).toBeVisible();
-        await expect(checkoutOverviewPage.cartList).toBeVisible();
-        await expect(checkoutOverviewPage.qtyHeader).toBeVisible();
-        await expect(checkoutOverviewPage.descHeader).toBeVisible();
-        await expect(checkoutOverviewPage.cartItem).toHaveCount(0);
+        await expect(checkoutOverviewPage.cartList.cartList).toBeVisible();
+        await expect(checkoutOverviewPage.cartList.cartItem).toHaveCount(0);
         await expect(checkoutOverviewPage.summaryInfo).toBeVisible();
         await expect(checkoutOverviewPage.paymentInfoLabel).toBeVisible();
         await expect(checkoutOverviewPage.paymentInfoValue).toBeVisible();
@@ -45,8 +44,6 @@ test.describe('Checkout overview page tests', () => {
 
       test('Text content of elements', async () => {
         await expect(checkoutOverviewPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
-        await expect(checkoutOverviewPage.qtyHeader).toHaveText(EXPECTED_TEXT.qtyHeader);
-        await expect(checkoutOverviewPage.descHeader).toHaveText(EXPECTED_TEXT.descHeader);
         await expect(checkoutOverviewPage.paymentInfoLabel).toHaveText(EXPECTED_TEXT.paymentInfo.label);
         await expect(checkoutOverviewPage.paymentInfoValue).toHaveText(EXPECTED_TEXT.paymentInfo.value);
         await expect(checkoutOverviewPage.shippingInfoLabel).toHaveText(EXPECTED_TEXT.shippingInfo.label);
@@ -66,18 +63,6 @@ test.describe('Checkout overview page tests', () => {
         await expect(element).toHaveCSS('color', COLORS.textColor);
         await expect(element).toHaveCSS('font-size', '18px');
         await expect(element).toHaveCSS('font-weight', '500');
-
-        element = checkoutOverviewPage.cartList;
-        await expect(element).toHaveCSS('display', 'block');
-
-        const headers = [checkoutOverviewPage.qtyHeader, checkoutOverviewPage.descHeader];
-        for (let i = 0; i < headers.length; i++) {
-          element = headers[i];
-          await expect(element).toHaveCSS('color', COLORS.itemList.headerColor);
-          await expect(element).toHaveCSS('display', 'inline-block');
-          await expect(element).toHaveCSS('font-size', '16px');
-          await expect(element).toHaveCSS('font-weight', '500');
-        }
 
         element = checkoutOverviewPage.paymentInfoLabel;
         await expect(element).toHaveCSS('color', COLORS.textColor);
@@ -176,140 +161,13 @@ test.describe('Checkout overview page tests', () => {
       });
 
       test('Item list element visibility', async () => {
-        await expect(checkoutOverviewPage.cartList).toBeVisible();
-        await expect(checkoutOverviewPage.qtyHeader).toBeVisible();
-        await expect(checkoutOverviewPage.descHeader).toBeVisible();
-        await expect(checkoutOverviewPage.cartItem).toHaveCount(productIds.length);
+        await expect(checkoutOverviewPage.cartList.cartList).toBeVisible();
+        await expect(checkoutOverviewPage.cartList.cartItem).toHaveCount(productIds.length);
 
-        // Verify each item purchased displays all expected elements
-        const productElements = Object.keys(PRODUCT_ELEMENTS);
+        // There is no button to remove each product from the cart as we have already purchased it
         for (let i = 0; i < productIds.length; i++) {
-          for (let j = 0; j < productElements.length; j++) {
-            const productElement = checkoutOverviewPage.getProductElement(
-              i,
-              PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
-            );
-            // There is no button to remove the product from the cart as we have already purchased it
-            if (productElements[j] === 'button') {
-              await expect(productElement).toHaveCount(0);
-            } else {
-              await expect(productElement).toBeVisible();
-            }
-          }
-        }
-      });
-
-      test('Text content of items purchased', async () => {
-        for (let i = 0; i < productIds.length; i++) {
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(
-            PRODUCT_INFO[i].title
-          );
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-            PRODUCT_INFO[i].description
-          );
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-            `\$${PRODUCT_INFO[i].price}`
-          );
-        }
-      });
-
-      test('Purchased item element styling', async () => {
-        let element: Locator;
-        for (let i = 0; i < productIds.length; i++) {
-          element = checkoutOverviewPage.cartItem.nth(i);
-          await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
-          await expect(element).toHaveCSS('border', `1px solid ${COLORS.itemList.borderColor}`);
-          await expect(element).toHaveCSS('border-radius', '8px');
-          await expect(element).toHaveCSS('display', 'flex');
-
-          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty);
-          await expect(element).toHaveCSS('border', `1px solid ${COLORS.itemList.borderColor}`);
-          await expect(element).toHaveCSS('box-sizing', 'border-box');
-          await expect(element).toHaveCSS('font-size', '14px');
-          await expect(element).toHaveCSS('font-weight', '400');
-          await expect(element).toHaveCSS('text-align', 'center');
-
-          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-          await expect(element).toHaveCSS('color', COLORS.itemList.titleColor);
-          await expect(element).toHaveCSS('font-size', '20px');
-          await expect(element).toHaveCSS('font-weight', '500');
-
-          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.description);
-          await expect(element).toHaveCSS('color', COLORS.textColor);
-          await expect(element).toHaveCSS('font-size', '14px');
-
-          element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.price);
-          await expect(element).toHaveCSS('border-top', `1px solid ${COLORS.itemList.borderColor}`);
-          await expect(element).toHaveCSS('color', COLORS.textColor);
-          await expect(element).toHaveCSS('font-size', '20px');
-          await expect(element).toHaveCSS('font-weight', '500');
-        }
-      });
-
-      test('Purchased item title changes style on hover', async () => {
-        for (let i = 0; i < productIds.length; i++) {
-          const element = checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-          await element.hover();
-          await expect(element).toHaveCSS('color', COLORS.itemList.hoverColor);
-        }
-      });
-
-      test('Cursor is pointer for title link', async ({ browserName }) => {
-        test.skip(browserName === 'webkit');
-        const productElements = Object.keys(PRODUCT_ELEMENTS).filter((el) => el !== 'button');
-        for (let i = 0; i < productIds.length; i++) {
-          for (let j = 0; j < productElements.length; j++) {
-            const productElement = checkoutOverviewPage.getProductElement(
-              i,
-              PRODUCT_ELEMENTS[productElements[j] as keyof typeof PRODUCT_ELEMENTS]
-            );
-            const cursorStyle = productElements[j] === 'title' ? 'pointer' : 'auto';
-            await expect(productElement).toHaveCSS('cursor', cursorStyle);
-          }
-        }
-      });
-
-      test('Items purchased match order in which products were added', async ({ page }) => {
-        const shuffledProductIds = [...productIds].sort(() => Math.random() - 0.5);
-        await setCartContentsInLocalStorage(page, shuffledProductIds, URLS.checkoutOverviewPage);
-
-        for (let i = 0; i < shuffledProductIds.length; i++) {
-          const product = PRODUCT_INFO.filter((a) => a.id === shuffledProductIds[i])[0];
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(product.title);
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-            product.description
-          );
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-            `\$${product.price}`
-          );
-        }
-      });
-
-      test('Item quantities cannot be edited', async () => {
-        // Proving the item quantity isn't editable is a bit tricky as the element isn't an input or textbox so we
-        // can't use the .not.toBeEditable() assertion. Instead verify the tag is a div (not an input) and the
-        // isContentEditable property is false
-        for (let i = 0; i < productIds.length; i++) {
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveJSProperty(
-            'tagName',
-            'DIV'
-          );
-          await expect(checkoutOverviewPage.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveJSProperty(
-            'isContentEditable',
-            false
-          );
-        }
-      });
-
-      test('Item title link does not explicitly reference product page', async () => {
-        for (let i = 0; i < productIds.length; i++) {
-          // I don't like using locators within tests but this is the easiest way of conducting this test
-          const LINK = checkoutOverviewPage.cartItem.nth(i).locator('a');
-          await expect(LINK).toHaveCount(1);
-          await expect(LINK).toHaveId(new RegExp('item_\\d_title_link'));
-          await expect(LINK).toHaveAttribute('href', '#');
+          const element = checkoutOverviewPage.cartList.getProductElement(i, PRODUCT_ELEMENTS.button);
+          await expect(element).toHaveCount(0);
         }
       });
 
@@ -360,15 +218,6 @@ test.describe('Checkout overview page tests', () => {
         test('All products purchased', async () => {
           await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('allProductsPurchased.png');
         });
-      });
-    });
-
-    test.describe('Behavioural tests', () => {
-      test('Clicking item name opens corresponding product page', async ({ page }) => {
-        await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
-        const productIndex = Math.floor(Math.random() * productIds.length);
-        await checkoutOverviewPage.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
-        await expect(page).toHaveURL(`${URLS.productPage}${productIds[productIndex]}`);
       });
     });
   });
