@@ -31,27 +31,12 @@ export class CartPage {
 
 export const EXPECTED_TEXT = {
   subtitle: 'Your Cart',
-  qtyHeader: 'QTY',
-  descHeader: 'Description',
-  addToCartButton: 'Add to cart',
-  removeButton: 'Remove',
   buttons: ['Continue Shopping', 'Checkout'],
 };
 
 export const COLORS = {
   backgroundColor: 'rgb(255, 255, 255)',
   textColor: 'rgb(19, 35, 34)',
-  itemList: {
-    headerColor: 'rgb(72, 76, 85)',
-    titleColor: 'rgb(24, 88, 58)',
-    hoverColor: 'rgb(61, 220, 145)',
-    borderColor: 'rgb(237, 237, 237)',
-    textColor: 'rgb(19, 35, 34)',
-    button: {
-      addButtonColor: 'rgb(19, 35, 34)',
-      removeButtonColor: 'rgb(226, 35, 26)',
-    },
-  },
   buttons: [
     { backgroundColor: 'rgb(255, 255, 255)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },
     { backgroundColor: 'rgb(61, 220, 145)', textColor: 'rgb(19, 35, 34)', borderColor: 'rgb(19, 35, 34)' },

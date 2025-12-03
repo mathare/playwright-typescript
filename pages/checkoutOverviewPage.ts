@@ -49,8 +49,6 @@ export class CheckoutOverviewPage {
 
 export const EXPECTED_TEXT = {
   subtitle: 'Checkout: Overview',
-  qtyHeader: 'QTY',
-  descHeader: 'Description',
   paymentInfo: {
     label: 'Payment Information:',
     value: 'SauceCard #31337',
@@ -71,12 +69,6 @@ export const EXPECTED_TEXT = {
 export const COLORS = {
   backgroundColor: 'rgb(255, 255, 255)',
   textColor: 'rgb(19, 35, 34)',
-  itemList: {
-    headerColor: 'rgb(72, 76, 85)',
-    titleColor: 'rgb(24, 88, 58)',
-    hoverColor: 'rgb(61, 220, 145)',
-    borderColor: 'rgb(237, 237, 237)',
-  },
   buttons: [
     { backgroundColor: 'rgb(255, 255, 255)', borderColor: 'rgb(19, 35, 34)' },
     { backgroundColor: 'rgb(61, 220, 145)', borderColor: 'rgb(19, 35, 34)' },
