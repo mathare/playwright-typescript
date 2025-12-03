@@ -5,6 +5,7 @@ import { getCartContentsFromLocalStorage, login, setCartContentsInLocalStorage }
 import { URLS } from '../data/pages';
 
 let inventoryPage: InventoryPage;
+const NUM_PRODUCTS = PRODUCT_INFO.length;
 
 test.describe('Standard User', () => {
   test.beforeEach(async ({ page, baseURL }) => {
@@ -19,7 +20,7 @@ test.describe('Standard User', () => {
       await expect(inventoryPage.activeSortOption).toBeVisible();
       await expect(inventoryPage.sortSelect).toBeVisible();
       await expect(inventoryPage.inventoryContainer).toBeVisible();
-      await expect(inventoryPage.inventoryItem).toHaveCount(PRODUCT_INFO.length);
+      await expect(inventoryPage.inventoryItem).toHaveCount(NUM_PRODUCTS);
       await expect(inventoryPage.pageFooter.footer).toBeVisible();
     });
 
@@ -63,8 +64,6 @@ test.describe('Standard User', () => {
   });
 
   test.describe('Product tests', () => {
-    const NUM_PRODUCTS = PRODUCT_INFO.length;
-
     test('Default product styling', async () => {
       for (let i = 0; i < NUM_PRODUCTS; i++) {
         let element = inventoryPage.inventoryItem.nth(i);
@@ -285,7 +284,7 @@ test.describe('Problem User', () => {
   });
 
   test('Product image is incorrect for all products', async () => {
-    for (let i = 0; i < PRODUCT_INFO.length; i++) {
+    for (let i = 0; i < NUM_PRODUCTS; i++) {
       let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
       await expect(element).toHaveAttribute('src', '/static/media/sl-404.168b1cce10384b857a6f.jpg');
       await expect(element).toHaveAttribute('alt', PRODUCT_INFO[i].title);
@@ -321,7 +320,7 @@ test.describe('Problem User', () => {
   });
 
   test('Only backpack, bike light & onesie can be added to cart', async ({ page }) => {
-    for (let i = 0; i < PRODUCT_INFO.length; i++) {
+    for (let i = 0; i < NUM_PRODUCTS; i++) {
       // Clear any existing cart contents
       await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
 
@@ -355,6 +354,22 @@ test.describe('Problem User', () => {
       await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
       await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
       await inventoryPage.verifyCartButtonStyle(productIndex, 'remove');
+    }
+  });
+
+  test('Each product title and image links to the wrong product page', async ({ page, baseURL }) => {
+    // We can reasonably assume the product page displays the details of the corresponding product if
+    // the URL has the matching product ID, even though we are logged in as problem_user. This is
+    // verified by tests within the Product Page spec
+    const LINKED_PRODUCT_IDS = [5, 1, 2, 6, 3, 4];
+    for (let i = 0; i < NUM_PRODUCTS; i++) {
+      await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
+      await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${LINKED_PRODUCT_IDS[i]}`);
+      await page.goBack();
+
+      await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img).click();
+      await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${LINKED_PRODUCT_IDS[i]}`);
+      await page.goBack();
     }
   });
 });
