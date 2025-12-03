@@ -3,7 +3,7 @@ import { CartList, COLORS, EXPECTED_TEXT } from '../pages/components/cartList';
 import { login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
-test.describe('Cart page tests', () => {
+test.describe('Cart list tests', () => {
   let cartList: CartList;
 
   test.beforeEach(async ({ page, baseURL }) => {
