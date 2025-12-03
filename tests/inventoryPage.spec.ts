@@ -4,9 +4,9 @@ import { PRODUCT_INFO } from '../data/products';
 import { getCartContentsFromLocalStorage, login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
-test.describe('Inventory page tests', () => {
-  let inventoryPage: InventoryPage;
+let inventoryPage: InventoryPage;
 
+test.describe('Standard User', () => {
   test.beforeEach(async ({ page, baseURL }) => {
     inventoryPage = new InventoryPage(page);
     await login(page, baseURL!, 'standard_user');
