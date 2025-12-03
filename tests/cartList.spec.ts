@@ -219,7 +219,7 @@ test.describe('Cart list tests', () => {
         await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
         await cartList.getProductElement(0, PRODUCT_ELEMENTS.button).click();
         await expect(cartList.cartItem).toHaveCount(0);
-        await expect(page).toHaveScreenshot('emptyCart.png', { fullPage: true });
+        await expect(cartList.cartList).toHaveScreenshot('emptyCart.png');
       });
 
       test('Remaining items unchanged after removing last item from cart', async ({ page }) => {
