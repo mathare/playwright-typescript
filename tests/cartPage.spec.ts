@@ -112,11 +112,11 @@ test.describe('Cart page tests', () => {
       test.describe('Visual tests', () => {
         test('Single product in cart', async ({ page }) => {
           await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
-          await expect(cartPage.cartList.cartList).toHaveScreenshot('singleProductInCart.png');
+          await expect(cartPage.cartContentsContainer).toHaveScreenshot('singleProductInCart.png');
         });
 
         test('All products in cart', async () => {
-          await expect(cartPage.cartList.cartList).toHaveScreenshot('allProductsInCart.png');
+          await expect(cartPage.cartContentsContainer).toHaveScreenshot('allProductsInCart.png');
         });
       });
     });
