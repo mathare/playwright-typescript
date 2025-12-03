@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
-import { getCartContentsFromLocalStorage, login } from '../helpers/utils';
+import { getCartContentsFromLocalStorage, login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
 let inventoryPage: InventoryPage;
@@ -272,6 +272,89 @@ test.describe('Standard User', () => {
           await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
         });
       });
+    }
+  });
+});
+
+test.describe('Problem User', () => {
+  const PURCHASABLE_PRODUCTS = ['Backpack', 'Bike Light', 'Onesie'];
+
+  test.beforeEach(async ({ page, baseURL }) => {
+    inventoryPage = new InventoryPage(page);
+    await login(page, baseURL!, 'problem_user');
+  });
+
+  test('Product image is incorrect for all products', async () => {
+    for (let i = 0; i < PRODUCT_INFO.length; i++) {
+      let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+      await expect(element).toHaveAttribute('src', '/static/media/sl-404.168b1cce10384b857a6f.jpg');
+      await expect(element).toHaveAttribute('alt', PRODUCT_INFO[i].title);
+
+      element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+      await expect(element).toHaveText(PRODUCT_INFO[i].title);
+
+      element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+      await expect(element).toHaveText(PRODUCT_INFO[i].description);
+
+      element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+      await expect(element).toHaveText(`\$${PRODUCT_INFO[i].price}`);
+
+      element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+      await expect(element).toBeVisible();
+      await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+    }
+  });
+
+  test.describe('Visual tests', () => {
+    test('Default state', async () => {
+      await expect(inventoryPage.inventoryContainer).toHaveScreenshot('problemUser.png');
+    });
+  });
+
+  test('Sort does nothing', async () => {
+    const SORT_OPTIONS = ['az', 'za', 'lohi', 'hilo'];
+    for (let i = 0; i < SORT_OPTIONS.length; i++) {
+      await inventoryPage.sortSelect.selectOption(SORT_OPTIONS[i]);
+      await expect(inventoryPage.activeSortOption).toHaveText('Name (A to Z)');
+      await expect(inventoryPage.inventoryContainer).toHaveScreenshot('problemUser.png');
+    }
+  });
+
+  test('Only backpack, bike light & onesie can be added to cart', async ({ page }) => {
+    for (let i = 0; i < PRODUCT_INFO.length; i++) {
+      // Clear any existing cart contents
+      await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
+
+      await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
+      if (PURCHASABLE_PRODUCTS.includes(PRODUCT_INFO[i].shortName)) {
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+        await inventoryPage.verifyCartButtonStyle(i, 'remove');
+      } else {
+        await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+        await inventoryPage.verifyCartButtonStyle(i, 'add');
+      }
+    }
+  });
+
+  test('Items added to cart cannot be removed', async ({ page }) => {
+    let productIndex: number;
+
+    for (let i = 0; i < PURCHASABLE_PRODUCTS.length; i++) {
+      // Clear any existing cart contents
+      await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
+
+      // Add product to cart
+      productIndex = PRODUCT_INFO.findIndex((prod) => prod.shortName === PURCHASABLE_PRODUCTS[i]);
+      await inventoryPage.getProductElement(productIndex, PRODUCT_ELEMENTS.button).click();
+      await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
+      await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+      await inventoryPage.verifyCartButtonStyle(productIndex, 'remove');
+
+      await inventoryPage.getProductElement(productIndex, PRODUCT_ELEMENTS.button).click();
+      await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
+      await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+      await inventoryPage.verifyCartButtonStyle(productIndex, 'remove');
     }
   });
 });
