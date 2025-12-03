@@ -26,9 +26,12 @@ export class CartList {
 export const EXPECTED_TEXT = {
   qtyHeader: 'QTY',
   descHeader: 'Description',
+  addToCartButton: 'Add to cart',
+  removeButton: 'Remove',
 };
 
 export const COLORS = {
+  backgroundColor: 'rgb(255, 255, 255)',
   headerColor: 'rgb(72, 76, 85)',
   titleColor: 'rgb(24, 88, 58)',
   hoverColor: 'rgb(61, 220, 145)',
