@@ -7,18 +7,15 @@ import { PRODUCT_INFO } from '../data/products';
 test.describe('Cart list tests', () => {
   let cartList: CartList;
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     cartList = new CartList(page);
-    await login(page, baseURL!, 'standard_user');
+    await login(context, baseURL!, 'standard_user');
+    // We can test the cart list on any page that uses it - namely the cart page and checkout overview page
+    // but the cart page is the simplest so open that
+    await page.goto(URLS.cartPage);
   });
 
   test.describe('Empty cart', () => {
-    // We can test the cart list on any page that uses it - namely the cart page and checkout overview page
-    // but the cart page is the simplest so open that
-    test.beforeEach(async ({ page }) => {
-      await page.goto(URLS.cartPage);
-    });
-
     test.describe('Appearance tests', () => {
       test('Default element visibility', async () => {
         await expect(cartList.cartList).toBeVisible();

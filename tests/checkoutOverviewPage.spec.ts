@@ -8,17 +8,14 @@ import { PRODUCT_ELEMENTS } from '../pages/components/cartList';
 test.describe('Checkout overview page tests', () => {
   let checkoutOverviewPage: CheckoutOverviewPage;
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     checkoutOverviewPage = new CheckoutOverviewPage(page);
-    await login(page, baseURL!, 'standard_user');
+    await login(context, baseURL!, 'standard_user');
+    await page.goto(URLS.checkoutOverviewPage);
   });
 
+  // Common cart elements can be tested without purchasing anything
   test.describe('No items purchased', () => {
-    test.beforeEach(async ({ page }) => {
-      await page.goto(URLS.checkoutOverviewPage);
-    });
-
-    // Common cart elements can be tested without purchasing anything
     test.describe('Appearance tests', () => {
       test('Default element visibility', async () => {
         await expect(checkoutOverviewPage.pageHeader.primaryHeader).toBeVisible();

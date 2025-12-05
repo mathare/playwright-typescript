@@ -14,8 +14,9 @@ test.describe('Menu tests', () => {
   let menu: Menu;
   const numMenuItems = EXPECTED_TEXT.menuItems.length;
 
-  test.beforeEach(async ({ page, baseURL }) => {
-    await login(page, baseURL!, 'standard_user');
+  test.beforeEach(async ({ page, context, baseURL }) => {
+    await login(context, baseURL!, 'standard_user');
+    await page.goto(URLS.inventoryPage);
     pageHeader = new PageHeader(page);
     menu = new Menu(page);
   });

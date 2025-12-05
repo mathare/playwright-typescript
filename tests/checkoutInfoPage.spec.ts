@@ -8,9 +8,9 @@ test.describe('Checkout info page tests', () => {
 
   // The checkout info page doesn't change whether the cart contains items or not so
   // we can proceed with an empty cart and navigate directly to the page under test
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     checkoutInfoPage = new CheckoutInfoPage(page);
-    await login(page, baseURL!, 'standard_user');
+    await login(context, baseURL!, 'standard_user');
     await page.goto(URLS.checkoutInfoPage);
   });
 

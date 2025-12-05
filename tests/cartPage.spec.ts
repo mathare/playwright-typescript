@@ -7,17 +7,14 @@ import { PRODUCT_INFO } from '../data/products';
 test.describe('Cart page tests', () => {
   let cartPage: CartPage;
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     cartPage = new CartPage(page);
-    await login(page, baseURL!, 'standard_user');
+    await login(context, baseURL!, 'standard_user');
+    await page.goto(URLS.cartPage);
   });
 
+  // Common cart elements can be tested with an empty cart
   test.describe('Empty cart', () => {
-    test.beforeEach(async ({ page }) => {
-      await page.goto(URLS.cartPage);
-    });
-
-    // Common cart elements can be tested with an empty cart
     test.describe('Appearance tests', () => {
       test('Default element visibility', async () => {
         await expect(cartPage.pageHeader.primaryHeader).toBeVisible();

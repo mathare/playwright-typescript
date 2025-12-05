@@ -1,14 +1,9 @@
 import { BrowserContext, Cookie, expect, Locator, Page } from '@playwright/test';
-import { LoginPage } from '../pages/loginPage';
-import { URLS } from '../data/pages';
 
-export const login = async (page: Page, baseURL: string, username: string): Promise<void> => {
-  const loginPage = new LoginPage(page);
-  await page.goto(URLS.loginPage);
-  await loginPage.usernameInput.fill(username);
-  await loginPage.passwordInput.fill('secret_sauce');
-  await loginPage.loginButton.click();
-  await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+export const login = async (context: BrowserContext, baseUrl: string, username: string): Promise<void> => {
+  // Login by setting a cookie rather than by entering user credentials on the login page
+  const COOKIE = { name: 'session-username', value: username, url: baseUrl };
+  await context.addCookies([COOKIE]);
 };
 
 export const getCartContentsFromLocalStorage = async (context: BrowserContext): Promise<Record<string, string>> => {
