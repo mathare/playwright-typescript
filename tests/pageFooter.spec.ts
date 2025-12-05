@@ -46,15 +46,26 @@ test.describe('Page footer tests', () => {
     });
 
     test.describe('Visual tests', () => {
-      test('Inventory page', async () => {
-        await expect(pageFooter.footer).toHaveScreenshot('default.png');
-      });
+      // All pages should have the same footer
+      // However, the checkout complete page footer is a slightly different size so is omitted from this visual testing
+      const PAGES = [
+        { page: 'Inventory', url: URLS.inventoryPage },
+        { page: 'Cart', url: URLS.cartPage },
+        { page: 'Checkout info', url: URLS.checkoutInfoPage },
+        { page: 'Checkout overview', url: URLS.checkoutOverviewPage },
+      ];
+      for (let i = 0; i < PAGES.length; i++) {
+        test(`${PAGES[i].page} page`, async ({ page }) => {
+          await page.goto(PAGES[i].url);
+          await expect(pageFooter.footer).toHaveScreenshot('default.png');
+        });
+      }
 
       test('Product page', async ({ page }) => {
         // Open random product page
-        const PRODUCT_INDEX = Math.floor(Math.random() * PRODUCT_INFO.length);
-        const inventoryPage = new InventoryPage(page);
-        await inventoryPage.getProductElement(PRODUCT_INDEX, PRODUCT_ELEMENTS.title).click();
+        const PRODUCT_IDS = PRODUCT_INFO.map((prod) => prod.id);
+        const PRODUCT_INDEX = Math.floor(Math.random() * PRODUCT_IDS.length);
+        await page.goto(`${URLS.productPage}${PRODUCT_IDS[PRODUCT_INDEX]}`);
         await expect(pageFooter.footer).toHaveScreenshot('default.png');
       });
     });
