@@ -10,9 +10,10 @@ let inventoryPage: InventoryPage;
 let cartContents: Record<string, string>;
 
 test.describe('Standard User', () => {
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     inventoryPage = new InventoryPage(page);
-    await login(page, baseURL!, 'standard_user');
+    await login(context, baseURL!, 'standard_user');
+    await page.goto(URLS.inventoryPage);
   });
 
   test.describe('Appearance tests', () => {
@@ -279,9 +280,10 @@ test.describe('Standard User', () => {
 test.describe('Problem User', () => {
   const PURCHASABLE_PRODUCTS = ['Backpack', 'Bike Light', 'Onesie'];
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     inventoryPage = new InventoryPage(page);
-    await login(page, baseURL!, 'problem_user');
+    await login(context, baseURL!, 'problem_user');
+    await page.goto(URLS.inventoryPage);
   });
 
   test.describe('Appearance tests', () => {

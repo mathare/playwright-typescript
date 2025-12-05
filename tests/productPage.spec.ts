@@ -7,9 +7,9 @@ import { URLS } from '../data/pages';
 test.describe('Product page tests', () => {
   let productPage: ProductPage;
 
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     productPage = new ProductPage(page);
-    await login(page, baseURL!, 'standard_user');
+    await login(context, baseURL!, 'standard_user');
   });
 
   test.describe('Common page elements', async () => {

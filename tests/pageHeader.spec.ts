@@ -13,8 +13,9 @@ import { URLS } from '../data/pages';
 test.describe('Page header tests', () => {
   let pageHeader: PageHeader;
 
-  test.beforeEach(async ({ page, baseURL }) => {
-    await login(page, baseURL!, 'standard_user');
+  test.beforeEach(async ({ page, context, baseURL }) => {
+    await login(context, baseURL!, 'standard_user');
+    await page.goto(URLS.inventoryPage);
     pageHeader = new PageHeader(page);
   });
 

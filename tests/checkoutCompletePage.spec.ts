@@ -8,9 +8,9 @@ test.describe('Checkout complete page tests', () => {
 
   // The checkout complete page doesn't change whether we purchased items or not so
   // we can proceed with an empty order and navigate directly to the page under test
-  test.beforeEach(async ({ page, baseURL }) => {
+  test.beforeEach(async ({ page, context, baseURL }) => {
     checkoutCompletePage = new CheckoutCompletePage(page);
-    await login(page, baseURL!, 'standard_user');
+    await login(context, baseURL!, 'standard_user');
     await page.goto(URLS.checkoutCompletePage);
   });
 
