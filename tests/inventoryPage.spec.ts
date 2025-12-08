@@ -1,13 +1,102 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
-import { getCartContentsFromLocalStorage, login, setCartContentsInLocalStorage } from '../helpers/utils';
+import {
+  formatUsernameForDisplay,
+  formatUsernameForScreenshotFilename,
+  getCartContentsFromLocalStorage,
+  login,
+  setCartContentsInLocalStorage,
+} from '../helpers/utils';
 import { URLS } from '../data/pages';
 
 const NUM_PRODUCTS = PRODUCT_INFO.length;
 
 let inventoryPage: InventoryPage;
 let cartContents: Record<string, string>;
+
+test.beforeEach(async ({ page }) => {
+  inventoryPage = new InventoryPage(page);
+});
+
+test.describe('Appearance tests', () => {
+  ['standard_user', 'problem_user', 'performance_glitch_user', 'error_user', 'visual_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test('Default element visibility', async ({}) => {
+        await expect(inventoryPage.pageHeader.headerContainer).toBeVisible();
+        await expect(inventoryPage.subtitle).toBeVisible();
+        await expect(inventoryPage.activeSortOption).toBeVisible();
+        await expect(inventoryPage.sortSelect).toBeVisible();
+        await expect(inventoryPage.inventoryContainer).toBeVisible();
+        await expect(inventoryPage.inventoryItem).toHaveCount(NUM_PRODUCTS);
+        await expect(inventoryPage.pageFooter.footer).toBeVisible();
+      });
+
+      // Verifying the details of each displayed product is done via a separate test
+      test('Text content of elements', async () => {
+        await expect(inventoryPage.subtitle).toHaveText(EXPECTED_TEXT.subtitle);
+        await expect(inventoryPage.activeSortOption).toHaveText(EXPECTED_TEXT.sortOptions[0]);
+        await expect(inventoryPage.sortSelect).toHaveText(EXPECTED_TEXT.sortOptions.join(''));
+      });
+
+      test('Element styling', async () => {
+        let element = inventoryPage.body;
+        await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+        await expect(element).toHaveCSS('color', COLORS.textColor);
+        await expect(element).toHaveCSS('font-size', '14px');
+
+        element = inventoryPage.subtitle;
+        await expect(element).toHaveCSS('font-size', '18px');
+        await expect(element).toHaveCSS('font-weight', '500');
+
+        await expect(inventoryPage.activeSortOption).toHaveCSS('text-align', 'center');
+      });
+    });
+  });
+});
+
+test.describe('Visual tests', () => {
+  test.describe(formatUsernameForDisplay('standard_user'), () => {
+    test.beforeEach(async ({ page, context, baseURL }) => {
+      await login(context, baseURL!, 'standard_user');
+      await page.goto(URLS.inventoryPage);
+    });
+
+    test('Default state of full page', async ({ page }) => {
+      await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+    });
+
+    test('Menu open', async ({ page }) => {
+      await inventoryPage.pageHeader.menuButton.click();
+      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+    });
+
+    test('Products added to cart', async () => {
+      await inventoryPage.addAllProductsToCart();
+      // Limit this image comparison to only the elements that have changed to reduce
+      // dependencies on other elements that might change e.g. page header and footer
+      await expect(inventoryPage.inventoryContainer).toHaveScreenshot('productsInCart.png');
+    });
+  });
+
+  ['standard_user', 'problem_user', 'error_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test('Default state', async () => {
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(formatUsernameForScreenshotFilename(user));
+      });
+    });
+  });
+});
 
 test.describe('Standard User', () => {
   test.beforeEach(async ({ page, context, baseURL }) => {
