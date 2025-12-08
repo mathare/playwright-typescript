@@ -506,7 +506,7 @@ test.describe('Error User', () => {
 
     test.describe('Visual tests', () => {
       test('Default state', async () => {
-        await expect(inventoryPage.inventoryContainer).toHaveScreenshot('errorUser.png', { fullPage: true });
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot('errorUser.png');
       });
     });
   });
