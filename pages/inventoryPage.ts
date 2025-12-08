@@ -63,6 +63,7 @@ export const EXPECTED_TEXT = {
   sortOptions: ['Name (A to Z)', 'Name (Z to A)', 'Price (low to high)', 'Price (high to low)'],
   addToCartButton: 'Add to cart',
   removeButton: 'Remove',
+  brokenSort: 'Sorting is broken! This error has been reported to Backtrace.',
 };
 
 export const COLORS = {
