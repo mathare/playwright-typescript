@@ -508,8 +508,6 @@ test.describe('Error User', () => {
       test('Default state', async () => {
         await expect(inventoryPage.inventoryContainer).toHaveScreenshot('errorUser.png', { fullPage: true });
       });
-
-      test.fixme('Sort error alert', async ({ page }) => {});
     });
   });
 
