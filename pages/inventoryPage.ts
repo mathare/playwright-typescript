@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { PageFooter } from './components/pageFooter';
 import { PageHeader } from './components/pageHeader';
 import { PRODUCT_INFO } from '../data/products';
