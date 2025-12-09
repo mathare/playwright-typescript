@@ -61,26 +61,28 @@ test.describe('Appearance tests', () => {
 });
 
 test.describe('Visual tests', () => {
-  test.describe(formatUsernameForDisplay('standard_user'), () => {
-    test.beforeEach(async ({ page, context, baseURL }) => {
-      await login(context, baseURL!, 'standard_user');
-      await page.goto(URLS.inventoryPage);
-    });
+  ['standard_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
 
-    test('Default state of full page', async ({ page }) => {
-      await expect(page).toHaveScreenshot('default.png', { fullPage: true });
-    });
+      test('Default state of full page', async ({ page }) => {
+        await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+      });
 
-    test('Menu open', async ({ page }) => {
-      await inventoryPage.pageHeader.menuButton.click();
-      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
-    });
+      test('Menu open', async ({ page }) => {
+        await inventoryPage.pageHeader.menuButton.click();
+        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+      });
 
-    test('Products added to cart', async () => {
-      await inventoryPage.addAllProductsToCart();
-      // Limit this image comparison to only the elements that have changed to reduce
-      // dependencies on other elements that might change e.g. page header and footer
-      await expect(inventoryPage.inventoryContainer).toHaveScreenshot('productsInCart.png');
+      test('Products added to cart', async () => {
+        await inventoryPage.addAllProductsToCart();
+        // Limit this image comparison to only the elements that have changed to reduce
+        // dependencies on other elements that might change e.g. page header and footer
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot('productsInCart.png');
+      });
     });
   });
 
