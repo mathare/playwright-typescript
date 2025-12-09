@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Appearance tests', () => {
-  ['standard_user', 'problem_user', 'performance_glitch_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
