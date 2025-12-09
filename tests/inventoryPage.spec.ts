@@ -349,6 +349,60 @@ test.describe('Product tests', () => {
       });
     });
   });
+
+  ['problem_user', 'error_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      const PURCHASABLE_PRODUCTS = ['Backpack', 'Bike Light', 'Onesie'];
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test('Only backpack, bike light & onesie can be added to cart', async ({ page, context }) => {
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          // Clear any existing cart contents
+          await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
+
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
+          if (PURCHASABLE_PRODUCTS.includes(PRODUCT_INFO[i].shortName)) {
+            await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
+            await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+            await inventoryPage.verifyCartButtonStyle(i, 'remove');
+            // Verify product ID added to cart contents in local storage
+            cartContents = await getCartContentsFromLocalStorage(context);
+            expect(cartContents.value).toEqual(`[${PRODUCT_INFO[i].id}]`);
+          } else {
+            await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
+            await inventoryPage.verifyCartButtonStyle(i, 'add');
+            // Verify product ID added to cart contents in local storage
+            cartContents = await getCartContentsFromLocalStorage(context);
+            expect(cartContents.value).toEqual('[]');
+          }
+        }
+      });
+
+      test('Items added to cart cannot be removed', async ({ page }) => {
+        let productIndex: number;
+
+        for (let i = 0; i < PURCHASABLE_PRODUCTS.length; i++) {
+          // Clear any existing cart contents
+          await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
+
+          // Add product to cart
+          productIndex = PRODUCT_INFO.findIndex((prod) => prod.shortName === PURCHASABLE_PRODUCTS[i]);
+          await inventoryPage.getProductElement(productIndex, PRODUCT_ELEMENTS.button).click();
+          await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
+          await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+          await inventoryPage.verifyCartButtonStyle(productIndex, 'remove');
+
+          await inventoryPage.getProductElement(productIndex, PRODUCT_ELEMENTS.button).click();
+          await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
+          await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
+          await inventoryPage.verifyCartButtonStyle(productIndex, 'remove');
+        }
+      });
+    });
+  });
 });
 
 test.describe('Problem User', () => {
