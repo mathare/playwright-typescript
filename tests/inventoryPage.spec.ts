@@ -109,7 +109,7 @@ test.describe('Visual tests', () => {
 });
 
 test.describe('Product tests', () => {
-  ['standard_user', 'problem_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -181,6 +181,39 @@ test.describe('Product tests', () => {
     });
   });
 
+  ['standard_user', 'error_user', 'visual_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      for (let i = 0; i < NUM_PRODUCTS; i++) {
+        test.describe(` ${PRODUCT_INFO[i].shortName} link tests`, () => {
+          test(`Clicking title opens product page`, async ({ page, baseURL }) => {
+            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
+            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
+          });
+
+          test(`Clicking image opens product page`, async ({ page, baseURL }) => {
+            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img).click();
+            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
+          });
+
+          test(`Clicking description does nothing`, async ({ page, baseURL }) => {
+            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description).click();
+            await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+          });
+
+          test(`Clicking price does nothing`, async ({ page, baseURL }) => {
+            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price).click();
+            await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+          });
+        });
+      }
+    });
+  });
+
   ['standard_user', 'error_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
@@ -209,30 +242,6 @@ test.describe('Product tests', () => {
           await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
         }
       });
-
-      for (let i = 0; i < NUM_PRODUCTS; i++) {
-        test.describe(` ${PRODUCT_INFO[i].shortName} link tests`, () => {
-          test(`Clicking title opens product page`, async ({ page, baseURL }) => {
-            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
-            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
-          });
-
-          test(`Clicking image opens product page`, async ({ page, baseURL }) => {
-            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img).click();
-            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
-          });
-
-          test(`Clicking description does nothing`, async ({ page, baseURL }) => {
-            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description).click();
-            await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
-          });
-
-          test(`Clicking price does nothing`, async ({ page, baseURL }) => {
-            await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price).click();
-            await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
-          });
-        });
-      }
     });
   });
 
