@@ -11,6 +11,26 @@ import {
 import { URLS } from '../data/pages';
 
 const NUM_PRODUCTS = PRODUCT_INFO.length;
+const NON_DEFAULT_SORTS = [
+  {
+    description: 'sort by name (Z-A)',
+    products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
+    sortBy: 'Name (Z to A)',
+    sortOption: 'za',
+  },
+  {
+    description: 'sort by price (low-high)',
+    products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
+    sortBy: 'Price (low to high)',
+    sortOption: 'lohi',
+  },
+  {
+    description: 'sort by price (high-low)',
+    products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
+    sortBy: 'Price (high to low)',
+    sortOption: 'hilo',
+  },
+];
 
 let inventoryPage: InventoryPage;
 let cartContents: Record<string, string>;
@@ -382,26 +402,7 @@ test.describe('Product tests', () => {
       });
 
       test.describe('Non-default sorting', () => {
-        [
-          {
-            description: 'sort by name (Z-A)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
-            sortBy: 'Name (Z to A)',
-            sortOption: 'za',
-          },
-          {
-            description: 'sort by price (low-high)',
-            products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
-            sortBy: 'Price (low to high)',
-            sortOption: 'lohi',
-          },
-          {
-            description: 'sort by price (high-low)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
-            sortBy: 'Price (high to low)',
-            sortOption: 'hilo',
-          },
-        ].forEach((testCase) => {
+        NON_DEFAULT_SORTS.forEach((testCase) => {
           test(`Product details - ${testCase.description}`, async () => {
             if (testCase.sortOption !== 'default') {
               await inventoryPage.sortSelect.selectOption(testCase.sortOption);
@@ -585,26 +586,7 @@ test.describe('Product tests', () => {
       });
 
       test.describe('Non-default sorting', () => {
-        [
-          {
-            description: 'sort by name (Z-A)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
-            sortBy: 'Name (Z to A)',
-            sortOption: 'za',
-          },
-          {
-            description: 'sort by price (low-high)',
-            products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
-            sortBy: 'Price (low to high)',
-            sortOption: 'lohi',
-          },
-          {
-            description: 'sort by price (high-low)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
-            sortBy: 'Price (high to low)',
-            sortOption: 'hilo',
-          },
-        ].forEach((testCase) => {
+        NON_DEFAULT_SORTS.forEach((testCase) => {
           test(`Product details - ${testCase.description}`, async () => {
             if (testCase.sortOption !== 'default') {
               await inventoryPage.sortSelect.selectOption(testCase.sortOption);
