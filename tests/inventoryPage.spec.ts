@@ -403,6 +403,61 @@ test.describe('Product tests', () => {
       });
     });
   });
+
+  ['problem_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test('Product image is incorrect for all products', async () => {
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+          await expect(element).toHaveAttribute('src', '/static/media/sl-404.168b1cce10384b857a6f.jpg');
+          await expect(element).toHaveAttribute('alt', PRODUCT_INFO[i].title);
+
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          await expect(element).toHaveText(PRODUCT_INFO[i].title);
+
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+          await expect(element).toHaveText(PRODUCT_INFO[i].description);
+
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+          await expect(element).toHaveText(`\$${PRODUCT_INFO[i].price}`);
+
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+          await expect(element).toBeVisible();
+          await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+        }
+      });
+
+      test('Sort does nothing', async () => {
+        const SORT_OPTIONS = ['az', 'za', 'lohi', 'hilo'];
+        for (let i = 0; i < SORT_OPTIONS.length; i++) {
+          await inventoryPage.sortSelect.selectOption(SORT_OPTIONS[i]);
+          await expect(inventoryPage.activeSortOption).toHaveText('Name (A to Z)');
+          await expect(inventoryPage.inventoryContainer).toHaveScreenshot('problemUser.png');
+        }
+      });
+
+      test('Each product title and image links to the wrong product page', async ({ page, baseURL }) => {
+        // We can reasonably assume the product page displays the details of the corresponding product if
+        // the URL has the matching product ID, even though we are logged in as problem_user. This is
+        // verified by tests within the Product Page spec
+        const LINKED_PRODUCT_IDS = [5, 1, 2, 6, 3, 4];
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${LINKED_PRODUCT_IDS[i]}`);
+          await page.goBack();
+
+          await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img).click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${LINKED_PRODUCT_IDS[i]}`);
+          await page.goBack();
+        }
+      });
+    });
+  });
 });
 
 test.describe('Problem User', () => {
