@@ -444,9 +444,9 @@ test.describe('Product tests', () => {
       });
 
       test('Each product title and image links to the wrong product page', async ({ page, baseURL }) => {
-        // We can reasonably assume the product page displays the details of the corresponding product if
-        // the URL has the matching product ID, even though we are logged in as problem_user. This is
-        // verified by tests within the Product Page spec
+        // This test only verifies the product ID in the URL and not the displayed product details.
+        // Verifying the product details are correct for the ID shown in the URL is covered by the
+        // Product Page spec
         const LINKED_PRODUCT_IDS = [5, 1, 2, 6, 3, 4];
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
