@@ -458,6 +458,29 @@ test.describe('Product tests', () => {
       });
     });
   });
+
+  ['error_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test('Sort raises an error alert', async ({ page }) => {
+        // Trap alerts to allow verification rather than have Playwright handle them automatically
+        page.on('dialog', async (alert) => {
+          expect(alert.message()).toEqual(EXPECTED_TEXT.brokenSort);
+          alert.dismiss();
+        });
+
+        const SORT_OPTIONS = ['az', 'za', 'lohi', 'hilo'];
+        for (let i = 0; i < SORT_OPTIONS.length; i++) {
+          await inventoryPage.sortSelect.selectOption(SORT_OPTIONS[i]);
+          await expect(inventoryPage.activeSortOption).toHaveText('Name (A to Z)');
+        }
+      });
+    });
+  });
 });
 
 test.describe('Problem User', () => {
