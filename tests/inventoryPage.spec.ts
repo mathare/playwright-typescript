@@ -245,60 +245,11 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user'].forEach((user) => {
+  ['standard_user', 'visual_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
         await page.goto(URLS.inventoryPage);
-      });
-
-      test.describe('Non-default sorting', () => {
-        [
-          {
-            description: 'sort by name (Z-A)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
-            sortBy: 'Name (Z to A)',
-            sortOption: 'za',
-          },
-          {
-            description: 'sort by price (low-high)',
-            products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
-            sortBy: 'Price (low to high)',
-            sortOption: 'lohi',
-          },
-          {
-            description: 'sort by price (high-low)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
-            sortBy: 'Price (high to low)',
-            sortOption: 'hilo',
-          },
-        ].forEach((testCase) => {
-          test(`Product details - ${testCase.description}`, async () => {
-            if (testCase.sortOption !== 'default') {
-              await inventoryPage.sortSelect.selectOption(testCase.sortOption);
-            }
-            await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
-
-            for (let i = 0; i < testCase.products.length; i++) {
-              let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
-              await expect(element).toHaveAttribute('src', testCase.products[i].imgSrc);
-              await expect(element).toHaveAttribute('alt', testCase.products[i].title);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-              await expect(element).toHaveText(testCase.products[i].title);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
-              await expect(element).toHaveText(testCase.products[i].description);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
-              await expect(element).toHaveText(`\$${testCase.products[i].price}`);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
-              await expect(element).toBeVisible();
-              await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
-            }
-          });
-        });
       });
 
       test.describe('Add products to cart & remove', () => {
@@ -364,6 +315,64 @@ test.describe('Product tests', () => {
             expect(cartContents.value).toEqual(productIDs);
             await inventoryPage.verifyCartButtonStyle(i, 'add');
           }
+        });
+      });
+    });
+  });
+
+  ['standard_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test.describe('Non-default sorting', () => {
+        [
+          {
+            description: 'sort by name (Z-A)',
+            products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
+            sortBy: 'Name (Z to A)',
+            sortOption: 'za',
+          },
+          {
+            description: 'sort by price (low-high)',
+            products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
+            sortBy: 'Price (low to high)',
+            sortOption: 'lohi',
+          },
+          {
+            description: 'sort by price (high-low)',
+            products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
+            sortBy: 'Price (high to low)',
+            sortOption: 'hilo',
+          },
+        ].forEach((testCase) => {
+          test(`Product details - ${testCase.description}`, async () => {
+            if (testCase.sortOption !== 'default') {
+              await inventoryPage.sortSelect.selectOption(testCase.sortOption);
+            }
+            await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
+
+            for (let i = 0; i < testCase.products.length; i++) {
+              let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+              await expect(element).toHaveAttribute('src', testCase.products[i].imgSrc);
+              await expect(element).toHaveAttribute('alt', testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+              await expect(element).toHaveText(testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+              await expect(element).toHaveText(testCase.products[i].description);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+              await expect(element).toHaveText(`\$${testCase.products[i].price}`);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+              await expect(element).toBeVisible();
+              await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+            }
+          });
         });
       });
     });
