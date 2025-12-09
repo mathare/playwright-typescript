@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Locator } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
 import {
@@ -11,6 +11,26 @@ import {
 import { URLS } from '../data/pages';
 
 const NUM_PRODUCTS = PRODUCT_INFO.length;
+const NON_DEFAULT_SORTS = [
+  {
+    description: 'sort by name (Z-A)',
+    products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
+    sortBy: 'Name (Z to A)',
+    sortOption: 'za',
+  },
+  {
+    description: 'sort by price (low-high)',
+    products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
+    sortBy: 'Price (low to high)',
+    sortOption: 'lohi',
+  },
+  {
+    description: 'sort by price (high-low)',
+    products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
+    sortBy: 'Price (high to low)',
+    sortOption: 'hilo',
+  },
+];
 
 let inventoryPage: InventoryPage;
 let cartContents: Record<string, string>;
@@ -20,7 +40,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Appearance tests', () => {
-  ['standard_user', 'problem_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -86,7 +106,7 @@ test.describe('Visual tests', () => {
     });
   });
 
-  ['standard_user', 'problem_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -94,14 +114,22 @@ test.describe('Visual tests', () => {
       });
 
       test('Default state', async () => {
-        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(formatUsernameForScreenshotFilename(user));
+        // Need to mask prices for visual_user as they are random. However, the random pricing means the
+        // size of the price element itself can change depending on the number of digits in the price so
+        // mask the parent element instead. This does mean we're not visually testing the "Add to cart"
+        // button for visual_user but we can live with that
+        const MASKED_ELEMENTS =
+          user === 'visual_user' ? [inventoryPage.inventoryItem.locator(PRODUCT_ELEMENTS.pricebar)] : [];
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(formatUsernameForScreenshotFilename(user), {
+          mask: MASKED_ELEMENTS,
+        });
       });
     });
   });
 });
 
 test.describe('Product tests', () => {
-  ['standard_user', 'problem_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -173,33 +201,11 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'error_user', 'visual_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
         await page.goto(URLS.inventoryPage);
-      });
-
-      test('Product details - default sort (name A-Z)', async () => {
-        const PRODUCTS = [...PRODUCT_INFO].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
-        for (let i = 0; i < PRODUCTS.length; i++) {
-          let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
-          await expect(element).toHaveAttribute('src', PRODUCTS[i].imgSrc);
-          await expect(element).toHaveAttribute('alt', PRODUCTS[i].title);
-
-          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-          await expect(element).toHaveText(PRODUCTS[i].title);
-
-          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
-          await expect(element).toHaveText(PRODUCTS[i].description);
-
-          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
-          await expect(element).toHaveText(`\$${PRODUCTS[i].price}`);
-
-          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
-          await expect(element).toBeVisible();
-          await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
-        }
       });
 
       for (let i = 0; i < NUM_PRODUCTS; i++) {
@@ -228,60 +234,42 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user'].forEach((user) => {
+  ['standard_user', 'error_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
         await page.goto(URLS.inventoryPage);
       });
 
-      test.describe('Non-default sorting', () => {
-        [
-          {
-            description: 'sort by name (Z-A)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
-            sortBy: 'Name (Z to A)',
-            sortOption: 'za',
-          },
-          {
-            description: 'sort by price (low-high)',
-            products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
-            sortBy: 'Price (low to high)',
-            sortOption: 'lohi',
-          },
-          {
-            description: 'sort by price (high-low)',
-            products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
-            sortBy: 'Price (high to low)',
-            sortOption: 'hilo',
-          },
-        ].forEach((testCase) => {
-          test(`Product details - ${testCase.description}`, async () => {
-            if (testCase.sortOption !== 'default') {
-              await inventoryPage.sortSelect.selectOption(testCase.sortOption);
-            }
-            await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
+      test('Product details - default sort (name A-Z)', async () => {
+        const PRODUCTS = [...PRODUCT_INFO].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
+        for (let i = 0; i < PRODUCTS.length; i++) {
+          let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+          await expect(element).toHaveAttribute('src', PRODUCTS[i].imgSrc);
+          await expect(element).toHaveAttribute('alt', PRODUCTS[i].title);
 
-            for (let i = 0; i < testCase.products.length; i++) {
-              let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
-              await expect(element).toHaveAttribute('src', testCase.products[i].imgSrc);
-              await expect(element).toHaveAttribute('alt', testCase.products[i].title);
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          await expect(element).toHaveText(PRODUCTS[i].title);
 
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-              await expect(element).toHaveText(testCase.products[i].title);
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+          await expect(element).toHaveText(PRODUCTS[i].description);
 
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
-              await expect(element).toHaveText(testCase.products[i].description);
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+          await expect(element).toHaveText(`\$${PRODUCTS[i].price}`);
 
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
-              await expect(element).toHaveText(`\$${testCase.products[i].price}`);
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+          await expect(element).toBeVisible();
+          await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+        }
+      });
+    });
+  });
 
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
-              await expect(element).toBeVisible();
-              await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
-            }
-          });
-        });
+  ['standard_user', 'visual_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
       });
 
       test.describe('Add products to cart & remove', () => {
@@ -406,6 +394,45 @@ test.describe('Product tests', () => {
     });
   });
 
+  ['standard_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test.describe('Non-default sorting', () => {
+        NON_DEFAULT_SORTS.forEach((testCase) => {
+          test(`Product details - ${testCase.description}`, async () => {
+            if (testCase.sortOption !== 'default') {
+              await inventoryPage.sortSelect.selectOption(testCase.sortOption);
+            }
+            await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
+
+            for (let i = 0; i < testCase.products.length; i++) {
+              let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+              await expect(element).toHaveAttribute('src', testCase.products[i].imgSrc);
+              await expect(element).toHaveAttribute('alt', testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+              await expect(element).toHaveText(testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+              await expect(element).toHaveText(testCase.products[i].description);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+              await expect(element).toHaveText(`\$${testCase.products[i].price}`);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+              await expect(element).toBeVisible();
+              await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+            }
+          });
+        });
+      });
+    });
+  });
+
   ['problem_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
@@ -480,6 +507,122 @@ test.describe('Product tests', () => {
           await inventoryPage.sortSelect.selectOption(SORT_OPTIONS[i]);
           await expect(inventoryPage.activeSortOption).toHaveText('Name (A to Z)');
         }
+      });
+    });
+  });
+
+  ['visual_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      const PRICE_REGEX = '^\\$\\d{1,2}(.\\d{1,2})?$';
+      const BTN_ALIGN_CLASS = 'btn_inventory_misaligned';
+      let element: Locator;
+
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test('Product details - default sort (name A-Z)', async () => {
+        const PRODUCTS = [...PRODUCT_INFO].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
+        for (let i = 0; i < PRODUCTS.length; i++) {
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+          // The top-left product image is a dog rather than the actual product
+          const imgSrc = i === 0 ? '/static/media/sl-404.168b1cce10384b857a6f.jpg' : PRODUCTS[i].imgSrc;
+          await expect(element).toHaveAttribute('src', imgSrc);
+          await expect(element).toHaveAttribute('alt', PRODUCTS[i].title);
+
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          await expect(element).toHaveText(PRODUCTS[i].title);
+
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+          await expect(element).toHaveText(PRODUCTS[i].description);
+
+          // Prices for each product are random as a later test shows
+
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+          await expect(element).toBeVisible();
+          await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+        }
+      });
+
+      test('Product prices are random', async ({ page }) => {
+        let prices: string[] = [];
+        const priceRegex = '^\\$\\d{1,2}(.\\d{1,2})?$';
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+          await expect(element).toHaveText(new RegExp(priceRegex));
+          prices.push(await element.innerText());
+        }
+
+        page.reload();
+        // Price of each product should have changed but should still match the regex format
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+          await expect(element).toHaveText(new RegExp(priceRegex));
+          await expect(element).not.toHaveText(prices[i], { useInnerText: true });
+        }
+      });
+
+      test('Some product titles are right-aligned', async () => {
+        const ALIGN_CLASS = 'align_right';
+        const MISALIGNED = ['Bolt T-Shirt', 'Fleece Jacket'];
+        for (let i = 0; i < NUM_PRODUCTS; i++) {
+          let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+          if (MISALIGNED.includes(PRODUCT_INFO[i].shortName)) {
+            await expect(element).toContainClass(ALIGN_CLASS);
+          } else {
+            await expect(element).not.toContainClass(ALIGN_CLASS);
+          }
+        }
+      });
+
+      test('Cart button for last product is misaligned', async () => {
+        for (let i = 0; i < NUM_PRODUCTS - 1; i++) {
+          let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+          await expect(element).not.toContainClass(BTN_ALIGN_CLASS);
+        }
+        let element = inventoryPage.getProductElement(NUM_PRODUCTS - 1, PRODUCT_ELEMENTS.button);
+        await expect(element).toContainClass(BTN_ALIGN_CLASS);
+      });
+
+      test.describe('Non-default sorting', () => {
+        NON_DEFAULT_SORTS.forEach((testCase) => {
+          test(`Product details - ${testCase.description}`, async () => {
+            if (testCase.sortOption !== 'default') {
+              await inventoryPage.sortSelect.selectOption(testCase.sortOption);
+            }
+            await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
+
+            for (let i = 0; i < testCase.products.length; i++) {
+              let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+              // The top-left product image is a dog rather than the actual product regardless of sort order
+              const imgSrc = i === 0 ? '/static/media/sl-404.168b1cce10384b857a6f.jpg' : testCase.products[i].imgSrc;
+              await expect(element).toHaveAttribute('src', imgSrc);
+              await expect(element).toHaveAttribute('alt', testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+              await expect(element).toHaveText(testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+              await expect(element).toHaveText(testCase.products[i].description);
+
+              // Prices are random so verify the format rather than the actual value
+              // NB When sorting by price the products are sorted by actual price rather than (random) display price
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+              await expect(element).toHaveText(new RegExp(PRICE_REGEX));
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+              await expect(element).toBeVisible();
+              await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+              if (i === NUM_PRODUCTS - 1) {
+                // Cart button is misaligned for last product regardless of sort order
+                await expect(element).toContainClass(BTN_ALIGN_CLASS);
+              } else {
+                await expect(element).not.toContainClass(BTN_ALIGN_CLASS);
+              }
+            }
+          });
+        });
       });
     });
   });

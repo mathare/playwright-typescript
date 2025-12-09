@@ -84,6 +84,7 @@ export enum PRODUCT_ELEMENTS {
   img = 'img.inventory_item_img',
   title = 'div.inventory_item_name',
   description = 'div.inventory_item_desc',
+  pricebar = 'div.pricebar',
   price = 'div.inventory_item_price',
   button = 'button',
 }
