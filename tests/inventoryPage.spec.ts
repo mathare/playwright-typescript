@@ -86,7 +86,7 @@ test.describe('Visual tests', () => {
     });
   });
 
-  ['standard_user', 'problem_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -94,7 +94,15 @@ test.describe('Visual tests', () => {
       });
 
       test('Default state', async () => {
-        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(formatUsernameForScreenshotFilename(user));
+        // Need to mask prices for visual_user as they are random. However, the random pricing means the
+        // size of the price element itself can change depending on the number of digits in the price so
+        // mask the parent element instead. This does mean we're not visually testing the "Add to cart"
+        // button for visual_user but we can live with that
+        const MASKED_ELEMENTS =
+          user === 'visual_user' ? [inventoryPage.inventoryItem.locator(PRODUCT_ELEMENTS.pricebar)] : [];
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(formatUsernameForScreenshotFilename(user), {
+          mask: MASKED_ELEMENTS,
+        });
       });
     });
   });
