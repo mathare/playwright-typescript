@@ -40,7 +40,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Appearance tests', () => {
-  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -106,7 +106,7 @@ test.describe('Visual tests', () => {
     });
   });
 
-  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -129,7 +129,7 @@ test.describe('Visual tests', () => {
 });
 
 test.describe('Product tests', () => {
-  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -201,7 +201,7 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -234,7 +234,7 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'error_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -265,7 +265,7 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -340,6 +340,45 @@ test.describe('Product tests', () => {
     });
   });
 
+  ['standard_user', 'performance_glitch_user'].forEach((user) => {
+    test.describe(formatUsernameForDisplay(user), () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test.describe('Non-default sorting', () => {
+        NON_DEFAULT_SORTS.forEach((testCase) => {
+          test(`Product details - ${testCase.description}`, async () => {
+            if (testCase.sortOption !== 'default') {
+              await inventoryPage.sortSelect.selectOption(testCase.sortOption);
+            }
+            await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
+
+            for (let i = 0; i < testCase.products.length; i++) {
+              let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
+              await expect(element).toHaveAttribute('src', testCase.products[i].imgSrc);
+              await expect(element).toHaveAttribute('alt', testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
+              await expect(element).toHaveText(testCase.products[i].title);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
+              await expect(element).toHaveText(testCase.products[i].description);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
+              await expect(element).toHaveText(`\$${testCase.products[i].price}`);
+
+              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
+              await expect(element).toBeVisible();
+              await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
+            }
+          });
+        });
+      });
+    });
+  });
+
   ['problem_user', 'error_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       const PURCHASABLE_PRODUCTS = ['Backpack', 'Bike Light', 'Onesie'];
@@ -390,45 +429,6 @@ test.describe('Product tests', () => {
           await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
           await inventoryPage.verifyCartButtonStyle(productIndex, 'remove');
         }
-      });
-    });
-  });
-
-  ['standard_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
-      test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
-        await page.goto(URLS.inventoryPage);
-      });
-
-      test.describe('Non-default sorting', () => {
-        NON_DEFAULT_SORTS.forEach((testCase) => {
-          test(`Product details - ${testCase.description}`, async () => {
-            if (testCase.sortOption !== 'default') {
-              await inventoryPage.sortSelect.selectOption(testCase.sortOption);
-            }
-            await expect(inventoryPage.activeSortOption).toHaveText(testCase.sortBy);
-
-            for (let i = 0; i < testCase.products.length; i++) {
-              let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
-              await expect(element).toHaveAttribute('src', testCase.products[i].imgSrc);
-              await expect(element).toHaveAttribute('alt', testCase.products[i].title);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-              await expect(element).toHaveText(testCase.products[i].title);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
-              await expect(element).toHaveText(testCase.products[i].description);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
-              await expect(element).toHaveText(`\$${testCase.products[i].price}`);
-
-              element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
-              await expect(element).toBeVisible();
-              await expect(element).toHaveText(EXPECTED_TEXT.addToCartButton);
-            }
-          });
-        });
       });
     });
   });
