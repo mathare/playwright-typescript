@@ -40,7 +40,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Appearance tests', () => {
-  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -106,7 +106,7 @@ test.describe('Visual tests', () => {
     });
   });
 
-  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -129,7 +129,7 @@ test.describe('Visual tests', () => {
 });
 
 test.describe('Product tests', () => {
-  ['standard_user', 'problem_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -201,7 +201,7 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'error_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -234,7 +234,7 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'error_user'].forEach((user) => {
+  ['standard_user', 'error_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -265,7 +265,7 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'visual_user'].forEach((user) => {
+  ['standard_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
@@ -394,7 +394,7 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user'].forEach((user) => {
+  ['standard_user', 'performance_glitch_user'].forEach((user) => {
     test.describe(formatUsernameForDisplay(user), () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user);
