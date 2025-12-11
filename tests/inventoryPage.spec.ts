@@ -1,14 +1,9 @@
 import { test, expect, Locator } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { PRODUCT_INFO } from '../data/products';
-import {
-  formatUsernameForDisplay,
-  formatUsernameForScreenshotFilename,
-  getCartContentsFromLocalStorage,
-  login,
-  setCartContentsInLocalStorage,
-} from '../helpers/utils';
+import { getCartContentsFromLocalStorage, login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
+import { USERS } from '../data/users';
 
 const NUM_PRODUCTS = PRODUCT_INFO.length;
 const NON_DEFAULT_SORTS = [
@@ -40,10 +35,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe('Appearance tests', () => {
-  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -81,10 +76,10 @@ test.describe('Appearance tests', () => {
 });
 
 test.describe('Visual tests', () => {
-  ['standard_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -106,10 +101,10 @@ test.describe('Visual tests', () => {
     });
   });
 
-  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -119,8 +114,8 @@ test.describe('Visual tests', () => {
         // mask the parent element instead. This does mean we're not visually testing the "Add to cart"
         // button for visual_user but we can live with that
         const MASKED_ELEMENTS =
-          user === 'visual_user' ? [inventoryPage.inventoryItem.locator(PRODUCT_ELEMENTS.pricebar)] : [];
-        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(formatUsernameForScreenshotFilename(user), {
+          user.description === 'Visual User' ? [inventoryPage.inventoryItem.locator(PRODUCT_ELEMENTS.pricebar)] : [];
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(user.imgFilename, {
           mask: MASKED_ELEMENTS,
         });
       });
@@ -129,10 +124,10 @@ test.describe('Visual tests', () => {
 });
 
 test.describe('Product tests', () => {
-  ['standard_user', 'problem_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -201,10 +196,10 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'error_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -234,10 +229,10 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'error_user', 'performance_glitch_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard, USERS.error, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -265,10 +260,10 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'visual_user', 'performance_glitch_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -340,10 +335,10 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['standard_user', 'performance_glitch_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.standard, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -379,11 +374,11 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['problem_user', 'error_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.problem, USERS.error].forEach((user) => {
+    test.describe(user.description, () => {
       const PURCHASABLE_PRODUCTS = ['Backpack', 'Bike Light', 'Onesie'];
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -433,10 +428,10 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['problem_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.problem].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -488,10 +483,10 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['error_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.error].forEach((user) => {
+    test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
@@ -511,14 +506,14 @@ test.describe('Product tests', () => {
     });
   });
 
-  ['visual_user'].forEach((user) => {
-    test.describe(formatUsernameForDisplay(user), () => {
+  [USERS.visual].forEach((user) => {
+    test.describe(user.description, () => {
       const PRICE_REGEX = '^\\$\\d{1,2}(.\\d{1,2})?$';
       const BTN_ALIGN_CLASS = 'btn_inventory_misaligned';
       let element: Locator;
 
       test.beforeEach(async ({ page, context, baseURL }) => {
-        await login(context, baseURL!, user);
+        await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
       });
 
