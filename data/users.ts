@@ -1,7 +1,7 @@
 type User = {
   description: string;
   username: string;
-  imgFilename: string;
+  imgFilename?: string;
 };
 
 export const USERS: Record<string, User> = {
@@ -29,5 +29,9 @@ export const USERS: Record<string, User> = {
     description: 'Peformance Glitch User',
     username: 'performance_glitch_user',
     imgFilename: 'performanceGlitchUser.png',
+  },
+  lockedOut: {
+    description: 'Locked Out User',
+    username: 'locked_out_user',
   },
 };
