@@ -33,18 +33,3 @@ export const verifyCartButtonStyle = async (
   await expect(button).toHaveCSS('border', `1px solid ${buttonColor}`);
   await expect(button).toHaveCSS('color', buttonColor);
 };
-
-export const formatUsernameForDisplay = (username: string): string => {
-  return username
-    .split('_')
-    .map((word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
-    .join(' ');
-};
-
-export const formatUsernameForScreenshotFilename = (username: string): string => {
-  const titleCaseStr = username
-    .split('_')
-    .map((word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
-    .join('');
-  return titleCaseStr[0].toLowerCase() + titleCaseStr.substring(1) + '.png';
-};
