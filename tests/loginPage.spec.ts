@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage, COLORS, EXPECTED_TEXT } from '../pages/loginPage';
 import { URLS } from '../data/pages';
-import { getCookies, login } from '../helpers/utils';
+import { getCookies } from '../helpers/utils';
+import { USERS } from '../data/users';
 
 test.describe('Login page tests', () => {
   let loginPage: LoginPage;
@@ -106,7 +107,7 @@ test.describe('Login page tests', () => {
   });
 
   test.describe('Behavioural tests', () => {
-    const USERNAME = 'standard_user';
+    const USERNAME = USERS.standard.username;
     const PASSWORD = process.env.PASSWORD!;
 
     test.describe('Successful logins', () => {
@@ -124,20 +125,18 @@ test.describe('Login page tests', () => {
         await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
       });
 
-      EXPECTED_TEXT.acceptedUsernames
-        .filter((username) => username !== 'locked_out_user')
-        .forEach((username) => {
-          test(`Log in as ${username}`, async ({ page, baseURL, context }) => {
-            await loginPage.usernameInput.fill(username);
-            await loginPage.passwordInput.fill(PASSWORD);
-            await loginPage.loginButton.click();
-            await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
-            const cookies = await getCookies(context, baseURL!);
-            expect(cookies).toHaveLength(1);
-            expect(cookies[0]).toHaveProperty('name', 'session-username');
-            expect(cookies[0]).toHaveProperty('value', username);
-          });
+      [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+        test(`Log in as ${user.description}`, async ({ page, baseURL, context }) => {
+          await loginPage.usernameInput.fill(user.username);
+          await loginPage.passwordInput.fill(PASSWORD);
+          await loginPage.loginButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+          const cookies = await getCookies(context, baseURL!);
+          expect(cookies).toHaveLength(1);
+          expect(cookies[0]).toHaveProperty('name', 'session-username');
+          expect(cookies[0]).toHaveProperty('value', user.username);
         });
+      });
     });
 
     test.describe('Unsuccessful logins', () => {
@@ -188,7 +187,7 @@ test.describe('Login page tests', () => {
       });
 
       test('User is locked out', async ({ page, baseURL }) => {
-        await loginPage.usernameInput.fill('locked_out_user');
+        await loginPage.usernameInput.fill(USERS.lockedOut.username);
         await loginPage.passwordInput.fill(PASSWORD);
         await loginPage.loginButton.click();
         await loginPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.lockedOutUser);
