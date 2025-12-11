@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage, COLORS, EXPECTED_TEXT } from '../pages/loginPage';
 import { URLS } from '../data/pages';
-import { getCookies } from '../helpers/utils';
+import { getCookies, login } from '../helpers/utils';
 import { USERS } from '../data/users';
 
 test.describe('Login page tests', () => {
@@ -206,6 +206,34 @@ test.describe('Login page tests', () => {
         // The error container is still visible on the page but is white and empty
         await expect(loginPage.errorContainer).toHaveCSS('background-color', COLORS.loginForm.backgroundColor);
         await expect(loginPage.errorContainer).toBeEmpty();
+      });
+    });
+
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.loginPage);
+        });
+
+        test('Can open login page when logged in', async ({ page }) => {
+          await expect(page).toHaveScreenshot('default.png');
+        });
+
+        test('Logging in when already logged in reissues cookie', async ({ context, baseURL }) => {
+          const cookiesOrig = await getCookies(context, baseURL!);
+          await loginPage.usernameInput.fill(user.username);
+          await loginPage.passwordInput.fill(PASSWORD);
+          await loginPage.loginButton.click();
+
+          const cookiesNew = await getCookies(context, baseURL!);
+          expect(cookiesNew).not.toEqual(cookiesOrig);
+          expect(cookiesNew.length).toEqual(cookiesOrig.length);
+          expect(cookiesNew[0].domain).toEqual(cookiesOrig[0].domain);
+          expect(cookiesNew[0].name).toEqual(cookiesOrig[0].name);
+          expect(cookiesNew[0].value).toEqual(cookiesOrig[0].value);
+          expect(cookiesNew[0].expires).not.toEqual(cookiesOrig[0].expires);
+        });
       });
     });
   });
