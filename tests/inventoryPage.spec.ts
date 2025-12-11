@@ -376,7 +376,8 @@ test.describe('Product tests', () => {
 
   [USERS.problem, USERS.error].forEach((user) => {
     test.describe(user.description, () => {
-      const PURCHASABLE_PRODUCTS = ['Backpack', 'Bike Light', 'Onesie'];
+      const PURCHASABLE_PRODUCTS = PRODUCT_INFO.filter((product) => !product.restrictedPurchase);
+
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
@@ -388,7 +389,7 @@ test.describe('Product tests', () => {
           await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
 
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
-          if (PURCHASABLE_PRODUCTS.includes(PRODUCT_INFO[i].shortName)) {
+          if (PURCHASABLE_PRODUCTS.includes(PRODUCT_INFO[i])) {
             await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
             await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
             await inventoryPage.verifyCartButtonStyle(i, 'remove');
@@ -413,7 +414,7 @@ test.describe('Product tests', () => {
           await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
 
           // Add product to cart
-          productIndex = PRODUCT_INFO.findIndex((prod) => prod.shortName === PURCHASABLE_PRODUCTS[i]);
+          productIndex = PRODUCT_INFO.findIndex((prod) => prod === PURCHASABLE_PRODUCTS[i]);
           await inventoryPage.getProductElement(productIndex, PRODUCT_ELEMENTS.button).click();
           await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
           await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
