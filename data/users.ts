@@ -26,7 +26,7 @@ export const USERS: Record<string, User> = {
     imgFilename: 'visualUser.png',
   },
   performanceGlitch: {
-    description: 'Peformance Glitch User',
+    description: 'Performance Glitch User',
     username: 'performance_glitch_user',
     imgFilename: 'performanceGlitchUser.png',
   },
