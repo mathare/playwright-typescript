@@ -117,10 +117,19 @@ test.describe('Visual tests', () => {
 });
 
 test.describe('Behavioural tests', () => {
-  test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
-    // The shopping cart link doesn't actually have an href attribute but still opens the cart page
-    await expect(pageHeader.shoppingCartLink).not.toHaveAttribute('href');
-    await pageHeader.shoppingCartLink.click();
-    await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
+  [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user.username);
+        await page.goto(URLS.inventoryPage);
+      });
+
+      test('Shopping cart link opens cart page', async ({ page, baseURL }) => {
+        // The shopping cart link doesn't actually have an href attribute but still opens the cart page
+        await expect(pageHeader.shoppingCartLink).not.toHaveAttribute('href');
+        await pageHeader.shoppingCartLink.click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
+      });
+    });
   });
 });
