@@ -114,8 +114,8 @@ test.describe('Visual tests', () => {
         // mask the parent element instead. This does mean we're not visually testing the "Add to cart"
         // button for visual_user but we can live with that
         const MASKED_ELEMENTS =
-          user.description === 'Visual User' ? [inventoryPage.inventoryItem.locator(PRODUCT_ELEMENTS.pricebar)] : [];
-        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(user.imgFilename, {
+          user === USERS.visual ? [inventoryPage.inventoryItem.locator(PRODUCT_ELEMENTS.pricebar)] : [];
+        await expect(inventoryPage.inventoryContainer).toHaveScreenshot(user.imgFilename!, {
           mask: MASKED_ELEMENTS,
         });
       });

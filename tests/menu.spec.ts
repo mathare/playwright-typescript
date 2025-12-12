@@ -138,7 +138,7 @@ test.describe('Behavioural tests', () => {
 
       test('"About" menu link opens Sauce Labs webpage in current tab', async ({ page }) => {
         // The "About" link opens a 404 error page for the problem user
-        const EXPECTED_URL = user.description === 'Problem User' ? LINKS.error : LINKS.about;
+        const EXPECTED_URL = user === USERS.problem ? LINKS.error : LINKS.about;
         await menu.menuItem.filter({ hasText: EXPECTED_TEXT.menuItems[1] }).click();
         await expect(page).toHaveURL(EXPECTED_URL);
       });

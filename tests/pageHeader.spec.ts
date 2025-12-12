@@ -59,7 +59,7 @@ test.describe('Appearance tests', () => {
         // Shopping cart link is in the top-right (within a container)
         const VISUAL_FAILURE_CLASS = 'visual_failure';
         await expect(element).toHaveCSS('position', 'absolute');
-        if (user.description === 'Visual User') {
+        if (user === USERS.visual) {
           // The cart icon is misaligned for the Visual User account
           await expect(element).toContainClass(VISUAL_FAILURE_CLASS);
           await expect(element).toHaveCSS('right', '205px');
@@ -78,7 +78,7 @@ test.describe('Appearance tests', () => {
       // able to test the badge appearance in this spec we "force" products into the cart via local storage
       // rather than using the standard UI interactions
       test('Shopping cart badge appearance', async ({ page }) => {
-        if (user.description === 'Performance Glitch User') test.setTimeout(60_000);
+        if (user === USERS.performanceGlitch) test.setTimeout(60_000);
         let productIds: number[] = [];
         for (let i = 0; i < PRODUCT_INFO.length; i++) {
           productIds.push(i);
