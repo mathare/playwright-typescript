@@ -95,13 +95,24 @@ test.describe('Visual tests', () => {
   // These visual tests are limited to the primary header as this is the only element
   // shared by all pages - the secondary header varies between pages
 
-  test('No products in cart', async () => {
-    await expect(pageHeader.primaryHeader).toHaveScreenshot('emptyCart.png');
-  });
+  [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user.username);
+        await page.goto(URLS.inventoryPage);
+      });
 
-  test('Products in cart', async ({ page }) => {
-    await setCartContentsInLocalStorage(page, [0, 1], URLS.inventoryPage);
-    await expect(pageHeader.primaryHeader).toHaveScreenshot('productsInCart.png');
+      test('No products in cart', async () => {
+        const SNAPSHOT = user === USERS.visual ? 'emptyCartMisaligned.png' : 'emptyCart.png';
+        await expect(pageHeader.primaryHeader).toHaveScreenshot(SNAPSHOT);
+      });
+
+      test('Products in cart', async ({ page }) => {
+        const SNAPSHOT = user === USERS.visual ? 'productsInCartMisaligned.png' : 'productsInCart.png';
+        await setCartContentsInLocalStorage(page, [0, 1], URLS.inventoryPage);
+        await expect(pageHeader.primaryHeader).toHaveScreenshot(SNAPSHOT);
+      });
+    });
   });
 });
 
