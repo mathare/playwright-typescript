@@ -29,6 +29,7 @@ export const COLORS = {
 export const LINKS = {
   allItems: '#',
   about: 'https://saucelabs.com',
+  error: 'https://saucelabs.com/error/404',
   logout: '#',
   resetAppState: '#',
 };
