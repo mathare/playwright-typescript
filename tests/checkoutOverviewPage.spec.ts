@@ -199,66 +199,126 @@ test.describe('Items purchased', () => {
   const productIds = PRODUCT_INFO.map((product) => product.id);
 
   test.describe('Appearance tests', () => {
-    test.beforeEach(async ({ page }) => {
-      await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
-    });
+    [USERS.standard, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
+          await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
+        });
 
-    test('Item list element visibility', async () => {
-      await expect(checkoutOverviewPage.cartList.cartList).toBeVisible();
-      await expect(checkoutOverviewPage.cartList.cartItem).toHaveCount(productIds.length);
+        test('Item list element visibility', async () => {
+          await expect(checkoutOverviewPage.cartList.cartList).toBeVisible();
+          await expect(checkoutOverviewPage.cartList.cartItem).toHaveCount(productIds.length);
 
-      // There is no button to remove each product from the cart as we have already purchased it
-      for (let i = 0; i < productIds.length; i++) {
-        const element = checkoutOverviewPage.cartList.getProductElement(i, PRODUCT_ELEMENTS.button);
-        await expect(element).toHaveCount(0);
-      }
-    });
+          // There is no button to remove each product from the cart as we have already purchased it
+          for (let i = 0; i < productIds.length; i++) {
+            const element = checkoutOverviewPage.cartList.getProductElement(i, PRODUCT_ELEMENTS.button);
+            await expect(element).toHaveCount(0);
+          }
+        });
 
-    test('Price total info reflects cost of items purchased', async ({ page }) => {
-      // Sort products into random order using the Fisher-Yates algorithm
-      let products = [...PRODUCT_INFO];
-      let j = products.length;
-      while (j) {
-        const i = Math.floor(Math.random() * j--);
-        [products[j], products[i]] = [products[i], products[j]];
-      }
-      // Slice off first n elements of the array
-      const purchasedProducts = products.slice(0, Math.ceil(Math.random() * products.length));
-      await setCartContentsInLocalStorage(
-        page,
-        purchasedProducts.map((prod) => prod.id),
-        URLS.checkoutOverviewPage
-      );
+        test('Price total info reflects cost of items purchased', async ({ page }) => {
+          // Sort products into random order using the Fisher-Yates algorithm
+          let products = [...PRODUCT_INFO];
+          let j = products.length;
+          while (j) {
+            const i = Math.floor(Math.random() * j--);
+            [products[j], products[i]] = [products[i], products[j]];
+          }
+          // Slice off first n elements of the array
+          const purchasedProducts = products.slice(0, Math.ceil(Math.random() * products.length));
+          await setCartContentsInLocalStorage(
+            page,
+            purchasedProducts.map((prod) => prod.id),
+            URLS.checkoutOverviewPage
+          );
 
-      const subtotalAmount = purchasedProducts.reduce((n, { price }) => n + Number(price), 0);
-      // Tax is charged at 8%
-      const taxAmount = (Math.round(subtotalAmount * 100 * 0.08) / 100).toFixed(2);
-      const totalAmount = (Math.round((Number(subtotalAmount) + Number(taxAmount)) * 100) / 100).toFixed(2);
-      await expect(checkoutOverviewPage.subtotalLabel).toHaveText(
-        `${EXPECTED_TEXT.priceInfo.subtotalPrefix}${subtotalAmount}`
-      );
-      await expect(checkoutOverviewPage.taxLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.taxPrefix}${taxAmount}`);
-      await expect(checkoutOverviewPage.totalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.totalPrefix}${totalAmount}`);
-    });
+          const subtotalAmount = purchasedProducts.reduce((n, { price }) => n + Number(price), 0);
+          // Tax is charged at 8%
+          const taxAmount = (Math.round(subtotalAmount * 100 * 0.08) / 100).toFixed(2);
+          const totalAmount = (Math.round((Number(subtotalAmount) + Number(taxAmount)) * 100) / 100).toFixed(2);
+          await expect(checkoutOverviewPage.subtotalLabel).toHaveText(
+            `${EXPECTED_TEXT.priceInfo.subtotalPrefix}${subtotalAmount}`
+          );
+          await expect(checkoutOverviewPage.taxLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.taxPrefix}${taxAmount}`);
+          await expect(checkoutOverviewPage.totalLabel).toHaveText(
+            `${EXPECTED_TEXT.priceInfo.totalPrefix}${totalAmount}`
+          );
+        });
 
-    test('Order of products purchased does not affect price total', async ({ page }) => {
-      const shuffledProductIds = [...productIds].sort(() => Math.random() - 0.5);
-      await setCartContentsInLocalStorage(page, shuffledProductIds, URLS.checkoutOverviewPage);
+        test('Order of products purchased does not affect price total', async ({ page }) => {
+          const shuffledProductIds = [...productIds].sort(() => Math.random() - 0.5);
+          await setCartContentsInLocalStorage(page, shuffledProductIds, URLS.checkoutOverviewPage);
 
-      await expect(checkoutOverviewPage.subtotalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.subtotalPrefix}129.94`);
-      await expect(checkoutOverviewPage.taxLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.taxPrefix}10.40`);
-      await expect(checkoutOverviewPage.totalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.totalPrefix}140.34`);
-    });
-
-    test.describe('Visual tests', () => {
-      test('Single product purchased', async ({ page }) => {
-        await setCartContentsInLocalStorage(page, [0], URLS.checkoutOverviewPage);
-        await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('singleProductPurchased.png');
+          await expect(checkoutOverviewPage.subtotalLabel).toHaveText(
+            `${EXPECTED_TEXT.priceInfo.subtotalPrefix}129.94`
+          );
+          await expect(checkoutOverviewPage.taxLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.taxPrefix}10.40`);
+          await expect(checkoutOverviewPage.totalLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.totalPrefix}140.34`);
+        });
       });
+    });
 
-      test('All products purchased', async () => {
-        await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('allProductsPurchased.png');
+    [USERS.problem].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
+          await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
+        });
+
+        test('Item list element visibility', async () => {
+          await expect(checkoutOverviewPage.cartList.cartList).toBeVisible();
+          await expect(checkoutOverviewPage.cartList.cartItem).toHaveCount(productIds.length);
+
+          // There is no button to remove each product from the cart as we have already purchased it
+          for (let i = 0; i < productIds.length; i++) {
+            const element = checkoutOverviewPage.cartList.getProductElement(i, PRODUCT_ELEMENTS.button);
+            await expect(element).toHaveCount(0);
+          }
+        });
+
+        test('Price total info does not accurately reflect cost of items purchased', async ({ page }) => {
+          const subtotalRegex = '\\d{1,3}(.\\d{1,2})?$';
+          // Sort products into random order using the Fisher-Yates algorithm
+          let products = [...PRODUCT_INFO];
+          let j = products.length;
+          while (j) {
+            const i = Math.floor(Math.random() * j--);
+            [products[j], products[i]] = [products[i], products[j]];
+          }
+          // Slice off first n elements of the array
+          const purchasedProducts = products.slice(0, Math.ceil(Math.random() * products.length));
+          await setCartContentsInLocalStorage(
+            page,
+            purchasedProducts.map((prod) => prod.id),
+            URLS.checkoutOverviewPage
+          );
+
+          const subtotalStr = await checkoutOverviewPage.subtotalLabel.textContent();
+          expect(subtotalStr).toMatch(new RegExp(`${subtotalRegex}`));
+          const subtotalAmount = Number(subtotalStr!.replace(EXPECTED_TEXT.priceInfo.subtotalPrefix, ''));
+          // Tax is charged at 8%
+          const taxAmount = (Math.round(subtotalAmount * 100 * 0.08) / 100).toFixed(2);
+          const totalAmount = (Math.round((Number(subtotalAmount) + Number(taxAmount)) * 100) / 100).toFixed(2);
+          await expect(checkoutOverviewPage.taxLabel).toHaveText(`${EXPECTED_TEXT.priceInfo.taxPrefix}${taxAmount}`);
+          await expect(checkoutOverviewPage.totalLabel).toHaveText(
+            `${EXPECTED_TEXT.priceInfo.totalPrefix}${totalAmount}`
+          );
+        });
       });
+    });
+  });
+
+  test.describe('Visual tests', () => {
+    test('Single product purchased', async ({ page }) => {
+      await setCartContentsInLocalStorage(page, [0], URLS.checkoutOverviewPage);
+      await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('singleProductPurchased.png');
+    });
+
+    test('All products purchased', async () => {
+      await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('allProductsPurchased.png');
     });
   });
 });
