@@ -312,13 +312,26 @@ test.describe('Items purchased', () => {
   });
 
   test.describe('Visual tests', () => {
-    test('Single product purchased', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, [0], URLS.checkoutOverviewPage);
-      await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('singleProductPurchased.png');
-    });
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
+          await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
+        });
 
-    test('All products purchased', async () => {
-      await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot('allProductsPurchased.png');
+        test('Single product purchased', async ({ page }) => {
+          const SNAPSHOT =
+            user === USERS.problem ? 'singleProductPurchasedProblemUser.png' : 'singleProductPurchased.png';
+          await setCartContentsInLocalStorage(page, [0], URLS.checkoutOverviewPage);
+          await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot(SNAPSHOT);
+        });
+
+        test('All products purchased', async () => {
+          const SNAPSHOT = user === USERS.problem ? 'allProductsPurchasedProblemUser.png' : 'allProductsPurchased.png';
+          await expect(checkoutOverviewPage.checkoutSummaryContainer).toHaveScreenshot(SNAPSHOT);
+        });
+      });
     });
   });
 });
