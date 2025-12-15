@@ -155,14 +155,42 @@ test.describe('No items purchased', () => {
   });
 
   test.describe('Behavioural tests', () => {
-    test('"Cancel" button opens inventory page', async ({ page, baseURL }) => {
-      await checkoutOverviewPage.cancelButton.click();
-      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+    [USERS.standard, USERS.problem, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
+        });
+
+        test('"Cancel" button opens inventory page', async ({ page, baseURL }) => {
+          await checkoutOverviewPage.cancelButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+        });
+
+        test('"Finish" button opens checkout complete page', async ({ page, baseURL }) => {
+          await checkoutOverviewPage.finishButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.checkoutCompletePage}`);
+        });
+      });
     });
 
-    test('"Finish" button opens checkout complete page', async ({ page, baseURL }) => {
-      await checkoutOverviewPage.finishButton.click();
-      await expect(page).toHaveURL(`${baseURL}${URLS.checkoutCompletePage}`);
+    [USERS.error].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
+        });
+
+        test('"Cancel" button opens inventory page', async ({ page, baseURL }) => {
+          await checkoutOverviewPage.cancelButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+        });
+
+        test('"Finish" button does nothing', async ({ page, baseURL }) => {
+          await checkoutOverviewPage.finishButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.checkoutOverviewPage}`);
+        });
+      });
     });
   });
 });
