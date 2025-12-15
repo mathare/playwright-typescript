@@ -133,13 +133,24 @@ test.describe('No items purchased', () => {
   });
 
   test.describe('Visual tests', () => {
-    test('Default state', async ({ page }) => {
-      await expect(page).toHaveScreenshot('noItems.png', { fullPage: true });
-    });
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
+        });
 
-    test('Menu open', async ({ page }) => {
-      await checkoutOverviewPage.pageHeader.menuButton.click();
-      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+        test('Default state', async ({ page }) => {
+          const SNAPSHOT = user === USERS.visual ? 'noItemsMisaligned.png' : 'noItems.png';
+          await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+        });
+
+        test('Menu open', async ({ page }) => {
+          const SNAPSHOT = user === USERS.visual ? 'menuOpenMisaligned.png' : 'menuOpen.png';
+          await checkoutOverviewPage.pageHeader.menuButton.click();
+          await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+        });
+      });
     });
   });
 
