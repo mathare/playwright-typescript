@@ -2,6 +2,9 @@ import { Locator, Page } from '@playwright/test';
 import { PageHeader } from './components/pageHeader';
 import { PageFooter } from './components/pageFooter';
 import { CartList } from './components/cartList';
+import { Product, PRODUCT_INFO } from '../data/products';
+import { setCartContentsInLocalStorage } from '../helpers/utils';
+import { URLS } from '../data/pages';
 
 export class CheckoutOverviewPage {
   readonly page: Page;
@@ -44,6 +47,35 @@ export class CheckoutOverviewPage {
     this.cancelButton = this.cartFooter.getByTestId('cancel');
     this.finishButton = this.cartFooter.getByTestId('finish');
     this.pageFooter = new PageFooter(page);
+  }
+
+  // *******
+  // ACTIONS
+  // *******
+  async addRandomProductsToCart(page: Page): Promise<Product[]> {
+    // Sort products into random order using the Fisher-Yates algorithm
+    let products = [...PRODUCT_INFO];
+    let j = products.length;
+    while (j) {
+      const i = Math.floor(Math.random() * j--);
+      [products[j], products[i]] = [products[i], products[j]];
+    }
+    // Slice off first n elements of the array
+    const purchasedProducts = products.slice(0, Math.ceil(Math.random() * products.length));
+    await setCartContentsInLocalStorage(
+      page,
+      purchasedProducts.map((prod) => prod.id),
+      URLS.checkoutOverviewPage
+    );
+    return purchasedProducts;
+  }
+
+  calculateTax(subtotal: number): string {
+    return (Math.round(subtotal * 100 * 0.08) / 100).toFixed(2);
+  }
+
+  calculateTotal(subtotal: number, tax: number): string {
+    return (Math.round((Number(subtotal) + Number(tax)) * 100) / 100).toFixed(2);
   }
 }
 
