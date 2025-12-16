@@ -155,7 +155,7 @@ test.describe('No items purchased', () => {
   });
 
   test.describe('Behavioural tests', () => {
-    [USERS.standard, USERS.problem, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
       test.describe(user.description, () => {
         test.beforeEach(async ({ page, context, baseURL }) => {
           await login(context, baseURL!, user.username);
@@ -165,6 +165,15 @@ test.describe('No items purchased', () => {
         test('"Cancel" button opens inventory page', async ({ page, baseURL }) => {
           await checkoutOverviewPage.cancelButton.click();
           await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+        });
+      });
+    });
+
+    [USERS.standard, USERS.problem, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
         });
 
         test('"Finish" button opens checkout complete page', async ({ page, baseURL }) => {
@@ -181,11 +190,6 @@ test.describe('No items purchased', () => {
           await page.goto(URLS.checkoutOverviewPage);
         });
 
-        test('"Cancel" button opens inventory page', async ({ page, baseURL }) => {
-          await checkoutOverviewPage.cancelButton.click();
-          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
-        });
-
         test('"Finish" button does nothing', async ({ page, baseURL }) => {
           await checkoutOverviewPage.finishButton.click();
           await expect(page).toHaveURL(`${baseURL}${URLS.checkoutOverviewPage}`);
@@ -199,7 +203,7 @@ test.describe('Items purchased', () => {
   const productIds = PRODUCT_INFO.map((product) => product.id);
 
   test.describe('Appearance tests', () => {
-    [USERS.standard, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
       test.describe(user.description, () => {
         test.beforeEach(async ({ page, context, baseURL }) => {
           await login(context, baseURL!, user.username);
@@ -216,6 +220,16 @@ test.describe('Items purchased', () => {
             const element = checkoutOverviewPage.cartList.getProductElement(i, PRODUCT_ELEMENTS.button);
             await expect(element).toHaveCount(0);
           }
+        });
+      });
+    });
+
+    [USERS.standard, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.checkoutOverviewPage);
+          await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
         });
 
         test('Price total info reflects cost of items purchased', async ({ page }) => {
@@ -252,17 +266,6 @@ test.describe('Items purchased', () => {
           await login(context, baseURL!, user.username);
           await page.goto(URLS.checkoutOverviewPage);
           await setCartContentsInLocalStorage(page, productIds, URLS.checkoutOverviewPage);
-        });
-
-        test('Item list element visibility', async () => {
-          await expect(checkoutOverviewPage.cartList.cartList).toBeVisible();
-          await expect(checkoutOverviewPage.cartList.cartItem).toHaveCount(productIds.length);
-
-          // There is no button to remove each product from the cart as we have already purchased it
-          for (let i = 0; i < productIds.length; i++) {
-            const element = checkoutOverviewPage.cartList.getProductElement(i, PRODUCT_ELEMENTS.button);
-            await expect(element).toHaveCount(0);
-          }
         });
 
         test('Price total info does not accurately reflect cost of items purchased', async ({ page }) => {
