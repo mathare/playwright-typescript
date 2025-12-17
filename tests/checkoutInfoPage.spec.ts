@@ -143,18 +143,29 @@ test.describe('Appearance tests', () => {
 });
 
 test.describe('Visual tests', () => {
-  test('Default state', async ({ page }) => {
-    await expect(page).toHaveScreenshot('default.png', { fullPage: true });
-  });
+  [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user.username);
+        await page.goto(URLS.checkoutInfoPage);
+      });
 
-  test('Menu open', async ({ page }) => {
-    await checkoutInfoPage.pageHeader.menuButton.click();
-    await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
-  });
+      test('Default state', async ({ page }) => {
+        const SNAPSHOT = user === USERS.visual ? 'defaultMisaligned.png' : 'default.png';
+        await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+      });
 
-  test('Error state', async () => {
-    await checkoutInfoPage.continueButton.click();
-    await expect(checkoutInfoPage.checkoutInfoContainer).toHaveScreenshot('error.png');
+      test('Menu open', async ({ page }) => {
+        const SNAPSHOT = user === USERS.visual ? 'menuOpenMisaligned.png' : 'menuOpen.png';
+        await checkoutInfoPage.pageHeader.menuButton.click();
+        await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+      });
+
+      test('Error state', async () => {
+        await checkoutInfoPage.continueButton.click();
+        await expect(checkoutInfoPage.checkoutInfoContainer).toHaveScreenshot('error.png');
+      });
+    });
   });
 });
 
