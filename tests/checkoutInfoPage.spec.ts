@@ -328,4 +328,138 @@ test.describe('Behavioural tests', () => {
       });
     });
   });
+
+  [USERS.problem].forEach((user) => {
+    test.describe(user.description, () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user.username);
+        await page.goto(URLS.checkoutInfoPage);
+      });
+
+      test.describe('Form validation errors', () => {
+        test('Last name appears in first name input', async () => {
+          await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+          await expect(checkoutInfoPage.firstNameInput).toHaveValue(LAST_NAME);
+          await expect(checkoutInfoPage.lastNameInput).toBeEmpty();
+        });
+
+        test('Last name overwrites existing first name', async () => {
+          await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+          await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+          await expect(checkoutInfoPage.firstNameInput).toHaveValue(LAST_NAME);
+          await expect(checkoutInfoPage.lastNameInput).toBeEmpty();
+        });
+
+        // There is no test for a missing first name error if the form is submitted with a last name and postal
+        // code as the last name is displayed in the first name input (as shown above) so the form cannot get into
+        // a suitable state for such a test. Similarly there is no test for a missing postal code error if the form
+        // is submitted with first and last names only
+
+        test('Missing last name error displayed if form submitted with other fields complete', async () => {
+          await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+          await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+          await checkoutInfoPage.continueButton.click();
+          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingLastName);
+        });
+
+        // This is a cut-down version of the test for the previous users as the form cannot be submitted with only
+        // a last name as the value is written to the first name input instead (as shown in an earlier test)
+        test('Only first validation error shown on submitting partially complete form', async ({ page, baseURL }) => {
+          // First name only
+          await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+          await checkoutInfoPage.continueButton.click();
+          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingLastName);
+          await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+          await checkoutInfoPage.resetCheckoutInfoForm();
+
+          // Postal code only
+          await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+          await checkoutInfoPage.continueButton.click();
+          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+          await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+          await checkoutInfoPage.resetCheckoutInfoForm();
+        });
+
+        // There is no test for the validation errors remaining if the form is made valid but not submitted
+        // as the form can never be made valid for this user - the last name input will always be blank
+      });
+
+      // The last name input cannot be completed so the form cannot be submitted correctly and thus the
+      // Continue button leaves the user on the current page with a validation error
+      // NB The validation error is tested above so there is no need to verify it here
+      test('"Continue" button leaves user on checkout info page', async ({ page, baseURL }) => {
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.continueButton.click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+      });
+
+      // Even though the form cannot be completed pressing enter after entering the postal code takes the
+      // user back to the cart page
+      test('Submitting form by pressing enter key opens cart page', async ({ page, baseURL }) => {
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.postalCodeInput.press('Enter');
+        await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
+      });
+    });
+  });
+
+  [USERS.error].forEach((user) => {
+    test.describe(user.description, () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user.username);
+        await page.goto(URLS.checkoutInfoPage);
+      });
+
+      test.describe('Form validation errors', () => {
+        // All inputs are verified as blank in this test due to the behaviour seen for Problem User
+        // where the last name value was displayed in the wrong input. But in this case the value
+        // entered doesn't display at all
+        test('Last name input remains blank', async () => {
+          await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+          await expect(checkoutInfoPage.firstNameInput).toBeEmpty();
+          await expect(checkoutInfoPage.lastNameInput).toBeEmpty();
+          await expect(checkoutInfoPage.postalCodeInput).toBeEmpty();
+        });
+
+        // There are no tests for a missing value error if the form is submitted with other inputs completed.
+        // The last name input is always blank (as shown above) so the only inputs that can be populated are
+        // first name and postal code. Verifying a validation error is shown when the form has just a first
+        // name value or postal code value is covered by earlier tests. The form can be submitted with a
+        // missing last name (as shown in a later test) so the form cannot be put into a state where there are
+        // two valid and populated inputs but the form itself is invalid.
+
+        // Similarly there is no test for only the first of multiple validation errors being displayed on submitting
+        // a partially complete form. There are only two possible validation errors for this user (missing first name
+        // or missing postal code) and both are covered by previous test cases.
+
+        // There is no test for the validation errors remaining if the form is made valid but not submitted
+        // as the form can never be fully completed for this user (the last name input will always be blank)
+        // although that doesn't prevent the form from being submitted as subsequent tests will show
+      });
+
+      // The last name input remains blank but the form can still be submitted correctly
+      test('"Continue" button opens checkout overview page', async ({ page, baseURL }) => {
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.continueButton.click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.checkoutOverviewPage}`);
+      });
+
+      // Even though the form cannot be completed (all inputs populated) it can still be submitted
+      // (as shown above) so we know the form is valid. However, pressing enter after entering the
+      // postal code takes the user back to the cart page rather than submitting the form
+      test('Submitting form by pressing enter key opens cart page', async ({ page, baseURL }) => {
+        await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+        await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+        await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+        await checkoutInfoPage.postalCodeInput.press('Enter');
+        await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
+      });
+    });
+  });
 });
