@@ -227,14 +227,47 @@ test.describe('Behavioural tests', () => {
           await expect(checkoutInfoPage.errorMessage).toHaveCount(0);
           await expect(checkoutInfoPage.errorCloseButton).toHaveCount(0);
         });
+      });
 
-        // ** Not problem or error users **
-        // We've effectively already tested this when submitting the blank form
-        // but this is a more explicit test of the form validation behaviour
-        test.skip('Only first validation error shown on submitting partially complete form', async ({
-          page,
-          baseURL,
-        }) => {
+      test('"Cancel" button opens cart page', async ({ page, baseURL }) => {
+        await checkoutInfoPage.cancelButton.click();
+        await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
+      });
+    });
+  });
+
+  [USERS.standard, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+    test.describe(user.description, () => {
+      test.beforeEach(async ({ page, context, baseURL }) => {
+        await login(context, baseURL!, user.username);
+        await page.goto(URLS.checkoutInfoPage);
+      });
+
+      test.describe('Form validation errors', () => {
+        test('Missing first name error displayed if form submitted with other fields complete', async () => {
+          await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+          await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+          await checkoutInfoPage.continueButton.click();
+          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
+        });
+
+        test('Missing last name error displayed if form submitted with other fields complete', async () => {
+          await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+          await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
+          await checkoutInfoPage.continueButton.click();
+          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingLastName);
+        });
+
+        test('Missing postal code error displayed if form submitted with other fields complete', async () => {
+          await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
+          await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
+          await checkoutInfoPage.continueButton.click();
+          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingPostalCode);
+        });
+
+        // We've effectively already tested this when submitting the blank form but this is a more explicit test
+        // of the form validation behaviour
+        test('Only first validation error shown on submitting partially complete form', async ({ page, baseURL }) => {
           // Last name only
           await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
           await checkoutInfoPage.continueButton.click();
@@ -257,32 +290,7 @@ test.describe('Behavioural tests', () => {
           await checkoutInfoPage.resetCheckoutInfoForm();
         });
 
-        // ** Not problem user **
-        test.skip('Missing first name error displayed if form submitted with other fields complete', async () => {
-          await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
-          await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
-          await checkoutInfoPage.continueButton.click();
-          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingFirstName);
-        });
-
-        // ** Not error user **
-        test.skip('Missing last name error displayed if form submitted with other fields complete', async () => {
-          await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
-          await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
-          await checkoutInfoPage.continueButton.click();
-          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingLastName);
-        });
-
-        // ** Not problem user **
-        test.skip('Missing postal code error displayed if form submitted with other fields complete', async () => {
-          await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
-          await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
-          await checkoutInfoPage.continueButton.click();
-          await checkoutInfoPage.errorMessageDisplayed(EXPECTED_TEXT.errorMessages.missingPostalCode);
-        });
-
-        // ** Technically not problem user - form never truly made valid **
-        test.skip('Form validation errors remain if form made valid but not submitted', async () => {
+        test('Form validation errors remain if form made valid but not submitted', async () => {
           await checkoutInfoPage.continueButton.click();
           await checkoutInfoPage.inputHasValidationError('firstName');
           await checkoutInfoPage.inputHasValidationError('lastName');
@@ -299,13 +307,7 @@ test.describe('Behavioural tests', () => {
         });
       });
 
-      test('"Cancel" button opens cart page', async ({ page, baseURL }) => {
-        await checkoutInfoPage.cancelButton.click();
-        await expect(page).toHaveURL(`${baseURL}${URLS.cartPage}`);
-      });
-
-      // ** Not problem user - validation error as last name not filled in **
-      test.skip('"Continue" button opens checkout overview page', async ({ page, baseURL }) => {
+      test('"Continue" button opens checkout overview page', async ({ page, baseURL }) => {
         await checkoutInfoPage.firstNameInput.fill(FIRST_NAME);
         await checkoutInfoPage.lastNameInput.fill(LAST_NAME);
         await checkoutInfoPage.postalCodeInput.fill(POSTAL_CODE);
