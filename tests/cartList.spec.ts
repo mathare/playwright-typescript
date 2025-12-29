@@ -224,7 +224,6 @@ test.describe('Products in cart', () => {
         test.beforeEach(async ({ page, context, baseURL }) => {
           await login(context, baseURL!, user.username);
           await page.goto(URLS.cartPage);
-          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
         });
 
         test('Single product in cart', async ({ page }) => {
@@ -234,7 +233,8 @@ test.describe('Products in cart', () => {
 
         // Problem User & Error User cannot add all products to the cart via the UI but we have "forced" the
         // cart contents via local storage in order to be able to use the same test for all users
-        test('All products in cart', async () => {
+        test('All products in cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
           await expect(cartList.cartList).toHaveScreenshot('allProductsInCart.png');
         });
       });
