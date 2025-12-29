@@ -219,13 +219,25 @@ test.describe('Products in cart', () => {
   });
 
   test.describe('Visual tests', () => {
-    test('Single product in cart', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
-      await expect(cartList.cartList).toHaveScreenshot('singleProductInCart.png');
-    });
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.cartPage);
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+        });
 
-    test('All products in cart', async () => {
-      await expect(cartList.cartList).toHaveScreenshot('allProductsInCart.png');
+        test('Single product in cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
+          await expect(cartList.cartList).toHaveScreenshot('singleProductInCart.png');
+        });
+
+        // Problem User & Error User cannot add all products to the cart via the UI but we have "forced" the
+        // cart contents via local storage in order to be able to use the same test for all users
+        test('All products in cart', async () => {
+          await expect(cartList.cartList).toHaveScreenshot('allProductsInCart.png');
+        });
+      });
     });
   });
 
