@@ -242,70 +242,129 @@ test.describe('Products in cart', () => {
   });
 
   test.describe('Behavioural tests', () => {
-    test('Clicking item name opens corresponding product page', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
-      const productIndex = Math.floor(Math.random() * productIds.length);
-      await cartList.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
-      await expect(page).toHaveURL(`${URLS.productPage}${productIds[productIndex]}`);
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.cartPage);
+        });
+
+        test('Cart is empty after removing only item', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
+          await cartList.getProductElement(0, PRODUCT_ELEMENTS.button).click();
+          await expect(cartList.cartItem).toHaveCount(0);
+          await expect(cartList.cartList).toHaveScreenshot('emptyCart.png');
+        });
+
+        test('Remaining items unchanged after removing last item from cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+          await cartList.getProductElement(productIds.length - 1, PRODUCT_ELEMENTS.button).click();
+          const remainingProducts = productIds.slice(0, -1);
+          await expect(cartList.cartItem).toHaveCount(remainingProducts.length);
+          for (let i = 0; i < remainingProducts.length; i++) {
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i].title);
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
+              PRODUCT_INFO[i].description
+            );
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
+              `\$${PRODUCT_INFO[i].price}`
+            );
+          }
+        });
+
+        test('List items move up after removing first item from cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+          await cartList.getProductElement(0, PRODUCT_ELEMENTS.button).click();
+          const remainingProducts = productIds.slice(1);
+          await expect(cartList.cartItem).toHaveCount(remainingProducts.length);
+          for (let i = 0; i < remainingProducts.length; i++) {
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i + 1].title);
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
+              PRODUCT_INFO[i + 1].description
+            );
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
+              `\$${PRODUCT_INFO[i + 1].price}`
+            );
+          }
+        });
+
+        test('List items update correctly after removing random item from cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+
+          // There are only 6 items available and removing the first and last are already covered by previous tests
+          // so if the item is truly random then 1 time in 3 we're not testing anything new here. Therefore, force
+          // the removed item to be something other than the first or last
+          const middleItems = productIds.slice(1, -1);
+          //Add 1 to the random index to account for the first item in the cart (which we want to retain)
+          const itemIndex = Math.floor(Math.random() * middleItems.length) + 1;
+          await cartList.getProductElement(itemIndex, PRODUCT_ELEMENTS.button).click();
+          const remainingProducts = productIds.filter((id) => id !== PRODUCT_INFO[itemIndex].id);
+          for (let i = 0; i < remainingProducts.length; i++) {
+            const product = PRODUCT_INFO.filter((a) => a.id === remainingProducts[i])[0];
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(product.title);
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(product.description);
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${product.price}`);
+          }
+        });
+      });
     });
 
-    test('Cart is empty after removing only item', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
-      await cartList.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-      await expect(cartList.cartItem).toHaveCount(0);
-      await expect(cartList.cartList).toHaveScreenshot('emptyCart.png');
+    [USERS.standard, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.cartPage);
+        });
+
+        test('Clicking item name opens corresponding product page', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+          const productIndex = Math.floor(Math.random() * productIds.length);
+          await cartList.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
+          await expect(page).toHaveURL(`${URLS.productPage}${productIds[productIndex]}`);
+        });
+      });
     });
 
-    test('Remaining items unchanged after removing last item from cart', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
-      await cartList.getProductElement(productIds.length - 1, PRODUCT_ELEMENTS.button).click();
-      const remainingProducts = productIds.slice(0, -1);
-      await expect(cartList.cartItem).toHaveCount(remainingProducts.length);
-      for (let i = 0; i < remainingProducts.length; i++) {
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i].title);
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-          PRODUCT_INFO[i].description
-        );
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${PRODUCT_INFO[i].price}`);
-      }
-    });
+    [USERS.problem].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.cartPage);
+        });
 
-    test('List items move up after removing first item from cart', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
-      await cartList.getProductElement(0, PRODUCT_ELEMENTS.button).click();
-      const remainingProducts = productIds.slice(1);
-      await expect(cartList.cartItem).toHaveCount(remainingProducts.length);
-      for (let i = 0; i < remainingProducts.length; i++) {
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i + 1].title);
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-          PRODUCT_INFO[i + 1].description
-        );
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-          `\$${PRODUCT_INFO[i + 1].price}`
-        );
-      }
-    });
+        [
+          { expectedItem: 'Backpack', actualItem: 'Fleece Jacket' },
+          { expectedItem: 'Bike Light', actualItem: 'Bolt T-Shirt' },
+          { expectedItem: 'Bolt T-Shirt', actualItem: 'Onesie' },
+          { expectedItem: 'Onesie', actualItem: 'Red T-Shirt' },
+          { expectedItem: 'Red T-Shirt', actualItem: 'Backpack' },
+        ].forEach((testCase) => {
+          test(`Clicking ${testCase.expectedItem} name opens ${testCase.actualItem} product page`, async ({ page }) => {
+            await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+            const productIndex = PRODUCT_INFO.findIndex((product) => product.shortName === testCase.expectedItem);
+            await cartList.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
+            const actualProductId =
+              PRODUCT_INFO[PRODUCT_INFO.findIndex((product) => product.shortName === testCase.actualItem)].id;
+            // Only assert the product ID in the URL rather than everything on the product page even though this is
+            // the Problem User. Verifying the correct details are shown on each page is the responsibility of tests
+            // in the Product Page spec
+            await expect(page).toHaveURL(`${URLS.productPage}${actualProductId}`);
+          });
+        });
 
-    test('List items update correctly after removing random item from cart', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
-
-      // There are only 6 items available and removing the first and last are already covered by previous tests
-      // so if the item is truly random then 1 time in 3 we're not testing anything new here. Therefore, force
-      // the removed item to be something other than the first or last
-      const middleItems = productIds.slice(1, -1);
-      //Add 1 to the random index to account for the first item in the cart (which we want to retain)
-      const itemIndex = Math.floor(Math.random() * middleItems.length) + 1;
-      await cartList.getProductElement(itemIndex, PRODUCT_ELEMENTS.button).click();
-      const remainingProducts = productIds.filter((id) => id !== PRODUCT_INFO[itemIndex].id);
-      for (let i = 0; i < remainingProducts.length; i++) {
-        const product = PRODUCT_INFO.filter((a) => a.id === remainingProducts[i])[0];
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(product.title);
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(product.description);
-        await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(`\$${product.price}`);
-      }
+        test('Clicking Fleece Jacket name opens invalid product page', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+          const productIndex = PRODUCT_INFO.findIndex((product) => product.shortName === 'Fleece Jacket');
+          await cartList.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
+          // The product ID shown in the URL is outside the normal range for the products resulting
+          // in an "Item Not Found" page but verifying the details of that page are the responsibility
+          // of the Product Page spec
+          await expect(page).toHaveURL(`${URLS.productPage}6`);
+        });
+      });
     });
   });
 });
