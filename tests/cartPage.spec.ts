@@ -124,24 +124,32 @@ test.describe('Products in cart', () => {
   const productIds = PRODUCT_INFO.map((product) => product.id);
 
   test.describe('Appearance tests', () => {
-    test.beforeEach(async ({ page }) => {
-      await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.cartPage);
+          // Problem User & Error User cannot add all products to the cart via the UI but we can "force" the
+          // cart contents via local storage in order to be able to use the same setup & test for all users
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+        });
+
+        test('Item list element visibility', async () => {
+          await expect(cartPage.cartList.cartList).toBeVisible();
+          await expect(cartPage.cartList.cartItem).toHaveCount(productIds.length);
+        });
+      });
+    });
+  });
+
+  test.describe('Visual tests', () => {
+    test('Single product in cart', async ({ page }) => {
+      await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
+      await expect(cartPage.cartContentsContainer).toHaveScreenshot('singleProductInCart.png');
     });
 
-    test('Item list element visibility', async () => {
-      await expect(cartPage.cartList.cartList).toBeVisible();
-      await expect(cartPage.cartList.cartItem).toHaveCount(productIds.length);
-    });
-
-    test.describe('Visual tests', () => {
-      test('Single product in cart', async ({ page }) => {
-        await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
-        await expect(cartPage.cartContentsContainer).toHaveScreenshot('singleProductInCart.png');
-      });
-
-      test('All products in cart', async () => {
-        await expect(cartPage.cartContentsContainer).toHaveScreenshot('allProductsInCart.png');
-      });
+    test('All products in cart', async () => {
+      await expect(cartPage.cartContentsContainer).toHaveScreenshot('allProductsInCart.png');
     });
   });
 });
