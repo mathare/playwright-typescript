@@ -143,13 +143,25 @@ test.describe('Products in cart', () => {
   });
 
   test.describe('Visual tests', () => {
-    test('Single product in cart', async ({ page }) => {
-      await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
-      await expect(cartPage.cartContentsContainer).toHaveScreenshot('singleProductInCart.png');
-    });
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.cartPage);
+        });
 
-    test('All products in cart', async () => {
-      await expect(cartPage.cartContentsContainer).toHaveScreenshot('allProductsInCart.png');
+        test('Single product in cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, [0], URLS.cartPage);
+          const SNAPSHOT = user === USERS.visual ? 'singleProductInCartMisaligned.png' : 'singleProductInCart.png';
+          await expect(cartPage.cartContentsContainer).toHaveScreenshot(SNAPSHOT);
+        });
+
+        test('All products in cart', async ({ page }) => {
+          await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
+          const SNAPSHOT = user === USERS.visual ? 'allProductsInCartMisaligned.png' : 'allProductsInCart.png';
+          await expect(cartPage.cartContentsContainer).toHaveScreenshot(SNAPSHOT);
+        });
+      });
     });
   });
 });
