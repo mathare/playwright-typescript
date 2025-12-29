@@ -99,14 +99,23 @@ test.describe('Empty cart', () => {
   });
 
   test.describe('Behavioural tests', () => {
-    test('"Continue Shopping" button opens inventory page', async ({ page, baseURL }) => {
-      await cartPage.continueShoppingButton.click();
-      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
-    });
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(URLS.cartPage);
+        });
 
-    test('"Checkout" button opens checkout page', async ({ page, baseURL }) => {
-      await cartPage.checkoutButton.click();
-      await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+        test('"Continue Shopping" button opens inventory page', async ({ page, baseURL }) => {
+          await cartPage.continueShoppingButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+        });
+
+        test('"Checkout" button opens checkout page', async ({ page, baseURL }) => {
+          await cartPage.checkoutButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.checkoutInfoPage}`);
+        });
+      });
     });
   });
 });
