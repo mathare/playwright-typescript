@@ -89,18 +89,37 @@ test.describe('Common page elements', async () => {
     // However, I want to be alerted to any changes in the product details elements so
     // these tests rightly capture those elements. That way if they change size, position
     // etc we have those changes tracked by a failing test
-    test('Default state', async ({ page }) => {
-      await expect(page).toHaveScreenshot('default.png', { fullPage: true });
-    });
 
-    test('Menu open', async ({ page }) => {
-      await productPage.pageHeader.menuButton.click();
-      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
-    });
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(`${URLS.productPage}0`);
+        });
 
-    test('Product added to cart', async ({ page }) => {
-      await productPage.cartButton.click();
-      await expect(page).toHaveScreenshot('productInCart.png', { fullPage: true });
+        test('Default state', async ({ page }) => {
+          let snapshot = 'default.png';
+          if (user === USERS.error) snapshot = 'defaultErrorUser.png';
+          if (user === USERS.visual) snapshot = 'defaultVisualUser.png';
+          await expect(page).toHaveScreenshot(snapshot, { fullPage: true });
+        });
+
+        test('Menu open', async ({ page }) => {
+          let snapshot = 'menuOpen.png';
+          if (user === USERS.error) snapshot = 'menuOpenErrorUser.png';
+          if (user === USERS.visual) snapshot = 'menuOpenVisualUser.png';
+          await productPage.pageHeader.menuButton.click();
+          await expect(page).toHaveScreenshot(snapshot, { fullPage: true });
+        });
+
+        test('Product added to cart', async ({ page }) => {
+          let snapshot = 'productInCart.png';
+          if (user === USERS.error) snapshot = 'productInCartErrorUser.png';
+          if (user === USERS.visual) snapshot = 'productInCartVisualUser.png';
+          await productPage.cartButton.click();
+          await expect(page).toHaveScreenshot(snapshot, { fullPage: true });
+        });
+      });
     });
   });
 
