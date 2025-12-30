@@ -206,26 +206,32 @@ test.describe('Common page elements', async () => {
 
 PRODUCT_INFO.forEach((product) => {
   test.describe(`${product.shortName} page tests`, () => {
-    test.beforeEach(async ({ page }) => {
-      await page.goto(`${URLS.productPage}${product.id}`);
-    });
-
     test.describe('Appearance tests', () => {
-      test('Element visibility', async () => {
-        await expect(productPage.productImage).toBeVisible();
-        await expect(productPage.productName).toBeVisible();
-        await expect(productPage.productDescription).toBeVisible();
-        await expect(productPage.productPrice).toBeVisible();
-        await expect(productPage.cartButton).toBeVisible();
-      });
+      [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+        test.describe(user.description, () => {
+          test.beforeEach(async ({ page, context, baseURL }) => {
+            await login(context, baseURL!, user.username);
+            await page.goto(`${URLS.productPage}${product.id}`);
+          });
 
-      test('Product details', async () => {
-        await expect(productPage.productImage).toHaveAttribute('alt', product.title);
-        await expect(productPage.productImage).toHaveAttribute('src', product.imgSrc);
-        await expect(productPage.productName).toHaveText(product.title);
-        await expect(productPage.productDescription).toHaveText(product.description);
-        await expect(productPage.productPrice).toHaveText(`\$${product.price}`);
-        await expect(productPage.cartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
+          test('Element visibility', async () => {
+            await expect(productPage.productImage).toBeVisible();
+            await expect(productPage.productName).toBeVisible();
+            await expect(productPage.productDescription).toBeVisible();
+            await expect(productPage.productPrice).toBeVisible();
+            await expect(productPage.cartButton).toBeVisible();
+          });
+
+          test('Product details', async () => {
+            await expect(productPage.productImage).toHaveAttribute('alt', product.title);
+            await expect(productPage.productImage).toHaveAttribute('src', product.imgSrc);
+            await expect(productPage.productName).toHaveText(product.title);
+            const DESCRIPTION = user === USERS.error ? EXPECTED_TEXT.descriptionError : product.description;
+            await expect(productPage.productDescription).toHaveText(DESCRIPTION);
+            await expect(productPage.productPrice).toHaveText(`\$${product.price}`);
+            await expect(productPage.cartButton).toHaveText(EXPECTED_TEXT.addToCartButton);
+          });
+        });
       });
     });
 

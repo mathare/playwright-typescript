@@ -47,6 +47,7 @@ export const EXPECTED_TEXT = {
   backButton: 'Back to products',
   addToCartButton: 'Add to cart',
   removeButton: 'Remove',
+  descriptionError: 'A description should be here, but it failed to render! This error has been reported to Backtrace.',
 };
 
 export const COLORS = {
