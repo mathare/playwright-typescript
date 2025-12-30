@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
 import { PRODUCT_INFO } from '../data/products';
-import { getCartContentsFromLocalStorage, login } from '../helpers/utils';
+import { generateProductSnapshotName, getCartContentsFromLocalStorage, login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 import { USERS } from '../data/users';
 
@@ -258,9 +258,3 @@ PRODUCT_INFO.forEach((product) => {
     });
   });
 });
-
-const generateProductSnapshotName = (name: string): string => {
-  // Sanitise product name for use as snapshot name
-  // Convert first letter to lowercase then remove spaces & dashes
-  return name.charAt(0).toLowerCase() + name.slice(1).replace(' ', '').replace('-', '') + '.png';
-};
