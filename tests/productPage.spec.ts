@@ -238,8 +238,22 @@ PRODUCT_INFO.forEach((product) => {
     test.describe('Visual tests', () => {
       // The visual tests for the individual product pages capture the product elements only so they
       // are resilient to any header/footer changes
-      test('Product details', async () => {
-        await expect(productPage.inventoryItem).toHaveScreenshot(generateProductSnapshotName(product.shortName));
+
+      [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+        test.describe(user.description, () => {
+          test.beforeEach(async ({ page, context, baseURL }) => {
+            await login(context, baseURL!, user.username);
+            await page.goto(`${URLS.productPage}${product.id}`);
+          });
+
+          test('Product details', async () => {
+            const SNAPSHOT =
+              user === USERS.error
+                ? generateProductSnapshotName(product.shortName).replace('.', 'ErrorUser.')
+                : generateProductSnapshotName(product.shortName);
+            await expect(productPage.inventoryItem).toHaveScreenshot(SNAPSHOT);
+          });
+        });
       });
     });
   });
