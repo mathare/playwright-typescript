@@ -17,7 +17,9 @@ test.describe('Common page elements', async () => {
   // test these on every product page. We can test them on a single product page (in this
   // case the bike light page) and reasonably assume they will appear and behave the same
   // on other product pages. It helps that the bike light is a product that all users can
-  // add to the basket via the UI allowing the same product page to be used for everyone
+  // add to the basket via the UI allowing the same product page to be used for everyone.
+  // There are separate tests covering cases where the behaviour of the product page differs
+  // from the bike light page for certain users
 
   test.describe('Appearance tests', () => {
     [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
@@ -125,14 +127,6 @@ test.describe('Common page elements', async () => {
   });
 
   test.describe('Behavioural tests', () => {
-    // Which products are in the cart is tracked via a cart-contents array in local storage.
-    // As each product can only be added to the cart once, it uses a simple array of product
-    // IDs without quantities per product. The length of this array is used to determine the
-    // badge to display over the cart in the header, as tested in the page header spec. So all
-    // we need to test here is that product IDs are added to the cart-contents array in local
-    // storage correctly and that the add/remove button style updates accordingly
-    let cartContents: Record<string, string>;
-
     [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
       test.describe(user.description, () => {
         test.beforeEach(async ({ page, context, baseURL }) => {
@@ -143,61 +137,6 @@ test.describe('Common page elements', async () => {
         test('"Back to products" button opens inventory page', async ({ page, baseURL }) => {
           await productPage.backButton.click();
           await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
-        });
-
-        test('Add product to cart', async ({ context }) => {
-          await productPage.cartButton.click();
-
-          // Verify product ID in local storage
-          cartContents = await getCartContentsFromLocalStorage(context);
-          expect(cartContents.value).toEqual('[0]');
-
-          // Verify button has updated correctly
-          await productPage.verifyCartButtonStyle('remove');
-        });
-      });
-    });
-
-    [USERS.standard, USERS.visual, USERS.performanceGlitch].forEach((user) => {
-      test.describe(user.description, () => {
-        test.beforeEach(async ({ page, context, baseURL }) => {
-          await login(context, baseURL!, user.username);
-          await page.goto(`${URLS.productPage}0`);
-        });
-
-        test('Remove product from cart', async ({ context }) => {
-          await productPage.cartButton.click();
-          cartContents = await getCartContentsFromLocalStorage(context);
-          expect(cartContents.value).toEqual('[0]');
-          await productPage.cartButton.click();
-
-          // Verify product ID in local storage
-          cartContents = await getCartContentsFromLocalStorage(context);
-          expect(cartContents.value).toEqual('[]');
-
-          // Verify button has updated correctly
-          await productPage.verifyCartButtonStyle('add');
-        });
-      });
-    });
-
-    [USERS.problem, USERS.error].forEach((user) => {
-      test.describe(user.description, () => {
-        test.beforeEach(async ({ page, context, baseURL }) => {
-          await login(context, baseURL!, user.username);
-          await page.goto(`${URLS.productPage}0`);
-        });
-
-        test('"Remove" button does nothing', async ({ context }) => {
-          await productPage.cartButton.click();
-          cartContents = await getCartContentsFromLocalStorage(context);
-          expect(cartContents.value).toEqual('[0]');
-          await productPage.cartButton.click();
-
-          // Verify product still in cart & button unchanged
-          cartContents = await getCartContentsFromLocalStorage(context);
-          expect(cartContents.value).toEqual('[0]');
-          await productPage.verifyCartButtonStyle('remove');
         });
       });
     });
@@ -253,6 +192,96 @@ PRODUCT_INFO.forEach((product) => {
                 : generateProductSnapshotName(product.shortName);
             await expect(productPage.inventoryItem).toHaveScreenshot(SNAPSHOT);
           });
+        });
+      });
+    });
+
+    test.describe('Behavioural tests', () => {
+      // Which products are in the cart is tracked via a cart-contents array in local storage.
+      // As each product can only be added to the cart once, it uses a simple array of product
+      // IDs without quantities per product. The length of this array is used to determine the
+      // badge to display over the cart in the header, as tested in the page header spec. So all
+      // we need to test here is that product IDs are added to the cart-contents array in local
+      // storage correctly and that the add/remove button style updates accordingly
+
+      let cartContents: Record<string, string>;
+
+      [USERS.standard, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+        test.describe(user.description, () => {
+          test.beforeEach(async ({ page, context, baseURL }) => {
+            await login(context, baseURL!, user.username);
+            await page.goto(`${URLS.productPage}${product.id}`);
+          });
+
+          test('Add product to cart', async ({ context }) => {
+            await productPage.cartButton.click();
+
+            // Verify product ID in local storage
+            cartContents = await getCartContentsFromLocalStorage(context);
+            expect(cartContents.value).toEqual(`[${product.id}]`);
+
+            // Verify button has updated correctly
+            await productPage.verifyCartButtonStyle('remove');
+          });
+
+          test('Remove product from cart', async ({ context }) => {
+            await productPage.cartButton.click();
+            cartContents = await getCartContentsFromLocalStorage(context);
+            expect(cartContents.value).toEqual(`[${product.id}]`);
+            await productPage.cartButton.click();
+
+            // Verify product ID in local storage
+            cartContents = await getCartContentsFromLocalStorage(context);
+            expect(cartContents.value).toEqual('[]');
+
+            // Verify button has updated correctly
+            await productPage.verifyCartButtonStyle('add');
+          });
+        });
+      });
+
+      [USERS.problem, USERS.error].forEach((user) => {
+        test.describe(user.description, () => {
+          test.beforeEach(async ({ page, context, baseURL }) => {
+            await login(context, baseURL!, user.username);
+            await page.goto(`${URLS.productPage}${product.id}`);
+          });
+
+          if (!product.restrictedPurchase) {
+            test('Add product to cart', async ({ context }) => {
+              await productPage.cartButton.click();
+
+              // Verify product ID in local storage
+              cartContents = await getCartContentsFromLocalStorage(context);
+              expect(cartContents.value).toEqual(`[${product.id}]`);
+
+              // Verify button has updated correctly
+              await productPage.verifyCartButtonStyle('remove');
+            });
+
+            test('"Remove" button does nothing', async ({ context }) => {
+              await productPage.cartButton.click();
+              cartContents = await getCartContentsFromLocalStorage(context);
+              expect(cartContents.value).toEqual(`[${product.id}]`);
+              await productPage.cartButton.click();
+
+              // Verify product still in cart & button unchanged
+              cartContents = await getCartContentsFromLocalStorage(context);
+              expect(cartContents.value).toEqual(`[${product.id}]`);
+              await productPage.verifyCartButtonStyle('remove');
+            });
+          } else {
+            test('Unable to add product to cart', async ({ context }) => {
+              await productPage.cartButton.click();
+
+              // Verify cart contents not set in local storage
+              cartContents = await getCartContentsFromLocalStorage(context);
+              expect(cartContents).toBeUndefined();
+
+              // Verify button is unchanged
+              await productPage.verifyCartButtonStyle('add');
+            });
+          }
         });
       });
     });
