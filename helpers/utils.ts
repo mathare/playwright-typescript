@@ -33,3 +33,9 @@ export const verifyCartButtonStyle = async (
   await expect(button).toHaveCSS('border', `1px solid ${buttonColor}`);
   await expect(button).toHaveCSS('color', buttonColor);
 };
+
+export const generateProductSnapshotName = (name: string): string => {
+  // Sanitise product name for use as snapshot name
+  // Convert first letter to lowercase then remove spaces & dashes
+  return name.charAt(0).toLowerCase() + name.slice(1).replace(' ', '').replace('-', '') + '.png';
+};

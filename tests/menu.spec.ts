@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
 import { COLORS, EXPECTED_TEXT, LINKS, Menu } from '../pages/components/menu';
 import { PageHeader } from '../pages/components/pageHeader';
-import { PRODUCT_INFO } from '../data/products';
+import { VALID_PRODUCTS } from '../data/products';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
 import { USERS } from '../data/users';
@@ -167,8 +167,8 @@ test.describe('Behavioural tests', () => {
         await setCartContentsInLocalStorage(page, productsInCart, URLS.inventoryPage);
         await expect(pageHeader.shoppingCartBadge).toBeVisible();
         await expect(pageHeader.shoppingCartBadge).toHaveText(`${productsInCart.length}`);
-        for (let i = 0; i < PRODUCT_INFO.length; i++) {
-          const buttonText = productsInCart.includes(PRODUCT_INFO[i].id) ? 'remove' : 'add';
+        for (let i = 0; i < VALID_PRODUCTS.length; i++) {
+          const buttonText = productsInCart.includes(VALID_PRODUCTS[i].id) ? 'remove' : 'add';
           await inventoryPage.verifyCartButtonStyle(i, buttonText);
         }
 
@@ -177,8 +177,8 @@ test.describe('Behavioural tests', () => {
         await expect(menu.menu).toBeVisible();
         await expect(pageHeader.shoppingCartBadge).toHaveCount(0);
         // Product cart buttons are unchanged
-        for (let i = 0; i < PRODUCT_INFO.length; i++) {
-          const buttonText = productsInCart.includes(PRODUCT_INFO[i].id) ? 'remove' : 'add';
+        for (let i = 0; i < VALID_PRODUCTS.length; i++) {
+          const buttonText = productsInCart.includes(VALID_PRODUCTS[i].id) ? 'remove' : 'add';
           await inventoryPage.verifyCartButtonStyle(i, buttonText);
         }
       });

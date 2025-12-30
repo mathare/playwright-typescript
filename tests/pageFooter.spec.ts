@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageFooter, SOCIAL_LINKS } from '../pages/components/pageFooter';
-import { PRODUCT_INFO } from '../data/products';
+import { VALID_PRODUCTS } from '../data/products';
 import { login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 import { USERS } from '../data/users';
@@ -76,7 +76,7 @@ test.describe('Visual tests', () => {
 
       test('Product page', async ({ page }) => {
         // Open random product page
-        const PRODUCT_IDS = PRODUCT_INFO.map((prod) => prod.id);
+        const PRODUCT_IDS = VALID_PRODUCTS.map((prod) => prod.id);
         const PRODUCT_INDEX = Math.floor(Math.random() * PRODUCT_IDS.length);
         await page.goto(`${URLS.productPage}${PRODUCT_IDS[PRODUCT_INDEX]}`);
         await expect(pageFooter.footer).toHaveScreenshot('default.png');

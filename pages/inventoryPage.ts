@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { PageFooter } from './components/pageFooter';
 import { PageHeader } from './components/pageHeader';
-import { PRODUCT_INFO } from '../data/products';
+import { VALID_PRODUCTS } from '../data/products';
 import { verifyCartButtonStyle } from '../helpers/utils';
 
 export class InventoryPage {
@@ -35,7 +35,7 @@ export class InventoryPage {
   }
 
   async addAllProductsToCart(): Promise<void> {
-    for (let i = 0; i < PRODUCT_INFO.length; i++) {
+    for (let i = 0; i < VALID_PRODUCTS.length; i++) {
       await this.getProductElement(i, PRODUCT_ELEMENTS.button).click();
     }
     // Ensure none of the product items have focus

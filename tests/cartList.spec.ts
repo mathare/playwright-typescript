@@ -2,7 +2,7 @@ import { expect, Locator, test } from '@playwright/test';
 import { CartList, COLORS, EXPECTED_TEXT, PRODUCT_ELEMENTS } from '../pages/components/cartList';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
-import { PRODUCT_INFO } from '../data/products';
+import { VALID_PRODUCTS } from '../data/products';
 import { USERS } from '../data/users';
 
 let cartList: CartList;
@@ -68,7 +68,7 @@ test.describe('Empty cart', () => {
 });
 
 test.describe('Products in cart', () => {
-  const productIds = PRODUCT_INFO.map((product) => product.id);
+  const productIds = VALID_PRODUCTS.map((product) => product.id);
 
   test.describe('Appearance tests', () => {
     [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
@@ -101,12 +101,12 @@ test.describe('Products in cart', () => {
         test('Text content of items in cart', async () => {
           for (let i = 0; i < productIds.length; i++) {
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i].title);
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(VALID_PRODUCTS[i].title);
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-              PRODUCT_INFO[i].description
+              VALID_PRODUCTS[i].description
             );
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-              `\$${PRODUCT_INFO[i].price}`
+              `\$${VALID_PRODUCTS[i].price}`
             );
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.button)).toHaveText(EXPECTED_TEXT.removeButton);
           }
@@ -184,7 +184,7 @@ test.describe('Products in cart', () => {
           await setCartContentsInLocalStorage(page, shuffledProductIds, URLS.cartPage);
 
           for (let i = 0; i < shuffledProductIds.length; i++) {
-            const product = PRODUCT_INFO.filter((a) => a.id === shuffledProductIds[i])[0];
+            const product = VALID_PRODUCTS.filter((a) => a.id === shuffledProductIds[i])[0];
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(product.title);
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(product.description);
@@ -263,12 +263,12 @@ test.describe('Products in cart', () => {
           await expect(cartList.cartItem).toHaveCount(remainingProducts.length);
           for (let i = 0; i < remainingProducts.length; i++) {
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i].title);
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(VALID_PRODUCTS[i].title);
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-              PRODUCT_INFO[i].description
+              VALID_PRODUCTS[i].description
             );
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-              `\$${PRODUCT_INFO[i].price}`
+              `\$${VALID_PRODUCTS[i].price}`
             );
           }
         });
@@ -280,12 +280,12 @@ test.describe('Products in cart', () => {
           await expect(cartList.cartItem).toHaveCount(remainingProducts.length);
           for (let i = 0; i < remainingProducts.length; i++) {
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
-            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(PRODUCT_INFO[i + 1].title);
+            await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(VALID_PRODUCTS[i + 1].title);
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(
-              PRODUCT_INFO[i + 1].description
+              VALID_PRODUCTS[i + 1].description
             );
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.price)).toHaveText(
-              `\$${PRODUCT_INFO[i + 1].price}`
+              `\$${VALID_PRODUCTS[i + 1].price}`
             );
           }
         });
@@ -300,9 +300,9 @@ test.describe('Products in cart', () => {
           //Add 1 to the random index to account for the first item in the cart (which we want to retain)
           const itemIndex = Math.floor(Math.random() * middleItems.length) + 1;
           await cartList.getProductElement(itemIndex, PRODUCT_ELEMENTS.button).click();
-          const remainingProducts = productIds.filter((id) => id !== PRODUCT_INFO[itemIndex].id);
+          const remainingProducts = productIds.filter((id) => id !== VALID_PRODUCTS[itemIndex].id);
           for (let i = 0; i < remainingProducts.length; i++) {
-            const product = PRODUCT_INFO.filter((a) => a.id === remainingProducts[i])[0];
+            const product = VALID_PRODUCTS.filter((a) => a.id === remainingProducts[i])[0];
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.qty)).toHaveText('1');
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.title)).toHaveText(product.title);
             await expect(cartList.getProductElement(i, PRODUCT_ELEMENTS.description)).toHaveText(product.description);
@@ -344,10 +344,10 @@ test.describe('Products in cart', () => {
         ].forEach((testCase) => {
           test(`Clicking ${testCase.expectedItem} name opens ${testCase.actualItem} product page`, async ({ page }) => {
             await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
-            const productIndex = PRODUCT_INFO.findIndex((product) => product.shortName === testCase.expectedItem);
+            const productIndex = VALID_PRODUCTS.findIndex((product) => product.shortName === testCase.expectedItem);
             await cartList.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
             const actualProductId =
-              PRODUCT_INFO[PRODUCT_INFO.findIndex((product) => product.shortName === testCase.actualItem)].id;
+              VALID_PRODUCTS[VALID_PRODUCTS.findIndex((product) => product.shortName === testCase.actualItem)].id;
             // Only assert the product ID in the URL rather than everything on the product page even though this is
             // the Problem User. Verifying the correct details are shown on each page is the responsibility of tests
             // in the Product Page spec
@@ -357,7 +357,7 @@ test.describe('Products in cart', () => {
 
         test('Clicking Fleece Jacket name opens invalid product page', async ({ page }) => {
           await setCartContentsInLocalStorage(page, productIds, URLS.cartPage);
-          const productIndex = PRODUCT_INFO.findIndex((product) => product.shortName === 'Fleece Jacket');
+          const productIndex = VALID_PRODUCTS.findIndex((product) => product.shortName === 'Fleece Jacket');
           await cartList.getProductElement(productIndex, PRODUCT_ELEMENTS.title).click();
           // The product ID shown in the URL is outside the normal range for the products resulting
           // in an "Item Not Found" page but verifying the details of that page are the responsibility

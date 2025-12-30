@@ -3,12 +3,12 @@ export type Product = {
   title: string;
   imgSrc: string;
   description: string;
-  price: number;
+  price: number | string;
   shortName: string;
   restrictedPurchase: boolean;
 };
 
-export const PRODUCT_INFO: Product[] = [
+export const ALL_PRODUCTS: Product[] = [
   {
     id: 4,
     title: 'Sauce Labs Backpack',
@@ -69,4 +69,16 @@ export const PRODUCT_INFO: Product[] = [
     shortName: 'Red T-Shirt',
     restrictedPurchase: true,
   },
+  {
+    id: 6,
+    title: 'ITEM NOT FOUND',
+    imgSrc: '/static/media/sl-404.168b1cce10384b857a6f.jpg',
+    description:
+      "We're sorry, but your call could not be completed as dialled. Please check your number, and try your call again. If you are in need of assistance, please dial 0 to be connected with an operator. This is a recording. 4 T 1.",
+    price: '√-1',
+    shortName: 'Invalid Product',
+    restrictedPurchase: false,
+  },
 ];
+
+export const VALID_PRODUCTS = ALL_PRODUCTS.filter((prod) => !prod.shortName.includes('Invalid'));
