@@ -2,7 +2,7 @@ import { Locator, Page } from '@playwright/test';
 import { PageHeader } from './components/pageHeader';
 import { PageFooter } from './components/pageFooter';
 import { CartList } from './components/cartList';
-import { Product, PRODUCT_INFO } from '../data/products';
+import { Product, VALID_PRODUCTS } from '../data/products';
 import { setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
 
@@ -54,7 +54,7 @@ export class CheckoutOverviewPage {
   // *******
   async addRandomProductsToCart(page: Page): Promise<Product[]> {
     // Sort products into random order using the Fisher-Yates algorithm
-    let products = [...PRODUCT_INFO];
+    let products = [...VALID_PRODUCTS];
     let j = products.length;
     while (j) {
       const i = Math.floor(Math.random() * j--);

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { CartPage, COLORS, EXPECTED_TEXT } from '../pages/cartPage';
 import { URLS } from '../data/pages';
-import { PRODUCT_INFO } from '../data/products';
+import { VALID_PRODUCTS } from '../data/products';
 import { USERS } from '../data/users';
 
 let cartPage: CartPage;
@@ -121,7 +121,7 @@ test.describe('Empty cart', () => {
 });
 
 test.describe('Products in cart', () => {
-  const productIds = PRODUCT_INFO.map((product) => product.id);
+  const productIds = VALID_PRODUCTS.map((product) => product.id);
 
   test.describe('Appearance tests', () => {
     [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {

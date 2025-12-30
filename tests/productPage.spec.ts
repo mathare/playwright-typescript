@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
-import { PRODUCT_INFO } from '../data/products';
+import { ALL_PRODUCTS } from '../data/products';
 import { generateProductSnapshotName, getCartContentsFromLocalStorage, login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 import { USERS } from '../data/users';
@@ -143,7 +143,7 @@ test.describe('Common page elements', async () => {
   });
 });
 
-PRODUCT_INFO.forEach((product) => {
+ALL_PRODUCTS.forEach((product) => {
   test.describe(`${product.shortName} page tests`, () => {
     test.describe('Appearance tests', () => {
       [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {

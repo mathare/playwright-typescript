@@ -1,27 +1,27 @@
 import { test, expect, Locator } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, InventoryPage, PRODUCT_ELEMENTS } from '../pages/inventoryPage';
-import { PRODUCT_INFO } from '../data/products';
+import { VALID_PRODUCTS } from '../data/products';
 import { getCartContentsFromLocalStorage, login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
 import { USERS } from '../data/users';
 
-const NUM_PRODUCTS = PRODUCT_INFO.length;
+const NUM_PRODUCTS = VALID_PRODUCTS.length;
 const NON_DEFAULT_SORTS = [
   {
     description: 'sort by name (Z-A)',
-    products: [...PRODUCT_INFO].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
+    products: [...VALID_PRODUCTS].sort((a, b) => (b.title > a.title ? 1 : a.title > b.title ? -1 : 0)),
     sortBy: 'Name (Z to A)',
     sortOption: 'za',
   },
   {
     description: 'sort by price (low-high)',
-    products: [...PRODUCT_INFO].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
+    products: [...VALID_PRODUCTS].sort((a, b) => (a.price > b.price ? 1 : b.price > a.price ? -1 : 0)),
     sortBy: 'Price (low to high)',
     sortOption: 'lohi',
   },
   {
     description: 'sort by price (high-low)',
-    products: [...PRODUCT_INFO].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
+    products: [...VALID_PRODUCTS].sort((a, b) => (b.price > a.price ? 1 : a.price > b.price ? -1 : 0)),
     sortBy: 'Price (high to low)',
     sortOption: 'hilo',
   },
@@ -204,15 +204,15 @@ test.describe('Product tests', () => {
       });
 
       for (let i = 0; i < NUM_PRODUCTS; i++) {
-        test.describe(` ${PRODUCT_INFO[i].shortName} link tests`, () => {
+        test.describe(` ${VALID_PRODUCTS[i].shortName} link tests`, () => {
           test(`Clicking title opens product page`, async ({ page, baseURL }) => {
             await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title).click();
-            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
+            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${VALID_PRODUCTS[i].id}`);
           });
 
           test(`Clicking image opens product page`, async ({ page, baseURL }) => {
             await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img).click();
-            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${PRODUCT_INFO[i].id}`);
+            await expect(page).toHaveURL(`${baseURL}${URLS.productPage}${VALID_PRODUCTS[i].id}`);
           });
 
           test(`Clicking description does nothing`, async ({ page, baseURL }) => {
@@ -237,7 +237,7 @@ test.describe('Product tests', () => {
       });
 
       test('Product details - default sort (name A-Z)', async () => {
-        const PRODUCTS = [...PRODUCT_INFO].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
+        const PRODUCTS = [...VALID_PRODUCTS].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
         for (let i = 0; i < PRODUCTS.length; i++) {
           let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
           await expect(element).toHaveAttribute('src', PRODUCTS[i].imgSrc);
@@ -282,7 +282,7 @@ test.describe('Product tests', () => {
 
           // Verify product ID added to cart contents in local storage
           cartContents = await getCartContentsFromLocalStorage(context);
-          expect(cartContents.value).toEqual(`[${PRODUCT_INFO[PRODUCT_INDEX].id}]`);
+          expect(cartContents.value).toEqual(`[${VALID_PRODUCTS[PRODUCT_INDEX].id}]`);
 
           // Verify button on relevant product has changed correctly
           await inventoryPage.verifyCartButtonStyle(PRODUCT_INDEX, 'remove');
@@ -299,7 +299,7 @@ test.describe('Product tests', () => {
           for (let i = 0; i < NUM_PRODUCTS; i++) {
             await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
             cartContents = await getCartContentsFromLocalStorage(context);
-            productIDs = `[${PRODUCT_INFO.slice(0, i + 1)
+            productIDs = `[${VALID_PRODUCTS.slice(0, i + 1)
               .map((product) => product.id)
               .join()}]`;
             expect(cartContents.value).toEqual(productIDs);
@@ -310,7 +310,7 @@ test.describe('Product tests', () => {
         test('Remove only product from cart', async ({ context }) => {
           await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
           cartContents = await getCartContentsFromLocalStorage(context);
-          expect(cartContents.value).toEqual(`[${PRODUCT_INFO[0].id}]`);
+          expect(cartContents.value).toEqual(`[${VALID_PRODUCTS[0].id}]`);
 
           await inventoryPage.getProductElement(0, PRODUCT_ELEMENTS.button).click();
           cartContents = await getCartContentsFromLocalStorage(context);
@@ -324,7 +324,7 @@ test.describe('Product tests', () => {
           for (let i = 0; i < NUM_PRODUCTS; i++) {
             await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
             cartContents = await getCartContentsFromLocalStorage(context);
-            productIDs = `[${PRODUCT_INFO.slice(i + 1)
+            productIDs = `[${VALID_PRODUCTS.slice(i + 1)
               .map((product) => product.id)
               .join()}]`;
             expect(cartContents.value).toEqual(productIDs);
@@ -376,7 +376,7 @@ test.describe('Product tests', () => {
 
   [USERS.problem, USERS.error].forEach((user) => {
     test.describe(user.description, () => {
-      const PURCHASABLE_PRODUCTS = PRODUCT_INFO.filter((product) => !product.restrictedPurchase);
+      const PURCHASABLE_PRODUCTS = VALID_PRODUCTS.filter((product) => !product.restrictedPurchase);
 
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user.username);
@@ -389,13 +389,13 @@ test.describe('Product tests', () => {
           await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
 
           await inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button).click();
-          if (PURCHASABLE_PRODUCTS.includes(PRODUCT_INFO[i])) {
+          if (PURCHASABLE_PRODUCTS.includes(VALID_PRODUCTS[i])) {
             await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
             await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
             await inventoryPage.verifyCartButtonStyle(i, 'remove');
             // Verify product ID added to cart contents in local storage
             cartContents = await getCartContentsFromLocalStorage(context);
-            expect(cartContents.value).toEqual(`[${PRODUCT_INFO[i].id}]`);
+            expect(cartContents.value).toEqual(`[${VALID_PRODUCTS[i].id}]`);
           } else {
             await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveCount(0);
             await inventoryPage.verifyCartButtonStyle(i, 'add');
@@ -414,7 +414,7 @@ test.describe('Product tests', () => {
           await setCartContentsInLocalStorage(page, [], URLS.inventoryPage);
 
           // Add product to cart
-          productIndex = PRODUCT_INFO.findIndex((prod) => prod === PURCHASABLE_PRODUCTS[i]);
+          productIndex = VALID_PRODUCTS.findIndex((prod) => prod === PURCHASABLE_PRODUCTS[i]);
           await inventoryPage.getProductElement(productIndex, PRODUCT_ELEMENTS.button).click();
           await expect(inventoryPage.pageHeader.shoppingCartBadge).toBeVisible();
           await expect(inventoryPage.pageHeader.shoppingCartBadge).toHaveText('1');
@@ -440,16 +440,16 @@ test.describe('Product tests', () => {
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
           await expect(element).toHaveAttribute('src', '/static/media/sl-404.168b1cce10384b857a6f.jpg');
-          await expect(element).toHaveAttribute('alt', PRODUCT_INFO[i].title);
+          await expect(element).toHaveAttribute('alt', VALID_PRODUCTS[i].title);
 
           element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-          await expect(element).toHaveText(PRODUCT_INFO[i].title);
+          await expect(element).toHaveText(VALID_PRODUCTS[i].title);
 
           element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.description);
-          await expect(element).toHaveText(PRODUCT_INFO[i].description);
+          await expect(element).toHaveText(VALID_PRODUCTS[i].description);
 
           element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.price);
-          await expect(element).toHaveText(`\$${PRODUCT_INFO[i].price}`);
+          await expect(element).toHaveText(`\$${VALID_PRODUCTS[i].price}`);
 
           element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.button);
           await expect(element).toBeVisible();
@@ -519,7 +519,7 @@ test.describe('Product tests', () => {
       });
 
       test('Product details - default sort (name A-Z)', async () => {
-        const PRODUCTS = [...PRODUCT_INFO].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
+        const PRODUCTS = [...VALID_PRODUCTS].sort((a, b) => (a.title > b.title ? 1 : b.title > a.title ? -1 : 0));
         for (let i = 0; i < PRODUCTS.length; i++) {
           element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.img);
           // The top-left product image is a dog rather than the actual product
@@ -564,7 +564,7 @@ test.describe('Product tests', () => {
         const MISALIGNED = ['Bolt T-Shirt', 'Fleece Jacket'];
         for (let i = 0; i < NUM_PRODUCTS; i++) {
           let element = inventoryPage.getProductElement(i, PRODUCT_ELEMENTS.title);
-          if (MISALIGNED.includes(PRODUCT_INFO[i].shortName)) {
+          if (MISALIGNED.includes(VALID_PRODUCTS[i].shortName)) {
             await expect(element).toContainClass(ALIGN_CLASS);
           } else {
             await expect(element).not.toContainClass(ALIGN_CLASS);

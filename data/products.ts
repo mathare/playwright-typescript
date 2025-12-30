@@ -8,7 +8,7 @@ export type Product = {
   restrictedPurchase: boolean;
 };
 
-export const PRODUCT_INFO: Product[] = [
+export const ALL_PRODUCTS: Product[] = [
   {
     id: 4,
     title: 'Sauce Labs Backpack',
@@ -80,3 +80,5 @@ export const PRODUCT_INFO: Product[] = [
     restrictedPurchase: false,
   },
 ];
+
+export const VALID_PRODUCTS = ALL_PRODUCTS.filter((prod) => !prod.shortName.includes('Invalid'));

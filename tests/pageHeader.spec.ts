@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, PageHeader } from '../pages/components/pageHeader';
-import { PRODUCT_INFO } from '../data/products';
+import { VALID_PRODUCTS } from '../data/products';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { URLS } from '../data/pages';
 import { USERS } from '../data/users';
@@ -80,7 +80,7 @@ test.describe('Appearance tests', () => {
       test('Shopping cart badge appearance', async ({ page }) => {
         if (user === USERS.performanceGlitch) test.setTimeout(60_000);
         let productIds: number[] = [];
-        for (let i = 0; i < PRODUCT_INFO.length; i++) {
+        for (let i = 0; i < VALID_PRODUCTS.length; i++) {
           productIds.push(i);
           await setCartContentsInLocalStorage(page, productIds, URLS.inventoryPage);
           await expect(pageHeader.shoppingCartBadge).toBeVisible();
