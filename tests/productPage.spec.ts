@@ -3,6 +3,7 @@ import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
 import { PRODUCT_INFO } from '../data/products';
 import { getCartContentsFromLocalStorage, login } from '../helpers/utils';
 import { URLS } from '../data/pages';
+import { USERS } from '../data/users';
 
 let productPage: ProductPage;
 
@@ -12,69 +13,73 @@ test.beforeEach(async ({ page, context, baseURL }) => {
 });
 
 test.describe('Common page elements', async () => {
-  // Some elements of the product page are common to all products e.g header, menu, footer
-  // so there is no need to test these on every product page. We can test them on a single
-  // product page and reasonably assume they will appear and behave the same on other product
-  // pages
-
-  test.beforeEach(async ({ page }) => {
-    // Open bike light product page
-    await page.goto(`${URLS.productPage}0`);
-  });
+  // Some elements of the product page are common to all products so there is no need to
+  // test these on every product page. We can test them on a single product page (in this
+  // case the bike light page) and reasonably assume they will appear and behave the same
+  // on other product pages
 
   test.describe('Appearance tests', () => {
-    test('Default element visibility', async () => {
-      await expect(productPage.pageHeader.headerContainer).toBeVisible();
-      await expect(productPage.backButton).toBeVisible();
-      await expect(productPage.inventoryItem).toBeVisible();
-      await expect(productPage.pageFooter.footer).toBeVisible();
-    });
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(`${URLS.productPage}0`);
+        });
 
-    test('Text content of elements', async () => {
-      await expect(productPage.backButton).toHaveText(EXPECTED_TEXT.backButton);
-    });
+        test('Default element visibility', async () => {
+          await expect(productPage.pageHeader.headerContainer).toBeVisible();
+          await expect(productPage.backButton).toBeVisible();
+          await expect(productPage.inventoryItem).toBeVisible();
+          await expect(productPage.pageFooter.footer).toBeVisible();
+        });
 
-    test('Element styling', async () => {
-      let element = productPage.body;
-      await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
-      await expect(element).toHaveCSS('color', COLORS.textColor);
-      await expect(element).toHaveCSS('font-size', '14px');
+        test('Text content of elements', async () => {
+          await expect(productPage.backButton).toHaveText(EXPECTED_TEXT.backButton);
+        });
 
-      element = productPage.backButton;
-      await expect(element).toHaveCSS('font-size', '16px');
-      await expect(element).toHaveCSS('font-weight', '500');
+        test('Element styling', async () => {
+          let element = productPage.body;
+          await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+          await expect(element).toHaveCSS('color', COLORS.textColor);
+          await expect(element).toHaveCSS('font-size', '14px');
 
-      element = productPage.inventoryItemContainer;
-      await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
+          element = productPage.backButton;
+          await expect(element).toHaveCSS('font-size', '16px');
+          await expect(element).toHaveCSS('font-weight', '500');
 
-      element = productPage.inventoryItem;
-      await expect(element).toHaveCSS('border', `1px solid ${COLORS.product.borderColor}`);
-      await expect(element).toHaveCSS('border-radius', '8px');
-      await expect(element).toHaveCSS('color', COLORS.textColor);
-      await expect(element).toHaveCSS('display', 'flex');
+          element = productPage.inventoryItemContainer;
+          await expect(element).toHaveCSS('background-color', COLORS.backgroundColor);
 
-      element = productPage.productName;
-      await expect(element).toHaveCSS('font-size', '20px');
-      await expect(element).toHaveCSS('font-weight', '500');
+          element = productPage.inventoryItem;
+          await expect(element).toHaveCSS('border', `1px solid ${COLORS.product.borderColor}`);
+          await expect(element).toHaveCSS('border-radius', '8px');
+          await expect(element).toHaveCSS('color', COLORS.textColor);
+          await expect(element).toHaveCSS('display', 'flex');
 
-      element = productPage.productDescription;
-      await expect(element).toHaveCSS('font-size', '14px');
+          element = productPage.productName;
+          await expect(element).toHaveCSS('font-size', '20px');
+          await expect(element).toHaveCSS('font-weight', '500');
 
-      element = productPage.productPrice;
-      await expect(element).toHaveCSS('font-size', '20px');
-      await expect(element).toHaveCSS('font-weight', '500');
+          element = productPage.productDescription;
+          await expect(element).toHaveCSS('font-size', '14px');
 
-      element = productPage.cartButton;
-      await expect(element).toHaveCSS('border', `1px solid ${COLORS.textColor}`);
-      await expect(element).toHaveCSS('border-radius', '4px');
-      await expect(element).toHaveCSS('font-size', '16px');
-      await expect(element).toHaveCSS('font-weight', '500');
-      await expect(element).toHaveCSS('width', '160px');
-    });
+          element = productPage.productPrice;
+          await expect(element).toHaveCSS('font-size', '20px');
+          await expect(element).toHaveCSS('font-weight', '500');
 
-    test('"Back to products" button style updates on hover', async () => {
-      await productPage.backButton.hover();
-      await expect(productPage.backButton).toHaveCSS('color', COLORS.backButton.hoverColor);
+          element = productPage.cartButton;
+          await expect(element).toHaveCSS('border', `1px solid ${COLORS.textColor}`);
+          await expect(element).toHaveCSS('border-radius', '4px');
+          await expect(element).toHaveCSS('font-size', '16px');
+          await expect(element).toHaveCSS('font-weight', '500');
+          await expect(element).toHaveCSS('width', '160px');
+        });
+
+        test('"Back to products" button style updates on hover', async () => {
+          await productPage.backButton.hover();
+          await expect(productPage.backButton).toHaveCSS('color', COLORS.backButton.hoverColor);
+        });
+      });
     });
   });
 
