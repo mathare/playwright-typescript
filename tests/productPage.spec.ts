@@ -76,6 +76,34 @@ test.describe('Common page elements', async () => {
       await productPage.backButton.hover();
       await expect(productPage.backButton).toHaveCSS('color', COLORS.backButton.hoverColor);
     });
+  });
+
+  test.describe('Visual tests', () => {
+    // These visual tests could mask the product details elements for greater resilience
+    // i.e. the baseline images would not need to change if the product details change.
+    // However, I want to be alerted to any changes in the product details elements so
+    // these tests rightly capture those elements. That way if they change size, position
+    // etc we have those changes tracked by a failing test
+    test('Default state', async ({ page }) => {
+      await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+    });
+
+    test('Menu open', async ({ page }) => {
+      await productPage.pageHeader.menuButton.click();
+      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+    });
+
+    test('Product added to cart', async ({ page }) => {
+      await productPage.cartButton.click();
+      await expect(page).toHaveScreenshot('productInCart.png', { fullPage: true });
+    });
+  });
+
+  test.describe('Behavioural tests', () => {
+    test('"Back to products" button opens inventory page', async ({ page, baseURL }) => {
+      await productPage.backButton.click();
+      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+    });
 
     test.describe('Add to cart & remove', () => {
       // Which products are in the cart is tracked via a cart-contents array in local storage.
@@ -109,34 +137,6 @@ test.describe('Common page elements', async () => {
         // Verify button has updated correctly
         await productPage.verifyCartButtonStyle('add');
       });
-    });
-  });
-
-  test.describe('Visual tests', () => {
-    // These visual tests could mask the product details elements for greater resilience
-    // i.e. the baseline images would not need to change if the product details change.
-    // However, I want to be alerted to any changes in the product details elements so
-    // these tests rightly capture those elements. That way if they change size, position
-    // etc we have those changes tracked by a failing test
-    test('Default state', async ({ page }) => {
-      await expect(page).toHaveScreenshot('default.png', { fullPage: true });
-    });
-
-    test('Menu open', async ({ page }) => {
-      await productPage.pageHeader.menuButton.click();
-      await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
-    });
-
-    test('Product added to cart', async ({ page }) => {
-      await productPage.cartButton.click();
-      await expect(page).toHaveScreenshot('productInCart.png', { fullPage: true });
-    });
-  });
-
-  test.describe('Behavioural tests', () => {
-    test('"Back to products" button opens inventory page', async ({ page, baseURL }) => {
-      await productPage.backButton.click();
-      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
     });
   });
 });
