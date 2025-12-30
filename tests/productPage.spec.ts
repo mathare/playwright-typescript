@@ -124,42 +124,80 @@ test.describe('Common page elements', async () => {
   });
 
   test.describe('Behavioural tests', () => {
-    test('"Back to products" button opens inventory page', async ({ page, baseURL }) => {
-      await productPage.backButton.click();
-      await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+    // Which products are in the cart is tracked via a cart-contents array in local storage.
+    // As each product can only be added to the cart once, it uses a simple array of product
+    // IDs without quantities per product. The length of this array is used to determine the
+    // badge to display over the cart in the header, as tested in the page header spec. So all
+    // we need to test here is that product IDs are added to the cart-contents array in local
+    // storage correctly and that the add/remove button style updates accordingly
+    let cartContents: Record<string, string>;
+
+    [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(`${URLS.productPage}0`);
+        });
+
+        test('"Back to products" button opens inventory page', async ({ page, baseURL }) => {
+          await productPage.backButton.click();
+          await expect(page).toHaveURL(`${baseURL}${URLS.inventoryPage}`);
+        });
+
+        test('Add product to cart', async ({ context }) => {
+          await productPage.cartButton.click();
+
+          // Verify product ID in local storage
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[0]');
+
+          // Verify button has updated correctly
+          await productPage.verifyCartButtonStyle('remove');
+        });
+      });
     });
 
-    test.describe('Add to cart & remove', () => {
-      // Which products are in the cart is tracked via a cart-contents array in local storage.
-      // As each product can only be added to the cart once it uses an array of product IDs.
-      // The length of this array is used to determine the badge to display over the cart in
-      // the header, as tested in the page header spec. So all we need to test here is that
-      // product IDs are added to the cart-contents array in local storage correctly
-      let cartContents: Record<string, string>;
+    [USERS.standard, USERS.visual, USERS.performanceGlitch].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(`${URLS.productPage}0`);
+        });
 
-      test('Add product to cart', async ({ context }) => {
-        await productPage.cartButton.click();
+        test('Remove product from cart', async ({ context }) => {
+          await productPage.cartButton.click();
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[0]');
+          await productPage.cartButton.click();
 
-        // Verify product ID in local storage
-        cartContents = await getCartContentsFromLocalStorage(context);
-        expect(cartContents.value).toEqual('[0]');
+          // Verify product ID in local storage
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[]');
 
-        // Verify button has updated correctly
-        await productPage.verifyCartButtonStyle('remove');
+          // Verify button has updated correctly
+          await productPage.verifyCartButtonStyle('add');
+        });
       });
+    });
 
-      test('Remove product from cart', async ({ context }) => {
-        await productPage.cartButton.click();
-        cartContents = await getCartContentsFromLocalStorage(context);
-        expect(cartContents.value).toEqual('[0]');
-        await productPage.cartButton.click();
+    [USERS.problem, USERS.error].forEach((user) => {
+      test.describe(user.description, () => {
+        test.beforeEach(async ({ page, context, baseURL }) => {
+          await login(context, baseURL!, user.username);
+          await page.goto(`${URLS.productPage}0`);
+        });
 
-        // Verify product ID in local storage
-        cartContents = await getCartContentsFromLocalStorage(context);
-        expect(cartContents.value).toEqual('[]');
+        test('"Remove" button does nothing', async ({ context }) => {
+          await productPage.cartButton.click();
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[0]');
+          await productPage.cartButton.click();
 
-        // Verify button has updated correctly
-        await productPage.verifyCartButtonStyle('add');
+          // Verify product still in cart & button unchanged
+          cartContents = await getCartContentsFromLocalStorage(context);
+          expect(cartContents.value).toEqual('[0]');
+          await productPage.verifyCartButtonStyle('remove');
+        });
       });
     });
   });
