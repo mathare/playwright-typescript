@@ -16,7 +16,8 @@ test.describe('Common page elements', async () => {
   // Some elements of the product page are common to all products so there is no need to
   // test these on every product page. We can test them on a single product page (in this
   // case the bike light page) and reasonably assume they will appear and behave the same
-  // on other product pages
+  // on other product pages. It helps that the bike light is a product that all users can
+  // add to the basket via the UI allowing the same product page to be used for everyone
 
   test.describe('Appearance tests', () => {
     [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
