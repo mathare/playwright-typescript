@@ -1,10 +1,20 @@
 {
+  "author": "Mat Hare",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@types/node": "^24.9.2"
-  },
-  "scripts": {},
-  "dependencies": {
+    "@types/node": "^24.9.2",
     "dotenv": "^17.2.3"
+  },
+  "scripts": {
+    "test": "npx playwright test",
+    "test:chromium": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "test:visual": "npx playwright test --grep=\"visual tests\"",
+    "test:standardUser": "npx playwright test --grep=\"standard user\"",
+    "test:problemUser": "npx playwright test --grep=\"problem user\"",
+    "test:errorUser": "npx playwright test --grep=\"error user\"",
+    "test:visualUser": "npx playwright test --grep=\"visual user\"",
+    "test:performanceUser": "npx playwright test --grep=\"performance glitch user\""
   }
 }
