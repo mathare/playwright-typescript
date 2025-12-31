@@ -20,7 +20,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps ${{matrix.browser}}
       - name: Run Playwright visual tests (only)
-        run: npx playwright test --project=${{matrix.browser}} --grep="visual tests"
+        run: npm run test:visual -- --project=${{matrix.browser}}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
