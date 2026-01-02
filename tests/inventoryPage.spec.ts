@@ -76,20 +76,23 @@ test.describe('Appearance tests', () => {
 });
 
 test.describe('Visual tests', () => {
+  let maskedElements: Locator[];
+
   [USERS.standard].forEach((user) => {
     test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user.username);
         await page.goto(URLS.inventoryPage);
+        maskedElements = [inventoryPage.pageFooter.footer];
       });
 
       test('Default state of full page', async ({ page }) => {
-        await expect(page).toHaveScreenshot('default.png', { fullPage: true });
+        await expect(page).toHaveScreenshot('default.png', { fullPage: true, mask: maskedElements });
       });
 
       test('Menu open', async ({ page }) => {
         await inventoryPage.pageHeader.menuButton.click();
-        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true });
+        await expect(page).toHaveScreenshot('menuOpen.png', { fullPage: true, mask: maskedElements });
       });
 
       test('Products added to cart', async () => {
