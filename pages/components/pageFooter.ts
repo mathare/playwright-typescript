@@ -18,7 +18,7 @@ export class PageFooter {
 
 export const EXPECTED_TEXT = {
   socialMedia: ['Twitter', 'Facebook', 'LinkedIn'],
-  copy: '© 2025 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
+  copy: '© 2026 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy',
 };
 
 export const COLORS = {
