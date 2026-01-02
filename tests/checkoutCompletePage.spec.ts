@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, Locator, test } from '@playwright/test';
 import { login } from '../helpers/utils';
 import { URLS } from '../data/pages';
 import { CheckoutCompletePage, COLORS, EXPECTED_TEXT } from '../pages/checkoutCompletePage';
@@ -83,22 +83,25 @@ test.describe('Appearance tests', () => {
 });
 
 test.describe('Visual tests', () => {
+  let maskedElements: Locator[];
+
   [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
     test.describe(user.description, () => {
       test.beforeEach(async ({ page, context, baseURL }) => {
         await login(context, baseURL!, user.username);
         await page.goto(URLS.checkoutCompletePage);
+        maskedElements = [checkoutCompletePage.pageFooter.footer];
       });
 
       test('Default state', async ({ page }) => {
         const SNAPSHOT = user === USERS.visual ? 'defaultMisaligned.png' : 'default.png';
-        await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+        await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true, mask: maskedElements });
       });
 
       test('Menu open', async ({ page }) => {
         const SNAPSHOT = user === USERS.visual ? 'menuOpenMisaligned.png' : 'menuOpen.png';
         await checkoutCompletePage.pageHeader.menuButton.click();
-        await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+        await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true, mask: maskedElements });
       });
     });
   });

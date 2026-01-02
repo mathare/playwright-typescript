@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Locator } from '@playwright/test';
 import { login, setCartContentsInLocalStorage } from '../helpers/utils';
 import { CartPage, COLORS, EXPECTED_TEXT } from '../pages/cartPage';
 import { URLS } from '../data/pages';
@@ -77,22 +77,25 @@ test.describe('Empty cart', () => {
   });
 
   test.describe('Visual tests', () => {
+    let maskedElements: Locator[];
+
     [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
       test.describe(user.description, () => {
         test.beforeEach(async ({ page, context, baseURL }) => {
           await login(context, baseURL!, user.username);
           await page.goto(URLS.cartPage);
+          maskedElements = [cartPage.pageFooter.footer];
         });
 
         test('Default state', async ({ page }) => {
           const SNAPSHOT = user === USERS.visual ? 'emptyCartMisaligned.png' : 'emptyCart.png';
-          await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+          await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true, mask: maskedElements });
         });
 
         test('Menu open', async ({ page }) => {
           const SNAPSHOT = user === USERS.visual ? 'menuOpenMisaligned.png' : 'menuOpen.png';
           await cartPage.pageHeader.menuButton.click();
-          await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true });
+          await expect(page).toHaveScreenshot(SNAPSHOT, { fullPage: true, mask: maskedElements });
         });
       });
     });

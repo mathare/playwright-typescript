@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Locator } from '@playwright/test';
 import { COLORS, EXPECTED_TEXT, ProductPage } from '../pages/productPage';
 import { ALL_PRODUCTS } from '../data/products';
 import { generateProductSnapshotName, getCartContentsFromLocalStorage, login } from '../helpers/utils';
@@ -93,18 +93,21 @@ test.describe('Common page elements', async () => {
     // these tests rightly capture those elements. That way if they change size, position
     // etc we have those changes tracked by a failing test
 
+    let maskedElements: Locator[];
+
     [USERS.standard, USERS.problem, USERS.error, USERS.visual, USERS.performanceGlitch].forEach((user) => {
       test.describe(user.description, () => {
         test.beforeEach(async ({ page, context, baseURL }) => {
           await login(context, baseURL!, user.username);
           await page.goto(`${URLS.productPage}0`);
+          maskedElements = [productPage.pageFooter.footer];
         });
 
         test('Default state', async ({ page }) => {
           let snapshot = 'default.png';
           if (user === USERS.error) snapshot = 'defaultErrorUser.png';
           if (user === USERS.visual) snapshot = 'defaultVisualUser.png';
-          await expect(page).toHaveScreenshot(snapshot, { fullPage: true });
+          await expect(page).toHaveScreenshot(snapshot, { fullPage: true, mask: maskedElements });
         });
 
         test('Menu open', async ({ page }) => {
@@ -112,7 +115,7 @@ test.describe('Common page elements', async () => {
           if (user === USERS.error) snapshot = 'menuOpenErrorUser.png';
           if (user === USERS.visual) snapshot = 'menuOpenVisualUser.png';
           await productPage.pageHeader.menuButton.click();
-          await expect(page).toHaveScreenshot(snapshot, { fullPage: true });
+          await expect(page).toHaveScreenshot(snapshot, { fullPage: true, mask: maskedElements });
         });
 
         test('Product added to cart', async ({ page }) => {
@@ -120,7 +123,7 @@ test.describe('Common page elements', async () => {
           if (user === USERS.error) snapshot = 'productInCartErrorUser.png';
           if (user === USERS.visual) snapshot = 'productInCartVisualUser.png';
           await productPage.cartButton.click();
-          await expect(page).toHaveScreenshot(snapshot, { fullPage: true });
+          await expect(page).toHaveScreenshot(snapshot, { fullPage: true, mask: maskedElements });
         });
       });
     });
