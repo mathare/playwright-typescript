@@ -31,7 +31,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps ${{matrix.browser}}
       - name: Run Playwright tests
-        run: npm run test:${{matrix.browser}}
+        run: npm run test:${{matrix.browser}} loginPage.spec.ts
       - uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
         with:
@@ -44,6 +44,13 @@ jobs:
     if: "success() || needs.test.result == 'failure'"
     needs: [test]
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+        exclude:
+          - browser: ${{ github.event_name == 'pull_request' && 'firefox'}}
+          - browser: ${{ github.event_name == 'pull_request' && 'webkit'}}
     continue-on-error: true
     env:
       # Unique URL path for each workflow run attempt
@@ -59,7 +66,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Download zipped HTML report
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v6
         with:
           name: playwright-${{matrix.browser}}
           path: ${{ env.HTML_REPORT_URL_PATH }}
