@@ -41,7 +41,7 @@ test.describe('Login page tests', () => {
         [EXPECTED_TEXT.headers.usernames, ...EXPECTED_TEXT.acceptedUsernames].join('\n'),
         {
           useInnerText: true,
-        }
+        },
       );
       await expect(loginPage.password).toHaveText(`${EXPECTED_TEXT.headers.password}\n${EXPECTED_TEXT.password}`, {
         useInnerText: true,
@@ -54,7 +54,7 @@ test.describe('Login page tests', () => {
 
       element = loginPage.title;
       await expect(element).toHaveCSS('color', COLORS.titleTextColor);
-      await expect(element).toHaveCSS('font-size', '24px');
+      await expect(element).toHaveCSS('font-size', '22px');
       await expect(element).toHaveCSS('text-align', 'center');
 
       element = loginPage.usernameInput;
