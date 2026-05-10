@@ -61,7 +61,7 @@ jobs:
         with:
           ref: gh-pages
       - name: Download zipped HTML report
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: playwright-${{matrix.browser}}
           path: ${{ env.HTML_REPORT_URL_PATH }}
@@ -70,6 +70,8 @@ jobs:
         # commit report, then try push-rebase-loop until it's able to merge the HTML report to the gh-pages branch
         # this is necessary when this job is running at least twice at the same time (e.g. through two pushes at the same time)
         run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git add .
           git commit -m "workflow: add HTML report for run-id ${{ github.run_id }} (attempt:  ${{ github.run_attempt }})"
 
