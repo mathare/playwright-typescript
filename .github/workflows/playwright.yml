@@ -61,7 +61,7 @@ jobs:
       - name: Download zipped HTML report
         uses: actions/download-artifact@v8
         with:
-          name: playwright-report
+          name: playwright-${{matrix.browser}}
           path: ${{ env.HTML_REPORT_URL_PATH }}
       - name: Push HTML Report
         timeout-minutes: 3
