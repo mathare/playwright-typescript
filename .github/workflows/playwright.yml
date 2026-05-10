@@ -90,5 +90,5 @@ jobs:
           done
       - name: Output Report URL as Worfklow Annotation
         run: |
-          FULL_HTML_REPORT_URL=https://mathare.github.io/playwright-typescript-gh-pages/$HTML_REPORT_URL_PATH
+          FULL_HTML_REPORT_URL=https://mathare.github.io/playwright-typescript/$HTML_REPORT_URL_PATH
           echo "::notice title=📋 Published Playwright Test Report::$FULL_HTML_REPORT_URL"
